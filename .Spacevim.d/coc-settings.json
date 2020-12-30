@@ -1,0 +1,33 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "scss",
+    "sass",
+    "javascript",
+    "javascriptreact",
+    "react",
+    "html",
+    "json",
+    "jsonc",
+    "markdown"
+  ],
+  "suggest.autoTrigger": "always",
+  "suggest.noselect": false,
+  "suggest.maxCompleteItemCount": 15,
+  "suggest.defaultSortMethod": "length",
+  "snippets.autoTrigger": false,
+  "tailwindCSS.emmetCompletions": true,
+  "emmet.showExpandedAbbreviation": "inMarkupAndStylesheetFilesOnly",
+  "prettier.semi": false,
+  "prettier.arrowParens": "avoid",
+  "prettier.tabWidth": 2,
+  "prettier.useTabs": false,
+  "prettier.singleQuote": true,
+  "prettier.jsxSingleQuote": true,
+  "prettier.eslintIntegration": true,
+  "eslint.run": "onSave",
+  "eslint.options": {
+    "configFile": "/home/astrid/.eslintrc.json"
+  },
+  "html.suggest.html5": true
+}
