@@ -1,0 +1,1 @@
+/home/astrid/.fzf/shell/key-bindings.fish

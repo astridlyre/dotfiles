@@ -35,7 +35,7 @@
 # Enable autocomplete layer
 [[layers]]
 name = 'autocomplete'
-auto_completion_return_key_behavior = "smart"
+auto_completion_return_key_behavior = "complete"
 auto_completion_tab_key_behavior = "smart"
 
 [[layers]]
@@ -49,15 +49,9 @@ name = "lsp"
 [[layers]]
 name = "fzf"
 
-# [[layers]]
-# name = "lang#javascript"
-
 [[layers]]
 name = "lang#go"
 format_on_save = true
-
-# [[layers]]
-# name = 'lang#html'
 
 [[layers]]
 name = 'git'
@@ -69,3 +63,7 @@ enable = false
 [[custom_plugins]]
 repo = "nvim-treesitter/nvim-treesitter"
 merged = true
+
+[[custom_plugins]]
+name = 'jiangmiao/auto-pairs'
+merged = 0

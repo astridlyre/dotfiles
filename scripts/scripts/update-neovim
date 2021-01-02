@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# -------------------------
+# Error handler
+# ------------------------- 
+PROGNAME="${basename $0}"
+
+error_exit()
+{
+	echo "{$PROGNAME}: ${1:- "Unknown Error"}" 1>&2
+	exit 1
+}
+
+# -------------------------
+# Update Neovim
+# ------------------------- 
+echo "Updating neovim"
+
+if wget "https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage"; then
+	mv ./nvim.appimage $HOME/Applications/nvim || error_exit "Unable to move file"
+	chmod +x $HOME/Applications/nvim || error_exit "Unable to change file permissions"
+	echo "Update complete"
+else
+	error_exit "Update failed, unable to download file"
+fi
+
