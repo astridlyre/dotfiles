@@ -14,14 +14,14 @@ and how computers work.
 
 ## My Current Tools
 
-At the moment I'm using [Neovim](neovim.io/), but I have also been playing around with [SpaceVim](spacevim.org/).
-I use [Fish Shell](fishshell.com/), which while not POSIX compliant, is user friendly
+At the moment I'm using [Neovim](https://neovim.io/), but I have also been playing around with [SpaceVim](https://spacevim.org/).
+I use [Fish Shell](https://fishshell.com/), which while not POSIX compliant, is user friendly
 and easy to use. The terminal I use is [Kitty](https://sw.kovidgoyal.net/kitty/index.html), a GPU based terminal emulator.
 I have spent a while learning JavaScript, along with web development. Some of the
 resources I've been using are:
 
-- [Full Stack Open](fullstackopen.com/), a free online course from the University of Helsinki. This course focused on React and Nodejs.
-- [JavaScript.info](javascript.info/), a free online JavaScript tutorial and reference.
+- [Full Stack Open](https://fullstackopen.com/), a free online course from the University of Helsinki. This course focused on React and Nodejs.
+- [JavaScript.info](https://javascript.info/), a free online JavaScript tutorial and reference.
 
   I have found the documentation of [MDN web docs](https://developer.mozilla.org/en-US/)
   to be superb.
