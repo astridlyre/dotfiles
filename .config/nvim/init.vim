@@ -401,7 +401,7 @@ nnoremap <F2> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 "" FZF
 nnoremap <silent> <leader>f :Files<CR>
 nmap <leader>b :Buffers<CR>
-nmap <leader>c :Commands<CR>
+nmap <leader>: :Commands<CR>
 nmap <leader>t :BTags<CR>
 nmap <leader>/ :Rg<CR>
 nmap <leader>gc :Commits<CR>
@@ -434,6 +434,8 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <leader>crf <Plug>(coc-refactor)
+nmap <leader>cfc <Plug>(coc-fix-current)
 
 " Map function and class text objects
 xmap if <Plug>(coc-funcobj-i)
@@ -475,3 +477,6 @@ nmap <leader>lr :GoRun<CR>
 nmap <leader>li :GoImports<CR>
 nmap <leader>lfs :GoFillStruct<CR>
 nmap <leader>lie :GoIfErr<CR>
+
+" terminal commands
+nmap <leader>' :sp term://fish<CR>30<C-w>-<CR>i
