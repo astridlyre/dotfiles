@@ -1,15 +1,15 @@
-"           _       _                             _           
-"  ___ _ __(_)_ __ ( )___   _ __   ___  _____   _(_)_ __ ___  
-" / _ \ '__| | '_ \|// __| | '_ \ / _ \/ _ \ \ / / | '_ ` _ \ 
+"           _       _                             _
+"  ___ _ __(_)_ __ ( )___   _ __   ___  _____   _(_)_ __ ___
+" / _ \ '__| | '_ \|// __| | '_ \ / _ \/ _ \ \ / / | '_ ` _ \
 "|  __/ |  | | | | | \__ \ | | | |  __/ (_) \ V /| | | | | | |
 " \___|_|  |_|_| |_| |___/ |_| |_|\___|\___/ \_/ |_|_| |_| |_|
-"                                                             
-"                  __ _       
-"  ___ ___  _ __  / _(_) __ _ 
+"
+"                  __ _
+"  ___ ___  _ __  / _(_) __ _
 " / __/ _ \| '_ \| |_| |/ _` |
 "| (_| (_) | | | |  _| | (_| |
 " \___\___/|_| |_|_| |_|\__, |
-"                       |___/ 
+"                       |___/
 
 "
 
@@ -48,7 +48,7 @@ Plug 'mhinz/vim-startify'                                    " cool start up scr
 Plug 'tpope/vim-fugitive'                                    " git support
 Plug 'machakann/vim-sandwich'                                " make sandwiches
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'                                  " Auto bracket pairs
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
@@ -160,6 +160,9 @@ let g:airline_symbols.linenr = ''
 let g:airline_symbols.branch = '⎇ '
 let g:airline_symbols.dirty= ''
 
+" sneak
+let g:sneak#label = 1
+
 " coc settings
 
 " Navigate snippet placeholders using tab
@@ -244,7 +247,7 @@ let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffse
 let g:fzf_tags_command = 'ctags -R'
 
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
-let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build/**' --glob '!node_modules/**' --glob '!.idea'"
+let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build/**' --glob '!node_modules/**' --glob '!vendor/bundle/**'"
 
 " vim-go
 let g:go_fmt_autosave = 1
@@ -350,14 +353,14 @@ endfunction
 " ======================== Custom Mappings ====================== "
 
 "" the essentials
-let mapleader=","
-nnoremap ; :
+let mapleader=' '
 nmap \ <leader>q
 map <F3> :Startify <CR>
 nmap <leader>r :so ~/.config/nvim/init.vim<CR>
 nmap <leader>q :bd<CR>
+nmap <leader>\ :qa!<CR>
 nmap <leader>w :w<CR>
-map <leader>s :Format<CR>
+nmap <leader>z :Format<CR>
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
 noremap <leader>e :PlugInstall<CR>
@@ -365,7 +368,6 @@ noremap <C-q> :q<CR>
 map Y y$
 inoremap jk <ESC>
 cnoremap jk <ESC>
-nnoremap I ^i
 nnoremap <leader>y +y
 nnoremap <leader>Y +Y
 nnoremap <leader>p +p
@@ -377,8 +379,8 @@ vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " new line in normal mode and back
-noremap <space>[ myO<ESC>`y
-noremap <space>] myo<ESC>`y
+noremap <leader>[ myO<ESC>`y
+noremap <leader>] myo<ESC>`y
 
 " switch between splits using ctrl + {h,j,k,l}
 inoremap <C-h> <C-\><C-N><C-w>h
@@ -451,7 +453,7 @@ xmap <silent> <C-s> <Plug>(coc-range-select)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " other stuff
-nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>lrn <Plug>(coc-rename)
 nmap <leader>o :OR <CR>
 
 " jump stuff
@@ -465,11 +467,11 @@ nmap <leader>gd :Gdiffsplit<CR>
 nmap <leader>gb :Gblame<CR>
 
 " vim-go mappings
-nmap <space>lt :GoTest<CR>
-nmap <space>ll :GoMetaLint<CR>
-nmap <space>lc :GoCoverageToggle<CR>
-nmap <space>la :GoAlternate<CR>
-nmap <space>lr :GoRun<CR>
-nmap <space>li :GoImports<CR>
-nmap <space>lfs :GoFillStruct<CR>
-nmap <space>lie :GoIfErr<CR>
+nmap <leader>lt :GoTest<CR>
+nmap <leader>ll :GoMetaLint<CR>
+nmap <leader>lc :GoCoverageToggle<CR>
+nmap <leader>la :GoAlternate<CR>
+nmap <leader>lr :GoRun<CR>
+nmap <leader>li :GoImports<CR>
+nmap <leader>lfs :GoFillStruct<CR>
+nmap <leader>lie :GoIfErr<CR>

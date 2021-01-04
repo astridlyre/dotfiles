@@ -33,26 +33,6 @@ alias ....="cd ../../.."
 # Functions
 # --------------------
 
-# btc: Get bitcoin price "@30d"
-function btc
-	curl rate.sx/btc$argv\?qF
-end
-
-# market: Top n crypto coins
-function market
-	curl rate.sx/\?qFn=$argv
-end
-
-# weather: Get weather in city 
-function weather
-	curl wttr.in/$argv\?qf
-end
-
-# cht: Find doc of cmd
-function cht
-	curl cht.sh/$argv
-end
-
 # md: Make dir and cd to it
 function md
 	mkdir -p $argv && cd $argv
