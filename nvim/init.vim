@@ -24,11 +24,9 @@ endif
 call plug#begin(expand('~/.config/nvim/plugged'))
 
 "
-
 " ================= looks and GUI stuff ================== "
 
 Plug 'vim-airline/vim-airline'                          " airline status bar
-Plug 'vim-airline/vim-airline-themes'                   " airline themes
 Plug 'ryanoasis/vim-devicons'                           " pretty icons everywhere
 Plug 'sainnhe/gruvbox-material'                         " material color themes
 
@@ -50,8 +48,8 @@ Plug 'machakann/vim-sandwich'                                " make sandwiches
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'jiangmiao/auto-pairs'                                  " Auto bracket pairs
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'antoinemadec/FixCursorHold.nvim'
 call plug#end()
-
 "
 
 " ==================== Treesitter ======================== "
@@ -62,6 +60,16 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
   },
+  indent = { enable = true },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = '<M-w>',
+      node_incremental = '<M-w>',
+      scope_incremental = '<M-e>',
+      node_decremental = '<M-C-w>',
+    },
+  },
 }
 EOF
 
@@ -71,16 +79,13 @@ EOF
 
 set termguicolors                                       " Opaque Background
 set mouse=a                                             " enable mouse scrolling
-set clipboard+=unnamedplus                              " use system clipboard by default
 set tabstop=2 softtabstop=2 shiftwidth=2 autoindent     " tab width
-set expandtab smarttab                                  " tab key actions
+set expandtab                                           " tab key actions
 set incsearch ignorecase smartcase hlsearch             " highlight text while searching
 set list listchars=trail:»,tab:»-                       " use tab to navigate in list mode
-set fillchars+=vert:\▏                                  " requires a patched nerd font (try JetBrains Mono Nerd)
 set wrap breakindent                                    " wrap long lines to the width set by tw
 set number                                              " enable numbers on the left
 set relativenumber                                      " current line is 0
-set title                                               " tab title as file name
 set noshowmode                                          " dont show current mode below statusline
 set noshowcmd                                           " to get rid of display of last command
 set conceallevel=2                                      " set this so we wont break indentation plugin
@@ -93,7 +98,6 @@ set undofile                                            " enable persistent undo
 set undodir=/tmp                                        " undo temp file directory
 set foldlevel=0                                         " open all folds by default
 set inccommand=nosplit                                  " visual feedback while substituting
-set showtabline=2                                       " always show tabline
 set grepprg=rg\ --vimgrep                               " use rg as default grepper
 
 " performance tweaks
@@ -103,6 +107,8 @@ set scrolljump=5
 set lazyredraw
 set redrawtime=10000
 set synmaxcol=180
+set timeoutlen=850
+set maxmempattern=20000
 set re=1
 
 " required by coc
@@ -110,25 +116,12 @@ set hidden
 set nobackup
 set nowritebackup
 set cmdheight=1
-set updatetime=300
+set updatetime=100
 set shortmess+=c
 set signcolumn=yes
 
 " Themeing
 colorscheme gruvbox-material
-hi Pmenu guibg='#665c54' guifg=white                    " popup menu colors
-hi Comment gui=italic cterm=italic                      " italic comments
-hi Search guibg=#d3869b guifg=#d4be98 gui=NONE          " search string highlight color
-hi NonText guifg=bg                                     " mask ~ on empty lines
-hi clear CursorLineNr                                   " use the theme color for relative number
-hi CursorLineNr gui=bold                                " make relative number bold
-hi SpellBad guifg=NONE gui=bold,undercurl               " misspelled words
-
-" colors for git (especially the gutter)
-hi DiffAdd  guibg=#665c54 guifg=#a9b665
-hi DiffChange guibg=#665c54 guifg=#fdd835
-hi DiffRemoved guibg=#665c54 guifg=#ea6962
-
 "
 
 " ======================== Plugin Configurations ======================== "
@@ -142,14 +135,14 @@ let g:loaded_ruby_provider = 0
 let g:python3_host_prog = '/usr/bin/python3.8'
 
 " Airline
-let g:airline_theme='base16_gruvbox_dark_hard'
+let g:airline_theme='gruvbox_material'
 let g:airline_skip_empty_sections = 1
 let g:airline_section_warning = ''
 let g:airline_section_x=''
 let g:airline_section_z = airline#section#create(['%3p%% ', 'linenr', ':%c'])
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_min_count = 2   " show tabline only if there is more than 1 buffer
+let g:airline#extensions#tabline#buffer_min_count = 1   " show tabline only if there is more than 1 buffer
 let g:airline#extensions#tabline#fnamemod = ':t'        " show only file name on tabs
 let airline#extensions#coc#error_symbol = '✘:'
 let airline#extensions#coc#warning_symbol = '⚠:'
@@ -160,14 +153,9 @@ let g:airline_symbols.linenr = ''
 let g:airline_symbols.branch = '⎇ '
 let g:airline_symbols.dirty= ''
 
-" sneak
-let g:sneak#label = 1
-
+" gruvbox italics
+let g:gruvbox_material_enable_italic = 1
 " coc settings
-
-" Navigate snippet placeholders using tab
-let g:coc_snippet_next = '<Tab>'
-let g:coc_snippet_prev = '<S-Tab>'
 
 " list of the extensions to make sure are always installed
 let g:coc_global_extensions = [
@@ -210,7 +198,7 @@ let g:startify_lists = [
 " bookmark examples
 let  g:startify_bookmarks =  [
     \ {'v': '~/.config/nvim'},
-    \ {'d': '~/.dotfiles' }
+    \ {'s': '~/scripts/' }
     \ ]
 
 " custom commands
@@ -252,6 +240,14 @@ let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build
 " vim-go
 let g:go_fmt_autosave = 1
 let g:go_fmt_command = "goimports"
+
+" Fix CursorHold
+" in millisecond, used for both CursorHold and CursorHoldI,
+" use updatetime instead if not defined
+let g:cursorhold_updatetime = 100
+
+" vim-sandwich use simple highlight color
+call operator#sandwich#set('all', 'all', 'highlight', 1)
 
 "
 
@@ -353,8 +349,10 @@ endfunction
 " ======================== Custom Mappings ====================== "
 
 "" the essentials
+nmap s <Nop>
+nmap \ :on<CR>
 let mapleader=' '
-nmap \ <leader>q
+nmap \ :on<CR>
 map <F3> :Startify <CR>
 nmap <leader>r :so ~/.config/nvim/init.vim<CR>
 nmap <leader>q :bd<CR>
@@ -368,9 +366,12 @@ noremap <C-q> :q<CR>
 map Y y$
 inoremap jk <ESC>
 cnoremap jk <ESC>
-nnoremap <leader>y +y
-nnoremap <leader>Y +Y
-nnoremap <leader>p +p
+nnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+nnoremap <leader>p "+p
+vnoremap <leader>y "+y
+vnoremap <leader>Y "+Y
+vnoremap <leader>p "+p
 
 " remap move keys
 nmap <M-j> mz:m+<cr>`z
@@ -415,15 +416,8 @@ vmap <F1> <plug>(fzf-maps-x)
 
 "" coc
 
-" use tab to navigate snippet placeholders
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" Use enter to accept snippet expansion
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+" Use tab to accept snippet expansion
+inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -479,4 +473,5 @@ nmap <leader>lfs :GoFillStruct<CR>
 nmap <leader>lie :GoIfErr<CR>
 
 " terminal commands
-nmap <leader>' :sp term://fish<CR>30<C-w>-<CR>i
+nnoremap <leader>' :sp term://fish<CR>30<C-w>-<CR>i
+tnoremap <C-w>q <C-\><C-n>

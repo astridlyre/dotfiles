@@ -4,6 +4,7 @@
 # Set variables
 # --------------------
 set -x EDITOR vim
+set -x VISUAL vim
 set fish_greeting
 
 # --------------------
@@ -11,6 +12,7 @@ set fish_greeting
 # --------------------
 alias ls="exa -G --color auto --icons -a -s type"
 alias ll="exa -l --color always --icons -a -s type"
+alias lt="exa -T --color always --icons -a -s type"
 alias cat="batcat -pp --theme=base16"
 alias fd="fdfind"
 alias vi="nvim"
@@ -21,6 +23,7 @@ alias python="python3"
 alias update="sudo apt update && sudo apt upgrade"
 alias chx="chmod +x"
 alias ducks="du -sh * | sort -hr | head -11"
+alias nnn="nnn -eE"
 
 # --------------------
 # Navigation

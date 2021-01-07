@@ -1,5 +1,0 @@
-#!/bin/bash
-
-NUMS=$1
-
-curl "rate.sx/?qF"

@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# ------------
-# Get Weather
-# ------------
-
-CITY=$1
-
-curl "wttr.in/$CITY?qF"
