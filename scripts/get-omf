@@ -1,0 +1,3 @@
+#!/bin/env bash
+echo "Installing Oh My Fish"
+curl -L https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
