@@ -170,7 +170,6 @@ let g:coc_global_extensions = [
             \'coc-clangd',
             \'coc-prettier',
             \'coc-xml',
-            \'coc-syntax',
             \'coc-git',
             \'coc-highlight',
             \'coc-sh',
