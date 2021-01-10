@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# launch termite with other config
+if [ "$1" == "-f" ]; then
+	kitty --class termite-float
+else
+	kitty
+fi
