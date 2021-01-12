@@ -26,7 +26,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 "
 " ================= looks and GUI stuff ================== "
 
-Plug 'vim-airline/vim-airline'                          " airline status bar
+Plug 'itchyny/lightline.vim'                            " status line
 Plug 'ryanoasis/vim-devicons'                           " pretty icons everywhere
 Plug 'sainnhe/gruvbox-material'                         " material color themes
 
@@ -134,24 +134,10 @@ let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
 let g:python3_host_prog = '/usr/bin/python3'
 
-" Airline
-let g:airline_theme='gruvbox_material'
-let g:airline_skip_empty_sections = 1
-let g:airline_section_warning = ''
-let g:airline_section_x=''
-let g:airline_section_z = airline#section#create(['%3p%% ', 'linenr', ':%c'])
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_min_count = 1   " show tabline only if there is more than 1 buffer
-let g:airline#extensions#tabline#fnamemod = ':t'        " show only file name on tabs
-let airline#extensions#coc#error_symbol = '✘:'
-let airline#extensions#coc#warning_symbol = '⚠:'
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_symbols.linenr = ''
-let g:airline_symbols.branch = '⎇ '
-let g:airline_symbols.dirty= ''
+" lightline colorscheme
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox_material',
+      \ }
 
 " gruvbox italics
 let g:gruvbox_material_enable_italic = 1
@@ -194,7 +180,7 @@ let g:startify_lists = [
     \ { 'type': 'commands' },
     \ ]
 
-" bookmark examples
+" bookmark
 let  g:startify_bookmarks =  [
     \ {'v': '~/.config/nvim'},
     \ {'s': '~/scripts/' }
@@ -222,7 +208,7 @@ let g:startify_custom_header = [
  \ '',
  \ '',
  \ '',
- \]
+ \ ]
 
 " FZF
 let g:fzf_action = {
@@ -360,11 +346,14 @@ nmap <leader>w :w<CR>
 nmap <leader>z :Format<CR>
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
-noremap <leader>e :PlugInstall<CR>
+noremap <leader>pi :PlugInstall<CR>
+noremap <leader>pu :PlugUpdate<CR>
 noremap <C-q> :q<CR>
 map Y y$
 inoremap jk <ESC>
 cnoremap jk <ESC>
+
+" easy system clipboard copy & paste
 nnoremap <leader>y "+y
 nnoremap <leader>Y "+Y
 nnoremap <leader>p "+p
@@ -372,7 +361,7 @@ vnoremap <leader>y "+y
 vnoremap <leader>Y "+Y
 vnoremap <leader>p "+p
 
-" remap move keys
+" easier move line with alt+j / alt+k
 nmap <M-j> mz:m+<cr>`z
 nmap <M-k> mz:m-2<cr>`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
@@ -472,5 +461,5 @@ nmap <leader>lfs :GoFillStruct<CR>
 nmap <leader>lie :GoIfErr<CR>
 
 " terminal commands
-nnoremap <leader>' :sp term://fish<CR>30<C-w>-<CR>i
+nnoremap <leader>' :sp term://fish<CR>>i
 tnoremap <C-w>q <C-\><C-n>
