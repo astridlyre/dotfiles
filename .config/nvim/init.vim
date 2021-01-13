@@ -1,25 +1,12 @@
-"           _       _                             _
-"  ___ _ __(_)_ __ ( )___   _ __   ___  _____   _(_)_ __ ___
-" / _ \ '__| | '_ \|// __| | '_ \ / _ \/ _ \ \ / / | '_ ` _ \
-"|  __/ |  | | | | | \__ \ | | | |  __/ (_) \ V /| | | | | | |
-" \___|_|  |_|_| |_| |___/ |_| |_|\___|\___/ \_/ |_|_| |_| |_|
+" ebflat9 neovim config
 "
-"                  __ _
-"  ___ ___  _ __  / _(_) __ _
-" / __/ _ \| '_ \| |_| |/ _` |
-"| (_| (_) | | | |  _| | (_| |
-" \___\___/|_| |_|_| |_|\__, |
-"                       |___/
-
-"
-
 " ================= auto-install vim-plug ================== "
 
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
-endif
+" if empty(glob('~/.config/nvim/autoload/plug.vim'))
+"   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+"     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"   autocmd VimEnter * PlugInstall | source $MYVIMRC
+" endif
 
 call plug#begin(expand('~/.config/nvim/plugged'))
 
@@ -27,11 +14,9 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 " ================= looks and GUI stuff ================== "
 
 Plug 'itchyny/lightline.vim'                            " status line
-Plug 'ryanoasis/vim-devicons'                           " pretty icons everywhere
 Plug 'sainnhe/gruvbox-material'                         " material color themes
 
 "
-
 " ================= Functionalities ================= "
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}              " LSP and more
@@ -42,7 +27,6 @@ Plug 'honza/vim-snippets'                                    " actual snippets
 Plug 'Yggdroot/indentLine'                                   " show indentation lines
 Plug 'tpope/vim-liquid'                                      " liquid language support
 Plug 'tpope/vim-commentary'                                  " better commenting
-Plug 'mhinz/vim-startify'                                    " cool start up screen
 Plug 'tpope/vim-fugitive'                                    " git support
 Plug 'machakann/vim-sandwich'                                " make sandwiches
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
@@ -50,8 +34,8 @@ Plug 'jiangmiao/auto-pairs'                                  " Auto bracket pair
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'antoinemadec/FixCursorHold.nvim'
 call plug#end()
-"
 
+"
 " ==================== Treesitter ======================== "
 
 lua <<EOF
@@ -74,7 +58,6 @@ require'nvim-treesitter.configs'.setup {
 EOF
 
 "
-
 " ==================== general config ======================== "
 
 set termguicolors                                       " Opaque Background
@@ -87,6 +70,7 @@ set wrap breakindent                                    " wrap long lines to the
 set number                                              " enable numbers on the left
 set relativenumber                                      " current line is 0
 set noshowmode                                          " dont show current mode below statusline
+set showtabline=2
 set noshowcmd                                           " to get rid of display of last command
 set conceallevel=2                                      " set this so we wont break indentation plugin
 set splitright                                          " open vertical split to the right
@@ -117,13 +101,13 @@ set nobackup
 set nowritebackup
 set cmdheight=1
 set updatetime=100
-set shortmess+=c
+set shortmess+=atI
 set signcolumn=yes
 
 " Themeing
 colorscheme gruvbox-material
-"
 
+"
 " ======================== Plugin Configurations ======================== "
 
 " built in plugins
@@ -165,50 +149,6 @@ let g:coc_global_extensions = [
 let g:indentLine_char_list = ['▏', '¦', '┆', '┊']
 let g:indentLine_setColors = 0
 let g:indentLine_setConceal = 0                         " actually fix the annoying markdown links conversion
-let g:indentLine_fileTypeExclude = ['startify']
-
-" startify
-let g:startify_padding_left = 10
-let g:startify_session_persistence = 1
-let g:startify_enable_special = 0
-let g:startify_change_to_vcs_root = 1
-let g:startify_lists = [
-    \ { 'type': 'dir'       },
-    \ { 'type': 'files'     },
-    \ { 'type': 'sessions'  },
-    \ { 'type': 'bookmarks' },
-    \ { 'type': 'commands' },
-    \ ]
-
-" bookmark
-let  g:startify_bookmarks =  [
-    \ {'v': '~/.config/nvim'},
-    \ {'s': '~/scripts/' }
-    \ ]
-
-" custom commands
-let g:startify_commands = [
-    \ {'ch':  ['Health Check', ':checkhealth']},
-    \ {'ps': ['Plugins status', ':PlugStatus']},
-    \ {'pu': ['Update vim plugins',':PlugUpdate | PlugUpgrade']},
-    \ {'uc': ['Update coc Plugins', ':CocUpdate']},
-    \ {'h':  ['Help', ':help']},
-    \ ]
-
-" custom banner
-let g:startify_custom_header = [
- \ '',
- \ '                                                    ▟▙            ',
- \ '                                                    ▝▘            ',
- \ '            ██▃▅▇█▆▖  ▗▟████▙▖   ▄████▄   ██▄  ▄██  ██  ▗▟█▆▄▄▆█▙▖',
- \ '            ██▛▔ ▝██  ██▄▄▄▄██  ██▛▔▔▜██  ▝██  ██▘  ██  ██▛▜██▛▜██',
- \ '            ██    ██  ██▀▀▀▀▀▘  ██▖  ▗██   ▜█▙▟█▛   ██  ██  ██  ██',
- \ '            ██    ██  ▜█▙▄▄▄▟▊  ▀██▙▟██▀   ▝████▘   ██  ██  ██  ██',
- \ '            ▀▀    ▀▀   ▝▀▀▀▀▀     ▀▀▀▀       ▀▀     ▀▀  ▀▀  ▀▀  ▀▀',
- \ '',
- \ '',
- \ '',
- \ ]
 
 " FZF
 let g:fzf_action = {
@@ -227,15 +167,12 @@ let g:go_fmt_autosave = 1
 let g:go_fmt_command = "goimports"
 
 " Fix CursorHold
-" in millisecond, used for both CursorHold and CursorHoldI,
-" use updatetime instead if not defined
 let g:cursorhold_updatetime = 100
 
 " vim-sandwich use simple highlight color
 call operator#sandwich#set('all', 'all', 'highlight', 1)
 
 "
-
 " ======================== Commands ============================= "
 
 au BufEnter * set fo-=c fo-=r fo-=o                     " stop annoying auto commenting on new lines
@@ -254,22 +191,10 @@ augroup END
 " coc completion popup
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" startify if no passed argument or all buffers are closed
-augroup noargs
-    " startify when there is no open buffer left
-    autocmd BufDelete * if empty(filter(tabpagebuflist(), '!buflisted(v:val)')) | Startify | endif
-
-    " open startify on start if no argument was passed
-    autocmd VimEnter * if argc() == 0 | Startify | endif
-augroup END
-
 " fzf if passed argument is a folder
 augroup folderarg
     " change working directory to passed directory
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
-
-    " start startify (fallback if fzf is closed)
-    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | Startify  | endif
 
     " start fzf on passed directory
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'Files ' fnameescape(argv()[0]) | endif
@@ -295,7 +220,6 @@ command! -bang -nargs=? -complete=dir Files
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
 "
-
 " ================== Custom Functions ===================== "
 
 " advanced grep(faster with preview)
@@ -305,11 +229,6 @@ function! RipgrepFzf(query, fullscreen)
     let reload_command = printf(command_fmt, '{q}')
     let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
     call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
-" startify file icons
-function! StartifyEntryFormat()
-    return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
 endfunction
 
 " coc documentation
@@ -330,7 +249,6 @@ function! s:check_back_space() abort
 endfunction
 
 "
-
 " ======================== Custom Mappings ====================== "
 
 "" the essentials
@@ -338,9 +256,10 @@ nmap s <Nop>
 nmap \ :on<CR>
 let mapleader=' '
 nmap \ :on<CR>
-map <F3> :Startify <CR>
+map <F3> :e ~/.config/nvim/init.vim<CR>
 nmap <leader>r :so ~/.config/nvim/init.vim<CR>
 nmap <leader>q :bd<CR>
+nmap <leader>Q :bd!<CR>
 nmap <leader>\ :qa!<CR>
 nmap <leader>w :w<CR>
 nmap <leader>z :Format<CR>
@@ -395,7 +314,7 @@ nmap <leader>t :BTags<CR>
 nmap <leader>/ :Rg<CR>
 nmap <leader>gc :Commits<CR>
 nmap <leader>gs :GFiles?<CR>
-nmap <leader>sh :History/<CR>
+nmap <leader>h :History<CR>
 
 " show mapping on all modes with F1
 nmap <F1> <plug>(fzf-maps-n)
@@ -461,5 +380,5 @@ nmap <leader>lfs :GoFillStruct<CR>
 nmap <leader>lie :GoIfErr<CR>
 
 " terminal commands
-nnoremap <leader>' :sp term://fish<CR>>i
-tnoremap <C-w>q <C-\><C-n>
+nnoremap <leader>' :sp term://fish<CR>i
+tnoremap <C-w>q <C-\><C-n><C-w>q
