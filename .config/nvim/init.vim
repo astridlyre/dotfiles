@@ -252,9 +252,8 @@ endfunction
 " ======================== Custom Mappings ====================== "
 
 "" the essentials
-nmap s <Nop>
-nmap \ :on<CR>
 let mapleader=' '
+nmap s <Nop>
 nmap \ :on<CR>
 map <F3> :e ~/.config/nvim/init.vim<CR>
 nmap <leader>r :so ~/.config/nvim/init.vim<CR>
@@ -331,12 +330,12 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader>crf <Plug>(coc-refactor)
-nmap <leader>cfc <Plug>(coc-fix-current)
+nmap <leader>cd <Plug>(coc-definition)
+nmap <leader>ct <Plug>(coc-type-definition)
+nmap <leader>ci <Plug>(coc-implementation)
+nmap <leader>cr <Plug>(coc-references)
+nmap <leader>cf <Plug>(coc-refactor)
+nmap <leader>cc <Plug>(coc-fix-current)
 
 " Map function and class text objects
 xmap if <Plug>(coc-funcobj-i)
@@ -358,12 +357,6 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 " other stuff
 nmap <leader>lrn <Plug>(coc-rename)
 nmap <leader>o :OR <CR>
-
-" jump stuff
-nmap <leader>jd <Plug>(coc-definition)
-nmap <leader>jy <Plug>(coc-type-definition)
-nmap <leader>ji <Plug>(coc-implementation)
-nmap <leader>jr <Plug>(coc-references)
 
 " fugitive mappings
 nmap <leader>gd :Gdiffsplit<CR>
