@@ -1,24 +1,16 @@
-" ebflat9 neovim config
-"
 " ================= auto-install vim-plug ================== "
-
 " if empty(glob('~/.config/nvim/autoload/plug.vim'))
 "   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
 "     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 "   autocmd VimEnter * PlugInstall | source $MYVIMRC
 " endif
 
-call plug#begin(expand('~/.config/nvim/plugged'))
-
-"
 " ================= looks and GUI stuff ================== "
-
+call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'itchyny/lightline.vim'                            " status line
 Plug 'sainnhe/gruvbox-material'                         " material color themes
 
-"
 " ================= Functionalities ================= "
-
 Plug 'neoclide/coc.nvim', {'branch': 'release'}              " LSP and more
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }          " fzf itself
 Plug 'junegunn/fzf.vim'                                      " fuzzy search integration
@@ -35,9 +27,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'antoinemadec/FixCursorHold.nvim'
 call plug#end()
 
-"
 " ==================== Treesitter ======================== "
-
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
@@ -57,9 +47,7 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-"
 " ==================== general config ======================== "
-
 set termguicolors                                       " Opaque Background
 set mouse=a                                             " enable mouse scrolling
 set tabstop=2 softtabstop=2 shiftwidth=2 autoindent     " tab width
@@ -83,7 +71,6 @@ set undodir=/tmp                                        " undo temp file directo
 set foldlevel=0                                         " open all folds by default
 set inccommand=nosplit                                  " visual feedback while substituting
 set grepprg=rg\ --vimgrep                               " use rg as default grepper
-
 " performance tweaks
 set nocursorline
 set nocursorcolumn
@@ -94,22 +81,18 @@ set synmaxcol=180
 set timeoutlen=850
 set maxmempattern=20000
 set re=1
-
 " required by coc
 set hidden
 set nobackup
 set nowritebackup
 set cmdheight=1
 set updatetime=100
-set shortmess+=atI
+set shortmess+=actI
 set signcolumn=yes
-
 " Themeing
 colorscheme gruvbox-material
 
-"
 " ======================== Plugin Configurations ======================== "
-
 " built in plugins
 let loaded_netrw = 0                                    " diable netew
 let g:omni_sql_no_default_maps = 1                      " disable sql omni completion
@@ -118,16 +101,13 @@ let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
 let g:python3_host_prog = '/usr/bin/python3'
 
-" lightline colorscheme
+"colorscheme
+let g:gruvbox_material_enable_italic = 1
 let g:lightline = {
       \ 'colorscheme': 'gruvbox_material',
       \ }
 
-" gruvbox italics
-let g:gruvbox_material_enable_italic = 1
 " coc settings
-
-" list of the extensions to make sure are always installed
 let g:coc_global_extensions = [
             \'coc-json',
             \'coc-go',
@@ -155,10 +135,8 @@ let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
-
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'border': 'sharp' } }
 let g:fzf_tags_command = 'ctags -R'
-
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
 let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build/**' --glob '!node_modules/**' --glob '!vendor/bundle/**'"
 
@@ -169,14 +147,12 @@ let g:go_fmt_command = "goimports"
 " Fix CursorHold
 let g:cursorhold_updatetime = 100
 
-" vim-sandwich use simple highlight color
-call operator#sandwich#set('all', 'all', 'highlight', 1)
-
-"
 " ======================== Commands ============================= "
-
 au BufEnter * set fo-=c fo-=r fo-=o                     " stop annoying auto commenting on new lines
 au FileType help wincmd L                               " open help in vertical split
+
+" vim-sandwich use simple highlight color
+call operator#sandwich#set('all', 'all', 'highlight', 1)
 
 " enable spell only if file type is normal text
 let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
@@ -185,7 +161,7 @@ autocmd BufEnter * if index(spellable, &ft) < 0 | set nospell | else | set spell
 " highlight yanked text
 augroup highlight_yank
   autocmd!
-  au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}
+  au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=350}
 augroup END
 
 " coc completion popup
@@ -195,10 +171,13 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 augroup folderarg
     " change working directory to passed directory
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
-
     " start fzf on passed directory
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'Files ' fnameescape(argv()[0]) | endif
 augroup END
+
+" files in fzf
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
 
 " Return to last edit position when opening files
 autocmd BufReadPost *
@@ -212,16 +191,10 @@ command! -nargs=0 Format :call CocAction('format')
 " organize imports
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
-" files in fzf
-command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
-
 " advanced grep
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
-"
 " ================== Custom Functions ===================== "
-
 " advanced grep(faster with preview)
 function! RipgrepFzf(query, fullscreen)
     let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
@@ -248,56 +221,52 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-"
 " ======================== Custom Mappings ====================== "
-
-"" the essentials
+" essentials
 let mapleader=' '
 nmap s <Nop>
-nmap \ :on<CR>
-map <F3> :e ~/.config/nvim/init.vim<CR>
-nmap <leader>r :so ~/.config/nvim/init.vim<CR>
-nmap <leader>q :bd<CR>
-nmap <leader>Q :bd!<CR>
-nmap <leader>\ :qa!<CR>
-nmap <leader>w :w<CR>
-nmap <leader>z :Format<CR>
-nmap <Tab> :bnext<CR>
-nmap <S-Tab> :bprevious<CR>
-noremap <leader>pi :PlugInstall<CR>
-noremap <leader>pu :PlugUpdate<CR>
-noremap <C-q> :q<CR>
 map Y y$
 inoremap jk <ESC>
 cnoremap jk <ESC>
+noremap \ :on<CR>
+map <F3> :e ~/.config/nvim/init.vim<CR>
+nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
+nnoremap <leader>q :bd<CR>
+nnoremap <leader>Q :bd!<CR>
+nnoremap <leader>\ :qa!<CR>
+nnoremap <leader>w :w<CR>
+nnoremap <leader>z :Format<CR>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+nnoremap <leader>pi :PlugInstall<CR>
+nnoremap <leader>pu :PlugUpdate<CR>
+nnoremap <C-q> :q<CR>
 
 " easy system clipboard copy & paste
 nnoremap <leader>y "+y
-nnoremap <leader>Y "+Y
+nnoremap <leader>Y mqgg"+yG`q
 nnoremap <leader>p "+p
 vnoremap <leader>y "+y
 vnoremap <leader>Y "+Y
 vnoremap <leader>p "+p
 
 " easier move line with alt+j / alt+k
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+nnoremap <M-j> mz:m+<cr>`z
+nnoremap <M-k> mz:m-2<cr>`z
+vnoremap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " new line in normal mode and back
-noremap <leader>[ myO<ESC>`y
-noremap <leader>] myo<ESC>`y
+nnoremap <leader>[ myO<ESC>`y
+nnoremap <leader>] myo<ESC>`y
 
-" switch between splits using ctrl + {h,j,k,l}
-inoremap <C-h> <C-\><C-N><C-w>h
-inoremap <C-j> <C-\><C-N><C-w>j
-inoremap <C-k> <C-\><C-N><C-w>k
-inoremap <C-l> <C-\><C-N><C-w>l
-nnoremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" terminal commands
+nnoremap <leader>' :sp term://fish<CR>i
+tnoremap <C-w>q <C-\><C-n><C-w>q
+
+" cycle through commands
+cnoremap <c-n>  <down>
+cnoremap <c-p>  <up>
 
 " disable hl with 2 esc
 noremap <silent><esc> <esc>:noh<CR><esc>
@@ -307,28 +276,22 @@ nnoremap <F2> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 "" FZF
 nnoremap <silent> <leader>f :Files<CR>
-nmap <leader>b :Buffers<CR>
-nmap <leader>: :Commands<CR>
-nmap <leader>t :BTags<CR>
-nmap <leader>/ :Rg<CR>
-nmap <leader>gc :Commits<CR>
-nmap <leader>gs :GFiles?<CR>
-nmap <leader>h :History<CR>
-
-" show mapping on all modes with F1
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>: :Commands<CR>
+nnoremap <leader>t :BTags<CR>
+nnoremap <leader>/ :Rg<CR>
+nnoremap <leader>gc :Commits<CR>
+nnoremap <leader>gs :GFiles?<CR>
+nnoremap <leader>h :History<CR>
 nmap <F1> <plug>(fzf-maps-n)
 imap <F1> <plug>(fzf-maps-i)
 vmap <F1> <plug>(fzf-maps-x)
 
 "" coc
-
 " Use tab to accept snippet expansion
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
-
-" Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
 " GoTo code navigation
 nmap <leader>cd <Plug>(coc-definition)
 nmap <leader>ct <Plug>(coc-type-definition)
@@ -336,7 +299,6 @@ nmap <leader>ci <Plug>(coc-implementation)
 nmap <leader>cr <Plug>(coc-references)
 nmap <leader>cf <Plug>(coc-refactor)
 nmap <leader>cc <Plug>(coc-fix-current)
-
 " Map function and class text objects
 xmap if <Plug>(coc-funcobj-i)
 omap if <Plug>(coc-funcobj-i)
@@ -346,21 +308,18 @@ xmap ic <Plug>(coc-classobj-i)
 omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
-
 " Use CTRL-S for selections ranges.
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
-
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-
 " other stuff
 nmap <leader>lrn <Plug>(coc-rename)
-nmap <leader>o :OR <CR>
+nnoremap <leader>o :OR <CR>
 
 " fugitive mappings
-nmap <leader>gd :Gdiffsplit<CR>
-nmap <leader>gb :Gblame<CR>
+nnoremap <leader>gd :Gdiffsplit<CR>
+nnoremap <leader>gb :Gblame<CR>
 
 " vim-go mappings
 nmap <leader>lt :GoTest<CR>
@@ -371,7 +330,3 @@ nmap <leader>lr :GoRun<CR>
 nmap <leader>li :GoImports<CR>
 nmap <leader>lfs :GoFillStruct<CR>
 nmap <leader>lie :GoIfErr<CR>
-
-" terminal commands
-nnoremap <leader>' :sp term://fish<CR>i
-tnoremap <C-w>q <C-\><C-n><C-w>q
