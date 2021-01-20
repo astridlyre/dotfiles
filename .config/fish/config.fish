@@ -5,6 +5,7 @@
 # --------------------
 set -x EDITOR vim
 set -x VISUAL vim
+set -x BAT_THEME gruvbox
 set fish_greeting
 
 # --------------------
@@ -13,18 +14,17 @@ set fish_greeting
 alias ls="exa -G --color auto --icons -a -s type"
 alias ll="exa -l --color always --icons -a -s type"
 alias lt="exa -T --color always --icons -a -s type"
-alias cat="bat -pp --theme=base16"
+alias cat="bat -pp --theme=gruvbox"
 alias vi="vim"
 alias nvim="vim"
-alias vim="vim"
 alias c="clear"
 alias x="exit"
 alias python="python3"
-alias update="sudo apt update && sudo apt upgrade"
 alias chx="chmod +x"
 alias ducks="du -sh * | sort -hr | head -11"
 alias nnn="nnn -eE"
 alias r="ranger"
+alias fd="fdfind"
 
 # --------------------
 # Navigation
@@ -46,3 +46,4 @@ end
 function fish_user_key_bindings
   fish_vi_key_bindings
 end
+

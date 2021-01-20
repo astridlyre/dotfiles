@@ -1,5 +1,4 @@
 {
-	// normal settings
 	"coc.preferences.colorSupport": true,
 	"coc.preferences.snippetStatusText": "Ⓢ ",
 	"suggest.maxCompleteItemCount": 20,
@@ -17,8 +16,6 @@
 		"react",
 		"jsonc"
 	],
-
-	// suggest settings
 	"suggest.noselect": false,
 	"suggest.detailField": "abbr",
 	"suggest.snippetIndicator": "",
@@ -53,8 +50,6 @@
 		"typeParameter": "\uf278",
 		"default": "\uf29c"
 	},
-
-	// diagnostic settings
 	"diagnostic.displayByAle": false,
 	"diagnostic.refreshOnInsertMode": true,
 	"diagnostic.errorSign": "✘",
@@ -66,37 +61,14 @@
 	"diagnostic.virtualTextPrefix": " ❯❯❯ ",
 	"diagnostic.virtualText": true,
 	"diagnostic.enableMessage": "never",
-
-	// list settings
 	"list.source.grep.command": "rg",
-
-	// git settings
 	"git.signOffset": 9999999,
 	"git.topRemovedSign.text": "▌",
 	"git.changeRemovedSign.text": "▌",
 	"git.removedSign.text": "▌",
 	"git.addedSign.text": "▌",
 	"git.changedSign.text": "▌",
-
-	// other stuff (language specific)
 	"html.autoClosingTags": true,
-	"tailwindCSS.jsLanguages": [
-		"javascript",
-		"javascriptreact",
-		"reason",
-		"typescriptreact"
-	],
-	"tailwindCSS.emmetCompletions": true,
-	"tailwindCSS.headwind.runOnSave": true,
-	"tailwindCSS.cssLanguages": [
-		"css",
-		"less",
-		"postcss",
-		"sass",
-		"scss",
-		"stylus",
-		"vue"
-	],
 	"emmet.includeLanguages": { "javascript": "javascriptreact" },
 	"prettier.semi": false,
 	"prettier.useTabs": true,
@@ -106,7 +78,7 @@
 	"prettier.jsxSingleQuote": true,
 	"html.suggest.html5": true,
 	"go.goplsArgs": ["-remote=auto", "-logfile", "/tmp/gopls.log"],
-	"go.goplsPath": "/home/astrid/go/bin/gopls",
+	"go.goplsPath": "/home/ml/go/bin/gopls",
 	"go.goplsOptions": {
 		"completeUnimported": true,
 		"usePlaceholders": true
