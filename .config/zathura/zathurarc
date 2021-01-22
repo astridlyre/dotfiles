@@ -1,3 +1,10 @@
+set font "JetBrainsMono Nerd Font Mono" normal 11
+set recolor-darkcolor "#d4be98"
+set recolor-lightcolor "#282828"
+set statusbar-fg "#d4be98"
+set statusbar-bg "#282828"
+set default-bg "#282828"
+set default-fg "#d4be98"
 set sandbox none
 set statusbar-h-padding 0
 set statusbar-v-padding 0

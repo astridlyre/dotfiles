@@ -25,6 +25,9 @@ alias ducks="du -sh * | sort -hr | head -11"
 alias nnn="nnn -eE"
 alias r="ranger"
 alias fd="fdfind"
+alias cp="cp -i"
+alias mv="mv -i"
+alias rm="rm -i"
 
 # --------------------
 # Navigation
