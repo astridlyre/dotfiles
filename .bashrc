@@ -1,9 +1,9 @@
-#                             _ _       _     _   
-# _ __ ___   ___   ___  _ __ | (_) __ _| |__ | |_ 
+#                             _ _       _     _
+# _ __ ___   ___   ___  _ __ | (_) __ _| |__ | |_
 #| '_ ` _ \ / _ \ / _ \| '_ \| | |/ _` | '_ \| __|
-#| | | | | | (_) | (_) | | | | | | (_| | | | | |_ 
+#| | | | | | (_) | (_) | | | | | | (_| | | | | |_
 #|_| |_| |_|\___/ \___/|_| |_|_|_|\__, |_| |_|\__|
-#                                 |___/           
+#                                 |___/
 #
 # Make sure running interactively
 case $- in
@@ -25,7 +25,7 @@ shopt -s histappend
 shopt -s checkwinsize
 # Use ** for recursive matching
 shopt -s globstar
-
+umask 022
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 

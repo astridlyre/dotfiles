@@ -608,3 +608,187 @@ vi
 x
 vi
 x
+ls
+cp .bash* dotfiles/
+cd dotfiles/
+ls
+..
+ls
+cat projects/
+cat .profile 
+c
+r
+x
+c
+x
+htop
+killall brave
+x
+c
+vi
+c
+echo $SHELL
+echo $0
+c
+x
+htop
+c
+sudo shutdown
+sudo shutdown now
+c
+exit
+ls
+x
+ls
+eit
+exit
+exit
+ls
+cd projects/
+ls
+cd js
+ls
+cd ecommerce-app/
+ls
+npm start
+c
+npm install
+npm start
+ls
+cd projects/js/ecommerce-app/
+npm statr
+npm start
+exit
+ls
+x
+npm start
+ls
+x
+echo $(pwd)
+echo `pwd`
+echo $(fd "Iosevka")
+fd "Iosevka" | xargs rm -rf
+ls
+c
+fd "Iosevka"
+cd /
+fd "Iosevka" 2> /dev/null
+cd
+c
+cd Downloads/
+ls
+rm iosevka-dynamo*
+ls
+rm arco*
+ls
+rm debian-10.7.0-amd64-netinst.iso 
+rm endeavouros-2020.09.20-x86_64.iso 
+rm CentOS-8.3.2011-x86_64-boot.iso 
+rm archcraft-2020.12.31-x86_64.iso 
+ls
+c
+cd
+ls
+c
+market
+c
+ls scripts/
+ls scip
+x
+ls scripts/
+x
+ls scripts
+c
+ls
+time ls
+x
+ls
+c
+x
+time exa -T
+x
+ls
+c
+x
+c
+clear
+vi
+ls
+x
+ls
+c
+cd notes/
+ls
+cd LPI/
+cd TLCL/
+ls
+vi part3-2.md 
+x
+c
+vi .bashrc
+x
+cat << "hello"
+cut -f 1 "hello world"
+man cut
+x
+cd notes/LPI/TLCL/
+touch test.txt
+lc
+ls
+ll
+rm test.txt 
+c
+echo $PATH
+mkdir report-generator
+touch report-generator/template.html
+cd report-generator/
+chx sys_info_page 
+ll
+./sys_info_page 
+sudo apt install ctags
+sudo apt install exuberant-ctags
+./sys_info_page 
+echo $HOSTNAME
+echo $USER
+now
+ls blk
+lsblk
+sysinfo
+uptime
+uname -a
+neofetch
+lsblk
+ps 
+ps -aux | head
+ps -aux | sort -k 4 | head
+ps -aux | sort -k 6 | head
+ps -aux | sort --key=4 | head
+ps -aux | sort -k 3
+c
+ps -aux
+c
+ps -u
+c
+iwconfig
+c
+syslog | tail
+dmesg | tail
+sudo dmesg | tail
+lscpu
+lscpu | head
+c
+./sys_info_page 
+c
+c
+cd notes/LPI/TLCL/
+vi .
+ls
+vi .
+c
+x
+c
+x
+c
+ls
+x
+c

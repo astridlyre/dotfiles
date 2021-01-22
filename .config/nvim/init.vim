@@ -89,8 +89,6 @@ set cmdheight=1
 set updatetime=100
 set shortmess+=actI
 set signcolumn=yes
-" Themeing
-colorscheme gruvbox-material
 
 " ======================== Plugin Configurations ======================== "
 " built in plugins
@@ -101,11 +99,19 @@ let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
 let g:python3_host_prog = '/usr/bin/python3'
 
-"colorscheme
+"colorscheme config should be put before colorscheme
 let g:gruvbox_material_enable_italic = 1
+let g:gruvbox_material_enable_bold = 1
+let g:gruvbox_material_better_performance = 1
+colorscheme gruvbox-material
+
 let g:lightline = {
       \ 'colorscheme': 'gruvbox_material',
       \ }
+let g:lightline.separator = { 'left': "\ue0b8", 'right': "\ue0be" }
+let g:lightline.subseparator = { 'left': "\ue0b9", 'right': "\ue0b9" }
+let g:lightline.tabline_separator = { 'left': "\ue0bc", 'right': "\ue0ba" }
+let g:lightline.tabline_subseparator = { 'left': "\ue0bb", 'right': "\ue0bb" }
 
 " coc settings
 let g:coc_global_extensions = [
@@ -113,13 +119,12 @@ let g:coc_global_extensions = [
             \'coc-go',
             \'coc-css',
             \'coc-html',
+            \'coc-emmet',
             \'coc-tsserver',
             \'coc-yaml',
             \'coc-lists',
-            \'coc-snippets',
             \'coc-clangd',
             \'coc-prettier',
-            \'coc-xml',
             \'coc-git',
             \'coc-highlight',
             \'coc-sh',
@@ -215,10 +220,9 @@ function! s:show_documentation()
   endif
 endfunction
 
-" backspace check
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+" Temporary fix for when treesitter highlight goes wonky
+function! ResetHightlight()
+  execute 'write | edit | TSBufEnable highlight'
 endfunction
 
 " ======================== Custom Mappings ====================== "
@@ -230,12 +234,13 @@ inoremap jk <ESC>
 cnoremap jk <ESC>
 noremap \ :on<CR>
 map <F3> :e ~/.config/nvim/init.vim<CR>
+nnoremap <leader>t :call ResetHightlight()<CR>
 nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
 nnoremap <leader>q :bd<CR>
-nnoremap <leader>Q :bd!<CR>
+nnoremap <leader>z :bd!<CR>
 nnoremap <leader>\ :qa!<CR>
 nnoremap <leader>w :w<CR>
-nnoremap <leader>z :Format<CR>
+nnoremap <leader>lf :Format<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 nnoremap <leader>pi :PlugInstall<CR>
@@ -260,9 +265,10 @@ vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 nnoremap <leader>[ myO<ESC>`y
 nnoremap <leader>] myo<ESC>`y
 
-" terminal commands
-nnoremap <leader>' :sp term://fish<CR>i
-tnoremap <C-w>q <C-\><C-n><C-w>q
+" open terminal
+nnoremap <leader>' :sp term://bash<CR>i
+tnoremap <Esc> <C-\><C-n><C-w>q
+tnoremap jk <C-\><C-n>
 
 " cycle through commands
 cnoremap <c-n>  <down>
@@ -276,9 +282,9 @@ nnoremap <F2> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 "" FZF
 nnoremap <silent> <leader>f :Files<CR>
-nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>bb :Buffers<CR>
 nnoremap <leader>: :Commands<CR>
-nnoremap <leader>t :BTags<CR>
+nnoremap <leader>bt :BTags<CR>
 nnoremap <leader>/ :Rg<CR>
 nnoremap <leader>gc :Commits<CR>
 nnoremap <leader>gs :GFiles?<CR>
