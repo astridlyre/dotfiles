@@ -15,10 +15,11 @@ esac
 HISTCONTROL=ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
+NUMMONS=$(xrandr --query | rg " connected" | cut -d" " -f1 | wc -l)
 
 # Set visual editor
 VISUAL="/usr/bin/vim"
-
+EDITOR="/usr/local/bin/nvim"
 # Append history
 shopt -s histappend
 # Check if window resized
@@ -67,14 +68,7 @@ if ! shopt -oq posix; then
 fi
 
 # fnm
-export PATH=/home/ml/.fnm:$PATH
-eval "`fnm env`"
-export PATH=/home/ml/.fnm:/home/ml/.local/bin:/home/ml/.local/kitty.app/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-eval "`fnm env`"
-
-# fnm
-export PATH=/home/ml/.fnm:$PATH
-eval "`fnm env`"
+export PATH=/home/ml/.fnm:/home/ml/.local/bin:/home/ml/.local/kitty.app/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/ml/.bin
 
 # go
 export PATH=/usr/local/go/bin:$PATH
@@ -82,3 +76,11 @@ export PATH=/usr/local/go/bin:$PATH
 export PATH=/home/ml/scripts:$PATH
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# fnm
+export PATH=/home/ml/.fnm:$PATH
+eval "`fnm env`"
+
+if [ ! $VIM ]; then
+  elfman
+fi

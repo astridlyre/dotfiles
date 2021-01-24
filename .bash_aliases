@@ -10,9 +10,7 @@ alias x="exit"
 alias python="python3"
 alias chx="chmod +x"
 alias ducks="du -sh * | sort -hr | head -11"
-alias nnn="nnn -eE"
 alias r="ranger"
-alias fd="fdfind"
 
 # Movement
 alias ..="cd .."

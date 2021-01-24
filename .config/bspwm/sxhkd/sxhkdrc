@@ -1,0 +1,324 @@
+#################################################################
+# KEYBOARD BINDINGS FOR ANY TWM
+#################################################################
+
+#################################################################
+# SUPER + FUNCTION KEYS
+#################################################################
+
+#Rofi Fullscreen
+super + F11
+    rofi -show run -fullscreen
+
+#Rofi
+super + d
+    rofi -show run
+
+#################################################################
+# SUPER + ... KEYS
+#################################################################
+
+# Brave Browser
+super + b
+    brave
+
+#Pavucontrol
+super + v
+    pavucontrol
+
+#Alacritty with Fish
+super + Return
+    alacritty
+
+#Alacritty with Bash
+super + shift + Return
+    alacritty -e bash
+
+#Xkill
+super + Escape
+    xkill
+
+#Keyboard dependent
+super + KP_Enter
+	alacritty
+
+#xfce4-terminal dropdown
+super + space
+    xfce4-terminal --drop-down
+
+#################################################################
+# SUPER + SHIFT KEYS
+#################################################################
+
+#arcolinux-logout
+super + shift + x
+    arcolinux-logout
+
+#File-Manager
+super + e
+	pcmanfm
+
+#Rofi theme selector
+super + r
+    rofi-theme-selector
+
+#reload sxhkd:
+super + shift + s
+	pkill -USR1 -x sxhkd
+
+#################################################################
+# CONTROL + ALT KEYS
+#################################################################
+
+#arcolinux-tweak-tool
+ctrl + alt + e
+    arcolinux-tweak-tool
+
+#Pamac-manager
+ctrl + alt + p
+    pamac-manager
+
+#Xfce4-settings-manager
+ctrl + alt + m
+     xfce4-settings-manager
+
+#Pulse Audio Control
+ctrl + alt + u
+     pavucontrol
+
+#Rofi theme selector
+ctrl + alt + r
+  rofi-theme-selector
+
+#################################################################
+# ALT + ... KEYS
+#################################################################
+
+#################################################################
+# CONTROL + SHIFT KEYS
+#################################################################
+
+#################################################################
+#     SCREENSHOTS
+#################################################################
+
+#Scrot
+Print
+    scrot 'ArcoLinux-%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f $$(xdg-user-dir PICTURES)'
+
+#################################################################
+#     FUNCTION KEYS
+#################################################################
+
+
+#################################################################
+#     MULTIMEDIA KEYS
+#################################################################
+
+#Raises volume
+XF86AudioRaiseVolume
+    amixer set Master 10%+
+
+#Lowers volume
+XF86AudioLowerVolume
+    amixer set Master 10%-
+
+#Mute
+XF86AudioMute
+    amixer -D pulse set Master 1+ toggle
+
+#PLAY
+XF86AudioPlay
+    playerctl play-pause
+
+#Next
+XF86AudioNext
+    playerctl next
+
+#previous
+XF86AudioPrev
+    playerctl previous
+
+#Stop
+XF86AudioStop
+    playerctl stop
+
+#Brightness up
+XF86MonBrightnessUp
+    backlight_control up
+
+#Brightness down
+XF86MonBrightnessDown
+    backlight_control down
+
+#########################
+#        POLYBAR        #
+#########################
+
+#Hide polybar
+super + y
+    polybar-msg cmd toggle
+
+#################################################################
+##################   DESKTOP SPECIFIC    ########################
+#################################################################
+
+#################################################################
+# CTRL + ALT KEYS
+#################################################################
+
+#Picom Toggle
+ctrl + alt + o
+    ~/.config/bspwm/scripts/picom-toggle.sh
+
+#################################################################
+# SUPER + KEYS
+#################################################################
+
+#Toggle fullscreen of window
+super + f
+	bspc node --state \~fullscreen
+
+# Toggle pseudo tiling of window
+super + p
+	bspc node --state \~pseudo_tiled
+
+#kill
+super + q
+	bspc node -c
+
+#################################################################
+# SUPER KEYS
+#################################################################
+
+#Focus selected desktop
+super + Tab
+	bspc desktop -f '^{1-9,10}'
+
+# Increase/decrease window gap on focused desktop
+super + bracket{left,right}
+	bspc config -d focused window_gap $((`bspc config -d focused window_gap` {-,+} 5 ))
+
+# set the window state
+super + t
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# Move focus to other monitor
+super + BackSpace
+		bspc monitor -f next
+
+#################################################################
+# SUPER + ALT KEYS
+#################################################################
+
+# Move floating window
+super + alt + {_,shift + }{Left,Down,Up,Right}
+	~/.config/bspwm/scripts/move-window {_,edge-}{west,south,north,east}
+
+#################################################################
+# SUPER + CONTROL KEYS
+#################################################################
+
+# Cancel preselection
+super + ctrl + space
+	bspc node --presel-dir cancel
+
+#################################################################
+# SUPER + SHIFT KEYS
+#################################################################
+
+#Reload bspwm
+super + shift + r
+	~/.config/bspwm/bspwmrc
+
+#kill
+super + shift + q
+	bspc node -c
+
+#Logout
+super + shift + backspace
+	bspc quit
+
+# Focus/swap windows by direction
+super + {_,shift + }{h,j,k,l}
+	bspc node --{focus,swap} {west,south,north,east}
+
+# Split horizontal, vertical or cancel
+super + {s,v,c}
+	bspc node -p {east,south,cancel}
+
+# Preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# Swap the current node and the biggest node
+super + g
+  bspc node -s biggest
+
+# Send focused window to another workspace
+super + {_,shift + }{1-8}
+	bspc {desktop -f,node -d} '^{1-8}'
+
+# Move focused window to other monitor
+super + shift + Left
+	bspc node -m next --follow
+
+# Move focused window to other monitor
+super + shift + Right
+		bspc node -m next --follow
+
+# Move focused window to other monitor
+super + shift + Up
+	bspc node -m next --follow
+
+# Move focused window to other monitor
+super + shift + Down
+		bspc node -m next --follow
+
+#################################################################
+# SUPER + CONTROL KEYS
+#################################################################
+
+# Resizing windows
+super + ctrl + {h,j,k,l}
+  ~/.config/bspwm/scripts/node_resize {west,south,north,east} 20
+
+# Spiral mode
+super + ctrl + t
+  bspc config automatic_scheme spiral
+
+# Longest side mode
+super + ctrl + y
+  bspc config automatic_scheme longest_side
+
+# automatic layout
+super + ctrl + u
+  bspc config automatic_scheme first_child
+
+#################################################################
+# ALT KEYS
+#################################################################
+
+#Focus selected desktop
+alt + Tab
+	bspc desktop -f '^{1-9,10}'
+
+	#Focus selected desktop
+alt + shift + Tab
+	bspc desktop -f '^{1-9,10}'
+
+#Rotate desktop
+alt + space
+	bspc node @/ --rotate {90,-90}
+
+#################################################################
+# ALT + SHIFT KEYS
+#################################################################
+
+# edit config files
+alt + shift + {v,b,s,t,a,f, p}
+  ~/.config/bspwm/scripts/edit_configs {nvim, bspwm, sxhkd, bash, alacritty, fish, polybar}
+
+#################################################################
+# CTRL + ALT KEYS
+#################################################################

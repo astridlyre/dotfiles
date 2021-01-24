@@ -22,12 +22,7 @@ alias x="exit"
 alias python="python3"
 alias chx="chmod +x"
 alias ducks="du -sh * | sort -hr | head -11"
-alias nnn="nnn -eE"
 alias r="ranger"
-alias fd="fdfind"
-alias cp="cp -i"
-alias mv="mv -i"
-alias rm="rm -i"
 
 # --------------------
 # Navigation
@@ -45,8 +40,9 @@ function md
 	mkdir -p $argv && cd $argv
 end
 
-# Enable vi mode
-function fish_user_key_bindings
-  fish_vi_key_bindings
+function fish_mode_prompt
 end
 
+if not test $VIM
+  spaceinvaders
+end

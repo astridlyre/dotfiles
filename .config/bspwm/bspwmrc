@@ -1,128 +1,102 @@
-#!/bin/bash
+#!/bin/sh
 
-## Environtment
-export PATH="${PATH}:$HOME/.config/bspwm/bin"
+#LAUNCHERS
+$HOME/.config/bspwm/autostart.sh
+#BSPWM configuration
+#bspc config border_radius       8
+bspc config border_width         2
+bspc config window_gap           8
+bspc config top_padding          28
+bspc config bottom_padding       4
+bspc config left_padding         4
+bspc config right_padding        4
+bspc config single_monocle       false
+#bspc config click_to_focus       true
+bspc config split_ratio          0.50
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+#bspc config focus_by_distance    true
+bspc config focus_follows_pointer true
+#bspc config history_aware_focus  true
+bspc config pointer_modifier mod4
+bspc config pointer_action1 move
+bspc config pointer_action2 resize_side
+bspc config pointer_action3 resize_corner
+bspc config remove_disabled_monitors true
+bspc config merge_overlapping_monitors true
 
-## Get colors from .Xresources -------------------------------#
-xrdb ~/.Xresources
-getcolors () {
-	FOREGROUND=$(xrdb -query | grep 'foreground:'| awk '{print $NF}')
-	BACKGROUND=$(xrdb -query | grep 'background:'| awk '{print $NF}')
-	BLACK=$(xrdb -query | grep 'color0:'| awk '{print $NF}')
-	RED=$(xrdb -query | grep 'color1:'| awk '{print $NF}')
-	GREEN=$(xrdb -query | grep 'color2:'| awk '{print $NF}')
-	YELLOW=$(xrdb -query | grep 'color3:'| awk '{print $NF}')
-	BLUE=$(xrdb -query | grep 'color4:'| awk '{print $NF}')
-	MAGENTA=$(xrdb -query | grep 'color5:'| awk '{print $NF}')
-	CYAN=$(xrdb -query | grep 'color6:'| awk '{print $NF}')
-	WHITE=$(xrdb -query | grep 'color7:'| awk '{print $NF}')
-}
-getcolors
+#BSPWM coloring
+bspc config normal_border_color		"#3c3836"
+bspc config active_border_color		"#282828"
+bspc config focused_border_color	"#89b482"
+bspc config presel_feedback_color	"#89b482"
+#bspc config urgent_border_color 	"#dd2727"
 
-## Configurations -------------------------------#
-if xrandr -q | grep 'HDMI-0 connected'; then
-  ~/.screenlayout/default.sh
-  bspc monitor eDP-1-1 -d V VI VII VIII
-  bspc monitor HDMI-0 -d I II III IV
+
+#Single monitor
+NUMMONS=$(xrandr --query | rg " connected" | cut -d" " -f1 | wc -l)
+if [ $NUMMONS -eq 2 ]; then
+  bspc monitor -d 1 2 3 4
+  bspc monitor HDMI-0 -d 5 6 7 8
 else
-  xrandr eDP-1-1 --auto
-  bspc monitor eDP-1-1 -d I II III IV V VI VII VIII IX X
+  bspc monitor -d 1 2 3 4 5 6 7 8
 fi
 
-bspc config border_width 2
-bspc config window_gap 12
-bspc config split_ratio 0.50
+#Fullscreen applications
+bspc rule -a inkscape state=fullscreen
+bspc rule -a Spotify state=fullscreen
+bspc rule -a Vlc state=fullscreen
+bspc rule -a VirtualBox Manager state=fullscreen
+bspc rule -a VirtualBox Machine state=fullscreen
+bspc rule -a Gimp state=fullscreen
 
-bspc config focused_border_color "$BLUE" 
-bspc config normal_border_color "$BACKGROUND"
-bspc config active_border_color "$MAGENTA"
-bspc config presel_feedback_color "$GREEN"
+#Floating applications
+bspc rule -a Arandr state=floating
+bspc rule -a Arcolinux-tweak-tool.py state=floating
+bspc rule -a Arcolinux-welcome-app.py state=floating
+bspc rule -a feh state=floating
+#bspc rule -a mpv state=floating sticky=on
+bspc rule -a Oblogout state=floating
+#bspc rule -a Pavucontrol state=floating sticky=on
+#bspc rule -a Peek state=floating
+#bspc rule -a rofi state=floating sticky=on
+#bspc rule -a Skype state=floating
+#bspc rule -a Stacer state=floating
+bspc rule -a Xfce4-terminal state=floating
 
-bspc config borderless_monocle true
-bspc config gapless_monocle true
-bspc config paddingless_monocle true
-bspc config single_monocle false
-bspc config focus_follows_pointer true
+#Tiled applications
+bspc rule -a Gnome-disks state=tiled
+bspc rule -a Xfce4-settings-manager state=tiled
 
+#open applications on specific workspaces
+bspc rule -a Gimp desktop='^5' follow=on
+#bspc rule -a Google-chrome desktop='^1' follow=on
+#bspc rule -a Chromium desktop='^1'  follow=on
+#bspc rule -a Subl3 desktop='^2' follow=on
+#bspc rule -a Atom desktop='^2' follow=on
+#bspc rule -a Steam desktop='^5'
+#bspc rule -a vlc desktop='^6'  follow=on
+#bspc rule -a mpv desktop='^6'  follow=on
+#bspc rule -a Vivaldi-stable desktop='^6' follow=on
+#bspc rule -a Vivaldi-snapshot desktop='^6' follow=on
+#bspc rule -a Transmission-gtk desktop='^7' follow=on
+#bspc rule -a Thunar desktop='^8' follow=on
+#bspc rule -a discord desktop='^9' follow=on
+#bspc rule -a Spotify desktop='^10' follow=on
 
-## Window rules -------------------------------#
+#Spotify fix  --move desktop 10
+#sleep 1
+#wmctrl -r Spotify -t 10
+#exit
 
-# remove all rules first
-bspc rule -r *:*
+#polybar hidden when fullscreen for vlc, youtube, mpv ...
+#find out the name of your monitor with xrandr
+#xdo below -t $(xdo id -n root) $(xdo id -a polybar-main_DP-1)
+#xdo below -t $(xdo id -n root) $(xdo id -a polybar-main_HDMI1)
+#xdo below -t $(xdo id -n root) $(xdo id -a polybar-main_HDMI2)
 
-# 1 > terminal
-bspc rule -a kitty desktop='^1' follow=on focus=on
-
-# 2 > web
-bspc rule -a firefox desktop='^2' follow=on focus=on
-
-# 3 > file
-bspc rule -a Pcmanfm desktop='^3' follow=on focus=on
-
-# 4 > office
-declare -a office=(libreoffice-writer libreoffice-calc libreoffice-impress \
-libreoffice-startcenter libreoffice Soffice *:libreofficedev *:soffice)
-for i in ${office[@]}; do
-   bspc rule -a $i desktop='^4' follow=on focus=on; done
-
-# 5 > media
-declare -a media=(Audacity mpv mplayer lxmusic Gimp Gimp-2.8)
-for i in ${media[@]}; do
-   bspc rule -a $i desktop='^5' follow=on focus=on; done
-
-# 6 > settings
-bspc rule -a GParted desktop='^6' follow=on focus=on
-declare -a settings=(Lxappearance Lxtask Lxrandr Arandr \
-System-config-printer.py Pavucontrol Exo-helper-1)
-for i in ${settings[@]}; do
-   bspc rule -a $i desktop='^6' state=floating follow=on focus=on; done
-
-# special rules
-bspc rule -a termite-float state=floating follow=on focus=on
-bspc rule -a Pcmanfm state=floating follow=on focus=on
-bspc rule -a Onboard state=floating follow=on focus=on
-bspc rule -a Audacious state=floating follow=on focus=on
-bspc rule -a Firefox:Places state=floating follow=on focus=on
-bspc rule -a Viewnior state=floating follow=on focus=on
-bspc rule -a Conky state=floating manage=off
-bspc rule -a stalonetray state=floating manage=off
-
-## Autostart -------------------------------#
-
-# Kill if already running
-killall -9 sxhkd xsettingsd dunst xfce4-power-manager
-
-# Lauch notification daemon
-dunst \
--geom "280x50-10+40" -frame_width "1" -font "JetBrains Mono 10" \
--lb "$BACKGROUND" -lf "$FOREGROUND" -lfr "$BLUE" \
--nb "$BACKGROUND" -nf "$FOREGROUND" -nfr "$BLUE" \
--cb "$BACKGROUND" -cf "$RED" -cfr "$RED" &
-
-# Lauch keybindings daemon
-sxhkd &
-
-# Enable Super Keys For Menu
-ksuperkey -e 'Super_L=Alt_L|F1' &
-ksuperkey -e 'Super_R=Alt_L|F1' &
-
-# Enable power management
-xfce4-power-manager &
-
-# Fix cursor
-xsetroot -cursor_name left_ptr
-
-# Restore wallpaper
-bash $HOME/.fehbg
-
-# Start mpd
-exec mpd &
-
-# Start bspwm scripts
-bspcolors
-bspcomp
-bspbar
-bspfloat &
-
-# Issue Tracker (Don't Remove IT)
-issue_tracker.sh
+###External rules
+##Pseudo automatic mode: always splits focused window when opening new window
+#bspc config external_rules_command ~/.config/bspwm/scripts/pseudo_automatic_mode
+##Adjust new window: splits biggest windows to keep windows about the same size
+#bspc config external_rules_command ~/.config/bspwm/scripts/adjust-new-window

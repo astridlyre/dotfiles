@@ -1,8 +1,0 @@
-#!/bin/env bash
-
-echo "Installing fd, exa, bat and nnn"
-sudo pacman -S fd exa bat nnn fzf fish go
-fish
-curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-fisher install ilancosman/tide
-curl -fsSL https://fnm.vercel.app/install | fish

@@ -1,4 +1,4 @@
-set font "JetBrainsMono Nerd Font Mono" normal 11
+set font "Iosevka" normal 11
 set recolor-darkcolor "#d4be98"
 set recolor-lightcolor "#282828"
 set statusbar-fg "#d4be98"
