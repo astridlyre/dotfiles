@@ -20,12 +20,13 @@ NUMMONS=$(xrandr --query | rg " connected" | cut -d" " -f1 | wc -l)
 # Set visual editor
 VISUAL="/usr/bin/vim"
 EDITOR="/usr/local/bin/nvim"
-# Append history
-shopt -s histappend
-# Check if window resized
-shopt -s checkwinsize
-# Use ** for recursive matching
-shopt -s globstar
+# shopt
+shopt -s histappend # don't overwrite history
+shopt -s checkwinsize # check for resize
+shopt -s globstar # use for recursive search
+shopt -s autocd # change to named dir
+shopt -s cdspell # fix misspellings
+
 umask 022
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -67,13 +68,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# fnm
-export PATH=/home/ml/.fnm:/home/ml/.local/bin:/home/ml/.local/kitty.app/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/ml/.bin
+export PATH=$HOME/.local/bin:$HOME/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
 
 # go
 export PATH=/usr/local/go/bin:$PATH
+export PATH=$HOME/go/bin:$PATH
 # scripts
-export PATH=/home/ml/scripts:$PATH
+export PATH=$HOME/scripts:$PATH
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
@@ -82,5 +83,5 @@ export PATH=/home/ml/.fnm:$PATH
 eval "`fnm env`"
 
 if [ ! $VIM ]; then
-  elfman
+  pacman1
 fi

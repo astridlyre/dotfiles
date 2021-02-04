@@ -1,10 +1,8 @@
-" ================= auto-install vim-plug ================== "
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
-endif
-
+" if empty(glob('~/.config/nvim/autoload/plug.vim'))
+"   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+"     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"   autocmd VimEnter * PlugInstall | source $MYVIMRC
+" endif
 " ================= looks and GUI stuff ================== "
 call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'itchyny/lightline.vim'                            " status line
@@ -17,7 +15,6 @@ Plug 'junegunn/fzf.vim'                                      " fuzzy search inte
 Plug 'SirVer/ultisnips'                                      " snippets manager
 Plug 'honza/vim-snippets'                                    " actual snippets
 Plug 'Yggdroot/indentLine'                                   " show indentation lines
-Plug 'tpope/vim-liquid'                                      " liquid language support
 Plug 'tpope/vim-commentary'                                  " better commenting
 Plug 'tpope/vim-fugitive'                                    " git support
 Plug 'machakann/vim-sandwich'                                " make sandwiches
@@ -216,6 +213,11 @@ function! s:show_documentation()
   endif
 endfunction
 
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
 " Temporary fix for when treesitter highlight goes wonky
 function! ResetHightlight()
   execute 'write | edit | TSBufEnable highlight'
@@ -228,7 +230,6 @@ nmap s <Nop>
 map Y y$
 inoremap jk <ESC>
 cnoremap jk <ESC>
-noremap \ :on<CR>
 map <F3> :e ~/.config/nvim/init.vim<CR>
 nnoremap <leader>t :call ResetHightlight()<CR>
 nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
@@ -241,7 +242,6 @@ nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>pu :PlugUpdate<CR>
-nnoremap <C-q> :q<CR>
 
 " easy system clipboard copy & paste
 nnoremap <leader>y "+y
@@ -291,7 +291,10 @@ vmap <F1> <plug>(fzf-maps-x)
 
 "" coc
 " Use tab to accept snippet expansion
-inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-y>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " GoTo code navigation
