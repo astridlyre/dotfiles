@@ -28,8 +28,8 @@ compositing-underline = over
 compositing-border = over
 
 ; Define fallback values used by all module formats
-format-foreground = #282828
-format-background = #d4be98
+format-foreground = #b2b2b2
+format-background = #080808
 format-underline =
 format-overline =
 format-spacing =
@@ -38,13 +38,13 @@ format-margin =
 format-offset =
 
 [colors]
-; Gruv Box ============
-background = #282828
-foreground = #d4be98
-alert = #ea6962
-volume-min = #a9b665
-volume-med = #d8a657
-volume-max = #d3869b
+; Moonfly ============
+background = #A9080808
+foreground = #b2b2b2
+alert = #ff5454
+volume-min = #8cc85f
+volume-med = #e3c78a
+volume-max = #d183e8
 ; =======================
 
 ################################################################################
@@ -57,7 +57,7 @@ volume-max = #d3869b
 monitor = ${env:MONITOR}
 ;monitor-fallback = HDMI1
 width = 100%
-height = 25
+height = 24
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 0.0
@@ -68,8 +68,8 @@ separator = |
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 2
-line-color = #ea6962
+line-size = 0
+line-color = #ff5454
 
 wm-restack = bspwm
 override-redirect = true
@@ -83,13 +83,13 @@ border-size = 0
 ;border-right-size = 25
 ;border-top-size = 0
 ;border-bottom-size = 25
-border-color = #3c3836
+border-color = #373c40
 
 padding-left = 0
 padding-right = 1
 
-module-margin-left = 3
-module-margin-right = 3
+module-margin-left = 2
+module-margin-right = 2
 
 ;https://github.com/jaagr/polybar/wiki/Fonts
 font-0 = "Iosevka:size=10;0"
@@ -99,7 +99,7 @@ font-3 = "Iosevka:size=10;0"
 
 modules-left = bspwm
 modules-center = xwindow
-modules-right = pavolume cpu2 date battery
+modules-right = memory2 cpu2 date battery pavolume
 
 tray-detached = false
 tray-offset-x = 0
@@ -135,8 +135,8 @@ separator = |
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 2
-line-color = #ea6962
+line-size = 0
+line-color = #ff5454
 
 wm-restack = bspwm
 override-redirect = true
@@ -150,13 +150,13 @@ border-size = 0
 ;border-right-size = 25
 ;border-top-size = 0
 ;border-bottom-size = 25
-border-color = #3c3836
+border-color = #373c40
 
 padding-left = 0
 padding-right = 1
 
-module-margin-left = 3
-module-margin-right = 3
+module-margin-left = 2
+module-margin-right = 2
 
 ;https://github.com/jaagr/polybar/wiki/Fonts
 font-0 = "Iosevka Term:size=10;0"
@@ -199,7 +199,7 @@ ws-icon-1 = 2;
 ws-icon-2 = 3;
 ws-icon-3 = 4;
 ws-icon-4 = 5;
-ws-icon-5 = 6;
+ws-icon-5 = 6;
 ws-icon-6 = 7;
 ws-icon-7 = 8;
 ws-icon-default = " "
@@ -209,21 +209,21 @@ format = <label-state> <label-mode>
 
 label-focused = %icon%
 label-focused-background = ${colors.background}
-label-focused-underline= #d3869b
-label-focused-padding = 4
-label-focused-foreground = #d3869b
+label-focused-underline= #d183e8
+label-focused-padding = 3
+label-focused-foreground = #d183e8
 
 label-occupied = %icon%
-label-occupied-padding = 4
+label-occupied-padding = 3
 label-occupied-background = ${colors.background}
-label-occupied-foreground = #7daea3
+label-occupied-foreground = #36c692
 
 label-urgent = %icon%
-label-urgent-padding = 4
+label-urgent-padding = 3
 
 label-empty = %icon%
 label-empty-foreground = ${colors.foreground}
-label-empty-padding = 4
+label-empty-padding = 3
 label-empty-background = ${colors.background}
 label-monocle = "  "
 label-monocle-foreground = ${colors.foreground}
@@ -265,8 +265,8 @@ label = Arch: %output%
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 format-prefix = "  "
-format-prefix-foreground = #d8a657
-format-underline = #d8a657
+format-prefix-foreground = #e3c78a
+format-underline = #e3c78a
 
 [module/aur-updates]
 type = custom/script
@@ -276,8 +276,8 @@ label = Aur: %output%
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 format-prefix = "  "
-format-prefix-foreground = #d8a657
-format-underline = #d8a657
+format-prefix-foreground = #e3c78a
+format-underline = #e3c78a
 
 ################################################################################
 
@@ -292,17 +292,17 @@ format-charging = <animation-charging> <label-charging>
 label-charging =  %percentage%%
 format-charging-foreground = ${colors.foreground}
 format-charging-background = ${colors.background}
-format-charging-underline = #a9b665
+format-charging-underline = #8cc85f
 
 format-discharging = <ramp-capacity> <label-discharging>
 label-discharging =  %percentage%%
-format-discharging-underline = #aa9b66
+format-discharging-underline = #e3c78a
 format-discharging-foreground = ${colors.foreground}
 format-discharging-background = ${colors.background}
 
 format-full-prefix = " "
-format-full-prefix-foreground = #d4be98
-format-full-underline = #d4be98
+format-full-prefix-foreground = #36c692
+format-full-underline = #36c692
 format-full-foreground = ${colors.foreground}
 format-full-background = ${colors.background}
 
@@ -311,14 +311,14 @@ ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
-ramp-capacity-foreground = #aa9b66
+ramp-capacity-foreground = #e3c78a
 
 animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
-animation-charging-foreground = #a9b665
+animation-charging-foreground = #8cc85f
 animation-charging-framerate = 750
 
 ################################################################################
@@ -333,8 +333,8 @@ format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 ;   
 format-prefix = " "
-format-prefix-foreground = #ea6962
-format-underline = #ea6962
+format-prefix-foreground = #36c692
+format-underline = #36c692
 
 ; Available tags:
 ;   <label> (default)
@@ -387,8 +387,8 @@ interval = 1
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 format-prefix = "  "
-format-prefix-foreground = #ea6962
-format-underline = #ea6962
+format-prefix-foreground = #36c692
+format-underline = #36c692
 
 label-font = 3
 
@@ -413,16 +413,16 @@ label = Cpu %percentage:3%%
 ;https://github.com/jaagr/polybar/wiki/Module:-date
 type = internal/date
 ; Seconds to sleep between updates
-interval = 5
+interval = 60
 ; See "http://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
 ; NOTE: if you want to use syntax tags here you need to use %%{...}
-date = " %Y-%m-%d%"
-date-alt = " %d-%m-%Y"
+;date = " %Y-%m-%d%"
+date = " %d-%m-%Y"
 time = %H:%M
 time-alt = %H:%M
 format-prefix = " "
-format-prefix-foreground = #d8a657
-format-underline = #d8a657
+format-prefix-foreground = #36c692
+format-underline = #36c692
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 label = %date% %time%
@@ -466,7 +466,7 @@ label-monitor = %name%
 label-active = %name%
 label-active-foreground = ${colors.foreground}
 label-active-background = ${colors.background}
-label-active-underline= #7daea3
+label-active-underline= #79dac8
 label-active-padding = 2
 
 label-occupied = %name%
@@ -518,7 +518,7 @@ spacing = 4
 format-mounted = <label-mounted>
 format-mounted-foreground = ${colors.foreground}
 format-mounted-background = ${colors.background}
-format-mounted-underline = #fe0000
+format-mounted-underline = #ff5454
 
 
 ; Available tokens:
@@ -552,8 +552,8 @@ interval = 1024
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 format-prefix = "  "
-format-prefix-foreground = #7daea3
-format-underline = #7daea3
+format-prefix-foreground = #79dac8
+format-underline = #79dac8
 
 ################################################################################
 
@@ -631,8 +631,8 @@ label = %percentage_used%%
 
 format = Mem <label>
 format-prefix = "  "
-format-prefix-foreground = #7daea3
-format-underline = #7daea3
+format-prefix-foreground = #36c692
+format-underline = #36c692
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 
@@ -760,7 +760,8 @@ click-right = exec pavucontrol
 click-left = ~/.config/polybar/scripts/pavolume.sh --togmute
 scroll-up = ~/.config/polybar/scripts/pavolume.sh --up
 scroll-down = ~/.config/polybar/scripts/pavolume.sh --down
-format-underline = #3EC13F
+format-underline = #36c692
+format-prefix-foreground = #36c692
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 
@@ -953,7 +954,7 @@ label-disconnected-foreground = ${colors.foreground}
 [module/wireless-network]
 ;https://github.com/jaagr/polybar/wiki/Module:-network
 type = internal/network
-interface = wlp3s0
+interface = wlp67s0
 interval = 3.0
 label-connected = %essid%
 
@@ -1021,7 +1022,7 @@ type = internal/xwindow
 label = %title%
 label-maxlen = 50
 
-format-foreground = #7daea3
+format-foreground = #36c692
 format-background = ${colors.background}
 
 ###############################################################################

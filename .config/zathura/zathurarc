@@ -1,10 +1,10 @@
 set font "Iosevka" normal 11
-set recolor-darkcolor "#d4be98"
-set recolor-lightcolor "#282828"
-set statusbar-fg "#d4be98"
-set statusbar-bg "#282828"
-set default-bg "#282828"
-set default-fg "#d4be98"
+set recolor-darkcolor "#b2b2b2"
+set recolor-lightcolor "#080808"
+set statusbar-fg "#b2b2b2"
+set statusbar-bg "#080808"
+set default-bg "#080808"
+set default-fg "#b2b2b2"
 set sandbox none
 set statusbar-h-padding 0
 set statusbar-v-padding 0

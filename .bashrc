@@ -15,11 +15,11 @@ esac
 HISTCONTROL=ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
-NUMMONS=$(xrandr --query | rg " connected" | cut -d" " -f1 | wc -l)
 
 # Set visual editor
 VISUAL="/usr/bin/vim"
 EDITOR="/usr/local/bin/nvim"
+FCEDIT="$EDITOR"
 # shopt
 shopt -s histappend # don't overwrite history
 shopt -s checkwinsize # check for resize
@@ -27,7 +27,7 @@ shopt -s globstar # use for recursive search
 shopt -s autocd # change to named dir
 shopt -s cdspell # fix misspellings
 
-umask 022
+umask 0022
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -68,20 +68,22 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=$HOME/.local/bin:$HOME/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+# basic PATH
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+
+# local scripts dir
+export PATH=$HOME/.bin:$PATH
 
 # go
 export PATH=/usr/local/go/bin:$PATH
 export PATH=$HOME/go/bin:$PATH
-# scripts
-export PATH=$HOME/scripts:$PATH
 
+# fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # fnm
-export PATH=/home/ml/.fnm:$PATH
+export PATH=$HOME/.fnm:$PATH
 eval "`fnm env`"
 
-if [ ! $VIM ]; then
-  pacman1
-fi
+# ruby
+export PATH=$HOME/.local/share/gem/ruby/2.7.0/bin:$PATH

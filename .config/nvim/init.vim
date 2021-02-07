@@ -5,8 +5,7 @@
 " endif
 " ================= looks and GUI stuff ================== "
 call plug#begin(expand('~/.config/nvim/plugged'))
-Plug 'itchyny/lightline.vim'                            " status line
-Plug 'sainnhe/gruvbox-material'                         " material color themes
+Plug 'bluz71/vim-moonfly-colors'
 
 " ================= Functionalities ================= "
 Plug 'neoclide/coc.nvim', {'branch': 'release'}              " LSP and more
@@ -44,6 +43,15 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
+" statusline
+set statusline=
+set statusline+=\ %#MoonflyEmerald#%t
+set statusline+=%=
+set statusline+=\ %#MoonflyGrey246#%m
+set statusline+=\ %#MoonflyGrey241#%y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\ %p%%\ 
+
 " ==================== general config ======================== "
 set termguicolors                                       " Opaque Background
 set mouse=a                                             " enable mouse scrolling
@@ -55,7 +63,7 @@ set wrap breakindent                                    " wrap long lines to the
 set number                                              " enable numbers on the left
 set relativenumber                                      " current line is 0
 set noshowmode                                          " dont show current mode below statusline
-set showtabline=2
+set showtabline=0
 set noshowcmd                                           " to get rid of display of last command
 set conceallevel=2                                      " set this so we wont break indentation plugin
 set splitright                                          " open vertical split to the right
@@ -86,7 +94,6 @@ set cmdheight=1
 set updatetime=100
 set shortmess+=actI
 set signcolumn=yes
-
 " ======================== Plugin Configurations ======================== "
 " built in plugins
 let loaded_netrw = 0                                    " diable netew
@@ -97,14 +104,8 @@ let g:loaded_ruby_provider = 0
 let g:python3_host_prog = '/usr/bin/python3'
 
 "colorscheme config should be put before colorscheme
-let g:gruvbox_material_enable_italic = 1
-let g:gruvbox_material_enable_bold = 1
-let g:gruvbox_material_better_performance = 1
-colorscheme gruvbox-material
-
-let g:lightline = {
-      \ 'colorscheme': 'gruvbox_material',
-      \ }
+let g:moonflyTransparent = 1
+colorscheme moonfly
 
 " coc settings
 let g:coc_global_extensions = [

@@ -9,7 +9,7 @@ FISH=$HOME/.config/fish/config.fish
 POLYBAR=$HOME/.config/polybar/config
 
 openConfig() {
-  alacritty -e bash -c "vim $1"
+  alacritty -e bash -c "vim -u $HOME/.config/nvim/init_minimal.vim $1"
 }
 
 case $1 in
@@ -20,5 +20,5 @@ case $1 in
   alacritty) openConfig $ALACRITTY;;
   fish) openConfig $FISH;;
   polybar) openConfig $POLYBAR;;
-  *)
+  *);;
 esac

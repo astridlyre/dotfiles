@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# --------------------
+# Get bitcoin price
+# --------------------
+
+PERIOD=$1
+
+curl "rate.sx/btc${1:-"@1d"}?qF"

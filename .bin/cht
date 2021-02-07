@@ -1,0 +1,5 @@
+#!/bin/bash
+
+TARGET=$1
+
+curl "cht.sh/$TARGET"

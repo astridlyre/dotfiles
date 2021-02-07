@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-size=${2:-'20'}
+size=${2:-'50'}
 direction=$1
 
 # Switch with window in given direction

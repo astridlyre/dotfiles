@@ -14,25 +14,32 @@ super + F11
 super + d
     rofi -show run
 
+super + w
+    rofi -show window
+
 #################################################################
 # SUPER + ... KEYS
 #################################################################
 
 # Brave Browser
 super + b
-    brave
+    brave --use-gl=desktop
 
 #Pavucontrol
 super + v
     pavucontrol
 
-#Alacritty with Fish
+#Alacritty with bash
 super + Return
     alacritty
 
-#Alacritty with Bash
-super + shift + Return
-    alacritty -e bash
+# Ranger file manager
+super + e
+    alacritty -e ranger
+
+# Zathura
+super + z
+    zathura
 
 #Xkill
 super + Escape
@@ -46,57 +53,41 @@ super + KP_Enter
 super + space
     xfce4-terminal --drop-down
 
-#################################################################
-# SUPER + SHIFT KEYS
-#################################################################
+# Network manager
+super + n
+    nm-connection-editor
 
-#arcolinux-logout
-super + shift + x
-    arcolinux-logout
+#Hide polybar
+super + y
+    polybar-msg cmd toggle
 
-#File-Manager
-super + e
-	pcmanfm
+#Xfce4-settings-manager
+super + 8
+     xfce4-settings-manager
 
 #Rofi theme selector
 super + r
     rofi-theme-selector
 
 #reload sxhkd:
-super + shift + s
+super + s
 	pkill -USR1 -x sxhkd
 
 #################################################################
-# CONTROL + ALT KEYS
+# SUPER + SHIFT KEYS
 #################################################################
 
-#arcolinux-tweak-tool
-ctrl + alt + e
-    arcolinux-tweak-tool
+#Alacritty with bash
+super + shift + Return
+    alacritty
 
-#Pamac-manager
-ctrl + alt + p
-    pamac-manager
+#arcolinux-logout
+super + shift + x
+    arcolinux-logout
 
-#Xfce4-settings-manager
-ctrl + alt + m
-     xfce4-settings-manager
-
-#Pulse Audio Control
-ctrl + alt + u
-     pavucontrol
-
-#Rofi theme selector
-ctrl + alt + r
-  rofi-theme-selector
-
-#################################################################
-# ALT + ... KEYS
-#################################################################
-
-#################################################################
-# CONTROL + SHIFT KEYS
-#################################################################
+#File-Manager
+super + shift+ e
+	pcmanfm
 
 #################################################################
 #     SCREENSHOTS
@@ -107,21 +98,16 @@ Print
     scrot 'ArcoLinux-%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f $$(xdg-user-dir PICTURES)'
 
 #################################################################
-#     FUNCTION KEYS
-#################################################################
-
-
-#################################################################
 #     MULTIMEDIA KEYS
 #################################################################
 
 #Raises volume
 XF86AudioRaiseVolume
-    amixer set Master 10%+
+    amixer set Master 5%+
 
 #Lowers volume
 XF86AudioLowerVolume
-    amixer set Master 10%-
+    amixer set Master 5%-
 
 #Mute
 XF86AudioMute
@@ -150,14 +136,6 @@ XF86MonBrightnessUp
 #Brightness down
 XF86MonBrightnessDown
     backlight_control down
-
-#########################
-#        POLYBAR        #
-#########################
-
-#Hide polybar
-super + y
-    polybar-msg cmd toggle
 
 #################################################################
 ##################   DESKTOP SPECIFIC    ########################
@@ -193,7 +171,7 @@ super + q
 
 #Focus selected desktop
 super + Tab
-	bspc desktop -f '^{1-9,10}'
+	rofi -show window
 
 # Increase/decrease window gap on focused desktop
 super + bracket{left,right}
@@ -216,14 +194,6 @@ super + alt + {_,shift + }{Left,Down,Up,Right}
 	~/.config/bspwm/scripts/move-window {_,edge-}{west,south,north,east}
 
 #################################################################
-# SUPER + CONTROL KEYS
-#################################################################
-
-# Cancel preselection
-super + ctrl + space
-	bspc node --presel-dir cancel
-
-#################################################################
 # SUPER + SHIFT KEYS
 #################################################################
 
@@ -236,7 +206,7 @@ super + shift + q
 	bspc node -c
 
 #Logout
-super + shift + backspace
+super + shift + BackSpace
 	bspc quit
 
 # Focus/swap windows by direction
@@ -244,7 +214,7 @@ super + {_,shift + }{h,j,k,l}
 	bspc node --{focus,swap} {west,south,north,east}
 
 # Split horizontal, vertical or cancel
-super + {s,v,c}
+super + shift + {s,v,c}
 	bspc node -p {east,south,cancel}
 
 # Preselect the ratio
@@ -281,7 +251,7 @@ super + shift + Down
 
 # Resizing windows
 super + ctrl + {h,j,k,l}
-  ~/.config/bspwm/scripts/node_resize {west,south,north,east} 20
+  ~/.config/bspwm/scripts/node_resize {west,south,north,east} 40
 
 # Spiral mode
 super + ctrl + t
@@ -316,9 +286,5 @@ alt + space
 #################################################################
 
 # edit config files
-alt + shift + {v,b,s,t,a,f, p}
-  ~/.config/bspwm/scripts/edit_configs {nvim, bspwm, sxhkd, bash, alacritty, fish, polybar}
-
-#################################################################
-# CTRL + ALT KEYS
-#################################################################
+alt + shift + {v,b,s,t,a,p}
+  ~/.config/bspwm/scripts/edit_configs {nvim, bspwm, sxhkd, bash, alacritty, polybar}
