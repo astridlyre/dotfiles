@@ -122,6 +122,7 @@ let g:coc_global_extensions = [
             \'coc-git',
             \'coc-highlight',
             \'coc-sh',
+            \'coc-python',
 \]
 
 " indentLine
