@@ -1,26 +1,27 @@
+" ================= Auto Install Plug ================== "
 " if empty(glob('~/.config/nvim/autoload/plug.vim'))
 "   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
 "     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 "   autocmd VimEnter * PlugInstall | source $MYVIMRC
 " endif
-" ================= looks and GUI stuff ================== "
-call plug#begin(expand('~/.config/nvim/plugged'))
-Plug 'bluz71/vim-moonfly-colors'
 
-" ================= Functionalities ================= "
-Plug 'neoclide/coc.nvim', {'branch': 'release'}              " LSP and more
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }          " fzf itself
-Plug 'junegunn/fzf.vim'                                      " fuzzy search integration
-Plug 'SirVer/ultisnips'                                      " snippets manager
-Plug 'honza/vim-snippets'                                    " actual snippets
-Plug 'Yggdroot/indentLine'                                   " show indentation lines
-Plug 'tpope/vim-commentary'                                  " better commenting
-Plug 'tpope/vim-fugitive'                                    " git support
-Plug 'machakann/vim-sandwich'                                " make sandwiches
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-Plug 'jiangmiao/auto-pairs'                                  " Auto bracket pairs
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'antoinemadec/FixCursorHold.nvim'
+" ================= Plugins ================== "
+call plug#begin(expand('~/.config/nvim/plugged'))
+Plug 'bluz71/vim-moonfly-colors'                            " Colorscheme
+Plug 'neoclide/coc.nvim', {'branch': 'release'}             " LSP and more
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
+Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
+Plug 'junegunn/vim-easy-align'                              " Easy align
+Plug 'SirVer/ultisnips'                                     " snippets manager
+Plug 'honza/vim-snippets'                                   " actual snippets
+Plug 'Yggdroot/indentLine'                                  " show indentation lines
+Plug 'tpope/vim-commentary'                                 " better commenting
+Plug 'tpope/vim-fugitive'                                   " git support
+Plug 'machakann/vim-sandwich'                               " make sandwiches
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Syntax support
+Plug 'jiangmiao/auto-pairs'                                 " Auto bracket pairs
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }          " Go lang plugin
+Plug 'antoinemadec/FixCursorHold.nvim'                      " CursorHold fix
 call plug#end()
 
 " ==================== Treesitter ======================== "
@@ -43,71 +44,70 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-" statusline
-set statusline=
-set statusline+=\ %#MoonflyEmerald#%t
-set statusline+=%=
-set statusline+=\ %#MoonflyGrey246#%m
-set statusline+=\ %#MoonflyGrey241#%y
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\ %p%%\ 
+" ==================== statusline ======================== "
+set statusline=                                            " Clear default statusline
+set statusline+=\ %#MoonflyEmerald#%t                      " Filename
+set statusline+=%=                                         " Spacer
+set statusline+=\ %#MoonflyGrey246#%m                      " Modified symbol
+set statusline+=\ %#MoonflyGrey241#%y                      " Filetype
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding} " Encoding
+set statusline+=\ %p%%\                                    " Percent
 
 " ==================== general config ======================== "
-set termguicolors                                       " Opaque Background
-set mouse=a                                             " enable mouse scrolling
-set tabstop=2 softtabstop=2 shiftwidth=2 autoindent     " tab width
-set expandtab                                           " tab key actions
-set incsearch ignorecase smartcase hlsearch             " highlight text while searching
-set list listchars=trail:»,tab:»-                       " use tab to navigate in list mode
-set wrap breakindent                                    " wrap long lines to the width set by tw
-set number                                              " enable numbers on the left
-set relativenumber                                      " current line is 0
-set noshowmode                                          " dont show current mode below statusline
-set showtabline=0
-set noshowcmd                                           " to get rid of display of last command
-set conceallevel=2                                      " set this so we wont break indentation plugin
-set splitright                                          " open vertical split to the right
-set splitbelow                                          " open horizontal split to the bottom
-set tw=90                                               " auto wrap lines that are longer than that
-set emoji                                               " enable emojis
-set history=1000                                        " history limit
-set undofile                                            " enable persistent undo
-set undodir=/tmp                                        " undo temp file directory
-set foldlevel=0                                         " open all folds by default
-set inccommand=nosplit                                  " visual feedback while substituting
-set grepprg=rg\ --vimgrep                               " use rg as default grepper
-" performance tweaks
-set nocursorline
-set nocursorcolumn
-set scrolljump=5
-set lazyredraw
-set redrawtime=10000
-set synmaxcol=180
-set timeoutlen=850
-set maxmempattern=20000
+set number                                          " Line numbers
+set relativenumber                                  " Relative line numbers
+set termguicolors                                   " True colors
+set mouse=a                                         " Enable mouse scroll
+set foldmethod=manual                               " Manual folding only
+set tabstop=2 softtabstop=2 shiftwidth=2 autoindent " tab width
+set expandtab                                       " Expand tab into spaces
+set incsearch ignorecase smartcase hlsearch         " highlight text while searching
+set list listchars=trail:»,tab:»-                   " use tab to navigate in list mode
+set wrap breakindent                                " wrap long lines to the width set by tw
+set showtabline=0                                   " Never show tabline
+set noshowmode                                      " Do not show mode under statusline
+set noshowcmd                                       " Do not show last command
+set conceallevel=2                                  " Necessary for Indentline
+set splitright                                      " open vertical split to the right
+set splitbelow                                      " open horizontal split to the bottom
+set tw=90                                           " auto wrap lines
+set emoji                                           " enable emojis
+set history=1000                                    " history limit
+set undofile                                        " enable persistent undo
+set undodir=/tmp                                    " undo temp file directory
+set inccommand=nosplit                              " visual feedback while substituting
+set grepprg=rg\ --vimgrep                           " use rg as default grepper
+set nocursorline                                    " Do not show cursorline
+set nocursorcolumn                                  " Do not show cursorcolumn
+set scrolljump=5                                    " Keep cursor 10 lines from edges
+set scrolloff=5                                     " Keep cursor 10 lines from edges
+set lazyredraw                                      " Performance boost for macros
+set redrawtime=10000                                " Allow more time for redraws
+set synmaxcol=180                                   " No syntax on long lines
+set timeoutlen=850                                  " Time to wait between keypress
+set maxmempattern=20000                             " Max mem to use
 set re=1
-" required by coc
-set hidden
-set nobackup
-set nowritebackup
-set cmdheight=1
-set updatetime=100
-set shortmess+=actI
-set signcolumn=yes
-" ======================== Plugin Configurations ======================== "
-" built in plugins
-let loaded_netrw = 0                                    " diable netew
-let g:omni_sql_no_default_maps = 1                      " disable sql omni completion
-let g:loaded_python_provider = 0
-let g:loaded_perl_provider = 0
-let g:loaded_ruby_provider = 0
-let g:python3_host_prog = '/usr/bin/python3'
+set hidden                                          " Keep buffers around
+set nobackup                                        " Do not make backup files
+set nowritebackup                                   " No write backups
+set cmdheight=1                                     " Make hight 1 line
+set updatetime=100                                  " For CursorHold autocmd
+set shortmess+=actI                                 " Avoid more press enters
+set signcolumn=yes                                  " Always show signcolumn
 
-"colorscheme config should be put before colorscheme
+" ======================== Plugin Configurations ======================== "
+let loaded_netrw = 0                         " diable netew
+let g:omni_sql_no_default_maps = 1           " disable sql omni completion
+let g:loaded_python_provider = 0             " Disable python2
+let g:loaded_perl_provider = 0               " Disable perl
+let g:loaded_ruby_provider = 0               " Disable ruby
+let g:python3_host_prog = '/usr/bin/python3' " Default python3
+
+" Colorscheme
 let g:moonflyTransparent = 1
 colorscheme moonfly
 
-" coc settings
+" Ensure coc-extensions are installed
 let g:coc_global_extensions = [
             \'coc-json',
             \'coc-go',
@@ -122,13 +122,13 @@ let g:coc_global_extensions = [
             \'coc-git',
             \'coc-highlight',
             \'coc-sh',
-            \'coc-python',
-\]
+            \'coc-pyright',
+            \'coc-diagnostic' ]
 
 " indentLine
 let g:indentLine_char_list = ['▏', '¦', '┆', '┊']
 let g:indentLine_setColors = 0
-let g:indentLine_setConceal = 0                         " actually fix the annoying markdown links conversion
+let g:indentLine_setConceal = 0 " Fix conceal for markdown
 
 " FZF
 let g:fzf_action = {
@@ -148,11 +148,8 @@ let g:go_fmt_command = "goimports"
 let g:cursorhold_updatetime = 100
 
 " ======================== Commands ============================= "
-au BufEnter * set fo-=c fo-=r fo-=o                     " stop annoying auto commenting on new lines
-au FileType help wincmd L                               " open help in vertical split
-
-" vim-sandwich use simple highlight color
-call operator#sandwich#set('all', 'all', 'highlight', 1)
+au BufEnter * set fo-=c fo-=r fo-=o " stop annoying auto commenting on new lines
+au FileType help wincmd L           " open help in vertical split
 
 " enable spell only if file type is normal text
 let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
@@ -215,49 +212,38 @@ function! s:show_documentation()
   endif
 endfunction
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
 " Temporary fix for when treesitter highlight goes wonky
 function! ResetHightlight()
   execute 'write | edit | TSBufEnable highlight'
 endfunction
 
-" ======================== Custom Mappings ====================== "
-" essentials
-let mapleader=' '
-nmap s <Nop>
-map Y y$
-inoremap jk <ESC>
-cnoremap jk <ESC>
+" =================== Global Mappings ==========================
+" Easy edit vim config
 map <F3> :e ~/.config/nvim/init.vim<CR>
-nnoremap <leader>t :call ResetHightlight()<CR>
-nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
-nnoremap <leader>q :bd<CR>
-nnoremap <leader>z :bd!<CR>
-nnoremap <leader>\ :qa!<CR>
-nnoremap <leader>w :w<CR>
+
+" Disable s for vim-sandwich
+nmap s <Nop>
+
+" Make Y consistent
+map Y y$
+
+" =================== Leader Mappings ==========================
+" Map leader to space
+let mapleader=' '
+
+" Format code
 nnoremap <leader>lf :Format<CR>
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
+
+" Install or Update Plugins
 nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>pu :PlugUpdate<CR>
-
-" easy system clipboard copy & paste
-nnoremap <leader>y "+y
-nnoremap <leader>Y mqgg"+yG`q
-nnoremap <leader>p "+p
-vnoremap <leader>y "+y
-vnoremap <leader>Y "+Y
-vnoremap <leader>p "+p
-
-" easier move line with alt+j / alt+k
-nnoremap <M-j> mz:m+<cr>`z
-nnoremap <M-k> mz:m-2<cr>`z
-vnoremap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+nnoremap <leader>pc :PlugClean<CR>
+nnoremap <leader>\ :qa!<CR>
+nnoremap <leader>q :bd<CR>
+nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
+nnoremap <leader>t :call ResetHightlight()<CR>
+nnoremap <leader>w :w<CR>
+nnoremap <leader>z :bd!<CR>
 
 " new line in normal mode and back
 nnoremap <leader>[ myO<ESC>`y
@@ -265,48 +251,81 @@ nnoremap <leader>] myo<ESC>`y
 
 " open terminal
 nnoremap <leader>' :sp term://bash<CR>i
-tnoremap <Esc> <C-\><C-n><C-w>q
-tnoremap jk <C-\><C-n>
 
-" cycle through commands
-cnoremap <c-n>  <down>
-cnoremap <c-p>  <up>
+" easy system clipboard copy & paste
+nnoremap <leader>Y mqgg"+yG`q
+nnoremap <leader>p "+p
+nnoremap <leader>y "+y
+vnoremap <leader>Y "+Y
+vnoremap <leader>p "+p
+vnoremap <leader>y "+y
 
-" disable hl with 2 esc
-noremap <silent><esc> <esc>:noh<CR><esc>
-
-" trim white spaces
-nnoremap <F2> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
-
-"" FZF
-nnoremap <silent> <leader>f :Files<CR>
-nnoremap <leader>bb :Buffers<CR>
-nnoremap <leader>: :Commands<CR>
-nnoremap <leader>bt :BTags<CR>
+" FZF
 nnoremap <leader>/ :Rg<CR>
+nnoremap <leader>: :Commands<CR>
+nnoremap <leader>bb :Buffers<CR>
+nnoremap <leader>bt :BTags<CR>
 nnoremap <leader>gc :Commits<CR>
 nnoremap <leader>gs :GFiles?<CR>
 nnoremap <leader>h :History<CR>
-nmap <F1> <plug>(fzf-maps-n)
-imap <F1> <plug>(fzf-maps-i)
-vmap <F1> <plug>(fzf-maps-x)
+nnoremap <leader>f :Files<CR>
 
-"" coc
-" Use tab to accept snippet expansion
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-y>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ coc#refresh()
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-" GoTo code navigation
-nmap <leader>cd <Plug>(coc-definition)
-nmap <leader>ct <Plug>(coc-type-definition)
-nmap <leader>ci <Plug>(coc-implementation)
-nmap <leader>cr <Plug>(coc-references)
-nmap <leader>cf <Plug>(coc-refactor)
-nmap <leader>cc <Plug>(coc-fix-current)
-" Map function and class text objects
+" coc-commands
+nnoremap <leader>cu :CocUpdate<CR>
+nnoremap <leader>cc <Plug>(coc-fix-current)
+nnoremap <leader>cd <Plug>(coc-definition)
+nnoremap <leader>cf <Plug>(coc-refactor)
+nnoremap <leader>ci <Plug>(coc-implementation)
+nnoremap <leader>cn <Plug>(coc-rename)
+nnoremap <leader>cr <Plug>(coc-references)
+nnoremap <leader>ct <Plug>(coc-type-definition)
+nnoremap <leader>d <Plug>(coc-diagnostic-next)
+nnoremap <leader>D <Plug>(coc-diagnostic-prev)
+nnoremap <leader>o :OR <CR>
+
+" fugitive mappings
+nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gd :Gdiffsplit<CR>
+
+" vim-go mappings
+nnoremap <leader>ga :GoAlternate<CR>
+nnoremap <leader>gc :GoCoverageToggle<CR>
+nnoremap <leader>ge :GoIfErr<CR>
+nnoremap <leader>gi :GoImports<CR>
+nnoremap <leader>gl :GoMetaLint<CR>
+nnoremap <leader>gr :GoRun<CR>
+nnoremap <leader>gs :GoFillStruct<CR>
+nnoremap <leader>gt :GoTest<CR>
+
+" vim-easy-align
+xmap <leader>a <Plug>(EasyAlign)
+nmap <leader>a <Plug>(EasyAlign)
+
+" =================== Normal Mappings ==========================
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Easy Buffer switching
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+
+" Easier move line with alt+j / alt+k
+nnoremap <M-j> mz:m+<cr>`z
+nnoremap <M-k> mz:m-2<cr>`z
+
+" Disable hl with 2 esc
+noremap <silent><esc><esc> :noh<CR><esc>
+
+" Map jk to ESC in insert
+inoremap jk <ESC>
+
+
+" =================== Visual Mappings ==========================
+" Easier move line with alt+j / alt+k
+vnoremap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+" Coc function and class text objects
 xmap if <Plug>(coc-funcobj-i)
 omap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
@@ -315,25 +334,12 @@ xmap ic <Plug>(coc-classobj-i)
 omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
+
 " Use CTRL-S for selections ranges.
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-" other stuff
-nmap <leader>lrn <Plug>(coc-rename)
-nnoremap <leader>o :OR <CR>
 
-" fugitive mappings
-nnoremap <leader>gd :Gdiffsplit<CR>
-nnoremap <leader>gb :Gblame<CR>
-
-" vim-go mappings
-nmap <leader>lt :GoTest<CR>
-nmap <leader>ll :GoMetaLint<CR>
-nmap <leader>lc :GoCoverageToggle<CR>
-nmap <leader>la :GoAlternate<CR>
-nmap <leader>lr :GoRun<CR>
-nmap <leader>li :GoImports<CR>
-nmap <leader>lfs :GoFillStruct<CR>
-nmap <leader>lie :GoIfErr<CR>
+" =================== Terminal Mappings ==========================
+" Easier close terminal
+tnoremap <Esc> <C-\><C-n><C-w>q
+tnoremap jk <C-\><C-n>

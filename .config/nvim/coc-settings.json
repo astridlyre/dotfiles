@@ -16,11 +16,13 @@
 		"react",
 		"jsonc"
 	],
+	"html.format.indentInnerHtml": true,
+	"coc.preferences.bracketEnterImprove": true,
 	"suggest.noselect": true,
 	"suggest.detailField": "abbr",
 	"suggest.snippetIndicator": "",
 	"suggest.removeDuplicateItems": true,
-	"suggest.triggerAfterInsertEnter": true,
+	"suggest.triggerAfterInsertEnter": false,
 	"suggest.timeout": 2000,
 	"suggest.minTriggerInputLength": 1,
 	"suggest.completionItemKindLabels": {
@@ -82,8 +84,6 @@
 		"usePlaceholders": true
 	},
 	"python.linting.enabled": true,
-	"python.jediEnabled": false,
-	"python.analysis.openFilesOnly": false,
 	"python.linting.flake8Enabled": true,
 	"python.linting.mypyEnabled": true
 }

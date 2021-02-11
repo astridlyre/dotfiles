@@ -1,16 +1,15 @@
-" ================= looks and GUI stuff ================== "
+" ================= Plugins ================== "
 call plug#begin(expand('~/.config/nvim/plugged'))
-Plug 'bluz71/vim-moonfly-colors'
-
-" ================= Functionalities ================= "
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'Yggdroot/indentLine'
-Plug 'tpope/vim-commentary'
-Plug 'machakann/vim-sandwich'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'jiangmiao/auto-pairs'
-Plug 'antoinemadec/FixCursorHold.nvim'
+Plug 'bluz71/vim-moonfly-colors'                            " Colorscheme
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
+Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
+Plug 'junegunn/vim-easy-align'                              " Easy align
+Plug 'Yggdroot/indentLine'                                  " show indentation lines
+Plug 'tpope/vim-commentary'                                 " better commenting
+Plug 'tpope/vim-fugitive'                                   " git support
+Plug 'machakann/vim-sandwich'                               " make sandwiches
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Syntax support
+Plug 'jiangmiao/auto-pairs'                                 " Auto bracket pairs
 call plug#end()
 
 " ==================== Treesitter ======================== "
@@ -33,73 +32,73 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-" ===== statusline =====
-set statusline=
-set statusline+=\ %#MoonflyEmerald#%t
-set statusline+=%=
-set statusline+=\ %#MoonflyGrey246#%m
-set statusline+=\ %#MoonflyGrey241#%y
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\ %p%%\ 
+" ==================== statusline ======================== "
+set statusline=                                            " Clear default statusline
+set statusline+=\ %#MoonflyEmerald#%t                      " Filename
+set statusline+=%=                                         " Spacer
+set statusline+=\ %#MoonflyGrey246#%m                      " Modified symbol
+set statusline+=\ %#MoonflyGrey241#%y                      " Filetype
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding} " Encoding
+set statusline+=\ %p%%\                                    " Percent
 
 " ==================== general config ======================== "
-set termguicolors
-set mouse=a
-set tabstop=2 softtabstop=2 shiftwidth=2 autoindent
-set expandtab
-set incsearch ignorecase smartcase hlsearch " highlight text while searching
-set list listchars=trail:»,tab:»- " use tab to navigate in list mode
-set wrap breakindent " wrap long lines to the width set by tw
-set number
-set relativenumber
-set showtabline=0
-set noshowmode
-set noshowcmd
-set conceallevel=2 " set this so we wont break indentation plugin
-set splitright
-set splitbelow
-set tw=90 " auto wrap lines that are longer than that
-set emoji
-set history=1000
-set undofile
-set undodir=/tmp
-set foldlevel=0
-set inccommand=nosplit
-set grepprg=rg\ --vimgrep " use rg as default grepper
-
-" ===== performance tweaks =====
-set nocursorline
-set nocursorcolumn
-set scrolljump=5
-set lazyredraw
-set redrawtime=10000
-set synmaxcol=180
-set timeoutlen=850
-set maxmempattern=20000
+set number                                          " Line numbers
+set relativenumber                                  " Relative line numbers
+set termguicolors                                   " True colors
+set mouse=a                                         " Enable mouse scroll
+set foldmethod=manual                               " Manual folding only
+set tabstop=2 softtabstop=2 shiftwidth=2 autoindent " tab width
+set expandtab                                       " Expand tab into spaces
+set incsearch ignorecase smartcase hlsearch         " highlight text while searching
+set list listchars=trail:»,tab:»-                   " use tab to navigate in list mode
+set wrap breakindent                                " wrap long lines to the width set by tw
+set showtabline=0                                   " Never show tabline
+set noshowmode                                      " Do not show mode under statusline
+set noshowcmd                                       " Do not show last command
+set conceallevel=2                                  " Necessary for Indentline
+set splitright                                      " open vertical split to the right
+set splitbelow                                      " open horizontal split to the bottom
+set tw=90                                           " auto wrap lines
+set emoji                                           " enable emojis
+set history=1000                                    " history limit
+set undofile                                        " enable persistent undo
+set undodir=/tmp                                    " undo temp file directory
+set inccommand=nosplit                              " visual feedback while substituting
+set grepprg=rg\ --vimgrep                           " use rg as default grepper
+set nocursorline                                    " Do not show cursorline
+set nocursorcolumn                                  " Do not show cursorcolumn
+set scrolljump=5                                    " Keep cursor 10 lines from edges
+set scrolloff=5                                     " Keep cursor 10 lines from edges
+set lazyredraw                                      " Performance boost for macros
+set redrawtime=10000                                " Allow more time for redraws
+set synmaxcol=180                                   " No syntax on long lines
+set timeoutlen=850                                  " Time to wait between keypress
+set maxmempattern=20000                             " Max mem to use
 set re=1
-set hidden
-set nobackup
-set nowritebackup
-set cmdheight=1
-set updatetime=100
-set shortmess+=actI
-set signcolumn=yes
+set hidden                                          " Keep buffers around
+set nobackup                                        " Do not make backup files
+set nowritebackup                                   " No write backups
+set cmdheight=1                                     " Make hight 1 line
+set updatetime=100                                  " For CursorHold autocmd
+set shortmess+=actI                                 " Avoid more press enters
+set signcolumn=yes                                  " Always show signcolumn
 
 " ======================== Plugin Configurations ======================== "
-let loaded_netrw = 0
-let g:loaded_python_provider = 0
-let g:loaded_perl_provider = 0
-let g:loaded_ruby_provider = 0
-let g:python3_host_prog = '/usr/bin/python3'
+let loaded_netrw = 0                         " diable netew
+let g:omni_sql_no_default_maps = 1           " disable sql omni completion
+let g:loaded_python_provider = 0             " Disable python2
+let g:loaded_perl_provider = 0               " Disable perl
+let g:loaded_ruby_provider = 0               " Disable ruby
+let g:python3_host_prog = '/usr/bin/python3' " Default python3
 
-"colorscheme config should be put before colorscheme
+" Colorscheme
 let g:moonflyTransparent = 1
 colorscheme moonfly
 
 " indentLine
 let g:indentLine_char_list = ['▏', '¦', '┆', '┊']
 let g:indentLine_setColors = 0
-let g:indentLine_setConceal = 0
+let g:indentLine_setConceal = 0 " Fix conceal for markdown
 
 " FZF
 let g:fzf_action = {
@@ -111,12 +110,9 @@ let g:fzf_tags_command = 'ctags -R'
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
 let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build/**' --glob '!node_modules/**' --glob '!vendor/bundle/**'"
 
-" Fix CursorHold
-let g:cursorhold_updatetime = 100
-
 " ======================== Commands ============================= "
-au BufEnter * set fo-=c fo-=r fo-=o
-au FileType help wincmd L
+au BufEnter * set fo-=c fo-=r fo-=o " stop annoying auto commenting on new lines
+au FileType help wincmd L           " open help in vertical split
 
 " enable spell only if file type is normal text
 let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
@@ -164,72 +160,83 @@ function! ResetHightlight()
   execute 'write | edit | TSBufEnable highlight'
 endfunction
 
-" ======================== Custom Mappings ====================== "
+" =================== Global Mappings ==========================
+" Disable s for vim-sandwich
+nmap s <Nop>
 
-" ===== Leader =====
+" Make Y consistent
+map Y y$
+
+" =================== Leader Mappings ==========================
+" Map leader to space
 let mapleader=' '
+
+" Install or Update Plugins
 nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>pu :PlugUpdate<CR>
+nnoremap <leader>pc :PlugClean<CR>
 nnoremap <leader>\ :qa!<CR>
 nnoremap <leader>q :bd<CR>
 nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
 nnoremap <leader>t :call ResetHightlight()<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>z :bd!<CR>
+
 " new line in normal mode and back
 nnoremap <leader>[ myO<ESC>`y
 nnoremap <leader>] myo<ESC>`y
-" open a terminal
+
+" open terminal
 nnoremap <leader>' :sp term://bash<CR>i
-"" FZF
+
+" easy system clipboard copy & paste
+nnoremap <leader>Y mqgg"+yG`q
+nnoremap <leader>p "+p
+nnoremap <leader>y "+y
+vnoremap <leader>Y "+Y
+vnoremap <leader>p "+p
+vnoremap <leader>y "+y
+
+" FZF
+nnoremap <leader>/ :Rg<CR>
+nnoremap <leader>: :Commands<CR>
 nnoremap <leader>bb :Buffers<CR>
 nnoremap <leader>bt :BTags<CR>
-nnoremap <leader>: :Commands<CR>
 nnoremap <leader>gc :Commits<CR>
 nnoremap <leader>gs :GFiles?<CR>
 nnoremap <leader>h :History<CR>
-nnoremap <leader>/ :Rg<CR>
-nnoremap <silent> <leader>f :Files<CR>
-" easy system clipboard copy & paste
-nnoremap <leader>p "+p
-nnoremap <leader>Y mqgg"+yG`q
-nnoremap <leader>y "+y
-vnoremap <leader>p "+p
-vnoremap <leader>Y "+Y
-vnoremap <leader>y "+y
+nnoremap <leader>f :Files<CR>
 
-" ===== Global =====
-map Y y$
-map <F3> :e ~/.config/nvim/init.vim<CR>
+" fugitive mappings
+nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gd :Gdiffsplit<CR>
 
-" ===== Normal mode =====
-nmap s <Nop>
-nmap <F1> <plug>(fzf-maps-n)
-" easy buffer switch
+" vim-easy-align
+xmap <leader>a <Plug>(EasyAlign)
+nmap <leader>a <Plug>(EasyAlign)
+
+" =================== Normal Mappings ==========================
+" Easy Buffer switching
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
-" easy move line with alt+j/k
+
+" Easier move line with alt+j / alt+k
 nnoremap <M-j> mz:m+<cr>`z
 nnoremap <M-k> mz:m-2<cr>`z
-" disable hl with 2 esc
-noremap <silent><esc> <esc>:noh<CR><esc>
-nnoremap <F2> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
-" ===== Insert mode =====
+" Disable hl with 2 esc
+noremap <silent><esc><esc> :noh<CR><esc>
+
+" Map jk to ESC in insert
 inoremap jk <ESC>
-imap <F1> <plug>(fzf-maps-i)
 
-" ===== Visual mode =====
-vmap <F1> <plug>(fzf-maps-x)
-" easier move line with alt+j/k
+
+" =================== Visual Mappings ==========================
+" Easier move line with alt+j / alt+k
 vnoremap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
-" ===== Command mode =====
-cnoremap jk <ESC>
-cnoremap <c-n>  <down>
-cnoremap <c-p>  <up>
-
-" ===== Terminal mode =====
+" =================== Terminal Mappings ==========================
+" Easier close terminal
 tnoremap <Esc> <C-\><C-n><C-w>q
 tnoremap jk <C-\><C-n>
