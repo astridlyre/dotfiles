@@ -5,20 +5,17 @@ As in the Linux tradition, here are my dotfiles. Since I'm just starting my jour
 
 ## About Me
 
-I'm teaching myself how to code, and how to use Linux. I'm using Pop! OS, which is an easy
-entry into the Linux world, and offers a great tiling window manager experience without the
-setup of i3 or other such tools. Eventually, I plan to install a few other distributions of
-Linux to learn how to configure everything myself, but for the time being this set up is
-working for me. The priority is to learn the more important aspects first, such as coding
-and how computers work.
+I'm teaching myself how to code, and how to use Linux. I'm using Arch Linux, which is good
+entry into the Linux world, and offers a customizable experience. In the spirit of
+learning, I am using `bspwm` and other such tools to force me to configure things on my
+own.
 
 ## My Current Tools
 
-At the moment I'm using [Neovim](https://neovim.io/), but I have also been playing around with [SpaceVim](https://spacevim.org/).
-I use [Fish Shell](https://fishshell.com/), which while not POSIX compliant, is user friendly
-and easy to use. The terminal I use is [Kitty](https://sw.kovidgoyal.net/kitty/index.html), a GPU based terminal emulator.
-I have spent a while learning JavaScript, along with web development. Some of the
-resources I've been using are:
+At the moment I'm using [Neovim](https://neovim.io/) for my text editor. Future goals
+include figuring out the built-in LSP. I use `bash` for my shell, and `alacritty` for my
+terminal emulator. I have spent a while learning JavaScript, along with web development.
+Some of the resources I've been using are:
 
 - [Full Stack Open](https://fullstackopen.com/), a free online course from the University of Helsinki. This course focused on React and Nodejs.
 - [JavaScript.info](https://javascript.info/), a free online JavaScript tutorial and reference.
