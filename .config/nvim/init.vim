@@ -61,12 +61,11 @@ set mouse=a                                         " Enable mouse scroll
 set foldmethod=manual                               " Manual folding only
 set tabstop=2 softtabstop=2 shiftwidth=2 autoindent " tab width
 set expandtab                                       " Expand tab into spaces
-set incsearch ignorecase smartcase hlsearch         " highlight text while searching
+set ignorecase smartcase                            " highlight text while searching
 set list listchars=trail:»,tab:»-                   " use tab to navigate in list mode
 set wrap breakindent                                " wrap long lines to the width set by tw
 set showtabline=0                                   " Never show tabline
 set noshowmode                                      " Do not show mode under statusline
-set noshowcmd                                       " Do not show last command
 set conceallevel=2                                  " Necessary for Indentline
 set splitright                                      " open vertical split to the right
 set splitbelow                                      " open horizontal split to the bottom
@@ -86,6 +85,9 @@ set redrawtime=10000                                " Allow more time for redraw
 set synmaxcol=180                                   " No syntax on long lines
 set timeoutlen=850                                  " Time to wait between keypress
 set maxmempattern=20000                             " Max mem to use
+set wildmode=longest:full,full
+set wildignorecase
+set wildignore=*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache
 set re=1
 set hidden                                          " Keep buffers around
 set nobackup                                        " Do not make backup files
@@ -96,12 +98,19 @@ set shortmess+=actI                                 " Avoid more press enters
 set signcolumn=yes                                  " Always show signcolumn
 
 " ======================== Plugin Configurations ======================== "
-let loaded_netrw = 0                         " diable netew
-let g:omni_sql_no_default_maps = 1           " disable sql omni completion
-let g:loaded_python_provider = 0             " Disable python2
-let g:loaded_perl_provider = 0               " Disable perl
-let g:loaded_ruby_provider = 0               " Disable ruby
-let g:python3_host_prog = '/usr/bin/python3' " Default python3
+let g:loaded_gzip              = 1                  " Disable Unused plugins
+let g:loaded_tarPlugin         = 1
+let g:loaded_zipPlugin         = 1
+let g:loaded_2html_plugin      = 1
+let g:loaded_rrhelper          = 1
+let g:loaded_remote_plugins    = 1
+let g:loaded_netrw             = 1                  " Disable netrw
+let g:loaded_netrwPlugin       = 1
+let g:omni_sql_no_default_maps = 1                  " disable sql omni completion
+let g:loaded_python_provider   = 0                  " Disable python2
+let g:loaded_perl_provider     = 0                  " Disable perl
+let g:loaded_ruby_provider     = 0                  " Disable ruby
+let g:python3_host_prog        = '/usr/bin/python3' " Default python3
 
 " Colorscheme
 let g:moonflyTransparent = 1
@@ -126,8 +135,8 @@ let g:coc_global_extensions = [
             \'coc-diagnostic' ]
 
 " indentLine
-let g:indentLine_char_list = ['▏', '¦', '┆', '┊']
-let g:indentLine_setColors = 0
+let g:indentLine_char_list  = ['▏', '¦', '┆', '┊']
+let g:indentLine_setColors  = 0
 let g:indentLine_setConceal = 0 " Fix conceal for markdown
 
 " FZF
@@ -142,14 +151,24 @@ let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build
 
 " vim-go
 let g:go_fmt_autosave = 1
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command  = "goimports"
 
 " Fix CursorHold
 let g:cursorhold_updatetime = 100
 
+" lorem ipsum
+iab <expr> lorem system('curl -s http://metaphorpsum.com/paragraphs/1')
+
 " ======================== Commands ============================= "
 au BufEnter * set fo-=c fo-=r fo-=o " stop annoying auto commenting on new lines
 au FileType help wincmd L           " open help in vertical split
+
+" No line numbers or relative numbers in terminal window
+augroup TerminalEnter
+  autocmd!
+  au TermOpen * setlocal nonumber
+  au TermOpen * setlocal norelativenumber
+augroup end
 
 " enable spell only if file type is normal text
 let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
@@ -191,6 +210,9 @@ command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport
 " advanced grep
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
+" Strip whitespace
+command! StripWhitespace :%s/\s\+$//e
+
 " ================== Custom Functions ===================== "
 " advanced grep(faster with preview)
 function! RipgrepFzf(query, fullscreen)
@@ -220,6 +242,7 @@ endfunction
 " =================== Global Mappings ==========================
 " Easy edit vim config
 map <F3> :e ~/.config/nvim/init.vim<CR>
+map <F2> :StripWhitespace<CR>
 
 " Disable s for vim-sandwich
 nmap s <Nop>
@@ -231,13 +254,14 @@ map Y y$
 " Map leader to space
 let mapleader=' '
 
-" Format code
-nnoremap <leader>lf :Format<CR>
+" Write buffer as sudo
+nnoremap <leader>sudo :w !sudo tee > /dev/null %
 
 " Install or Update Plugins
+nnoremap <leader>lf :Format<CR>
+nnoremap <leader>pc :PlugClean<CR>
 nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>pu :PlugUpdate<CR>
-nnoremap <leader>pc :PlugClean<CR>
 nnoremap <leader>\ :qa!<CR>
 nnoremap <leader>q :bd<CR>
 nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
