@@ -13,6 +13,14 @@ alias ducks="du -sh * | sort -hr | head -11"
 alias r="ranger"
 alias pdate="date +'%d/%m/%y'"
 alias fd="fd -H"
+alias btc="crypto-query btc"
+alias eth="crypto-query eth"
+alias ada="crypto-query ada"
+alias cx="chmod -x"
+
+openpic() {
+  ristretto "$1"
+}
 
 # Movement
 alias ..="cd .."
@@ -26,5 +34,5 @@ alias sr="sudo reboot now"
 alias sus="sudo systemctl suspend"
 
 min() {
-  nvim -u $HOME/.config/nvim/init_minimal.vim $1
+  nvim -u "$HOME/.config/nvim/init_minimal.vim" "$1"
 }

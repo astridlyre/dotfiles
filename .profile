@@ -6,9 +6,6 @@ if [ -n "$DESKTOP_SESSION" ];then
     export SSH_AUTH_SOCK
 fi
 
-# Cursor Setup
-xsetroot -cursor_name left_ptr &
-
 # Hide cursor after one second
 unclutter --timeout 1 &
 
@@ -18,3 +15,6 @@ xset r r off
 # Map capslock to esc & ctrl
 setxkbmap -option ctrl:nocaps
 xcape -e 'Control_L=Escape' &
+
+# cursor fix
+xsetroot -cursor_name left_ptr

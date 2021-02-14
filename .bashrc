@@ -1,3 +1,4 @@
+#!/bin/bash
 #                             _ _       _     _
 # _ __ ___   ___   ___  _ __ | (_) __ _| |__ | |_
 #| '_ ` _ \ / _ \ / _ \| '_ \| | |/ _` | '_ \| __|
@@ -16,10 +17,12 @@ HISTCONTROL=ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-# Set visual editor
-VISUAL="/usr/bin/vim"
-EDITOR="/usr/local/bin/nvim"
-FCEDIT="$EDITOR"
+# Set some global variables
+export VISUAL="/usr/bin/vim"
+export EDITOR="/usr/local/bin/nvim"
+export FCEDIT="$EDITOR"
+export PAGER="/usr/sbin/less"
+
 # shopt
 shopt -s histappend # don't overwrite history
 shopt -s checkwinsize # check for resize
@@ -37,7 +40,7 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 # ensure prompt has colors
-color_prompt=yes
+export color_prompt=yes
 
 # Nice colored directory listing above prompt
 PS1='\n\[\033[01;34m\]\w\[\033[00m\]\n\[\033[0;37m\]❱\[\033[00m\] '
@@ -45,7 +48,6 @@ PS2="〉"
 
 # enable color support of grep
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -55,8 +57,8 @@ fi
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # import aliases
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f "$HOME/.bash_aliases" ]; then
+    source "$HOME/.bash_aliases"
 fi
 
 # enable programmable completion features
@@ -73,17 +75,18 @@ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/ga
 
 # local scripts dir
 export PATH=$HOME/.bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 
 # go
 export PATH=/usr/local/go/bin:$PATH
 export PATH=$HOME/go/bin:$PATH
 
 # fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f "$HOME/.fzf.bash" ] && source "$HOME/.fzf.bash"
 
 # fnm
 export PATH=$HOME/.fnm:$PATH
-eval "`fnm env`"
+eval "$(fnm env)"
 
 # ruby
 export PATH=$HOME/.local/share/gem/ruby/2.7.0/bin:$PATH

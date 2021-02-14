@@ -7,7 +7,7 @@ STEP=2000
 
 # Simple setting function
 setBrightness() {
-	echo $1 > $BPATH
+	echo "$1" > $BPATH
 	exit 0
 }
 
@@ -26,7 +26,7 @@ fi
 if [ "$1" == "up" ]; then
 	NEW=$((CURRENT + STEP))
 	if ((NEW > MAX)); then
-		setBrightness $MAX
+		setBrightness "$MAX"
 	else
 		setBrightness $NEW
 	fi
@@ -44,7 +44,7 @@ fi
 # Set Brightness
 if [ "$1" == "set" ]; then
 	if [ "$2" ]; then
-		setBrightness $2
+		setBrightness "$2"
 	else
 		setBrightness 16000
 	fi
