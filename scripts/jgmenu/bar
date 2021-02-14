@@ -1,0 +1,125 @@
+#! /usr/bin/env sh
+#===============================================================================
+#         FILE: bar
+#
+#  DESCRIPTION: Custom Rightclick Menu
+# DEPENDANCIES: 
+#              - xwininfo
+#              - xdotool
+#              - xkill
+#     ENV VARS:
+#              - TERMINAL
+#              - BROWSER
+#
+#       AUTHOR: Gavin Jaeger-Freeborn gavinfreeborn@gmail.com
+#      CREATED: Wed 20 May 2020 10:15:25 AM
+#      VERSION: 1.0
+#===============================================================================
+
+# file to store hidden windows
+tmpfile="/tmp/hidden"
+
+# default options for men
+opts=$(printf 'Resize\nspawn, ^pipe(jgmenu_run pmenu)\nKill\nHide\n')
+
+# check the number of hidden windows
+hiddenwindows=$(wc -l "${tmpfile}" | cut -d " " -f1)
+
+# add option to show windows if some exist
+[ "${hiddenwindows}" -ge "1" ] && opts=$(printf '%s\nShow\n' "${opts}")
+
+get_id_interactive() {
+	xwininfo | grep 'Window id: ' | awk '{print $4}'
+}
+
+spawn() {
+	prog=$(printf 'Term\nBrowser\nVol\n' | jgmenu --no-spawn --simple)
+	[ -z "${prog}" ] && exit
+	case "${prog}" in
+	Term)
+		setsid "${TERMINAL}" &
+		;;
+	Browser)
+		setsid "${BROWSER}" "https://duckduckgo.com" &
+		;;
+	Vol)
+		setsid st -e pulsemixer &
+		;;
+	*)
+		notify-send "error prog not found"
+		exit
+		;;
+	esac
+}
+
+killclient() {
+	command -v xkill >/dev/null && xkill && exit 0
+	id=$(get_id_interactive)
+	[ -z "${id}" ] && exit
+	# fall back to xdotool to kill window
+	xdotool windowkill "${id}"
+}
+
+hideclient(){
+	id=$(get_id_interactive)
+	
+	[ -z "${id}" ] && exit
+	xdotool windowunmap "${id}"
+	printf "%b@@@%b\\n" "$(xwininfo -id "${id}" | grep 'Window id: ' | cut -d'"' -f 2)" "${id}" >> "${tmpfile}"
+}
+
+showclient(){
+	# implementation of unhide.sh using jgmenu
+	if [ "${hiddenwindows}" -le "1" ]; then
+		windowid=$(sed 's/@@@/ /g' "${tmpfile}" | awk '{print $NF}')
+	else
+		windowid=$(sed 's/@@@/ /g' "${tmpfile}" | jgmenu --no-spawn --simple | awk '{print $NF}')
+		echo "${windowid}"
+	fi
+
+	if [ -n "${windowid}" ]; then
+		xdotool windowmap "${windowid}"
+		sed -i '/'${windowid}'/d' "${tmpfile}"
+		export windowid=
+	else
+		notify-send "No hidden windows"
+	fi
+}
+
+
+func=$(printf '%s\n' "${opts}" | jgmenu --no-spawn --simple)
+[ -z "${func}" ] && exit
+case ${func} in
+Resize)
+	id=$(get_id_interactive)
+	[ -z "${id}" ] && exit
+	geo=$(slop -n)
+	[ -z "${geo}" ] && exit
+	xsize=$(echo "${geo}" | cut -dx -f1)
+	echo "${xsize}"
+	ysize=$(echo "${geo}" | cut -dx -f2 | cut -d+ -f1)
+	echo "${ysize}"
+	xlocal=$(echo "${geo}" | cut -d+ -f2)
+	echo "${xlocal}"
+	ylocal=$(echo "${geo}" | cut -d+ -f3)
+	echo "${ylocal}"
+	xdotool windowsize "${id}" "${xsize}" "${ysize}"
+	xdotool windowmove "${id}" "${xlocal}" "${ylocal}"
+	exit
+	;;
+Spawn)
+	spawn
+	;;
+Kill)
+	killclient
+	;;
+Hide)
+	hideclient
+	;;
+Show)
+	showclient
+	;;
+*) setsid "${func}" ;;
+esac
+exit
+#vim:ft=sh

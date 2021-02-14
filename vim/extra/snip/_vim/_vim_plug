@@ -1,0 +1,1 @@
+Plug '{{+~substitute(getreg('+'),'https://github.com/','','')+}}'{{--}}

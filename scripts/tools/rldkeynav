@@ -1,0 +1,4 @@
+#!/bin/sh
+# script used to restart keynav
+killall keynav
+keynav daemonize

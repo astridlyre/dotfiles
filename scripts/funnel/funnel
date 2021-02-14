@@ -1,0 +1,35 @@
+#!/bin/sh
+
+######################################################################
+# @author      : Gavin Jaeger-Freeborn (gavinfreeborn@gmail.com)
+# @file        : tslink.sh
+# @created     : Sat 29 Feb 2020 01:13:37 PM
+#
+# @description : simple taskspooler using fifo
+######################################################################
+
+[ -z "$1" ] && echo please enter a url && exit
+
+pipename=ts.pipe
+pipefile="/tmp/${pipename}"
+lockfile="/tmp/ts.lock"
+
+tsstart() {
+	touch "${lockfile}"
+	while true; do
+		sh <"${pipefile}"
+	done
+	rm -f "${lockfile}"
+
+	notify-send " Tasks Completed"
+}
+
+[ ! -p "${pipefile}" ] && mkfifo "${pipefile}"
+
+echo "${BROWSER} $1" >>"${pipefile}" &
+
+# quit if lockfile already exists
+[ -f "${lockfile}" ] && exit
+
+tsstart &
+# vim: set tw=78 ts=2 et sw=2 sr:
