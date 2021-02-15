@@ -17,6 +17,7 @@ alias btc="crypto-query btc"
 alias eth="crypto-query eth"
 alias ada="crypto-query ada"
 alias cx="chmod -x"
+alias liztime="TZ='US/Michigan' date"
 
 openpic() {
   ristretto "$1"

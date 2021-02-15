@@ -30,7 +30,7 @@ shopt -s globstar # use for recursive search
 shopt -s autocd # change to named dir
 shopt -s cdspell # fix misspellings
 
-umask 0022
+umask 0077
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
