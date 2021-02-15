@@ -21,7 +21,6 @@ Plug 'machakann/vim-sandwich'                               " make sandwiches
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Syntax support
 Plug 'jiangmiao/auto-pairs'                                 " Auto bracket pairs
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }          " Go lang plugin
-Plug 'antoinemadec/FixCursorHold.nvim'                      " CursorHold fix
 call plug#end()
 
 " ==================== Treesitter ======================== "
@@ -31,7 +30,6 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
   },
-  indent = { enable = true },
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -152,9 +150,6 @@ let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build
 " vim-go
 let g:go_fmt_autosave = 1
 let g:go_fmt_command  = "goimports"
-
-" Fix CursorHold
-let g:cursorhold_updatetime = 100
 
 " lorem ipsum
 iab <expr> lorem system('curl -s http://metaphorpsum.com/paragraphs/1')
@@ -343,7 +338,6 @@ noremap <silent><esc><esc> :noh<CR><esc>
 " Map jk to ESC in insert
 inoremap jk <ESC>
 
-
 " =================== Visual Mappings ==========================
 " Easier move line with alt+j / alt+k
 vnoremap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
@@ -362,6 +356,15 @@ omap ac <Plug>(coc-classobj-a)
 " Use CTRL-S for selections ranges.
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Simple spell correct
+vnoremap <leader>m !misspell -q -w<CR>
+
+" Simple sort
+vnoremap <leader>s !sort<CR>
+
+" Simple calc with bc
+vnoremap <leader>c !scriptbc<CR>
 
 " =================== Terminal Mappings ==========================
 " Easier close terminal

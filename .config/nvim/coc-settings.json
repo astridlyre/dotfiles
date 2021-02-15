@@ -17,7 +17,6 @@
 		"jsonc"
 	],
 	"html.format.indentInnerHtml": true,
-	"coc.preferences.bracketEnterImprove": true,
 	"suggest.noselect": true,
 	"suggest.detailField": "abbr",
 	"suggest.snippetIndicator": "",
@@ -85,5 +84,14 @@
 	},
 	"python.linting.enabled": true,
 	"python.linting.flake8Enabled": true,
-	"python.linting.mypyEnabled": true
+	"python.linting.mypyEnabled": true,
+	"diagnostic-languageserver.filetypes": {
+		"vim": "vint",
+		"sh": "shellcheck"
+	},
+	"diagnostic-languageserver.formatFiletypes": {
+		"python": ["black", "isort"],
+		"sh": "shfmt"
+	},
+	"diagnostic-languageserver.mergeConfig": true
 }
