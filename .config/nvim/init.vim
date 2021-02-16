@@ -94,6 +94,7 @@ set cmdheight=1                                     " Make hight 1 line
 set updatetime=100                                  " For CursorHold autocmd
 set shortmess+=actI                                 " Avoid more press enters
 set signcolumn=yes                                  " Always show signcolumn
+set spelllang=en_gb                                 " Canadian spelling
 
 " ======================== Plugin Configurations ======================== "
 let g:loaded_gzip              = 1                  " Disable Unused plugins
@@ -234,6 +235,18 @@ function! ResetHightlight()
   execute 'write | edit | TSBufEnable highlight'
 endfunction
 
+" Spell checking on
+function! SpellOn()
+  set spell
+  echo "Spell Check Enabled"
+endfunction
+
+" Spell checking off
+function! SpellOff()
+  set nospell
+  echo "Spell Check Disabled"
+endfunction
+
 " =================== Global Mappings ==========================
 " Easy edit vim config
 map <F3> :e ~/.config/nvim/init.vim<CR>
@@ -270,6 +283,16 @@ nnoremap <leader>] myo<ESC>`y
 
 " open terminal
 nnoremap <leader>' :sp term://bash<CR>i
+
+" Simple sort
+vnoremap <leader>s !sort<CR>
+
+" Simple calc with bc
+vnoremap <leader>c !scriptbc<CR>
+
+" Spelling
+nnoremap <leader>so :call SpellOn()<CR>
+nnoremap <leader>sf :call SpellOff()<CR>
 
 " easy system clipboard copy & paste
 nnoremap <leader>Y mqgg"+yG`q
@@ -356,15 +379,6 @@ omap ac <Plug>(coc-classobj-a)
 " Use CTRL-S for selections ranges.
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
-
-" Simple spell correct
-vnoremap <leader>m !misspell -q -w<CR>
-
-" Simple sort
-vnoremap <leader>s !sort<CR>
-
-" Simple calc with bc
-vnoremap <leader>c !scriptbc<CR>
 
 " =================== Terminal Mappings ==========================
 " Easier close terminal

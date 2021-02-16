@@ -1,24 +1,22 @@
-#!/bin/bash
+#!/bin/sh
 
 NVIM=$HOME/.config/nvim/init.vim
 BSPWM=$HOME/.config/bspwm/bspwmrc
 SXHKD=$HOME/.config/bspwm/sxhkd/sxhkdrc
 BASH=$HOME/.bashrc
 ALACRITTY=$HOME/.config/alacritty/alacritty.yml
-FISH=$HOME/.config/fish/config.fish
 POLYBAR=$HOME/.config/polybar/config
 
 openConfig() {
-  alacritty -e bash -c "vim -u $HOME/.config/nvim/init_minimal.vim $1"
+	alacritty -e bash -c "vim -u $HOME/.config/nvim/init_minimal.vim $1"
 }
 
 case $1 in
-  nvim) openConfig $NVIM;;
-  bspwm) openConfig $BSPWM;;
-  sxhkd) openConfig $SXHKD;;
-  bash) openConfig $BASH;;
-  alacritty) openConfig $ALACRITTY;;
-  fish) openConfig $FISH;;
-  polybar) openConfig $POLYBAR;;
-  *);;
+nvim) openConfig "$NVIM" ;;
+bspwm) openConfig "$BSPWM" ;;
+sxhkd) openConfig "$SXHKD" ;;
+bash) openConfig "$BASH" ;;
+alacritty) openConfig "$ALACRITTY" ;;
+polybar) openConfig "$POLYBAR" ;;
+*) ;;
 esac
