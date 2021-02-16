@@ -1,5 +1,5 @@
 #!/bin/bash
 
-TARGET=$1
+TARGET="$1"
 
 curl "cht.sh/$TARGET"

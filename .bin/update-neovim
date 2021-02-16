@@ -2,24 +2,22 @@
 
 # -------------------------
 # Error handler
-# ------------------------- 
-error_exit()
-{
+# -------------------------
+error_exit() {
 	echo "update-neovim: ${1:- "Unknown Error"}" 1>&2
 	exit 1
 }
 
 # -------------------------
 # Update Neovim
-# ------------------------- 
+# -------------------------
 echo "Updating neovim"
 
 if wget "https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage"; then
-	mv ./nvim.appimage /usr/local/bin/nvim|| error_exit "Unable to move file"
+	mv ./nvim.appimage /usr/local/bin/nvim || error_exit "Unable to move file"
 	chmod 755 /usr/local/bin/nvim || error_exit "Unable to change file permissions"
 	sudo ln -sf /usr/local/bin/nvim /bin/vim
 	echo "Update complete"
 else
 	error_exit "Update failed, unable to download file"
 fi
-

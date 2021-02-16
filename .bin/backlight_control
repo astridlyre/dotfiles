@@ -7,7 +7,7 @@ STEP=2000
 
 # Simple setting function
 setBrightness() {
-	echo "$1" > $BPATH
+	echo "$1" >$BPATH
 	exit 0
 }
 
@@ -50,7 +50,7 @@ if [ "$1" == "set" ]; then
 	fi
 fi
 
-cat << _EOF_
+cat <<_EOF_
 Usage: 
 backlight_control up [step]
 backlight_control down [step]

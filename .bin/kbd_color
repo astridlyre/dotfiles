@@ -8,18 +8,18 @@ error_exit() {
 }
 
 set_kbd_color() {
-	echo "0x$1" > "$KBD_BACKLIGHT_PATH"
+	echo "0x$1" >"$KBD_BACKLIGHT_PATH"
 	exit 0
 }
 
-if [ $1 ]; then
+if [[ -n "$1" ]]; then
 	if [[ $1 =~ ^[a-fA-F0-9]{6}$ ]]; then
 		set_kbd_color "$1"
 	else
 		error_exit "$1"
 	fi
 else
-	read -p "Enter a 6-char HEX color: " HEX_COLOR
+	read -rp "Enter a 6-char HEX color: " HEX_COLOR
 	if [[ "$HEX_COLOR" =~ ^[a-fA-F0-9]{6}$ ]]; then
 		set_kbd_color "$HEX_COLOR"
 	else
