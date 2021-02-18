@@ -316,6 +316,7 @@ nnoremap <leader>f :Files<CR>
 nnoremap <leader>cu :CocUpdate<CR>
 nnoremap <leader>cc <Plug>(coc-fix-current)
 nnoremap <leader>cd <Plug>(coc-definition)
+nnoremap <leader>cl <Plug>(coc-codelens-action)
 nnoremap <leader>cf <Plug>(coc-refactor)
 nnoremap <leader>ci <Plug>(coc-implementation)
 nnoremap <leader>cn <Plug>(coc-rename)

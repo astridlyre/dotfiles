@@ -1,8 +1,10 @@
+#!/bin/bash
 # some more ls aliases
-alias ls="exa -G --color auto --icons -a -s type"
-alias ll="exa -l --color always --icons -a -s type"
-alias lt="exa -T --color always --icons -a -s type"
-alias cat="bat -pp --theme='Sublime Snazzy'"
+alias oldls="/usr/sbin/ls"
+alias ls="exa -G --color auto -a -s type"
+alias ll="exa -l --color always -a -s type"
+alias lt="exa -T --color always -a -s type"
+alias cat="bat -pp --theme='ansi-dark'"
 alias vi="vim"
 alias nvim="vim"
 alias c="clear"
@@ -20,7 +22,7 @@ alias cx="chmod -x"
 alias liztime="TZ='US/Michigan' date"
 
 openpic() {
-  ristretto "$1"
+	ristretto "$1"
 }
 
 # Movement
@@ -33,7 +35,3 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias ssn="sudo shutdown now"
 alias sr="sudo reboot now"
 alias sus="sudo systemctl suspend"
-
-min() {
-  nvim -u "$HOME/.config/nvim/init_minimal.vim" "$1"
-}

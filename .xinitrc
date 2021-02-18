@@ -18,3 +18,6 @@ xcape -e 'Control_L=Escape' &
 
 # cursor fix
 xsetroot -cursor_name left_ptr
+
+# start bspwm
+bspwm

@@ -18,7 +18,7 @@ numlockx on &
 # blueberry-tray &
 
 # Compositor
-picom --config "$HOME/.config/bspwm/picom.conf" &
+picom --experimental-backends --config "$HOME/.config/bspwm/picom.conf" &
 
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 /usr/lib/xfce4/notifyd/xfce4-notifyd &
