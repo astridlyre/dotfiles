@@ -6,11 +6,9 @@
 #|_| |_| |_|\___/ \___/|_| |_|_|_|\__, |_| |_|\__|
 #                                 |___/
 #
-# Make sure running interactively
-case $- in
-*i*) ;;
-*) return ;;
-esac
+
+# If not running interactively, do nothing
+[[ $- != *i* ]] && return
 
 # don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
@@ -18,10 +16,12 @@ HISTSIZE=1000
 HISTFILESIZE=2000
 
 # Set some global variables
-export VISUAL="/usr/bin/vim"
+export VISUAL="/usr/local/bin/nvim"
 export EDITOR="/usr/local/bin/nvim"
 export FCEDIT="$EDITOR"
-export PAGER="/usr/sbin/less"
+export PAGER="nvim -c 'set ft=man' -"
+export MANPAGER="nvim -c 'set ft=man' -"
+export MANWIDTH=90
 
 # shopt
 shopt -s histappend   # don't overwrite history
@@ -30,28 +30,21 @@ shopt -s globstar     # use for recursive search
 shopt -s autocd       # change to named dir
 shopt -s cdspell      # fix misspellings
 
+# Ignore upper and lowercase when TAB completion
+bind "set completion-ignore-case on"
+
+# Default umask, recommended for security
 umask 0077
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-	debian_chroot=$(cat /etc/debian_chroot)
-fi
 
 # ensure prompt has colors
 export color_prompt=yes
 
-# Nice colored directory listing above prompt
+# Prompt
 PS1='\n\[\033[01;34m\]\w\[\033[00m\]\n\[\033[0;37m\]❱\[\033[00m\] '
 PS2="〉"
-
-# enable color support of grep
-if [ -x /usr/bin/dircolors ]; then
-	alias grep='grep --color=auto'
-	alias fgrep='fgrep --color=auto'
-	alias egrep='egrep --color=auto'
-fi
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
