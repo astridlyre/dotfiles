@@ -41,7 +41,7 @@ ducks() {
 
 # Confirm before overwriting
 alias cp="cp -i"
-alias cp="mv -i"
+alias mv="mv -i"
 alias rm="rm -i"
 
 # ls replacement

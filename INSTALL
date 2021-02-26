@@ -1,0 +1,6 @@
+#!/bin/bash
+
+CONFIG=./.config
+SCRIPTS=./.bin
+declare -a DOTS
+DOTS=("./.bashrc" "./.bash_aliases" "./.bash_profile" "./.bash_logout" "./.xinitrc" "./.profile" "./.Xresources")
