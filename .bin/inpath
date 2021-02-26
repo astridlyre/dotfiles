@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# inpath: Verifies that a specified program is either valid as is
+# or can be found in the PATH directory list
+
+in_path() {
+	# Given a command and the PATH, tries to find the command.
+	# Returns 0 if found and executable, 1 if not.
+	local cmd="$1"
+	local ourpath="$2"
+	local result=1
+	local oldIFS="$IFS"
+	IFS=":"
+
+	for directory in $ourpath; do
+		if [[ -x "$directory/$cmd" ]]; then
+			result=0 # If we're here, we found the command
+		fi
+	done
+
+	IFS="$oldIFS"
+	return $result
+}
+
+check_for_cmd_in_path() {
+	local cmd="$1"
+
+	if [[ "$cmd" != "" ]]; then
+		if [[ "${cmd:0:1}" == "/" ]]; then
+			if [[ ! -x "$cmd" ]]; then
+				return 1
+			fi
+		elif ! in_path "$cmd" "$PATH"; then
+			return 2
+		fi
+	fi
+}
+
+if [[ "$#" != 1 ]]; then
+	echo "Usage: $0 command" >&2
+	exit 1
+fi
+
+check_for_cmd_in_path "$1"
