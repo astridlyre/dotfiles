@@ -73,17 +73,9 @@ super + s
 super + i
   ristretto
 
-# GIMP
-super + g
-  gimp
-
-# OBS
-super + o
-  obs
-
 # Lockscreen
-super + Backspace
-  betterlockscreen -l
+super + BackSpace
+  lockscreen_do
 
 #################################################################
 # SUPER + SHIFT KEYS
@@ -97,13 +89,25 @@ super + shift + Return
 super + shift+ e
 	pcmanfm
 
+# GIMP
+super + shift + g
+  gimp
+
+# OBS
+super + o
+  obs
+
 #################################################################
 #     SCREENSHOTS
 #################################################################
 
 #Scrot
 Print
-    scrot 'ArcoLinux-%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f $$(xdg-user-dir PICTURES)'
+    scrot -q 90 'ArcoLinux-%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f /home/ml/Pictures/Screenshots/'
+
+# Area Screen Shot
+super + shift + p
+    scrot -q 90 -s 'Area-%Y-%m-%d-%s_ss_$wx$h.jpg' -e 'mv $f /home/ml/Pictures/Screenshots/'
 
 #################################################################
 #     MULTIMEDIA KEYS

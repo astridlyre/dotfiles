@@ -1,36 +1,79 @@
 #!/bin/bash
+#
+# newscript
+#
+# Description: Easily create a new script file
+#
+# Usage: newscript [type] FILENAME
+#	types:	-b / --bash
+#			-p / --python
+#			-j / --javascript
+#
+
+# Globals
+BASH_BANG='#!/usr/sbin/env bash'
+PYTHON_BANG='#!/usr/sbin/env python3'
+JS_BANG='#!/usr/sbin/env node'
 
 # usage provides usage information
 usage() {
-	echo "Usage: $0 [scriptname]"
+	echo "Usage: $(basename "$0") [type] FILENAME"
+	exit 0
 }
 
-# create_script creates a new script file and opens it
-create_script() {
-	echo '#!/bin/bash' >"$1"
-	chmod +x "$1"
-	if [[ $EDITOR ]]; then
-		"$EDITOR" "$1"
-	else
-		vim "$1"
+# check_if_file_exists checks if file already exists
+check_if_file_exists() {
+	# verifies if a file already exists
+	if [[ -e "$1" ]]; then
+		read -rp "Overwrite file? [y/n] "
+		if [[ "$REPLY" =~ ^(y|Y)$ ]]; then
+			return 0
+		else
+			echo 'Aborted.'
+			return 1
+		fi
 	fi
+	return 0
+}
+
+# create_script creates the actual new script file
+create_script() {
+	echo "$1" >"$2"
+	chmod +x "$2"
+	if [[ $EDITOR ]]; then
+		"$EDITOR" "$2"
+	else
+		vim "$2"
+	fi
+	exit 0
 }
 
 # ensure the correct number of arguments
-if [[ ! "$1" || "$#" -gt 1 ]]; then
+if [[ ! "$1" || "$#" -gt 2 ]]; then
 	usage
 	exit 1
 fi
 
-# verifies if a file already exists
-if [[ -e "$1" ]]; then
-	read -rp "Overwrite file? [y/n] "
-	if [[ "$REPLY" =~ ^(y|Y)$ ]]; then
-		create_script "$1"
-	else
-		echo 'Aborted.'
+# if only one argument, default to bash
+if (($# == 1)); then
+	if [[ "$1" =~ ^(-h)|(--help)$ ]]; then
+		usage
 		exit 0
 	fi
+	# Check if file exists and then create it
+	check_if_file_exists "$1" && create_script "$BASH_BANG" "$1"
 else
-	create_script "$1"
+	# Check if file exists or exit
+	check_if_file_exists "$2" || exit 0
+	case "$1" in
+	-b | --bash) create_script "$BASH_BANG" "$2" ;;
+	-p | --python) create_script "$PYTHON_BANG" "$2" ;;
+	-j | --javascript) create_script "$JS_BANG" "$2" ;;
+	*)
+		usage
+		exit 1
+		;;
+	esac
 fi
+
+# EOF

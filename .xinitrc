@@ -3,15 +3,18 @@
 # Start optimus manager
 /usr/bin/prime-offload &
 
-# Hide cursor after one second
-unclutter --timeout 1 &
-
 # Turn off key repeat
 xset r r off &
 
+# Set kbd color
+kbd_color -d &
+
 # Map capslock to esc & ctrl
 setxkbmap -option ctrl:nocaps &
-xcape -e 'Control_L=Escape' &
+
+if ! pgrep xcape; then
+  xcape -e 'Control_L=Escape'
+fi
 
 # cursor fix
 xsetroot -cursor_name left_ptr &
@@ -24,8 +27,6 @@ export SSH_AUTH_SOCK
 
 # Check for monitors
 NUMMONS="$(xrandr --query | rg " connected" | cut -d" " -f1 | wc -l)"
-export NUMMONS
-
 if [ "$NUMMONS" -eq 2 ]; then
 	/home/ml/.bin/dm-do
 else

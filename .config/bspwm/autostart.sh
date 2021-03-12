@@ -12,6 +12,9 @@ run() {
 # Start hotkey daemon
 run sxhkd -c ~/.config/bspwm/sxhkd/sxhkdrc &
 
+# Start unclutter to hide cursor
+run unclutter --timeout 1 &
+
 # Applets
 run nm-applet &
 numlockx on &
@@ -24,4 +27,4 @@ picom --experimental-backends --config "$HOME/.config/bspwm/picom.conf" &
 /usr/lib/xfce4/notifyd/xfce4-notifyd &
 
 # Background image
-feh --bg-fill /usr/share/backgrounds/bg1.jpg &
+feh --bg-fill "$BG_IMAGE" &

@@ -12,7 +12,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}             " LSP and more
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
 Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
 Plug 'junegunn/vim-easy-align'                              " Easy align
-Plug 'SirVer/ultisnips'                                     " snippets manager
 Plug 'honza/vim-snippets'                                   " actual snippets
 Plug 'Yggdroot/indentLine'                                  " show indentation lines
 Plug 'tpope/vim-commentary'                                 " better commenting
@@ -45,6 +44,7 @@ EOF
 " ==================== statusline ======================== "
 set statusline=                                            " Clear default statusline
 set statusline+=\ %#MoonflyEmerald#%t                      " Filename
+set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
 set statusline+=%=                                         " Spacer
 set statusline+=\ %#MoonflyGrey246#%m                      " Modified symbol
 set statusline+=\ %#MoonflyGrey241#%y                      " Filetype
@@ -58,7 +58,7 @@ set termguicolors                                   " True colors
 set mouse=a                                         " Enable mouse scroll
 set foldmethod=manual                               " Manual folding only
 set tabstop=2 softtabstop=2 shiftwidth=2 autoindent " tab width
-set expandtab                                       " Expand tab into spaces
+set expandtab
 set ignorecase smartcase                            " highlight text while searching
 set list listchars=trail:»,tab:»-                   " use tab to navigate in list mode
 set wrap breakindent                                " wrap long lines to the width set by tw
@@ -110,6 +110,7 @@ let g:loaded_python_provider   = 0                  " Disable python2
 let g:loaded_perl_provider     = 0                  " Disable perl
 let g:loaded_ruby_provider     = 0                  " Disable ruby
 let g:python3_host_prog        = '/usr/bin/python3' " Default python3
+let g:man_hardwrap			   = 0
 
 " Colorscheme
 let g:moonflyTransparent = 1
@@ -273,7 +274,7 @@ nnoremap <leader>pu :PlugUpdate<CR>
 nnoremap <leader>\ :qa!<CR>
 nnoremap <leader>q :bd<CR>
 nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
-nnoremap <leader>t :call ResetHightlight()<CR>
+nnoremap <leader>e :call ResetHightlight()<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>z :bd!<CR>
 
@@ -288,11 +289,11 @@ nnoremap <leader>' :sp term://bash<CR>i
 vnoremap <leader>s !sort<CR>
 
 " Simple calc with bc
-vnoremap <leader>c !scriptbc<CR>
+vnoremap <leader>bc !scriptbc<CR>
 
 " Spelling
-nnoremap <leader>so :call SpellOn()<CR>
-nnoremap <leader>sf :call SpellOff()<CR>
+nmap <leader>so :call SpellOn()<CR>
+nmap <leader>sf :call SpellOff()<CR>
 
 " easy system clipboard copy & paste
 nnoremap <leader>Y mqgg"+yG`q
@@ -303,42 +304,42 @@ vnoremap <leader>p "+p
 vnoremap <leader>y "+y
 
 " FZF
-nnoremap <leader>/ :Rg<CR>
-nnoremap <leader>: :Commands<CR>
-nnoremap <leader>bb :Buffers<CR>
-nnoremap <leader>bt :BTags<CR>
-nnoremap <leader>gc :Commits<CR>
-nnoremap <leader>gs :GFiles?<CR>
-nnoremap <leader>h :History<CR>
-nnoremap <leader>f :Files<CR>
+nmap <leader>/ :Rg<CR>
+nmap <leader>: :Commands<CR>
+nmap <leader>b :Buffers<CR>
+nmap <leader>t :BTags<CR>
+nmap <leader>gc :Commits<CR>
+nmap <leader>gs :GFiles?<CR>
+nmap <leader>h :History<CR>
+nmap <leader>f :Files<CR>
 
 " coc-commands
-nnoremap <leader>cu :CocUpdate<CR>
-nnoremap <leader>cc <Plug>(coc-fix-current)
-nnoremap <leader>cd <Plug>(coc-definition)
-nnoremap <leader>cl <Plug>(coc-codelens-action)
-nnoremap <leader>cf <Plug>(coc-refactor)
-nnoremap <leader>ci <Plug>(coc-implementation)
-nnoremap <leader>cn <Plug>(coc-rename)
-nnoremap <leader>cr <Plug>(coc-references)
-nnoremap <leader>ct <Plug>(coc-type-definition)
-nnoremap <leader>d <Plug>(coc-diagnostic-next)
-nnoremap <leader>D <Plug>(coc-diagnostic-prev)
-nnoremap <leader>o :OR <CR>
+nmap <leader>cu :CocUpdate<CR>
+nmap <leader>cc <Plug>(coc-fix-current)
+nmap <leader>cd <Plug>(coc-definition)
+nmap <leader>cl <Plug>(coc-codelens-action)
+nmap <leader>cf <Plug>(coc-refactor)
+nmap <leader>ci <Plug>(coc-implementation)
+nmap <leader>cn <Plug>(coc-rename)
+nmap <leader>cr <Plug>(coc-references)
+nmap <leader>ct <Plug>(coc-type-definition)
+nmap <leader>c] <Plug>(coc-diagnostic-next)
+nmap <leader>c[ <Plug>(coc-diagnostic-prev)
+nmap <leader>o :OR <CR>
 
 " fugitive mappings
-nnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>gd :Gdiffsplit<CR>
+nmap <leader>gb :Gblame<CR>
+nmap <leader>gd :Gdiffsplit<CR>
 
 " vim-go mappings
-nnoremap <leader>ga :GoAlternate<CR>
-nnoremap <leader>gc :GoCoverageToggle<CR>
-nnoremap <leader>ge :GoIfErr<CR>
-nnoremap <leader>gi :GoImports<CR>
-nnoremap <leader>gl :GoMetaLint<CR>
-nnoremap <leader>gr :GoRun<CR>
-nnoremap <leader>gs :GoFillStruct<CR>
-nnoremap <leader>gt :GoTest<CR>
+nmap <leader>ga :GoAlternate<CR>
+nmap <leader>gc :GoCoverageToggle<CR>
+nmap <leader>ge :GoIfErr<CR>
+nmap <leader>gi :GoImports<CR>
+nmap <leader>gl :GoMetaLint<CR>
+nmap <leader>gr :GoRun<CR>
+nmap <leader>gs :GoFillStruct<CR>
+nmap <leader>gt :GoTest<CR>
 
 " vim-easy-align
 xmap <leader>a <Plug>(EasyAlign)
@@ -385,3 +386,13 @@ xmap <silent> <C-s> <Plug>(coc-range-select)
 " Easier close terminal
 tnoremap <Esc> <C-\><C-n><C-w>q
 tnoremap jk <C-\><C-n>
+
+" =================== Insert Mappings ==========================
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+" Use <leader>x for convert visual selected code to snippet
+" xmap <leader>x  <Plug>(coc-convert-snippet)

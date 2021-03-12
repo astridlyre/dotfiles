@@ -19,9 +19,13 @@ HISTFILESIZE=2000
 export VISUAL="/usr/local/bin/nvim"
 export EDITOR="/usr/local/bin/nvim"
 export FCEDIT="$EDITOR"
-export PAGER="nvim -c 'set ft=man' -"
+export PAGER="/usr/bin/less"
 export MANPAGER="nvim -c 'set ft=man' -"
 export MANWIDTH=90
+export BG_IMAGE="$HOME/Pictures/bg2.jpg"
+
+# A few RegExp variables because I hate typing them
+export MATCH_IP='([0-9]{1,3}\.){3}[0-9]{1,3}'
 
 # shopt
 shopt -s histappend   # don't overwrite history
@@ -42,9 +46,25 @@ umask 0077
 # ensure prompt has colors
 export color_prompt=yes
 
+# Get color sequence for exit code
+get_exit_color() {
+  if (($? > 0)); then
+    printf '\e[31m'
+  else
+    printf '\e[32m'
+  fi
+}
+
+# Make nice exit codes
+EXIT_CODE=0
+get_exit_code() {
+  EXIT_CODE=$?
+}
+
 # Prompt
-PS1='\n\[\033[01;34m\]\w\[\033[00m\]\n\[\033[0;37m\]❱\[\033[00m\] '
+PS1='\n\[\e[0;37m\]\w\n\[$(get_exit_color)\]${EXIT_CODE}\[\e[0m\] \[\e[0;30;1m\]❱\[\e[0m\] '
 PS2="〉"
+PROMPT_COMMAND="get_exit_code"
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'

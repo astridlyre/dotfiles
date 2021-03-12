@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # Run a different xrandr depending on connected monitors
+NUMMONS="$(xrandr --query | rg " connected" | cut -d" " -f1 | wc -l)"
 if [ "$NUMMONS" -eq 2 ]; then
 	/home/ml/.bin/dm-do
 	bspc monitor eDP-1-1 -d 6

@@ -50,7 +50,7 @@ alias ll="exa -al --color=always -s type"
 alias lt="exa -aT --color=always -s type"
 
 # cat replacement
-alias cat="bat -pp --theme='ansi-dark'"
+alias cat="bat -pp --theme='ansi'"
 
 # vim is my editor
 alias vi="vim"
