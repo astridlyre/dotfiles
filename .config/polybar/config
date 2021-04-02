@@ -29,7 +29,7 @@ compositing-border       = over
 
 ; Define fallback values used by all module formats
 format-foreground   = #b2b2b2
-format-background   = #080808
+format-background   = #141414
 format-underline    =
 format-overline     =
 format-spacing      =
@@ -39,7 +39,7 @@ format-offset       =
 
 [colors]
 ; Moonfly         === =========
-background          = #080808
+background          = #141414
 foreground          = #b2b2b2
 red                 = #ff5454
 green               = #36c692
@@ -63,7 +63,7 @@ height              = 24
 radius              = 0.0
 fixed-center        = true
 bottom              = false
-separator           = |
+separator           = ::
 
 background          = ${colors.background}
 foreground          = ${colors.foreground}
@@ -86,7 +86,7 @@ border-size         = 0
 border-color        = ${colors.red}
 
 padding-left        = 0
-padding-right       = 1
+padding-right       = 2
 
 module-margin-left  = 2
 module-margin-right = 2
@@ -102,7 +102,7 @@ modules-right       = memory2 cpu2 date battery pavolume
 tray-detached       = false
 tray-offset-x       = 0
 tray-offset-y       = 0
-tray-padding        = 1
+tray-padding        = 0
 tray-maxsize        = 20
 tray-scale          = 1.0
 tray-position       = right
@@ -187,22 +187,23 @@ scroll-down         = bspwm-deskprev
 type = internal/bspwm
 
 enable-click    = true
-enable-scroll   = true
-reverse-scroll  = true
+enable-scroll   = false
+reverse-scroll  = false
 pin-workspaces  = true
 
-ws-icon-0       = 1;
-ws-icon-1       = 2;
-ws-icon-2       = 3;
-ws-icon-3       = 4;
-ws-icon-4       = 5;
-ws-icon-5       = 6;
+ws-icon-0       = 1;
+ws-icon-1       = 2;
+ws-icon-2       = 3;
+ws-icon-3       = 4;
+ws-icon-4       = 5;
+ws-icon-5       = 6;
 ws-icon-6       = 7;
 ws-icon-7       = 8;
 ws-icon-default = " "
 
 
-format = <label-state> <label-mode>
+;format = <label-state>  <label-mode>
+format = <label-state>
 
 label-focused                = %icon%
 label-focused-background     = ${colors.background}
@@ -240,8 +241,8 @@ label-private                = "     "
 label-private-foreground     = ${colors.foreground}
 
 ; Separator in between workspaces
-;label-separator            = |
-;label-separator-padding    = 10
+;label-separator            = 
+;label-separator-padding    = 15
 ;label-separator-foreground = #ffb52a
 
 format-foreground           = ${colors.foreground}
@@ -383,7 +384,7 @@ type                     = internal/cpu
 interval                 = 1
 format-foreground        = ${colors.foreground}
 format-background        = ${colors.background}
-format-prefix            = "  "
+format-prefix            = "  "
 format-prefix-foreground = ${colors.green}
 format-underline         = ${colors.green}
 

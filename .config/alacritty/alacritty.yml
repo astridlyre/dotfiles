@@ -23,7 +23,7 @@
   # available, otherwise `xterm-256color` is used.
   #TERM: alacritty
 
-#window:
+window:
   # Window dimensions (changes require restart)
   #
   # Number of lines/columns (not pixels) in the terminal. The number of columns
@@ -45,9 +45,9 @@
   #
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
-  #padding:
-  #  x: 0
-  #  y: 0
+  padding:
+    x: 4
+    y: 4
 
   # Spread additional padding evenly around the terminal content.
   #dynamic_padding: false
@@ -150,7 +150,7 @@ font:
     #style: Bold Italic
 
   # Point size
-  size: 12
+  size: 11.5
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -339,7 +339,7 @@ font:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.77
+background_opacity: 0.85
 
 #selection:
   # This string contains all characters that are used as separators for
@@ -818,18 +818,18 @@ draw_bold_text_with_bright_colors: true
 colors:
   # Default colors
   primary:
-    background:        '#080808'
+    background:        '#141414'
     foreground:        '#b2b2b2'
     bright_foreground: '#eeeeee'
 
   # Cursor colors
   cursor:
-    text:   '#080808'
+    text:   '#141414'
     cursor: '#9e9e9e'
 
   # Selection colors
   selection:
-    text:       '#080808'
+    text:       '#141414'
     background: '#b2ceee'
 
   # Normal colors

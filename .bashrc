@@ -59,7 +59,7 @@ get_exit_color() {
   if (($? > 0)); then
     printf '\e[31m'
   else
-    printf '\e[32m'
+    printf '\e[1;32m'
   fi
 }
 
@@ -133,6 +133,10 @@ export PATH=$HOME/.local/share/gem/ruby/2.7.0/bin:$PATH
 
 # bat theme
 export BAT_THEME='ansi'
+
+# NNN
+export NNN_COLORS='5555'
+export NNN_FCOLORS='90bb4f7100a8b0f7cbd6abc4'
 
 # fzf colors
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'

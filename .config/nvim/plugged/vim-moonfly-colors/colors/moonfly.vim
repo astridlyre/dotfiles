@@ -31,7 +31,7 @@ let g:moonflyItalics = get(g:, 'moonflyItalics', 1)
 let g:moonflyTransparent = get(g:, 'moonflyTransparent', 1)
 
 " Background and foreground
-let s:black     = '#080808' " black       = 232
+let s:black     = '#181818' " black       = 232
 let s:white     = '#c6c6c6' " white       = 251
 " Variations of charcoal-grey
 let s:grey0     = '#373c40' " grey0       = 0

@@ -4,8 +4,8 @@
  * Copyright: Dave Davenport
  */
 * {
-    background-color:      #080808;
-    border-color:          #080808;
+    background-color:      #141414;
+    border-color:          #373c40;
     text-color:           #b2b2b2;
     font:            "Iosevka 12";
 }
@@ -13,6 +13,8 @@
 window {
     anchor:     center;
     location:   center;
+    border:     1px solid;
+    padding:    4px;
     width:      33%;
     children:   [ horibox ];
 }
@@ -44,5 +46,5 @@ element {
 }
 element selected {
     background-color: #36c692;
-    text-color: #080808;
+    text-color: #141414;
 }
