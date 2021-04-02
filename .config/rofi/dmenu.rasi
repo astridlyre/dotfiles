@@ -7,14 +7,13 @@
     background-color:      #080808;
     border-color:          #080808;
     text-color:           #b2b2b2;
-    font:            "Iosevka 10";
+    font:            "Iosevka 12";
 }
 
 window {
-    anchor:     north;
-    location:   north;
-    width:      100%;
-    padding:    3px;
+    anchor:     center;
+    location:   center;
+    width:      33%;
     children:   [ horibox ];
 }
 
@@ -23,15 +22,21 @@ horibox {
     children:   [ prompt, entry, listview ];
 }
 
+prompt {
+    padding:    4px;
+}
+
 listview {
-    layout:     horizontal;
-    spacing:    5px;
-    lines:      100;
+    layout:     vertical;
+    spacing:    4px;
+    padding:    4px;
+    lines:      15;
 }
 
 entry {
     expand:     false;
     width:      10em;
+    padding:    4px;
 }
 
 element {
