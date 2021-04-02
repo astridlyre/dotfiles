@@ -4,5 +4,6 @@
   <property name="Default" type="empty">
     <property name="Numlock" type="bool" value="true"/>
     <property name="RestoreNumlock" type="bool" value="true"/>
+    <property name="KeyRepeat" type="bool" value="false"/>
   </property>
 </channel>

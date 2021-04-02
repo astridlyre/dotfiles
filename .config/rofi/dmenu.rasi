@@ -5,7 +5,7 @@
  */
 * {
     background-color:      #080808;
-    border-color:          White;
+    border-color:          #080808;
     text-color:           #b2b2b2;
     font:            "Iosevka 10";
 }

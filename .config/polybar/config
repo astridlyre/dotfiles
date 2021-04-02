@@ -28,23 +28,23 @@ compositing-underline    = over
 compositing-border       = over
 
 ; Define fallback values used by all module formats
-format-foreground        = #b2b2b2
-format-background        = #080808
-format-underline         =
-format-overline          =
-format-spacing           =
-format-padding           =
-format-margin            =
-format-offset            =
+format-foreground   = #b2b2b2
+format-background   = #080808
+format-underline    =
+format-overline     =
+format-spacing      =
+format-padding      =
+format-margin       =
+format-offset       =
 
 [colors]
-; Moonfly              === =========
-background               = #A9080808
-foreground               = #b2b2b2
-alert                    = #ff5454
-volume-min               = #8cc85f
-volume-med               = #e3c78a
-volume-max               = #d183e8
+; Moonfly         === =========
+background          = #080808
+foreground          = #b2b2b2
+red                 = #ff5454
+green               = #36c692
+blue                = #80a0ff
+magenta             = #d183e8
 ; =======================
 
 ################################################################################
@@ -69,7 +69,7 @@ background          = ${colors.background}
 foreground          = ${colors.foreground}
 
 line-size           = 0
-line-color          = #ff5454
+line-color          = ${colors.red}
 
 wm-restack          = bspwm
 override-redirect   = true
@@ -83,7 +83,7 @@ border-size         = 0
 ;border-right-size  = 25
 ;border-top-size    = 0
 ;border-bottom-size = 25
-border-color        = #373c40
+border-color        = ${colors.red}
 
 padding-left        = 0
 padding-right       = 1
@@ -92,8 +92,8 @@ module-margin-left  = 2
 module-margin-right = 2
 
 ;https://github.com/jaagr/polybar/wiki/Fonts
-font-0              = "Iosevka:size=10;0"
-font-1              = "FontAwesome:size=10;0"
+font-0              = "Iosevka Nerd Font:size=10;0"
+font-1              = "Noto Color Emoji:size=10:scale=10;1"
 
 modules-left        = bspwm
 modules-center      = xwindow
@@ -102,11 +102,12 @@ modules-right       = memory2 cpu2 date battery pavolume
 tray-detached       = false
 tray-offset-x       = 0
 tray-offset-y       = 0
-tray-padding        = 2
+tray-padding        = 1
 tray-maxsize        = 20
 tray-scale          = 1.0
 tray-position       = right
 tray-background     = ${colors.background}
+tray-foreground     = ${colors.foreground}
 
 scroll-up           = bspwm-desknext
 scroll-down         = bspwm-deskprev
@@ -134,7 +135,7 @@ background          = ${colors.background}
 foreground          = ${colors.foreground}
 
 line-size           = 0
-line-color          = #ff5454
+line-color          = ${colors.red}
 
 wm-restack          = bspwm
 override-redirect   = true
@@ -148,7 +149,7 @@ border-size         = 0
 ;border-right-size  = 25
 ;border-top-size    = 0
 ;border-bottom-size = 25
-border-color        = #373c40
+border-color        = ${colors.red}
 
 padding-left        = 0
 padding-right       = 1
@@ -205,14 +206,14 @@ format = <label-state> <label-mode>
 
 label-focused                = %icon%
 label-focused-background     = ${colors.background}
-label-focused-underline      = #d183e8
+label-focused-underline      = ${colors.magenta}
 label-focused-padding        = 3
-label-focused-foreground     = #d183e8
+label-focused-foreground     = ${colors.magenta}
 
 label-occupied               = %icon%
 label-occupied-padding       = 3
 label-occupied-background    = ${colors.background}
-label-occupied-foreground    = #36c692
+label-occupied-foreground    = ${colors.green}
 
 label-urgent                 = %icon%
 label-urgent-padding         = 3
@@ -285,36 +286,36 @@ adapter                       = AC0
 full-at                       = 100
 
 format-charging               = <animation-charging> <label-charging>
-label-charging                =  %percentage%%
+label-charging                = %percentage%%
 format-charging-foreground    = ${colors.foreground}
 format-charging-background    = ${colors.background}
-format-charging-underline     = #8cc85f
+format-charging-underline     = ${colors.green}
 
 format-discharging            = <ramp-capacity> <label-discharging>
-label-discharging             =  %percentage%%
-format-discharging-underline  = #e3c78a
+label-discharging             = %percentage%%
+format-discharging-underline  = ${colors.green}
 format-discharging-foreground = ${colors.foreground}
 format-discharging-background = ${colors.background}
 
-format-full-prefix            = " "
-format-full-prefix-foreground = #36c692
-format-full-underline         = #36c692
+format-full-prefix            = "  "
+format-full-prefix-foreground = ${colors.green}
+format-full-underline         = ${colors.green}
 format-full-foreground        = ${colors.foreground}
 format-full-background        = ${colors.background}
 
-ramp-capacity-0               = 
-ramp-capacity-1               = 
-ramp-capacity-2               = 
-ramp-capacity-3               = 
-ramp-capacity-4               = 
-ramp-capacity-foreground      = #e3c78a
+ramp-capacity-0               = "  "
+ramp-capacity-1               = "  "
+ramp-capacity-2               = "  "
+ramp-capacity-3               = "  "
+ramp-capacity-4               = "  "
+ramp-capacity-foreground      = ${colors.green}
 
-animation-charging-0          = 
-animation-charging-1          = 
-animation-charging-2          = 
-animation-charging-3          = 
-animation-charging-4          = 
-animation-charging-foreground = #8cc85f
+animation-charging-0          = "  "
+animation-charging-1          = "  "
+animation-charging-2          = "  "
+animation-charging-3          = "  "
+animation-charging-4          = "  "
+animation-charging-foreground = ${colors.green}
 animation-charging-framerate  = 750
 
 ################################################################################
@@ -382,9 +383,9 @@ type                     = internal/cpu
 interval                 = 1
 format-foreground        = ${colors.foreground}
 format-background        = ${colors.background}
-format-prefix            = "  "
-format-prefix-foreground = #36c692
-format-underline         = #36c692
+format-prefix            = "  "
+format-prefix-foreground = ${colors.green}
+format-underline         = ${colors.green}
 
 label-font               = 0
 
@@ -395,13 +396,13 @@ label-font               = 0
 ;   <ramp-coreload>
 format                   = <label>
 
-format-padding           = 2
+format-padding           = 0
 
 ; Available tokens:
 ;   %percentage% (default) - total cpu load
 ;   %percentage-cores% - load percentage for each core
 ;   %percentage-core[1-9]% - load percentage for specific core
-label                    = Cpu %percentage:3%%
+label                    = Cpu %percentage:2%%
 
 ################################################################################
 
@@ -417,8 +418,8 @@ date                     = " %d-%m-%Y"
 time                     = %H:%M
 time-alt                 = %H:%M
 format-prefix            = " "
-format-prefix-foreground = #36c692
-format-underline         = #36c692
+format-prefix-foreground = ${colors.green}
+format-underline         = ${colors.green}
 format-foreground        = ${colors.foreground}
 format-background        = ${colors.background}
 label                    = %date% %time%
@@ -623,12 +624,12 @@ interval                 = 1
 ;   %mb_used%
 ;   %mb_free%
 ;   %mb_total%
-label                    = %percentage_used%%
+label                    = %percentage_used:2%%
 
 format                   = Mem <label>
-format-prefix            = "  "
-format-prefix-foreground = #36c692
-format-underline         = #36c692
+format-prefix            = "  "
+format-prefix-foreground = ${colors.green}
+format-underline         = ${colors.green}
 format-foreground        = ${colors.foreground}
 format-background        = ${colors.background}
 
@@ -756,8 +757,8 @@ click-right              = exec pavucontrol
 click-left               = ~/.config/polybar/scripts/pavolume.sh --togmute
 scroll-up                = ~/.config/polybar/scripts/pavolume.sh --up
 scroll-down              = ~/.config/polybar/scripts/pavolume.sh --down
-format-underline         = #36c692
-format-prefix-foreground = #36c692
+format-underline         = ${colors.green}
+format-prefix-foreground = ${colors.green}
 format-foreground        = ${colors.foreground}
 format-background        = ${colors.background}
 
@@ -1016,7 +1017,7 @@ type              = internal/xwindow
 label             = %title%
 label-maxlen      = 50
 
-format-foreground = #36c692
+format-foreground = ${colors.green}
 format-background = ${colors.background}
 
 ###############################################################################

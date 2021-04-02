@@ -1,4 +1,5 @@
 FileManager=pcmanfm
-TerminalEmulator=alacritty
+TerminalEmulator=custom-TerminalEmulator
 WebBrowser=brave
 MailReader=evolution
+

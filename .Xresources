@@ -1,7 +1,27 @@
 Xcursor.size: 16
+Xft.dpi: 96
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintfull
 Xft.hinting: 3
 Xft.antialias: 1
 Xft.rgba: rgb
+
+*background:  #080808
+*foreground:  #b2b2b2
+*color0:  #373c40
+*color1:  #ff5454
+*color2:  #8cc85f
+*color3:  #e3c78a
+*color4:  #80a0ff
+*color5:  #d183e8
+*color6:  #79dac8
+*color7:  #a1aab8
+*color8:  #7c8f8f
+*color9:  #ff5189
+*color10:  #36c692
+*color11:  #bfbf97
+*color12:  #78c2ff
+*color13:  #ae81ff
+*color14:  #85dc85
+*color15:  #e2637f

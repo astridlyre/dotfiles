@@ -5,6 +5,13 @@
 #| | | | | | (_) | (_) | | | | | | (_| | | | | |_
 #|_| |_| |_|\___/ \___/|_| |_|_|_|\__, |_| |_|\__|
 #                                 |___/
+#     /\-/\
+#    /a a  \                                 _
+#   =\ Y  =/-~~~~~~-,_______________________/ )
+#     '^--'          ________________________/
+#       \           / my wonderful bashrc
+#       ||  |---'\  \
+#      (_(__|   ((__|
 #
 
 # If not running interactively, do nothing
@@ -12,8 +19,8 @@
 
 # don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=100000
+HISTFILESIZE=20000
 
 # Set some global variables
 export VISUAL="/usr/local/bin/nvim"
@@ -22,7 +29,8 @@ export FCEDIT="$EDITOR"
 export PAGER="/usr/bin/less"
 export MANPAGER="nvim -c 'set ft=man' -"
 export MANWIDTH=90
-export BG_IMAGE="$HOME/Pictures/bg2.jpg"
+export BG_IMAGE="$HOME/Pictures/Wallpapers/bg2.jpg"
+export SXHKD_SHELL=/bin/sh
 
 # A few RegExp variables because I hate typing them
 export MATCH_IP='([0-9]{1,3}\.){3}[0-9]{1,3}'
@@ -56,13 +64,28 @@ get_exit_color() {
 }
 
 # Make nice exit codes
-EXIT_CODE=0
+if [[ -n "$DISPLAY" ]]; then
+  PROMPT_ICON=❱
+  EXIT_CODE='٩(๑❛ᴗ❛๑)۶'
+else
+  PROMPT_ICON='$'
+  EXIT_CODE=0
+fi
+
 get_exit_code() {
-  EXIT_CODE=$?
+  if [[ -n "$DISPLAY" ]]; then
+    if (($? == 0)); then
+      EXIT_CODE='٩(๑❛ᴗ❛๑)۶'
+    else
+      EXIT_CODE="ヾ(｀ε´)ﾉ $?"
+    fi
+  else
+    EXIT_CODE=$?
+  fi
 }
 
 # Prompt
-PS1='\n\[\e[0;37m\]\w\n\[$(get_exit_color)\]${EXIT_CODE}\[\e[0m\] \[\e[0;30;1m\]❱\[\e[0m\] '
+PS1='\n\[\e[0;35m\]\w\n\[$(get_exit_color)\]${EXIT_CODE}\[\e[0m\] \[\e[1;30m\]${PROMPT_ICON}\[\e[0m\] '
 PS2="〉"
 PROMPT_COMMAND="get_exit_code"
 
@@ -89,6 +112,7 @@ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/ga
 # local scripts dir
 export PATH=$HOME/.bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
 
 # go
 export PATH=/usr/local/go/bin:$PATH
@@ -101,5 +125,18 @@ export PATH=$HOME/go/bin:$PATH
 export PATH=$HOME/.fnm:$PATH
 eval "$(fnm env)"
 
+# zoxide
+eval "$(zoxide init bash)"
+
 # ruby
 export PATH=$HOME/.local/share/gem/ruby/2.7.0/bin:$PATH
+
+# bat theme
+export BAT_THEME='ansi'
+
+# fzf colors
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+--color=fg:#b2b2b2,hl:#ff5454
+--color=fg+:#b2b2b2,hl+:#36c692
+--color=info:#eeeeee,prompt:#36c692
+--color=marker:#d183e8,spinner:#36c692'

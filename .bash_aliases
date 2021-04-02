@@ -37,6 +37,15 @@ ducks() {
 	du -sh ./* | sort -hr | head -11
 }
 
+goose() {
+  ssh-add ~/.ssh/id_goosetown
+  ssh -p 2220 moonlight@www.fileleak.us
+}
+
+min() {
+  vim -u "$HOME/.config/nvim/init_minimal.vim" "$@"
+}
+
 # =========== Aliases ===========
 
 # Confirm before overwriting
@@ -55,12 +64,16 @@ alias cat="bat -pp --theme='ansi'"
 # vim is my editor
 alias vi="vim"
 alias nvim="vim"
+alias e="vim"
 
 # easy typed common things
 alias c="clear"
 alias x="exit"
-alias r="ranger"
+alias n="nnn -c"
+alias N="sudo -E nnn -c"
 alias python="python3"
+alias py="bpython"
+alias js="node"
 alias pdate="date +'%d/%m/%y'"
 
 # Include hidden files by default

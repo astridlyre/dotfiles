@@ -25,6 +25,8 @@ xsetroot -cursor_name left_ptr &
 eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
 export SSH_AUTH_SOCK
 
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
+
 # Check for monitors
 NUMMONS="$(xrandr --query | rg " connected" | cut -d" " -f1 | wc -l)"
 if [ "$NUMMONS" -eq 2 ]; then

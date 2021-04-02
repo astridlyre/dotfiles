@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="ristretto" version="1.0">
+  <property name="window" type="empty">
+    <property name="navigationbar" type="empty">
+      <property name="position" type="string" value="left"/>
+    </property>
+    <property name="height" type="uint" value="1054"/>
+    <property name="width" type="uint" value="958"/>
+    <property name="toolbar" type="empty">
+      <property name="show" type="bool" value="false"/>
+    </property>
+    <property name="thumbnails" type="empty">
+      <property name="show" type="bool" value="false"/>
+    </property>
+    <property name="bgcolor-override" type="bool" value="false"/>
+    <property name="statusbar" type="empty">
+      <property name="show" type="bool" value="true"/>
+    </property>
+  </property>
+  <property name="file" type="empty">
+    <property name="current-uri" type="string" value="file:///home/ml/Pictures"/>
+  </property>
+  <property name="desktop" type="empty">
+    <property name="type" type="string" value="none"/>
+  </property>
+</channel>

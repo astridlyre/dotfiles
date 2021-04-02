@@ -1,75 +1,56 @@
 #################################################################
-# KEYBOARD BINDINGS FOR ANY TWM
+# SUPER + ... KEYS
 #################################################################
 
-#################################################################
-# SUPER + FUNCTION KEYS
-#################################################################
-
-#Rofi Fullscreen
-super + F11
-    rofi -show run -fullscreen
-
-#Rofi
+# Rofi Program Runner
 super + d
     rofi -show run
 
+# Rofi Window Switcher
 super + w
     rofi -show window
-
-#################################################################
-# SUPER + ... KEYS
-#################################################################
 
 # Brave Browser
 super + b
     brave --use-gl=desktop
 
-#Pavucontrol
+# Pavucontrol
 super + v
     pavucontrol
 
-#Alacritty with bash
+# Alacritty
 super + Return
     alacritty
 
-# Ranger file manager
+# Ranger File Manager
 super + e
-    alacritty -e ranger
+    alacritty -e nnn -c
 
 # Zathura
 super + z
     zathura
 
-#Xkill
-super + Escape
+# Xkill
+super + Shift + BackSpace
     xkill
-
-#Keyboard dependent
-super + KP_Enter
-	alacritty
-
-#xfce4-terminal dropdown
-super + space
-    xfce4-terminal --drop-down
 
 # Network manager
 super + n
     nm-connection-editor
 
-#Hide polybar
+# Hide polybar
 super + y
     polybar-msg cmd toggle
 
-#Xfce4-settings-manager
+# Xfce4-settings-manager
 super + 8
      xfce4-settings-manager
 
-#reload sxhkd:
+# Reload sxhkd:
 super + s
 	pkill -USR1 -x sxhkd
 
-# image viewer
+# Image viewer
 super + i
   ristretto
 
@@ -81,11 +62,11 @@ super + BackSpace
 # SUPER + SHIFT KEYS
 #################################################################
 
-#Alacritty with bash
+# Alacritty
 super + shift + Return
     alacritty
 
-#File-Manager
+# PCManFM
 super + shift+ e
 	pcmanfm
 
@@ -94,58 +75,62 @@ super + shift + g
   gimp
 
 # OBS
-super + o
+super + shift + o
   obs
+
+# Blender
+super + shift + b
+  firefox-developer-edition
 
 #################################################################
 #     SCREENSHOTS
 #################################################################
 
-#Scrot
+# Scrot
 Print
-    scrot -q 90 'ArcoLinux-%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f /home/ml/Pictures/Screenshots/'
+    scrot -q 90 'Screen-%Y-%m-%d-%s_$wx$h.jpg' -e 'mv $f /home/ml/Pictures/Screenshots/'
 
 # Area Screen Shot
 super + shift + p
-    scrot -q 90 -s 'Area-%Y-%m-%d-%s_ss_$wx$h.jpg' -e 'mv $f /home/ml/Pictures/Screenshots/'
+    scrot -q 90 -s 'Area-%Y-%m-%d-%s_$wx$h.jpg' -e 'mv $f /home/ml/Pictures/Screenshots/'
 
 #################################################################
 #     MULTIMEDIA KEYS
 #################################################################
 
-#Raises volume
+# Raises volume
 XF86AudioRaiseVolume
     amixer set Master 5%+
 
-#Lowers volume
+# Lowers volume
 XF86AudioLowerVolume
     amixer set Master 5%-
 
-#Mute
+# Mute
 XF86AudioMute
     amixer -D pulse set Master 1+ toggle
 
-#PLAY
+# PLAY
 XF86AudioPlay
     playerctl play-pause
 
-#Next
+# Next
 XF86AudioNext
     playerctl next
 
-#previous
+# previous
 XF86AudioPrev
     playerctl previous
 
-#Stop
+# Stop
 XF86AudioStop
     playerctl stop
 
-#Brightness up
+# Brightness up
 XF86MonBrightnessUp
     backlight_control up
 
-#Brightness down
+# Brightness down
 XF86MonBrightnessDown
     backlight_control down
 
@@ -157,7 +142,7 @@ XF86MonBrightnessDown
 # CTRL + ALT KEYS
 #################################################################
 
-#Picom Toggle
+# Picom Toggle
 ctrl + alt + o
     ~/.config/bspwm/scripts/picom-toggle.sh
 
@@ -165,7 +150,7 @@ ctrl + alt + o
 # SUPER + KEYS
 #################################################################
 
-#Toggle fullscreen of window
+# Toggle fullscreen of window
 super + f
 	bspc node --state \~fullscreen
 
@@ -173,7 +158,7 @@ super + f
 super + p
 	bspc node --state \~pseudo_tiled
 
-#kill
+# kill
 super + q
 	bspc node -c
 
@@ -181,12 +166,12 @@ super + q
 # SUPER KEYS
 #################################################################
 
-#Focus selected desktop
+# Focus selected desktop
 super + Tab
 	rofi -show window
 
 # Increase/decrease window gap on focused desktop
-super + bracket{left,right}
+super + bracket{right,left}
 	bspc config -d focused window_gap $((`bspc config -d focused window_gap` {-,+} 5 ))
 
 # set the window state
@@ -205,15 +190,15 @@ super + alt + {_,shift + }{Left,Down,Up,Right}
 # SUPER + SHIFT KEYS
 #################################################################
 
-#Reload bspwm
+# Reload bspwm
 super + shift + r
 	~/.config/bspwm/bspwmrc
 
-#kill
+# kill
 super + shift + q
 	bspc node -c
 
-#Logout
+# Logout
 super + shift + x
 	bspc quit
 
@@ -222,7 +207,7 @@ super + {_,shift + }{h,j,k,l}
 	bspc node --{focus,swap} {west,south,north,east}
 
 # Split horizontal, vertical or cancel
-super + shift + {s,v,c}
+super + shift + {v,s,c}
 	bspc node -p {east,south,cancel}
 
 # Preselect the ratio
@@ -277,15 +262,15 @@ super + ctrl + u
 # ALT KEYS
 #################################################################
 
-#Focus selected desktop
+# Focus selected desktop
 alt + Tab
 	bspc desktop -f '^{1-9,10}'
 
-	#Focus selected desktop
+# Focus selected desktop
 alt + shift + Tab
 	bspc desktop -f '^{1-9,10}'
 
-#Rotate desktop
+# Rotate desktop
 alt + space
 	bspc node @/ --rotate {90,-90}
 

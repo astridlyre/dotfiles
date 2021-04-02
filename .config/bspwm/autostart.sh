@@ -10,21 +10,21 @@ run() {
 "$HOME/.config/polybar/launch.sh" &
 
 # Start hotkey daemon
-run sxhkd -c ~/.config/bspwm/sxhkd/sxhkdrc &
+run sxhkd -c ~/.config/bspwm/sxhkd/sxhkdrc
 
 # Start unclutter to hide cursor
-run unclutter --timeout 1 &
+run unclutter --timeout 1
 
 # Applets
-run nm-applet &
-numlockx on &
+run nm-applet
+run numlockx on
 # blueberry-tray &
 
 # Compositor
-picom --experimental-backends --config "$HOME/.config/bspwm/picom.conf" &
+run picom --experimental-backends --config "$HOME/.config/bspwm/picom.conf"
 
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-/usr/lib/xfce4/notifyd/xfce4-notifyd &
+#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+#/usr/lib/xfce4/notifyd/xfce4-notifyd &
 
 # Background image
-feh --bg-fill "$BG_IMAGE" &
+run feh --bg-fill "$BG_IMAGE"

@@ -1,9 +1,17 @@
+" ================= Auto Install Plug ================== "
+" if empty(glob('~/.config/nvim/autoload/plug.vim'))
+"   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+"     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"   autocmd VimEnter * PlugInstall | source $MYVIMRC
+" endif
+
 " ================= Plugins ================== "
 call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'bluz71/vim-moonfly-colors'                            " Colorscheme
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
 Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
 Plug 'junegunn/vim-easy-align'                              " Easy align
+Plug 'honza/vim-snippets'                                   " actual snippets
 Plug 'Yggdroot/indentLine'                                  " show indentation lines
 Plug 'tpope/vim-commentary'                                 " better commenting
 Plug 'tpope/vim-fugitive'                                   " git support
@@ -19,7 +27,6 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
   },
-  indent = { enable = true },
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -48,13 +55,12 @@ set termguicolors                                   " True colors
 set mouse=a                                         " Enable mouse scroll
 set foldmethod=manual                               " Manual folding only
 set tabstop=2 softtabstop=2 shiftwidth=2 autoindent " tab width
-set expandtab                                       " Expand tab into spaces
-set incsearch ignorecase smartcase hlsearch         " highlight text while searching
+set expandtab
+set ignorecase smartcase                            " highlight text while searching
 set list listchars=trail:»,tab:»-                   " use tab to navigate in list mode
 set wrap breakindent                                " wrap long lines to the width set by tw
 set showtabline=0                                   " Never show tabline
 set noshowmode                                      " Do not show mode under statusline
-set noshowcmd                                       " Do not show last command
 set conceallevel=2                                  " Necessary for Indentline
 set splitright                                      " open vertical split to the right
 set splitbelow                                      " open horizontal split to the bottom
@@ -74,6 +80,9 @@ set redrawtime=10000                                " Allow more time for redraw
 set synmaxcol=180                                   " No syntax on long lines
 set timeoutlen=850                                  " Time to wait between keypress
 set maxmempattern=20000                             " Max mem to use
+set wildmode=longest:full,full
+set wildignorecase
+set wildignore=*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache
 set re=1
 set hidden                                          " Keep buffers around
 set nobackup                                        " Do not make backup files
@@ -82,22 +91,31 @@ set cmdheight=1                                     " Make hight 1 line
 set updatetime=100                                  " For CursorHold autocmd
 set shortmess+=actI                                 " Avoid more press enters
 set signcolumn=yes                                  " Always show signcolumn
+set spelllang=en_gb                                 " Canadian spelling
 
 " ======================== Plugin Configurations ======================== "
-let loaded_netrw = 0                         " diable netew
-let g:omni_sql_no_default_maps = 1           " disable sql omni completion
-let g:loaded_python_provider = 0             " Disable python2
-let g:loaded_perl_provider = 0               " Disable perl
-let g:loaded_ruby_provider = 0               " Disable ruby
-let g:python3_host_prog = '/usr/bin/python3' " Default python3
+let g:loaded_gzip              = 1                  " Disable Unused plugins
+let g:loaded_tarPlugin         = 1
+let g:loaded_zipPlugin         = 1
+let g:loaded_2html_plugin      = 1
+let g:loaded_rrhelper          = 1
+let g:loaded_remote_plugins    = 1
+let g:loaded_netrw             = 1                  " Disable netrw
+let g:loaded_netrwPlugin       = 1
+let g:omni_sql_no_default_maps = 1                  " disable sql omni completion
+let g:loaded_python_provider   = 0                  " Disable python2
+let g:loaded_perl_provider     = 0                  " Disable perl
+let g:loaded_ruby_provider     = 0                  " Disable ruby
+let g:python3_host_prog        = '/usr/bin/python3' " Default python3
+let g:man_hardwrap			   = 0
 
 " Colorscheme
 let g:moonflyTransparent = 1
 colorscheme moonfly
 
 " indentLine
-let g:indentLine_char_list = ['▏', '¦', '┆', '┊']
-let g:indentLine_setColors = 0
+let g:indentLine_char_list  = ['▏', '¦', '┆', '┊']
+let g:indentLine_setColors  = 0
 let g:indentLine_setConceal = 0 " Fix conceal for markdown
 
 " FZF
@@ -110,9 +128,19 @@ let g:fzf_tags_command = 'ctags -R'
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
 let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build/**' --glob '!node_modules/**' --glob '!vendor/bundle/**'"
 
+" lorem ipsum
+iab <expr> lorem system('curl -s http://metaphorpsum.com/paragraphs/1')
+
 " ======================== Commands ============================= "
 au BufEnter * set fo-=c fo-=r fo-=o " stop annoying auto commenting on new lines
 au FileType help wincmd L           " open help in vertical split
+
+" No line numbers or relative numbers in terminal window
+augroup TerminalEnter
+  autocmd!
+  au TermOpen * setlocal nonumber
+  au TermOpen * setlocal norelativenumber
+augroup end
 
 " enable spell only if file type is normal text
 let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
@@ -145,6 +173,9 @@ autocmd BufReadPost *
 " advanced grep
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
+" Strip whitespace
+command! StripWhitespace :%s/\s\+$//e
+
 " ================== Custom Functions ===================== "
 " advanced grep(faster with preview)
 function! RipgrepFzf(query, fullscreen)
@@ -160,7 +191,23 @@ function! ResetHightlight()
   execute 'write | edit | TSBufEnable highlight'
 endfunction
 
+" Spell checking on
+function! SpellOn()
+  set spell
+  echo "Spell Check Enabled"
+endfunction
+
+" Spell checking off
+function! SpellOff()
+  set nospell
+  echo "Spell Check Disabled"
+endfunction
+
 " =================== Global Mappings ==========================
+" Easy edit vim config
+map <F3> :e ~/.config/nvim/init.vim<CR>
+map <F2> :StripWhitespace<CR>
+
 " Disable s for vim-sandwich
 nmap s <Nop>
 
@@ -171,14 +218,18 @@ map Y y$
 " Map leader to space
 let mapleader=' '
 
+" Write buffer as sudo
+nnoremap <leader>sudo :w !sudo tee > /dev/null %
+
 " Install or Update Plugins
+nnoremap <leader>lf :Format<CR>
+nnoremap <leader>pc :PlugClean<CR>
 nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>pu :PlugUpdate<CR>
-nnoremap <leader>pc :PlugClean<CR>
 nnoremap <leader>\ :qa!<CR>
 nnoremap <leader>q :bd<CR>
 nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
-nnoremap <leader>t :call ResetHightlight()<CR>
+nnoremap <leader>e :call ResetHightlight()<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>z :bd!<CR>
 
@@ -189,6 +240,16 @@ nnoremap <leader>] myo<ESC>`y
 " open terminal
 nnoremap <leader>' :sp term://bash<CR>i
 
+" Simple sort
+vnoremap <leader>s !sort -d -b<CR>
+
+" Simple calc with bc
+vnoremap <leader>bc !scriptbc<CR>
+
+" Spelling
+nmap <leader>so :call SpellOn()<CR>
+nmap <leader>sf :call SpellOff()<CR>
+
 " easy system clipboard copy & paste
 nnoremap <leader>Y mqgg"+yG`q
 nnoremap <leader>p "+p
@@ -198,18 +259,18 @@ vnoremap <leader>p "+p
 vnoremap <leader>y "+y
 
 " FZF
-nnoremap <leader>/ :Rg<CR>
-nnoremap <leader>: :Commands<CR>
-nnoremap <leader>bb :Buffers<CR>
-nnoremap <leader>bt :BTags<CR>
-nnoremap <leader>gc :Commits<CR>
-nnoremap <leader>gs :GFiles?<CR>
-nnoremap <leader>h :History<CR>
-nnoremap <leader>f :Files<CR>
+nmap <leader>/ :Rg<CR>
+nmap <leader>: :Commands<CR>
+nmap <leader>b :Buffers<CR>
+nmap <leader>t :BTags<CR>
+nmap <leader>gc :Commits<CR>
+nmap <leader>gs :GFiles?<CR>
+nmap <leader>h :History<CR>
+nmap <leader>f :Files<CR>
 
 " fugitive mappings
-nnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>gd :Gdiffsplit<CR>
+nmap <leader>gb :Gblame<CR>
+nmap <leader>gd :Gdiffsplit<CR>
 
 " vim-easy-align
 xmap <leader>a <Plug>(EasyAlign)
@@ -229,7 +290,6 @@ noremap <silent><esc><esc> :noh<CR><esc>
 
 " Map jk to ESC in insert
 inoremap jk <ESC>
-
 
 " =================== Visual Mappings ==========================
 " Easier move line with alt+j / alt+k

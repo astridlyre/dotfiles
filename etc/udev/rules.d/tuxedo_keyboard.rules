@@ -1,0 +1,2 @@
+RUN+="/bin/chgrp wheel /sys/devices/platform/tuxedo_keyboard/color_left"
+RUN+="/bin/chmod g+w /sys/devices/platform/tuxedo_keyboard/color_left"

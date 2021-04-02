@@ -45,13 +45,9 @@ bspc config presel_feedback_color "#89b482"
 bspc rule -a Arandr                  state=floating
 bspc rule -a Arcolinux-tweak-tool.py state=floating
 bspc rule -a feh                     state=floating
-bspc rule -a mpv                     state=floating sticky=on
-bspc rule -a Oblogout                state=floating
-bspc rule -a Stacer                  state=floating
-bspc rule -a Xfce4-terminal          state=floating
 
 #Tiled applications
-bspc rule -a Gnome-disks            state=tiled
+bspc rule -a mpv                    state=tiled
 bspc rule -a Xfce4-settings-manager state=tiled
 bspc rule -a Zathura                state=tiled
 

@@ -286,7 +286,7 @@ nnoremap <leader>] myo<ESC>`y
 nnoremap <leader>' :sp term://bash<CR>i
 
 " Simple sort
-vnoremap <leader>s !sort<CR>
+vnoremap <leader>s !sort -d -b<CR>
 
 " Simple calc with bc
 vnoremap <leader>bc !scriptbc<CR>
@@ -394,5 +394,4 @@ imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-j> <Plug>(coc-snippets-select)
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
-" Use <leader>x for convert visual selected code to snippet
-" xmap <leader>x  <Plug>(coc-convert-snippet)
+inoremap <expr> <CR> pumvisible() ? "\<C-e>\<CR>" : "\<CR>"
