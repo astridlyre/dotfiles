@@ -4,7 +4,7 @@ static char * top_left_active_xpm[] = {
 " 	c None",
 ".	c #36c692",
 "+	c #36c692",
-"@	c #141414",
+"@	c #181819",
 " .",
 ".+",
 ".@",

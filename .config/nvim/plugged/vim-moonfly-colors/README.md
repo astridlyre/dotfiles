@@ -242,13 +242,13 @@ The terminal should then be configured with the following _moonfly_ colors:
 
 | Type           | Category        | Value     | Color                                                       |
 |----------------|-----------------|-----------|-------------------------------------------------------------|
-| Background     | Background      | `#141414` | ![background](https://placehold.it/32/080808/000000?text=+) |
+| Background     | Background      | `#181819` | ![background](https://placehold.it/32/080808/000000?text=+) |
 | Foreground     | Foreground      | `#b2b2b2` | ![background](https://placehold.it/32/b2b2b2/000000?text=+) |
 | Bold           | Bold            | `#eeeeee` | ![background](https://placehold.it/32/eeeeee/000000?text=+) |
 | Cursor         | Cursor          | `#9e9e9e` | ![background](https://placehold.it/32/9e9e9e/000000?text=+) |
-| Cursor Text    | Cursor Text     | `#141414` | ![background](https://placehold.it/32/080808/000000?text=+) |
+| Cursor Text    | Cursor Text     | `#181819` | ![background](https://placehold.it/32/080808/000000?text=+) |
 | Selection      | Selection       | `#b2ceee` | ![background](https://placehold.it/32/b2ceee/000000?text=+) |
-| Selection Text | Selection Text  | `#141414` | ![background](https://placehold.it/32/080808/000000?text=+) |
+| Selection Text | Selection Text  | `#181819` | ![background](https://placehold.it/32/080808/000000?text=+) |
 | Color 1        | Black (normal)  | `#373c40` | ![background](https://placehold.it/32/373c40/000000?text=+) |
 | Color 2        | Red (normal)    | `#ff5454` | ![background](https://placehold.it/32/ff5454/000000?text=+) |
 | Color 3        | Green (normal)  | `#8cc85f` | ![background](https://placehold.it/32/8cc85f/000000?text=+) |
