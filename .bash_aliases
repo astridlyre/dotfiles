@@ -74,7 +74,6 @@ alias N="sudo -E nnn -c"
 alias python="python3"
 alias py="bpython"
 alias js="node"
-alias r="ranger"
 alias pdate="date +'%d/%m/%y'"
 
 # Include hidden files by default

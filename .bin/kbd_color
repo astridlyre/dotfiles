@@ -6,7 +6,7 @@
 
 
 KBD_BACKLIGHT_PATH=/sys/devices/platform/tuxedo_keyboard/color_left
-DEFAULT="36c692"
+DEFAULT="984673"
 
 error_exit() {
 	echo "Invalid color '$1'"

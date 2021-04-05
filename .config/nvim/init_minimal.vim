@@ -7,14 +7,12 @@
 
 " ================= Plugins ================== "
 call plug#begin(expand('~/.config/nvim/plugged'))
-Plug 'bluz71/vim-moonfly-colors'                            " Colorscheme
+Plug 'astridlyre/vim-moonfly-colors'                        " Colorscheme
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
 Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
 Plug 'junegunn/vim-easy-align'                              " Easy align
-Plug 'honza/vim-snippets'                                   " actual snippets
 Plug 'Yggdroot/indentLine'                                  " show indentation lines
 Plug 'tpope/vim-commentary'                                 " better commenting
-Plug 'tpope/vim-fugitive'                                   " git support
 Plug 'machakann/vim-sandwich'                               " make sandwiches
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Syntax support
 Plug 'jiangmiao/auto-pairs'                                 " Auto bracket pairs
@@ -41,7 +39,8 @@ EOF
 
 " ==================== statusline ======================== "
 set statusline=                                            " Clear default statusline
-set statusline+=\ %#MoonflyEmerald#%t                      " Filename
+set statusline+=\ %#MoonflyLime#%t                      " Filename
+set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
 set statusline+=%=                                         " Spacer
 set statusline+=\ %#MoonflyGrey246#%m                      " Modified symbol
 set statusline+=\ %#MoonflyGrey241#%y                      " Filetype
@@ -114,7 +113,7 @@ let g:moonflyTransparent = 1
 colorscheme moonfly
 
 " indentLine
-let g:indentLine_char_list  = ['▏', '¦', '┆', '┊']
+let g:indentLine_char = '▏'
 let g:indentLine_setColors  = 0
 let g:indentLine_setConceal = 0 " Fix conceal for markdown
 
@@ -127,9 +126,6 @@ let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffse
 let g:fzf_tags_command = 'ctags -R'
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
 let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build/**' --glob '!node_modules/**' --glob '!vendor/bundle/**'"
-
-" lorem ipsum
-iab <expr> lorem system('curl -s http://metaphorpsum.com/paragraphs/1')
 
 " ======================== Commands ============================= "
 au BufEnter * set fo-=c fo-=r fo-=o " stop annoying auto commenting on new lines
@@ -268,15 +264,12 @@ nmap <leader>gs :GFiles?<CR>
 nmap <leader>h :History<CR>
 nmap <leader>f :Files<CR>
 
-" fugitive mappings
-nmap <leader>gb :Gblame<CR>
-nmap <leader>gd :Gdiffsplit<CR>
-
 " vim-easy-align
 xmap <leader>a <Plug>(EasyAlign)
 nmap <leader>a <Plug>(EasyAlign)
 
 " =================== Normal Mappings ==========================
+
 " Easy Buffer switching
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>

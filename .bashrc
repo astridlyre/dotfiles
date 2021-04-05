@@ -59,7 +59,7 @@ get_exit_color() {
   if (($? > 0)); then
     printf '\e[31m'
   else
-    printf '\e[1;32m'
+    printf '\e[32m'
   fi
 }
 
@@ -136,11 +136,11 @@ export BAT_THEME='ansi'
 
 # NNN
 export NNN_COLORS='5555'
-export NNN_FCOLORS='90bb4f7100a8b0f7cbd6abc4'
+export NNN_FCOLORS='0A0B0C02000D0E0809030601'
 
 # fzf colors
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
---color=fg:#b2b2b2,hl:#ff5454
---color=fg+:#b2b2b2,hl+:#36c692
---color=info:#eeeeee,prompt:#36c692
---color=marker:#d183e8,spinner:#36c692'
+--color=fg:#b2b2b2,hl:#D1616B
+--color=fg+:#b2b2b2,hl+:#8DA54E
+--color=info:#CAD4C8,prompt:#8DA54E
+--color=marker:#774051,spinner:#8DA54E'

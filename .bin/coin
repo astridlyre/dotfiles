@@ -1,0 +1,36 @@
+#!/usr/sbin/env bash
+#
+# Wraper for js script to get coin prices
+#
+
+NODE="$(which node)"
+COIN_DIR="$HOME/.config/coin"
+COIN_LIST="$HOME/.config/coin/list"
+COIN_SCRIPT="$HOME/.config/coin/coin.js"
+
+# Handle errors if missing config files
+error_exit() {
+  echo "$@"
+  exit 1
+}
+
+# Help message
+if (($# > 0)); then
+  echo "Usage: $0"
+  echo
+  echo "Config file: $COIN_LIST"
+  echo
+  echo "  line 1: coingecko names for coins"
+  echo "  line 2: display name"
+  echo "  line 3: amount you hodl"
+  exit 0
+fi
+
+[[ ! -d "$COIN_DIR" ]] && error_exit "No config directory found"
+[[ ! -f "$COIN_LIST" ]] && touch "$COIN_LIST"
+[[ ! -f "$COIN_SCRIPT" ]] && error_exit "No script file found"
+
+# Do the thing
+"$NODE" "$COIN_SCRIPT"
+
+exit 0

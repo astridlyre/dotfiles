@@ -814,7 +814,6 @@ background_opacity: 0.85
 
 draw_bold_text_with_bright_colors: true
 
-# Colors
 colors:
   # Default colors
   primary:
@@ -825,31 +824,31 @@ colors:
   # Cursor colors
   cursor:
     text:   '#181819'
-    cursor: '#9e9e9e'
+    cursor: '#8DA54E'
 
   # Selection colors
   selection:
     text:       '#181819'
-    background: '#b2ceee'
+    background: '#8DA54E'
 
   # Normal colors
   normal:
     black:   '#373c40'
-    red:     '#ff5454'
-    green:   '#8cc85f'
-    yellow:  '#e3c78a'
-    blue:    '#80a0ff'
-    magenta: '#d183e8'
-    cyan:    '#79dac8'
-    white:   '#a1aab8'
+    red:     '#D1616B'
+    green:   '#8DA54E'
+    yellow:  '#B0A280'
+    blue:    '#617E9C'
+    magenta: '#984673'
+    cyan:    '#6CCEB8'
+    white:   '#CAD4C8'
 
   # Bright colors
   bright:
     black:   '#7c8f8f'
-    red:     '#ff5189'
-    green:   '#36c692'
-    yellow:  '#bfbf97'
-    blue:    '#78c2ff'
-    magenta: '#ae81ff'
-    cyan:    '#85dc85'
-    white:   '#e2637f'
+    red:     '#C33552'
+    green:   '#a7c659'
+    yellow:  '#E8F198'
+    blue:    '#367CA8'
+    magenta: '#D19FA5'
+    cyan:    '#36c692'
+    white:   '#D0BCBB'

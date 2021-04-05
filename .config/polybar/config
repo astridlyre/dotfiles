@@ -41,10 +41,11 @@ format-offset       =
 ; Moonfly         === =========
 background          = #181819
 foreground          = #b2b2b2
-red                 = #ff5454
-green               = #36c692
-blue                = #80a0ff
-magenta             = #d183e8
+red                 = #D1616B
+green               = #8DA54E
+blue                = #617E9C
+magenta             = #984673
+grey                = #D0BCBB
 ; =======================
 
 ################################################################################
@@ -66,7 +67,7 @@ bottom              = false
 separator           = ::
 
 background          = ${colors.background}
-foreground          = ${colors.foreground}
+foreground          = ${colors.magenta}
 
 line-size           = 0
 line-color          = ${colors.red}
@@ -207,14 +208,14 @@ format = <label-state>
 
 label-focused                = %icon%
 label-focused-background     = ${colors.background}
-label-focused-underline      = ${colors.magenta}
+label-focused-underline      = ${colors.green}
 label-focused-padding        = 3
-label-focused-foreground     = ${colors.magenta}
+label-focused-foreground     = ${colors.green}
 
 label-occupied               = %icon%
 label-occupied-padding       = 3
 label-occupied-background    = ${colors.background}
-label-occupied-foreground    = ${colors.green}
+label-occupied-foreground    = ${colors.magenta}
 
 label-urgent                 = %icon%
 label-urgent-padding         = 3
@@ -263,8 +264,8 @@ label                    = Arch: %output%
 format-foreground        = ${colors.foreground}
 format-background        = ${colors.background}
 format-prefix            = "  "
-format-prefix-foreground = #e3c78a
-format-underline         = #e3c78a
+format-prefix-foreground = #DDC18F
+format-underline         = #DDC18F
 
 [module/aur-updates]
 type                     = custom/script
@@ -274,8 +275,8 @@ label                    = Aur: %output%
 format-foreground        = ${colors.foreground}
 format-background        = ${colors.background}
 format-prefix            = "  "
-format-prefix-foreground = #e3c78a
-format-underline         = #e3c78a
+format-prefix-foreground = #DDC18F
+format-underline         = #DDC18F
 
 ################################################################################
 
@@ -288,12 +289,14 @@ full-at                       = 100
 
 format-charging               = <animation-charging> <label-charging>
 label-charging                = %percentage%%
+label-charging-foreground     = ${colors.foreground}
 format-charging-foreground    = ${colors.foreground}
 format-charging-background    = ${colors.background}
 format-charging-underline     = ${colors.green}
 
 format-discharging            = <ramp-capacity> <label-discharging>
 label-discharging             = %percentage%%
+label-discharging-foreground  = ${colors.foreground}
 format-discharging-underline  = ${colors.green}
 format-discharging-foreground = ${colors.foreground}
 format-discharging-background = ${colors.background}
@@ -309,7 +312,7 @@ ramp-capacity-1               = "  "
 ramp-capacity-2               = "  "
 ramp-capacity-3               = "  "
 ramp-capacity-4               = "  "
-ramp-capacity-foreground      = ${colors.green}
+ramp-capacity-foreground      = ${colors.red}
 
 animation-charging-0          = "  "
 animation-charging-1          = "  "
@@ -331,8 +334,8 @@ format-foreground          = ${colors.foreground}
 format-background          = ${colors.background}
 ;   
 format-prefix              = " "
-format-prefix-foreground   = #36c692
-format-underline           = #36c692
+format-prefix-foreground   = #8DA54E
+format-underline           = #8DA54E
 
 ; Available tags:
 ;   <label> (default)
@@ -464,7 +467,7 @@ label-monitor             = %name%
 label-active              = %name%
 label-active-foreground   = ${colors.foreground}
 label-active-background   = ${colors.background}
-label-active-underline    = #79dac8
+label-active-underline    = #6CCEB8
 label-active-padding      = 2
 
 label-occupied            = %name%
@@ -516,7 +519,7 @@ spacing                     = 4
 format-mounted              = <label-mounted>
 format-mounted-foreground   = ${colors.foreground}
 format-mounted-background   = ${colors.background}
-format-mounted-underline    = #ff5454
+format-mounted-underline    = #D1616B
 
 
 ; Available tokens:
@@ -550,8 +553,8 @@ interval                 = 1024
 format-foreground        = ${colors.foreground}
 format-background        = ${colors.background}
 format-prefix            = "  "
-format-prefix-foreground = #79dac8
-format-underline         = #79dac8
+format-prefix-foreground = #6CCEB8
+format-underline         = #6CCEB8
 
 ################################################################################
 

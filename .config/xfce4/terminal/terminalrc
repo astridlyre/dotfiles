@@ -42,6 +42,6 @@ ScrollingOnOutput=FALSE
 ColorForeground=#b2b2b2
 ColorBackground=#181819
 ColorCursor=#9e9e9e
-ColorPalette=#373c40;#ff5454;#8cc85f;#e3c78a;#80a0ff;#d183e8;#79dac8;#de935f;#f09479;#ff5189;#36c692;#bfbf97;#78c2ff;#ae81ff;#85dc85;#e2637f;
+ColorPalette=#373c40;#D1616B;#79813E;#DDC18F;#617E9C;#984673;#6CCEB8;#de935f;#f09479;#C33552;#8DA54E;#E8F198;#367CA8;#D19FA5;#36c692;#D0BCBB;
 DropdownOpacity=95
 

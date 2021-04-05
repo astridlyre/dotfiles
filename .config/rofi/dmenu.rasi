@@ -45,6 +45,6 @@ element {
     padding: 0px 2px;
 }
 element selected {
-    background-color: #36c692;
+    background-color: #8DA54E;
     text-color: #181819;
 }

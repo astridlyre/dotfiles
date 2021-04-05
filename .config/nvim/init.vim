@@ -7,7 +7,7 @@
 
 " ================= Plugins ================== "
 call plug#begin(expand('~/.config/nvim/plugged'))
-Plug 'bluz71/vim-moonfly-colors'                            " Colorscheme
+Plug 'astridlyre/vim-moonfly-colors'                        " Colorscheme
 Plug 'neoclide/coc.nvim', {'branch': 'release'}             " LSP and more
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
 Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
@@ -43,7 +43,7 @@ EOF
 
 " ==================== statusline ======================== "
 set statusline=                                            " Clear default statusline
-set statusline+=\ %#MoonflyEmerald#%t                      " Filename
+set statusline+=\ %#MoonflyLime#%t                      " Filename
 set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
 set statusline+=%=                                         " Spacer
 set statusline+=\ %#MoonflyGrey246#%m                      " Modified symbol
@@ -135,7 +135,7 @@ let g:coc_global_extensions = [
             \'coc-diagnostic' ]
 
 " indentLine
-let g:indentLine_char_list  = ['▏', '¦', '┆', '┊']
+let g:indentLine_char = '▏'
 let g:indentLine_setColors  = 0
 let g:indentLine_setConceal = 0 " Fix conceal for markdown
 
