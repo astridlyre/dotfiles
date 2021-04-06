@@ -3,6 +3,10 @@
 As in the Linux tradition, here are my dotfiles. Since I'm just starting my journey
 (learning to code and how to use Linux) there is not much here.
 
+![Screen Shot One]()
+
+![Screen Shot Two]()
+
 ## Install Script
 
 Note: Use at your own risk. Overwrites all files with symbolic links.
