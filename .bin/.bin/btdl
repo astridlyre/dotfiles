@@ -1,9 +1,0 @@
-#!/bin/bash
-
-DLDIR="$HOME/Downloads"
-
-transmission-cli \
-	--no-downlimit \
-	--no-uplimit \
-	--download-dir "$DLDIR" \
-	--encryption-required "$1"

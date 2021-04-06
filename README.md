@@ -3,6 +3,18 @@
 As in the Linux tradition, here are my dotfiles. Since I'm just starting my journey
 (learning to code and how to use Linux) there is not much here.
 
+## Install Script
+
+Note: Use at your own risk. Overwrites all files with symbolic links.
+
+```bash
+# Clone repo
+git clone https://www.gitlab.com/ebflat9/dotfiles && cd dotfiles
+
+# Run Install script
+./INSTALL
+```
+
 ## About Me
 
 I'm teaching myself how to code, and how to use Linux. I'm using Arch Linux, which is good

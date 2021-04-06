@@ -1,6 +1,0 @@
-#!/usr/sbin/env bash
-
-BC="$(which bc)"
-read -r input
-$BC -q <<<"scale=2; $input"
-exit 0

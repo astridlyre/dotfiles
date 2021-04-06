@@ -16,27 +16,30 @@ echo
 echo "Linking misc files"
 for file in "${MISC[@]}"; do
   ln -sf "$PWD/$file" "$HOME/$file"
-  # ln -sf "$PWD/$file" "$HOME/$file"
 done
 echo
 
-echo "Linking /etc files"
+echo "Copying /etc files"
 for file in $(find "./etc" -type f); do
-  sudo ln -sf "$PWD/${file#./}" "/${file#./}"
+  sudo cp -i "$PWD/${file#./}" "/${file#./}"
+  sudo chmod 0644 "/${file#./}"
 done
 echo
 
 echo "Linking themes"
 for dir in $(find "./.themes" -maxdepth 1 -type d | sed 1d); do
+  [ -L "$HOME/${dir#./}" ] && rm -f "$HOME/${dir#./}"
   ln -sf "$PWD/${dir#./}" "$HOME/${dir#./}"
 done
 echo
 
 echo "Linking icons"
 for dir in $(find "./.icons" -maxdepth 1 -type d | sed 1d); do
+  [ -L "$HOME/${dir#./}" ] && rm -f "$HOME/${dir#./}"
   ln -sf "$PWD/${dir#./}" "$HOME/${dir#./}"
 done
 echo
 
 echo "Linking .bin"
+[ -L "$HOME/.bin" ] && rm -f "$HOME/.bin"
 ln -sf "$PWD/.bin" "$HOME/.bin"
