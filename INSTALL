@@ -4,12 +4,12 @@
 #
 
 declare -a MISC=(".bashrc" ".bash_aliases" ".bash_profile" ".Xresources" ".xinitrc")
+
 # Link files in .config
 echo "Linking config files"
-for file in $(find "./.config" -type f); do
+while read -r file; do
   ln -sf "$PWD/${file#./}" "$HOME/${file#./}"
-  # ln -sf "$PWD/.config/${file#./}" "$HOME/.config/${file#./}"
-done
+done <<< "$(find "./.config" -type f)"
 echo
 
 # Link misc files
@@ -20,10 +20,10 @@ done
 echo
 
 echo "Copying /etc files"
-for file in $(find "./etc" -type f); do
+while read -r file; do
   sudo cp -i "$PWD/${file#./}" "/${file#./}"
   sudo chmod 0644 "/${file#./}"
-done
+done <<< "$(find "./etc" -type f)"
 echo
 
 echo "Linking themes"
@@ -43,3 +43,6 @@ echo
 echo "Linking .bin"
 [ -L "$HOME/.bin" ] && rm -f "$HOME/.bin"
 ln -sf "$PWD/.bin" "$HOME/.bin"
+
+echo "Done!"
+exit 0
