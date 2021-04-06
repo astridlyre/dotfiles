@@ -3,9 +3,9 @@
 As in the Linux tradition, here are my dotfiles. Since I'm just starting my journey
 (learning to code and how to use Linux) there is not much here.
 
-![Screen Shot One]()
+![Screen Shot One](https://raw.githubusercontent.com/astridlyre/dotfiles/master/screenshot1.jpg)
 
-![Screen Shot Two]()
+![Screen Shot Two](https://raw.githubusercontent.com/astridlyre/dotfiles/master/screenshot2.jpg)
 
 ## Install Script
 
