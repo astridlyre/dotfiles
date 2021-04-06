@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+# vscan: simple wrapper for clamscan
+#
+# Usage: vscan dir
+#
+
+SCANDIR="$HOME" # Default scan home directory
+TRASH_DIR="/tmp/trash"
+
+[[ -n "$1" ]] && SCANDIR="$1" # If passed dir, use that instead
+[[ ! -d "$TRASH_DIR" ]] && mkdir "$TRASH_DIR" # Make temp trash folder if needed
+
+# Begin scan
+echo "Scanning $SCANDIR"
+sudo clamscan --infected --recursive --move="$TRASH_DIR" "$SCANDIR"
+
+# Post scan view trash
+echo "Trash dir contents:"
+ls "$TRASH_DIR"
+
+# EOF

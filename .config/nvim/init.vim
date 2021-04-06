@@ -7,7 +7,7 @@
 
 " ================= Plugins ================== "
 call plug#begin(expand('~/.config/nvim/plugged'))
-Plug 'astridlyre/vim-moonfly-colors'                        " Colorscheme
+Plug 'astridlyre/vim-moonlight'                             " Colorscheme
 Plug 'neoclide/coc.nvim', {'branch': 'release'}             " LSP and more
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
 Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
@@ -43,11 +43,10 @@ EOF
 
 " ==================== statusline ======================== "
 set statusline=                                            " Clear default statusline
-set statusline+=\ %#MoonflyLime#%t                      " Filename
-set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline+=\ %#moonlightLime#%t                       " Filename
 set statusline+=%=                                         " Spacer
-set statusline+=\ %#MoonflyGrey246#%m                      " Modified symbol
-set statusline+=\ %#MoonflyGrey241#%y                      " Filetype
+set statusline+=\ %#moonlightGrey246#%m                    " Modified symbol
+set statusline+=\ %#moonlightGrey241#%y                    " Filetype
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding} " Encoding
 set statusline+=\ %p%%\                                    " Percent
 
@@ -113,8 +112,8 @@ let g:python3_host_prog        = '/usr/bin/python3' " Default python3
 let g:man_hardwrap			   = 0
 
 " Colorscheme
-let g:moonflyTransparent = 1
-colorscheme moonfly
+let g:moonlightTransparent = 1
+colorscheme moonlight
 
 " Ensure coc-extensions are installed
 let g:coc_global_extensions = [

@@ -1,9 +1,10 @@
-#!/usr/sbin/env bash
+#!/usr/bin/env sh
 #
 # Wraper for js script to get coin prices
 #
 
 NODE="$(which node)"
+
 COIN_DIR="$HOME/.config/coin"
 COIN_LIST="$HOME/.config/coin/list"
 COIN_SCRIPT="$HOME/.config/coin/coin.js"
@@ -15,7 +16,7 @@ error_exit() {
 }
 
 # Help message
-if (($# > 0)); then
+if [ "$#" -gt 0 ]; then
   echo "Usage: $0"
   echo
   echo "Config file: $COIN_LIST"
@@ -26,11 +27,12 @@ if (($# > 0)); then
   exit 0
 fi
 
-[[ ! -d "$COIN_DIR" ]] && error_exit "No config directory found"
-[[ ! -f "$COIN_LIST" ]] && touch "$COIN_LIST"
-[[ ! -f "$COIN_SCRIPT" ]] && error_exit "No script file found"
+[ -z "$NODE" ] && error_exit "Node not found in PATH"
+[ ! -d "$COIN_DIR" ] && error_exit "No config directory found"
+[ ! -f "$COIN_LIST" ] && touch "$COIN_LIST"
+[ ! -f "$COIN_SCRIPT" ] && error_exit "No script file found"
 
 # Do the thing
-"$NODE" "$COIN_SCRIPT"
+"$NODE" "$COIN_SCRIPT" "$COIN_LIST"
 
 exit 0

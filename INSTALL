@@ -1,0 +1,42 @@
+#!/usr/sbin/env bash
+#
+# Simple script to link dots
+#
+
+declare -a MISC=(".bashrc" ".bash_aliases" ".bash_profile" ".Xresources" ".xinitrc")
+# Link files in .config
+echo "Linking config files"
+for file in $(find "./.config" -type f); do
+  ln -sf "$PWD/${file#./}" "$HOME/${file#./}"
+  # ln -sf "$PWD/.config/${file#./}" "$HOME/.config/${file#./}"
+done
+echo
+
+# Link misc files
+echo "Linking misc files"
+for file in "${MISC[@]}"; do
+  ln -sf "$PWD/$file" "$HOME/$file"
+  # ln -sf "$PWD/$file" "$HOME/$file"
+done
+echo
+
+echo "Linking /etc files"
+for file in $(find "./etc" -type f); do
+  sudo ln -sf "$PWD/${file#./}" "/${file#./}"
+done
+echo
+
+echo "Linking themes"
+for dir in $(find "./.themes" -maxdepth 1 -type d | sed 1d); do
+  ln -sf "$PWD/${dir#./}" "$HOME/${dir#./}"
+done
+echo
+
+echo "Linking icons"
+for dir in $(find "./.icons" -maxdepth 1 -type d | sed 1d); do
+  ln -sf "$PWD/${dir#./}" "$HOME/${dir#./}"
+done
+echo
+
+echo "Linking .bin"
+ln -sf "$PWD/.bin" "$HOME/.bin"

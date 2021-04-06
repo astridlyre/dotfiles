@@ -1,0 +1,4 @@
+#!/usr/sbin/env python3
+
+reverse = input()
+print(reverse[::-1])

@@ -1,0 +1,84 @@
+#!/bin/bash
+# Simple script to avoid remembering my server IP
+#
+# Usage: flat9 command
+# Author: Erin Burton
+
+# Import ANSI colors
+source "$(which ansi-color)"
+
+# Initialize color variables
+initializeANSI
+
+# Global server variables
+SERVER_IP="172.105.5.45"
+PORT="62200"
+USERNAME="a2tr1dlyr3"
+SSH_PROG="$(which ssh)"
+ID_FILE=$HOME/.ssh/id_9391
+
+# print_ip prints the server IP address
+print_ip() {
+	echo "$SERVER_IP"
+	return 0
+}
+
+print_port() {
+  echo "$PORT"
+  return 0
+}
+
+# print_user prints the server username
+print_user() {
+	echo "$USERNAME"
+	return 0
+}
+
+# print_login prints the server login
+print_login() {
+	echo "$USERNAME@$SERVER_IP"
+	return 0
+}
+
+# server_connect automatically connects to the server
+server_connect() {
+	local login
+	login="$(print_login)"
+	echo "${bluef}Connecting to server: ${invon}$SERVER_IP${invoff}"
+	"$SSH_PROG" -p $PORT "$login" -i "$ID_FILE"
+	return 0
+}
+
+# usage prints usage information
+usage() {
+	cat <<_EOF_
+${yellowf}Usage: ${whitef}$(basename "$0") [command]
+
+${greenf}Commands:
+
+  ${whitef}${boldon}c/connect: ${boldoff}Connect to server
+  ${boldon}i/ip: ${boldoff}Print server IP
+  ${boldon}u/user: ${boldoff}Print username
+  ${boldon}l/login: ${boldoff}Print login@server
+
+_EOF_
+  exit 1
+}
+
+# Ensure proper number of commands
+if (($# > 1)); then
+  usage
+fi
+
+# Check which command
+case "$1" in
+c | connect) server_connect ;;
+i | ip) print_ip ;;
+u | user) print_user ;;
+l | login) print_login ;;
+*) usage ;;
+esac
+
+exit 0
+
+# EOF

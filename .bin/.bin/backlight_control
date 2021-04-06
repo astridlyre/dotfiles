@@ -1,0 +1,58 @@
+#!/bin/sh
+
+MAX=$(cat /sys/class/backlight/intel_backlight/max_brightness)
+CURRENT=$(cat /sys/class/backlight/intel_backlight/brightness)
+BPATH=/sys/class/backlight/intel_backlight/brightness
+STEP=2000
+
+# Simple setting function
+setBrightness() {
+	echo "$1" >$BPATH
+	exit 0
+}
+
+# If called with no args, echo current level
+if [ ! "$1" ]; then
+	echo "Current level: $CURRENT"
+	exit 0
+fi
+
+# If called with optional step, raise with step
+if [ "$2" ]; then
+	STEP=$(($2))
+fi
+
+# Raise brightness
+if [ "$1" = "up" ]; then
+	NEW=$((CURRENT + STEP))
+	if [ "$NEW" -gt "$MAX" ]; then
+		setBrightness "$MAX"
+	else
+		setBrightness $NEW
+	fi
+fi
+# Lower brightness
+if [ "$1" = "down" ]; then
+	NEW=$((CURRENT - STEP))
+	if [ "$CURRENT" -lt 0 ]; then
+		setBrightness 0
+	else
+		setBrightness $NEW
+	fi
+fi
+
+# Set Brightness
+if [ "$1" = "set" ]; then
+	if [ "$2" ]; then
+		setBrightness "$2"
+	else
+		setBrightness 16000
+	fi
+fi
+
+cat <<_EOF_
+Usage: 
+backlight_control up [step]
+backlight_control down [step]
+backlight_control set [value]
+_EOF_
