@@ -27,6 +27,12 @@
         gap: 2rem 2rem;
       }
 
+      @media (min-width: 1080px) {
+        ul {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
       li {
         padding: 1rem;
         display: flex;
@@ -49,7 +55,7 @@
 
       a:focus,
       a:hover {
-        border: 1px solid #8DA54E;
+        border: 1px solid #8da54e;
         border-radius: 0;
         outline: none;
       }
@@ -108,6 +114,19 @@
         <li>
           <a accesskey="p" href="https://trailofbits.github.io/ctf/"
             >c<span>p</span>f2</a
+          >
+        </li>
+        <li>
+          <a accesskey="d" href="https://www.darkreading.com/"
+            ><span>d</span>rkr</a
+          >
+        </li>
+        <li>
+          <a accesskey="l" href="http://lxer.com/"><span>l</span>xer</a>
+        </li>
+        <li>
+          <a accesskey="n" href="https://www.schneier.com/"
+            >sh<span>n</span>r</a
           >
         </li>
       </ul>

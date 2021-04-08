@@ -4,4 +4,4 @@
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 # Start X server
-startx -- -keeptty &> ~/.xorg.log
+startx -- -keeptty &> "$HOME/.cache/xorg.log"

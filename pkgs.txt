@@ -61,6 +61,7 @@ bluez-utils
 boost-libs
 box2d
 bpython
+bpytop
 brave-bin
 brltty
 broadcom-wl
@@ -75,6 +76,7 @@ ca-certificates-utils
 cairo
 cairomm
 cantarell-fonts
+capstone
 cbindgen
 cblas
 cdparanoia
@@ -187,6 +189,7 @@ gegl
 geoclue
 geocode-glib
 gettext
+ghidra
 ghostscript
 giblib
 giflib
@@ -289,10 +292,17 @@ iw
 jack
 jansson
 jasper
+java-environment-common
+java-runtime-common
 jbig2dec
+jdk-openjdk
 jemalloc
 jfsutils
 jq
+jre-openjdk
+jre-openjdk-headless
+jre11-openjdk
+jre11-openjdk-headless
 js78
 json-c
 json-glib
@@ -439,6 +449,7 @@ libmtp
 libmwaw
 libmypaint
 libndp
+libnet
 libnetfilter_conntrack
 libnewt
 libnfnetlink
@@ -585,6 +596,7 @@ libxvmc
 libxxf86vm
 libyaml
 libyuv
+libzip
 libzmf
 licenses
 lilv
@@ -631,6 +643,7 @@ menu-cache
 mesa
 mesa-demos
 meson
+metasploit
 metis
 minizip
 mjpegtools
@@ -790,6 +803,7 @@ poppler-glib
 poppler-qt5
 popt
 portaudio
+postgresql-libs
 potrace
 powertop
 ppp
@@ -913,6 +927,8 @@ qt5-webkit
 qt5-x11extras
 qt5-xmlpatterns
 qt5ct
+r2ghidra
+radare2
 raptor
 rasqal
 rav1e
@@ -932,6 +948,7 @@ rtkit
 rtmpdump
 rubberband
 ruby
+ruby-bundler
 ruby-irb
 ruby-reline
 rubygems
@@ -994,6 +1011,19 @@ terminus-font
 testdisk
 tevent
 texinfo
+themix-export-spotify-git
+themix-full-git
+themix-gui-git
+themix-icons-archdroid-git
+themix-icons-gnome-colors-git
+themix-icons-numix-git
+themix-icons-papirus-git
+themix-icons-suru-plus-aspromauros-git
+themix-icons-suru-plus-git
+themix-import-images-git
+themix-plugin-base16-git
+themix-theme-materia-git
+themix-theme-oomox-git
 thin-provisioning-tools
 tinyxml
 tolua++
