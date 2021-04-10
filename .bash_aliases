@@ -46,6 +46,14 @@ min() {
   vim -u "$HOME/.config/nvim/init_minimal.vim" "$@"
 }
 
+mk() {
+  local fname
+  fname="$(ls -- *.c)"
+  cc "$PWD/$fname"
+  mv -f "$PWD/a.out" "$PWD/${fname%.c}"
+  "$PWD/${fname%.c}"
+}
+
 # =========== Aliases ===========
 
 # Confirm before overwriting
