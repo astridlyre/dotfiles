@@ -129,9 +129,9 @@ function output() {
 	getCurVol
 	volMuteStatus
 	if is_muted; then
-		echo " $curVol%"
+		echo "%{F#984673}  %{F#b2b2b2}$curVol%%{F-}"
 	else
-		echo " $curVol%"
+		echo "%{F#8DA54E}  %{F#b2b2b2}$curVol%%{F-}"
 	fi
 } #}}}
 

@@ -16,7 +16,6 @@ run sxhkd -c ~/.config/bspwm/sxhkd/sxhkdrc
 run unclutter --timeout 1
 
 # Applets
-run nm-applet
 run numlockx on
 # blueberry-tray &
 

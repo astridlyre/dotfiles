@@ -98,7 +98,7 @@ font-1              = "Noto Color Emoji:size=10:scale=10;1"
 
 modules-left        = bspwm
 modules-center      = xwindow
-modules-right       = memory2 cpu2 date battery pavolume
+modules-right       = memory2 cpu2 date battery pavolume wireless-network
 
 tray-detached       = false
 tray-offset-x       = 0
@@ -953,7 +953,7 @@ label-disconnected-foreground      = ${colors.foreground}
 [module/wireless-network]
 ;https://github.com/jaagr/polybar/wiki/Module:-network
 type                                  = internal/network
-interface                             = wlp67s0
+interface                             = wlan0
 interval                              = 3.0
 label-connected                       = %essid%
 
@@ -961,22 +961,22 @@ format-connected                      = <label-connected>
 ;format-connected                     = <ramp-signal> <label-connected>
 format-connected-foreground           = ${colors.foreground}
 format-connected-background           = ${colors.background}
-format-connected-prefix               = "  "
-format-connected-prefix-foreground    = #7e52c6
+format-connected-prefix               = "  "
+format-connected-prefix-foreground    = ${colors.green}
 format-connected-prefix-background    = ${colors.background}
-format-connected-underline            = #7e52c6
+format-connected-underline            = ${colors.green}
 
-label-disconnected                    = %ifname% disconnected
-label-disconnected-foreground         = ${colors.alert}
+label-disconnected                    = %ifname% idle
+label-disconnected-foreground         = ${colors.foreground}
 label-disconnected-background         = ${colors.background}
 
 format-disconnected                   = <label-disconnected>
-format-disconnected-foreground        = ${colors.alert}
+format-disconnected-foreground        = ${colors.foreground}
 format-disconnected-background        = ${colors.background}
-format-disconnected-prefix            = "  "
-format-disconnected-prefix-foreground = ${colors.alert}
+format-disconnected-prefix            = "  "
+format-disconnected-prefix-foreground = ${colors.magenta}
 format-disconnected-prefix-background = ${colors.background}
-format-disconnected-underline         = ${colors.alert}
+format-disconnected-underline         = ${colors.magenta}
 
 ramp-signal-0                         = ▁
 ramp-signal-1                         = ▂
