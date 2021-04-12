@@ -36,7 +36,7 @@ super + Shift + BackSpace
 
 # Network manager
 super + n
-    nm-connection-editor
+    alacritty -e iwctl
 
 # Hide polybar
 super + y
