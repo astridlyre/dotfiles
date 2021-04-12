@@ -32,12 +32,6 @@ disable_stream() {
   echo "Unloading modules"
   pactl unload-module module-echo-cancel
   pactl unload-module module-null-sink
-  pactl unload-module module-loopback
-  pactl unload-module module-remap-source
-
-  echo "Resetting defaults"
-  pactl set-default-source microphone
-  pactl set-default-sink speakers
 }
 
 usage() {
