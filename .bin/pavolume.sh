@@ -9,27 +9,30 @@ declare -i INC=2       # Increment step
 declare -i LIMIT=100   # Volume Limit
 declare -i FIRST_RUN=0 # First time running the script?
 
-ACTIVE_SINK=""    # Active Sink
-CURRENT_VOLUME="" # Current Volume
+ICON_COLOR="#8DA54E" # Icon color
+TEXT_COLOR="#B2B2B2" # Text color
+ACTIVE_SINK=""       # Active Sink
+CURRENT_VOLUME=""    # Current Volume
 
 # Returns usage information
 usage() {
-  printf '\n\e[1;32m%s\e[0m - An easy to use bar script to adjust volume\n' "$(basename "$0")"
-  printf '\n\t\e[0;35mOptions:\t\e[1;39m--up\e[0m\t\t(increase volume)'
-  printf '\n\t\t\t\e[1;39m--down\e[0m\t\t(decrease volume)'
-  printf '\n\t\t\t\e[1;39m--togmute\e[0m\t(toggle muted)'
-  printf '\n\t\t\t\e[1;39m--mute\e[0m\t\t(mute volume)'
-  printf '\n\t\t\t\e[1;39m--unmute\e[0m\t(unmute volume)'
-  printf '\n\t\t\t\e[1;39m--listen\e[0m\t(listen for events)'
-  printf '\n\t\t\t\e[1;39m--help\e[0m\t\t(print this message)'
-  printf '\n\nBy default, this script prints output for a bar like polybar\nor lemonbar.\n'
-  exit 0
+	printf '\n\e[1;32m%s\e[0m - An easy to use bar script to adjust volume\n' "$(basename "$0")"
+	printf '\n\t\e[0;35mOptions:\t\e[1;39m--up\e[0m\t\t(increase volume)'
+	printf '\n\t\t\t\e[1;39m--down\e[0m\t\t(decrease volume)'
+	printf '\n\t\t\t\e[1;39m--togmute\e[0m\t(toggle muted)'
+	printf '\n\t\t\t\e[1;39m--mute\e[0m\t\t(mute volume)'
+	printf '\n\t\t\t\e[1;39m--unmute\e[0m\t(unmute volume)'
+	printf '\n\t\t\t\e[1;39m--listen\e[0m\t(listen for events)'
+	printf '\n\t\t\t\e[1;39m--help\e[0m\t\t(print this message)'
+	printf '\n\nBy default, this script prints output for a bar like polybar\nor lemonbar.\n'
+	exit 0
 }
 
-# Returns name of active sink
+# Returns name of default sink
 get_active_sink() {
-	ACTIVE_SINK="$(pactl list sinks | grep -E -o 'Name: .*analog-stereo')"
-	ACTIVE_SINK="${ACTIVE_SINK//Name: /}"
+  while read -r line; do
+    [[ "$line" =~ ^Default\ Sink:\  ]] && ACTIVE_SINK="${line//Default Sink: /}" && break
+  done <<< "$(pactl info)"
 }
 
 # Returns 0 if muted and 1 if not muted
@@ -42,9 +45,10 @@ is_muted() {
 
 # Returns the current volume of the ACTIVE_SINK
 refresh_volume() {
-	CURRENT_VOLUME=$(pactl list sinks | grep -E -8 "$ACTIVE_SINK" | grep -E '^\s*Volume' | grep -E -o '[0-9]+%' | sed 1d)
-	CURRENT_VOLUME=${CURRENT_VOLUME%\%}
-	return 0
+  while read -r line; do
+    CURRENT_VOLUME="${line##* }"
+    CURRENT_VOLUME="${CURRENT_VOLUME%\%}" && break
+  done <<< "$(pactl list sinks | grep -E -o '^\s*Volume: .*%')"
 }
 
 # increases the volume by INC
@@ -112,9 +116,9 @@ output() {
 	get_active_sink # Gets active sink
 	refresh_volume  # Refresh volume
 	if is_muted; then
-		echo "%{F#984673}  %{F#b2b2b2}$CURRENT_VOLUME%%{F-}"
+		echo "%{F${ICON_COLOR}}  %{F${TEXT_COLOR}}$CURRENT_VOLUME%%{F-}"
 	else
-		echo "%{F#8DA54E}  %{F#b2b2b2}$CURRENT_VOLUME%%{F-}"
+		echo "%{F${ICON_COLOR}}  %{F${TEXT_COLOR}}$CURRENT_VOLUME%%{F-}"
 	fi
 }
 
@@ -145,8 +149,8 @@ case "$1" in
 	listen
 	;;
 --help)
-  usage
-  ;;
+	usage
+	;;
 *)
 	# By default print output for bar
 	output
