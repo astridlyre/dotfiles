@@ -4,4 +4,4 @@
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 # Start X server
-startx -- -keeptty &> "$HOME/.cache/xorg.log"
+[ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ] && exec startx -- -keeptty &> "$HOME/.cache/xorg.log"

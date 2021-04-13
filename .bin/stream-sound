@@ -1,36 +1,21 @@
 #!/usr/sbin/env bash
 
 MODULES="$HOME/.cache/.sound-modules"
-
-get_microphone() {
-  local microphone
-  microphone="$(pactl list sources | grep -E -o 'Name: .*' | grep -E -v '.*.monitor')"
-  microphone=${microphone//Name: /}
-  echo "$microphone"
-}
-
-get_speakers() {
-  local speakers
-  speakers="$(pactl list sinks | grep -E -o 'Name: .*')"
-  speakers=${speakers//Name: /}
-  echo "$speakers"
-}
-
-microphone="$(get_microphone)"
-speakers="$(get_speakers)"
+MICROPHONE="alsa_input.pci-0000_00_1f.3.analog-stereo"
+SPEAKERS="alsa_output.pci-0000_00_1f.3.analog-stereo"
 
 enable_stream() {
-	pactl load-module module-null-sink sink_name=virtual1 \
-    sink_properties=device.description="virtual1"
-	pactl load-module module-null-sink sink_name=virtual2 \
-    sink_properties=device.description="virtual2"
+	pactl load-module module-null-sink sink_name=from_sources \
+    sink_properties=device.description="from_sources"
+	pactl load-module module-null-sink sink_name=to_share \
+    sink_properties=device.description="to_share"
 
-  pactl load-module module-loopback source=virtual1.monitor sink="$speakers" \
-    latency_msec=1
-  pactl load-module module-loopback source=virtual1.monitor sink=virtual2 \
-    latency_msec=1
-  pactl load-module module-loopback source="$microphone" sink=virtual2 \
-    latency_msec=1
+  pactl load-module module-loopback source=from_sources sink="$SPEAKERS" \
+    latency_msec=2
+  pactl load-module module-loopback source=from_sources sink=to_share \
+    latency_msec=2
+  pactl load-module module-loopback source="$MICROPHONE" sink=to_share \
+    latency_msec=2
 }
 
 disable_stream() {

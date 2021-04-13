@@ -29,7 +29,7 @@ export FCEDIT="$EDITOR"
 export PAGER="/usr/bin/less"
 export MANPAGER="nvim -c 'set ft=man' -"
 export MANWIDTH=90
-export BG_IMAGE="$HOME/Pictures/Wallpapers/bg2.jpg"
+export BG_IMAGE="$HOME/Pictures/Wallpapers/fishbg.jpg"
 export SXHKD_SHELL=/bin/sh
 
 # A few RegExp variables because I hate typing them
