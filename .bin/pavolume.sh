@@ -12,6 +12,7 @@ declare -i FIRST_RUN=0 # First time running the script?
 ICON_COLOR="#8DA54E" # Icon color
 TEXT_COLOR="#B2B2B2" # Text color
 ACTIVE_SINK=""       # Active Sink
+ACTIVE_SINK_NUMBER="" # Active Sink Number
 CURRENT_VOLUME=""    # Current Volume
 
 # Returns usage information
@@ -30,9 +31,14 @@ usage() {
 
 # Returns name of default sink
 get_active_sink() {
+  # Read Default Sink
   while read -r line; do
     [[ "$line" =~ ^Default\ Sink:\  ]] && ACTIVE_SINK="${line//Default Sink: /}" && break
   done <<< "$(pactl info)"
+
+  # Get Sink Number for Default Sink
+  ACTIVE_SINK_NUMBER="$(pactl list short sinks | grep "$ACTIVE_SINK")"
+  ACTIVE_SINK_NUMBER="${ACTIVE_SINK_NUMBER//[^0-9]*/}"
 }
 
 # Returns 0 if muted and 1 if not muted
@@ -45,10 +51,16 @@ is_muted() {
 
 # Returns the current volume of the ACTIVE_SINK
 refresh_volume() {
+  local regex
+  regex="^Sink #${ACTIVE_SINK_NUMBER}"
+
   while read -r line; do
-    CURRENT_VOLUME="${line##* }"
-    CURRENT_VOLUME="${CURRENT_VOLUME%\%}" && break
-  done <<< "$(pactl list sinks | grep -E -o '^\s*Volume: .*%')"
+    if [[ "$line" =~ ^\s*Volume: ]]; then
+      CURRENT_VOLUME="${line#*/ *[^0-9]}"
+      CURRENT_VOLUME="${CURRENT_VOLUME%%\%*}"
+      break
+    fi
+  done <<< "$(pactl list sinks | grep -10 -E "$regex")"
 }
 
 # increases the volume by INC

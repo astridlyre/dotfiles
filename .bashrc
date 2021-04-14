@@ -107,7 +107,7 @@ if ! shopt -oq posix; then
 fi
 
 # basic PATH
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # local scripts dir
 export PATH=$HOME/.bin:$PATH
@@ -129,7 +129,7 @@ eval "$(fnm env)"
 eval "$(zoxide init bash)"
 
 # ruby
-export PATH=$HOME/.local/share/gem/ruby/2.7.0/bin:$PATH
+export PATH=${PATH}:${HOME}/.local/share/gem/ruby/2.7.0/bin
 
 # bat theme
 export BAT_THEME='ansi'

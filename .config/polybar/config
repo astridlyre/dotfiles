@@ -986,7 +986,7 @@ ramp-signal-4                         = ▅
 ramp-signal-5                         = ▆
 ramp-signal-6                         = ▇
 ramp-signal-7                         = █
-ramp-signal-foreground                = #7e52c6
+ramp-signal-foreground                = ${colors.green}
 
 ################################################################################
 

@@ -109,7 +109,7 @@ let g:loaded_python_provider   = 0                  " Disable python2
 let g:loaded_perl_provider     = 0                  " Disable perl
 let g:loaded_ruby_provider     = 0                  " Disable ruby
 let g:python3_host_prog        = '/usr/bin/python3' " Default python3
-let g:man_hardwrap			   = 0
+let g:man_hardwrap			       = 0
 
 " Colorscheme
 let g:moonlightTransparent = 1

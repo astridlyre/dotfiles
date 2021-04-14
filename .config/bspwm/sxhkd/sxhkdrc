@@ -22,7 +22,7 @@ super + v
 super + Return
     alacritty
 
-# Ranger File Manager
+# nnn File Manager
 super + e
     alacritty -e nnn -c
 
@@ -36,7 +36,7 @@ super + Shift + BackSpace
 
 # Network manager
 super + n
-    alacritty -e iwctl
+    alacritty --class iwctl,iwctl -e iwctl
 
 # Hide polybar
 super + y
