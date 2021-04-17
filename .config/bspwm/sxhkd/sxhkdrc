@@ -31,7 +31,7 @@ super + z
     zathura
 
 # Xkill
-super + Shift + BackSpace
+super + shift + BackSpace
     xkill
 
 # Network manager
@@ -67,7 +67,7 @@ super + shift + Return
   alacritty
 
 # PCManFM
-super + shift+ e
+super + shift + e
 	pcmanfm
 
 # GIMP

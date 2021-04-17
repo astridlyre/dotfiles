@@ -4,7 +4,7 @@
 /usr/bin/prime-offload &
 
 xset r r off &                                               # Turn off key repeat
-kbd_color -d &                                               # Set kbd color
+/home/ml/.bin/kbd_color -d &                                 # Set kbd color
 setxkbmap -option ctrl:nocaps &                              # Map capslock to esc & ctrl
 pgrep xcape >/dev/null 2>&1 || xcape -e 'Control_L=Escape' & # Map Ctrl to Escape
 xsetroot -cursor_name left_ptr &                             # cursor fix

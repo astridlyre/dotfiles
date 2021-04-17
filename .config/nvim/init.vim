@@ -8,6 +8,7 @@
 " ================= Plugins ================== "
 call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'astridlyre/vim-moonlight'                             " Colorscheme
+Plug 'mhinz/vim-startify'                                   " Fancy start screen
 Plug 'neoclide/coc.nvim', {'branch': 'release'}             " LSP and more
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
 Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
@@ -60,22 +61,12 @@ set list listchars=trail:»,tab:»-                   " use tab to navigate in l
 set wrap breakindent                                " wrap long lines to the width set by tw
 set showtabline=0                                   " Never show tabline
 set noshowmode                                      " Do not show mode under statusline
-set splitright                                      " open vertical split to the right
-set splitbelow                                      " open horizontal split to the bottom
+set splitright splitbelow                           " Splits 
 set tw=90                                           " auto wrap lines
 set history=1000                                    " history limit
 set undofile undodir=/tmp                           " enable persistent undo
 set inccommand=nosplit                              " visual feedback while substituting
 set grepprg=rg\ --vimgrep                           " use rg as default grepper
-
-" ==================== performance tweaks ======================== "
-set nocursorline nocursorcolumn                     " Do not show cursorline or colum
-set scrolljump=5 scrolloff=5                        " Keep cursor 5 lines from edges
-set lazyredraw                                      " Performance boost for macros
-set redrawtime=10000                                " Allow more time for redraws
-set synmaxcol=180                                   " No syntax on long lines
-set timeoutlen=850                                  " Time to wait between keypress
-set maxmempattern=20000                             " Max mem to use
 set wildmode=longest:full,full
 set wildignorecase
 set wildignore=*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache
@@ -87,6 +78,15 @@ set updatetime=100                                  " For CursorHold autocmd
 set shortmess+=actI                                 " Avoid more press enters
 set signcolumn=yes                                  " Always show signcolumn
 set spelllang=en_gb                                 " Canadian spelling
+
+" ==================== performance tweaks ======================== "
+set nocursorline nocursorcolumn                     " Do not show cursorline or colum
+set scrolljump=5 scrolloff=5                        " Keep cursor 5 lines from edges
+set lazyredraw                                      " Performance boost for macros
+set redrawtime=10000                                " Allow more time for redraws
+set synmaxcol=180                                   " No syntax on long lines
+set timeoutlen=850                                  " Time to wait between keypress
+set maxmempattern=20000                             " Max mem to use
 
 " ======================== Plugin Configurations ======================== "
 let g:loaded_gzip              = 1                  " Disable Unused plugins
@@ -139,6 +139,15 @@ let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build
 " vim-go
 let g:go_fmt_autosave = 1
 let g:go_fmt_command  = "goimports"
+
+let g:startify_custom_header = [
+      \ '                               _ _       _     _',
+      \ '   _ __ ___   ___   ___  _ __ | (_) __ _| |__ | |_',
+      \ "  | '_ ` _ \\ / _ \\ / _ \\| '_ \\| | |/ _` | '_ \\| __|",
+      \ "  | | | | | | (_) | (_) | | | | | | (_| | | | | |_",
+      \ '  |_| |_| |_|\___/ \___/|_| |_|_|_|\__, |_| |_|\__|',
+      \ '                                   |___/'
+      \]
 
 " lorem ipsum
 iab <expr> lorem system('curl -s http://metaphorpsum.com/paragraphs/1')
@@ -252,15 +261,16 @@ let mapleader=' '
 
 " Install or Update Plugins
 nnoremap <leader>lf :Format<CR>
-nnoremap <leader>pc :PlugClean<CR>
-nnoremap <leader>pi :PlugInstall<CR>
-nnoremap <leader>pu :PlugUpdate<CR>
+nnoremap <leader>i :PlugInstall<CR>
+nnoremap <leader>u :PlugUpdate<CR>
 nnoremap <leader>\ :qa!<CR>
-nnoremap <leader>q :bd<CR>
 nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
 nnoremap <leader>e :call ResetHightlight()<CR>
 nnoremap <leader>w :w<CR>
-nnoremap <leader>z :bd!<CR>
+
+" Easy Buffer switching
+nnoremap <leader>n :bnext<CR>
+nnoremap <leader>p :bprevious<CR>
 
 " new line in normal mode and back
 nnoremap <leader>[ myO<ESC>`y
@@ -269,27 +279,25 @@ nnoremap <leader>] myo<ESC>`y
 " open terminal
 nnoremap <leader>' :sp term://bash<CR>i
 
-" Simple sort
+" lil scripties
 vnoremap <leader>s !sort -d -b<CR>
-
-" Simple calc with bc
 vnoremap <leader>bc !scriptbc<CR>
 
 " easy system clipboard copy & paste
 nnoremap <leader>Y mqgg"+yG`q
-nnoremap <leader>p "+p
+nnoremap <leader>cp "+p
 nnoremap <leader>y "+y
 vnoremap <leader>Y "+Y
-vnoremap <leader>p "+p
+vnoremap <leader>cp "+p
 vnoremap <leader>y "+y
 
 " FZF
 nmap <leader>/ :Rg<CR>
 nmap <leader>: :Commands<CR>
 nmap <leader>b :Buffers<CR>
-nmap <leader>t :BTags<CR>
-nmap <leader>gc :Commits<CR>
-nmap <leader>gs :GFiles?<CR>
+nmap <leader>tt :BTags<CR>
+nmap <leader>tc :Commits<CR>
+nmap <leader>tf :GFiles?<CR>
 nmap <leader>h :History<CR>
 nmap <leader>f :Files<CR>
 
@@ -308,8 +316,8 @@ nmap <leader>c[ <Plug>(coc-diagnostic-prev)
 nmap <leader>o :OR <CR>
 
 " fugitive mappings
-nmap <leader>gb :Gblame<CR>
-nmap <leader>gd :Gdiffsplit<CR>
+nmap <leader>tb :Git blame<CR>
+nmap <leader>td :Gdiffsplit<CR>
 
 " vim-go mappings
 nmap <leader>ga :GoAlternate<CR>
@@ -328,10 +336,6 @@ nmap <leader>a <Plug>(EasyAlign)
 " =================== Normal Mappings ==========================
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" Easy Buffer switching
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
 
 " Easier move line with alt+j / alt+k
 nnoremap <M-j> mz:m+<cr>`z
