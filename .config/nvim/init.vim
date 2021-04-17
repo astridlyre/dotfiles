@@ -127,10 +127,7 @@ let g:coc_global_extensions = [
             \'coc-diagnostic' ]
 
 " FZF
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
+let g:fzf_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'border': 'sharp' } }
 let g:fzf_tags_command = 'ctags -R'
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
@@ -178,9 +175,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " fzf if passed argument is a folder
 augroup folderarg
-    " change working directory to passed directory
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
-    " start fzf on passed directory
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'Files ' fnameescape(argv()[0]) | endif
 augroup END
 
@@ -189,10 +184,7 @@ command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
 
 " Return to last edit position when opening files
-autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
 " format with available file format formatter
 command! -nargs=0 Format :call CocAction('format')
@@ -249,10 +241,8 @@ endfunction
 map <F3> :e ~/.config/nvim/init.vim<CR>
 map <F2> :StripWhitespace<CR>
 
-" Disable s
+" Disable s and make y consistent
 nmap s <Nop>
-
-" Make Y consistent
 map Y y$
 
 " =================== Leader Mappings ==========================
@@ -344,9 +334,6 @@ nnoremap <M-k> mz:m-2<cr>`z
 " Disable hl with 2 esc
 noremap <silent><esc><esc> :noh<CR><esc>
 
-" Map jk to ESC in insert
-inoremap jk <ESC>
-
 " Spelling
 nmap so :call SpellOn()<CR>
 nmap sf :call SpellOff()<CR>
@@ -377,3 +364,4 @@ imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-j> <Plug>(coc-snippets-select)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 inoremap <expr> <CR> pumvisible() ? "\<C-e>\<CR>" : "\<CR>"
+inoremap jk <ESC>
