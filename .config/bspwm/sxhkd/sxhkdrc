@@ -62,9 +62,9 @@ super + BackSpace
 # SUPER + SHIFT KEYS
 #################################################################
 
-# Alacritty
+# Zutty
 super + shift + Return
-    alacritty
+  alacritty
 
 # PCManFM
 super + shift+ e

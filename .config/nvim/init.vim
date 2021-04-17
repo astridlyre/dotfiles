@@ -13,10 +13,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
 Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
 Plug 'junegunn/vim-easy-align'                              " Easy align
 Plug 'honza/vim-snippets'                                   " actual snippets
-Plug 'Yggdroot/indentLine'                                  " show indentation lines
 Plug 'tpope/vim-commentary'                                 " better commenting
 Plug 'tpope/vim-fugitive'                                   " git support
-Plug 'machakann/vim-sandwich'                               " make sandwiches
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Syntax support
 Plug 'jiangmiao/auto-pairs'                                 " Auto bracket pairs
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }          " Go lang plugin
@@ -51,8 +49,7 @@ set statusline+=\ %{&fileencoding?&fileencoding:&encoding} " Encoding
 set statusline+=\ %p%%\                                    " Percent
 
 " ==================== general config ======================== "
-set number                                          " Line numbers
-set relativenumber                                  " Relative line numbers
+set number relativenumber                           " Line numbers and relative numbers
 set termguicolors                                   " True colors
 set mouse=a                                         " Enable mouse scroll
 set foldmethod=manual                               " Manual folding only
@@ -63,20 +60,17 @@ set list listchars=trail:»,tab:»-                   " use tab to navigate in l
 set wrap breakindent                                " wrap long lines to the width set by tw
 set showtabline=0                                   " Never show tabline
 set noshowmode                                      " Do not show mode under statusline
-set conceallevel=2                                  " Necessary for Indentline
 set splitright                                      " open vertical split to the right
 set splitbelow                                      " open horizontal split to the bottom
 set tw=90                                           " auto wrap lines
-set emoji                                           " enable emojis
 set history=1000                                    " history limit
-set undofile                                        " enable persistent undo
-set undodir=/tmp                                    " undo temp file directory
+set undofile undodir=/tmp                           " enable persistent undo
 set inccommand=nosplit                              " visual feedback while substituting
 set grepprg=rg\ --vimgrep                           " use rg as default grepper
-set nocursorline                                    " Do not show cursorline
-set nocursorcolumn                                  " Do not show cursorcolumn
-set scrolljump=5                                    " Keep cursor 10 lines from edges
-set scrolloff=5                                     " Keep cursor 10 lines from edges
+
+" ==================== performance tweaks ======================== "
+set nocursorline nocursorcolumn                     " Do not show cursorline or colum
+set scrolljump=5 scrolloff=5                        " Keep cursor 5 lines from edges
 set lazyredraw                                      " Performance boost for macros
 set redrawtime=10000                                " Allow more time for redraws
 set synmaxcol=180                                   " No syntax on long lines
@@ -87,8 +81,7 @@ set wildignorecase
 set wildignore=*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache
 set re=1
 set hidden                                          " Keep buffers around
-set nobackup                                        " Do not make backup files
-set nowritebackup                                   " No write backups
+set nobackup nowritebackup                          " Do not make backup files
 set cmdheight=1                                     " Make hight 1 line
 set updatetime=100                                  " For CursorHold autocmd
 set shortmess+=actI                                 " Avoid more press enters
@@ -132,11 +125,6 @@ let g:coc_global_extensions = [
             \'coc-sh',
             \'coc-pyright',
             \'coc-diagnostic' ]
-
-" indentLine
-let g:indentLine_char = '▏'
-let g:indentLine_setColors  = 0
-let g:indentLine_setConceal = 0 " Fix conceal for markdown
 
 " FZF
 let g:fzf_action = {
@@ -252,7 +240,7 @@ endfunction
 map <F3> :e ~/.config/nvim/init.vim<CR>
 map <F2> :StripWhitespace<CR>
 
-" Disable s for vim-sandwich
+" Disable s
 nmap s <Nop>
 
 " Make Y consistent
@@ -261,9 +249,6 @@ map Y y$
 " =================== Leader Mappings ==========================
 " Map leader to space
 let mapleader=' '
-
-" Write buffer as sudo
-nnoremap <leader>sudo :w !sudo tee > /dev/null %
 
 " Install or Update Plugins
 nnoremap <leader>lf :Format<CR>
@@ -289,10 +274,6 @@ vnoremap <leader>s !sort -d -b<CR>
 
 " Simple calc with bc
 vnoremap <leader>bc !scriptbc<CR>
-
-" Spelling
-nmap <leader>so :call SpellOn()<CR>
-nmap <leader>sf :call SpellOff()<CR>
 
 " easy system clipboard copy & paste
 nnoremap <leader>Y mqgg"+yG`q
@@ -362,12 +343,16 @@ noremap <silent><esc><esc> :noh<CR><esc>
 " Map jk to ESC in insert
 inoremap jk <ESC>
 
+" Spelling
+nmap so :call SpellOn()<CR>
+nmap sf :call SpellOff()<CR>
+
 " =================== Visual Mappings ==========================
 " Easier move line with alt+j / alt+k
 vnoremap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
-" Coc function and class text objects
+" Coc function and class text objects and selection ranges
 xmap if <Plug>(coc-funcobj-i)
 omap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
@@ -376,21 +361,15 @@ xmap ic <Plug>(coc-classobj-i)
 omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
-
-" Use CTRL-S for selections ranges.
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " =================== Terminal Mappings ==========================
 " Easier close terminal
 tnoremap <Esc> <C-\><C-n><C-w>q
-tnoremap jk <C-\><C-n>
 
 " =================== Insert Mappings ==========================
-" Use <C-l> for trigger snippet expand.
 imap <C-l> <Plug>(coc-snippets-expand)
-" Use <C-j> for select text for visual placeholder of snippet.
 vmap <C-j> <Plug>(coc-snippets-select)
-" Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 inoremap <expr> <CR> pumvisible() ? "\<C-e>\<CR>" : "\<CR>"
