@@ -12,7 +12,7 @@ super + w
 
 # Brave Browser
 super + b
-    qutebrowser
+    brave --use-gl=desktop
 
 # Pavucontrol
 super + v
@@ -80,7 +80,7 @@ super + shift + o
 
 # Blender
 super + shift + b
-  brave --use-gl=desktop
+  qutebrowser
 
 #################################################################
 #     SCREENSHOTS

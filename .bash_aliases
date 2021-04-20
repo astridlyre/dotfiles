@@ -37,21 +37,29 @@ ducks() {
 	du -sh ./* | sort -hr | head -11
 }
 
+# connect to local server
 goose() {
   ssh-add ~/.ssh/id_goosetown
   ssh -p 2220 moonlight@www.fileleak.us
 }
 
+# minimal editor without coc or vim-go
 min() {
   vim -u "$HOME/.config/nvim/init_minimal.vim" "$@"
 }
 
+# quick make c file
 mk() {
   local fname
   fname="$(ls -- *.c)"
   cc "$PWD/$fname"
   mv -f "$PWD/a.out" "$PWD/${fname%.c}"
   "$PWD/${fname%.c}"
+}
+
+# Find a service port quickly
+port() {
+  grep --color=auto -i "$1" /etc/services
 }
 
 # =========== Aliases ===========
@@ -119,3 +127,6 @@ alias sus="sudo systemctl suspend"
 
 # Get error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
+
+# Upgrade python packages
+alias pip-upgrade="pip freeze --user | cut -d'=' -f1 | xargs -n1 pip install -U"

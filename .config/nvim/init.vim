@@ -41,13 +41,13 @@ require'nvim-treesitter.configs'.setup {
 EOF
 
 " ==================== statusline ======================== "
-set statusline=                                            " Clear default statusline
-set statusline+=\ %#moonlightLime#%t                       " Filename
-set statusline+=%=                                         " Spacer
-set statusline+=\ %#moonlightGrey246#%m                    " Modified symbol
-set statusline+=\ %#moonlightGrey241#%y                    " Filetype
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding} " Encoding
-set statusline+=\ %p%%\                                    " Percent
+set statusline=                                                               " Clear default statusline
+set statusline+=\ %#moonlightLime#%t                                          " Filename
+set statusline+=%=                                                            " Spacer
+set statusline+=\ %#moonlightGrey246#%m                                       " Modified symbol
+set statusline+=\ %#moonlightPurple#%y                                        " Filetype
+set statusline+=\ %#moonlightGrey246#%{&fileencoding?&fileencoding:&encoding} " Encoding
+set statusline+=\ %p%%\                                                       " Percent
 
 " ==================== general config ======================== "
 set number relativenumber                           " Line numbers and relative numbers
