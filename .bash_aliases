@@ -67,7 +67,7 @@ port() {
 # Confirm before overwriting
 alias cp="cp -i"
 alias mv="mv -i"
-alias rm="rm -i"
+alias rm="rm -I"
 
 # ls replacement
 alias ls="exa -aG --color=always -s type"
@@ -76,6 +76,7 @@ alias lt="exa -aT --color=always -s type"
 
 # cat replacement
 alias cat="bat -pp --theme='ansi'"
+alias bat="bat --theme='ansi'"
 
 # vim is my editor
 alias vi="vim"

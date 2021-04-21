@@ -27,10 +27,16 @@ export VISUAL="/usr/local/bin/nvim"
 export EDITOR="/usr/local/bin/nvim"
 export FCEDIT="$EDITOR"
 export PAGER="/usr/bin/less"
-export MANPAGER="nvim -c 'set ft=man' -"
-export MANWIDTH=90
+export MANPAGER="less -J"
 export BG_IMAGE="$HOME/Pictures/Wallpapers/fishbg.jpg"
 export SXHKD_SHELL=/bin/sh
+export LESS_TERMCAP_mb=$'\e[1;34m'
+export LESS_TERMCAP_md=$'\e[1;35m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;35m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;34m'
 
 # A few RegExp variables because I hate typing them
 export MATCH_IP='([0-9]{1,3}\.){3}[0-9]{1,3}'

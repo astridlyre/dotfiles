@@ -270,7 +270,7 @@ nnoremap <leader>] myo<ESC>`y
 nnoremap <leader>' :sp term://bash<CR>i
 
 " lil scripties
-vnoremap <leader>s !sort -d -b<CR>
+vnoremap <leader>s !sort -d -b -f<CR>
 vnoremap <leader>bc !scriptbc<CR>
 
 " easy system clipboard copy & paste
