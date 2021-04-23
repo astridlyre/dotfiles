@@ -62,7 +62,7 @@ set wrap breakindent                                " wrap long lines to the wid
 set showtabline=0                                   " Never show tabline
 set noshowmode                                      " Do not show mode under statusline
 set splitright splitbelow                           " Splits 
-set tw=90                                           " auto wrap lines
+set tw=100                                          " auto wrap lines
 set history=1000                                    " history limit
 set undofile undodir=/tmp                           " enable persistent undo
 set inccommand=nosplit                              " visual feedback while substituting

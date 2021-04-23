@@ -28,6 +28,7 @@ export EDITOR="/usr/local/bin/nvim"
 export FCEDIT="$EDITOR"
 export PAGER="/usr/bin/less"
 export MANPAGER="less -J"
+export MANWIDTH=100
 export BG_IMAGE="$HOME/Pictures/Wallpapers/fishbg.jpg"
 export SXHKD_SHELL=/bin/sh
 export LESS_TERMCAP_mb=$'\e[1;34m'

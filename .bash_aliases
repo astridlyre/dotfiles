@@ -59,7 +59,7 @@ mk() {
 
 # Find a service port quickly
 port() {
-  grep --color=auto -i "$1" /etc/services
+  grep --color=auto -E -i "^$1" /etc/services
 }
 
 # =========== Aliases ===========
