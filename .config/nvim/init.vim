@@ -42,7 +42,7 @@ EOF
 
 " ==================== statusline ======================== "
 set statusline=                                                               " Clear default statusline
-set statusline+=\ %#moonlightLime#%t                                          " Filename
+set statusline+=\ %#moonlightLime#❱\ %t                                       " Filename
 set statusline+=%=                                                            " Spacer
 set statusline+=\ %#moonlightGrey246#%m                                       " Modified symbol
 set statusline+=\ %#moonlightPurple#%y                                        " Filetype
@@ -102,7 +102,6 @@ let g:loaded_python_provider   = 0                  " Disable python2
 let g:loaded_perl_provider     = 0                  " Disable perl
 let g:loaded_ruby_provider     = 0                  " Disable ruby
 let g:python3_host_prog        = '/usr/bin/python3' " Default python3
-let g:man_hardwrap			       = 0
 
 " Colorscheme
 let g:moonlightTransparent = 1
@@ -137,13 +136,16 @@ let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build
 let g:go_fmt_autosave = 1
 let g:go_fmt_command  = "goimports"
 
+let g:startify_bookmarks = [ { 'c': '~/.config/nvim/init.vim' } ]
+let g:startify_padding_left = 4
+let g:startify_files_number = 5
 let g:startify_custom_header = [
-      \ '                               _ _       _     _',
-      \ '   _ __ ___   ___   ___  _ __ | (_) __ _| |__ | |_',
-      \ "  | '_ ` _ \\ / _ \\ / _ \\| '_ \\| | |/ _` | '_ \\| __|",
-      \ "  | | | | | | (_) | (_) | | | | | | (_| | | | | |_",
-      \ '  |_| |_| |_|\___/ \___/|_| |_|_|_|\__, |_| |_|\__|',
-      \ '                                   |___/'
+      \ '                                 _ _       _     _',
+      \ '     _ __ ___   ___   ___  _ __ | (_) __ _| |__ | |_',
+      \ "    | '_ ` _ \\ / _ \\ / _ \\| '_ \\| | |/ _` | '_ \\| __|",
+      \ "    | | | | | | (_) | (_) | | | | | | (_| | | | | |_",
+      \ '    |_| |_| |_|\___/ \___/|_| |_|_|_|\__, |_| |_|\__|',
+      \ '                                     |___/'
       \]
 
 " lorem ipsum

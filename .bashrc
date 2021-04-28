@@ -38,6 +38,8 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_so=$'\e[01;35m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;34m'
+GPG_TTY="$(tty)"
+export GPG_TTY
 
 # A few RegExp variables because I hate typing them
 export MATCH_IP='([0-9]{1,3}\.){3}[0-9]{1,3}'
@@ -64,37 +66,22 @@ export color_prompt=yes
 # Get color sequence for exit code
 get_exit_color() {
   if (($? > 0)); then
-    printf '\e[31m'
+    printf '\e[1;31m'
   else
-    printf '\e[32m'
+    printf '\e[1;32m'
   fi
 }
 
 # Make nice exit codes
 if [[ -n "$DISPLAY" ]]; then
-  PROMPT_ICON=❱
-  EXIT_CODE='٩(๑❛ᴗ❛๑)۶'
+  PROMPT_ICON='❱'
 else
   PROMPT_ICON='$'
-  EXIT_CODE=0
 fi
 
-get_exit_code() {
-  if [[ -n "$DISPLAY" ]]; then
-    if (($? == 0)); then
-      EXIT_CODE='٩(๑❛ᴗ❛๑)۶'
-    else
-      EXIT_CODE="ヾ(｀ε´)ﾉ $?"
-    fi
-  else
-    EXIT_CODE=$?
-  fi
-}
-
 # Prompt
-PS1='\n\[\e[0;35m\]\w\n\[$(get_exit_color)\]${EXIT_CODE}\[\e[0m\] \[\e[1;30m\]${PROMPT_ICON}\[\e[0m\] '
+PS1='\n\[\e[0;35m\]\w\n\[$(get_exit_color)\]${PROMPT_ICON}\[\e[0m\] '
 PS2="〉"
-PROMPT_COMMAND="get_exit_code"
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'

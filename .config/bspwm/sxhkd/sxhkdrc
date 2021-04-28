@@ -183,7 +183,7 @@ super + t
 #################################################################
 
 # Move floating window
-super + alt + {_,shift + }{Left,Down,Up,Right}
+super + alt + {_,shift + }{h,j,k,l}
 	~/.config/bspwm/scripts/move-window {_,edge-}{west,south,north,east}
 
 #################################################################

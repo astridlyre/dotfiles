@@ -52,8 +52,7 @@ min() {
 mk() {
   local fname
   fname="$(ls -- *.c)"
-  cc "$PWD/$fname"
-  mv -f "$PWD/a.out" "$PWD/${fname%.c}"
+  cc -o "${fname%.c}" "$PWD/$fname"
   "$PWD/${fname%.c}"
 }
 
@@ -68,6 +67,7 @@ port() {
 alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -I"
+alias su="su --login"
 
 # ls replacement
 alias ls="exa -aG --color=always -s type"
@@ -87,7 +87,6 @@ alias e="vim"
 alias c="clear"
 alias x="exit"
 alias n="nnn -c"
-alias N="sudo -E nnn -c"
 alias python="python3"
 alias py="bpython"
 alias js="node"
@@ -117,10 +116,6 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
 # Reboot and shutdown
 alias ssn="sudo shutdown now"
 alias sr="sudo reboot now"
@@ -131,3 +126,5 @@ alias jctl="journalctl -p 3 -xb"
 
 # Upgrade python packages
 alias pip-upgrade="pip freeze --user | cut -d'=' -f1 | xargs -n1 pip install -U"
+alias update-neovim="sudo /home/ml/.bin/update-neovim"
+alias fedora="ssh -o IdentitiesOnly=yes -i ~/.ssh/id_fedora-dt nerd@192.168.50.69"

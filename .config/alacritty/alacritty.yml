@@ -111,7 +111,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: Iosevka Fixed
+    family: Iosevka Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Regular
@@ -812,7 +812,7 @@ background_opacity: 0.8
   #print_events: false
 # The definition of color schemes.
 
-draw_bold_text_with_bright_colors: true
+draw_bold_text_with_bright_colors: false
 
 colors:
   # Default colors

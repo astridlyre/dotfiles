@@ -11,9 +11,7 @@ Plug 'astridlyre/vim-moonlight'                             " Colorscheme
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
 Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
 Plug 'junegunn/vim-easy-align'                              " Easy align
-Plug 'Yggdroot/indentLine'                                  " show indentation lines
 Plug 'tpope/vim-commentary'                                 " better commenting
-Plug 'machakann/vim-sandwich'                               " make sandwiches
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Syntax support
 Plug 'jiangmiao/auto-pairs'                                 " Auto bracket pairs
 call plug#end()
@@ -105,16 +103,10 @@ let g:loaded_python_provider   = 0                  " Disable python2
 let g:loaded_perl_provider     = 0                  " Disable perl
 let g:loaded_ruby_provider     = 0                  " Disable ruby
 let g:python3_host_prog        = '/usr/bin/python3' " Default python3
-let g:man_hardwrap			   = 0
 
 " Colorscheme
 let g:moonlightTransparent = 1
 colorscheme moonlight
-
-" indentLine
-let g:indentLine_char = '▏'
-let g:indentLine_setColors  = 0
-let g:indentLine_setConceal = 0 " Fix conceal for markdown
 
 " FZF
 let g:fzf_action = {
@@ -129,13 +121,6 @@ let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build
 " ======================== Commands ============================= "
 au BufEnter * set fo-=c fo-=r fo-=o " stop annoying auto commenting on new lines
 au FileType help wincmd L           " open help in vertical split
-
-" No line numbers or relative numbers in terminal window
-augroup TerminalEnter
-  autocmd!
-  au TermOpen * setlocal nonumber
-  au TermOpen * setlocal norelativenumber
-augroup end
 
 " enable spell only if file type is normal text
 let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
@@ -186,18 +171,6 @@ function! ResetHightlight()
   execute 'write | edit | TSBufEnable highlight'
 endfunction
 
-" Spell checking on
-function! SpellOn()
-  set spell
-  echo "Spell Check Enabled"
-endfunction
-
-" Spell checking off
-function! SpellOff()
-  set nospell
-  echo "Spell Check Disabled"
-endfunction
-
 " =================== Global Mappings ==========================
 " Easy edit vim config
 map <F3> :e ~/.config/nvim/init.vim<CR>
@@ -213,37 +186,16 @@ map Y y$
 " Map leader to space
 let mapleader=' '
 
-" Write buffer as sudo
-nnoremap <leader>sudo :w !sudo tee > /dev/null %
-
 " Install or Update Plugins
 nnoremap <leader>lf :Format<CR>
-nnoremap <leader>pc :PlugClean<CR>
-nnoremap <leader>pi :PlugInstall<CR>
-nnoremap <leader>pu :PlugUpdate<CR>
 nnoremap <leader>\ :qa!<CR>
-nnoremap <leader>q :bd<CR>
 nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
 nnoremap <leader>e :call ResetHightlight()<CR>
 nnoremap <leader>w :w<CR>
-nnoremap <leader>z :bd!<CR>
 
 " new line in normal mode and back
 nnoremap <leader>[ myO<ESC>`y
 nnoremap <leader>] myo<ESC>`y
-
-" open terminal
-nnoremap <leader>' :sp term://bash<CR>i
-
-" Simple sort
-vnoremap <leader>s !sort -d -b<CR>
-
-" Simple calc with bc
-vnoremap <leader>bc !scriptbc<CR>
-
-" Spelling
-nmap <leader>so :call SpellOn()<CR>
-nmap <leader>sf :call SpellOff()<CR>
 
 " easy system clipboard copy & paste
 nnoremap <leader>Y mqgg"+yG`q
@@ -268,11 +220,6 @@ xmap <leader>a <Plug>(EasyAlign)
 nmap <leader>a <Plug>(EasyAlign)
 
 " =================== Normal Mappings ==========================
-
-" Easy Buffer switching
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
-
 " Easier move line with alt+j / alt+k
 nnoremap <M-j> mz:m+<cr>`z
 nnoremap <M-k> mz:m-2<cr>`z
@@ -287,8 +234,3 @@ inoremap jk <ESC>
 " Easier move line with alt+j / alt+k
 vnoremap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-" =================== Terminal Mappings ==========================
-" Easier close terminal
-tnoremap <Esc> <C-\><C-n><C-w>q
-tnoremap jk <C-\><C-n>
