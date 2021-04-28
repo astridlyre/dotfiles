@@ -80,7 +80,7 @@ else
 fi
 
 # Prompt
-PS1='\n\[\e[0;35m\]\w\n\[$(get_exit_color)\]${PROMPT_ICON}\[\e[0m\] '
+PS1='\n\[\e[0;35m\]\w\n\[$(get_exit_color)\]  \[\e[1;30m\]${PROMPT_ICON}\[\e[0m\] '
 PS2="〉"
 
 # colored GCC warnings and errors

@@ -61,6 +61,10 @@ port() {
   grep --color=auto -E -i "^$1" /etc/services
 }
 
+es() {
+  vim "$(which "$@")"
+}
+
 # =========== Aliases ===========
 
 # Confirm before overwriting
