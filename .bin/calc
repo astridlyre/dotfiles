@@ -1,4 +1,4 @@
-#!/usr/sbin/env bash
+#!/usr/bin/env bash
 
 BC="$(which bc)"
 read -r input

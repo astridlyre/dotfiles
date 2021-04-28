@@ -11,9 +11,9 @@
 #
 
 # Globals
-BASH_BANG='#!/usr/sbin/env bash'
-PYTHON_BANG='#!/usr/sbin/env python3'
-JS_BANG='#!/usr/sbin/env node'
+BASH_BANG='#!/usr/bin/env bash'
+PYTHON_BANG='#!/usr/bin/env python3'
+JS_BANG='#!/usr/bin/env node'
 
 # usage provides usage information
 usage() {

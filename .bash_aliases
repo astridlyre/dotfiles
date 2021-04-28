@@ -131,4 +131,4 @@ alias jctl="journalctl -p 3 -xb"
 # Upgrade python packages
 alias pip-upgrade="pip freeze --user | cut -d'=' -f1 | xargs -n1 pip install -U"
 alias update-neovim="sudo /home/ml/.bin/update-neovim"
-alias fedora="ssh -o IdentitiesOnly=yes -i ~/.ssh/id_fedora-dt nerd@192.168.50.69"
+alias fedora="ssh-add ~/.ssh/id_fedora-dt; ssh -o IdentitiesOnly=yes -i ~/.ssh/id_fedora-dt nerd@192.168.50.69"
