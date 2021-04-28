@@ -98,7 +98,7 @@ font-1              = "Noto Color Emoji:size=10:scale=10;1"
 
 modules-left        = bspwm xwindow
 modules-center      = 
-modules-right       = memory2 cpu2 date battery pavolume wireless-network
+modules-right       = date pavolume battery wireless-network
 
 tray-detached       = false
 tray-offset-x       = 0
