@@ -6,6 +6,9 @@
 super + d
     rofi -show run
 
+super + space
+    rofi -show run
+
 # Rofi Window Switcher
 super + w
     rofi -show window
@@ -20,6 +23,9 @@ super + v
 
 # Alacritty
 super + Return
+    alacritty
+
+super + a
     alacritty
 
 # nnn File Manager
@@ -264,11 +270,11 @@ super + ctrl + u
 
 # Focus selected desktop
 alt + Tab
-	bspc desktop -f '^{1-9,10}'
+	rofi -show window
 
 # Focus selected desktop
 alt + shift + Tab
-	bspc desktop -f '^{1-9,10}'
+	rofi -show window
 
 # Rotate desktop
 alt + space
@@ -281,3 +287,5 @@ alt + space
 # edit config files
 alt + shift + {v,b,s,t,a,p}
   ~/.config/bspwm/scripts/edit_configs {nvim, bspwm, sxhkd, bash, alacritty, polybar}
+super + space
+

@@ -26,8 +26,18 @@ print_torrents() {
 	done <<<"$(transmission-remote -l | sed 1d)"
 }
 
+exit_clean() {
+  echo "Exiting..."
+  transmission-remote -t all -r
+  sleep 1
+  killall transmission-daemon
+  exit 0
+}
+
+trap exit_clean 2
 while true; do
   clear
 	print_torrents
 	sleep 5
 done
+
