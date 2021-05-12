@@ -27,6 +27,7 @@ print_torrents() {
 }
 
 exit_clean() {
+  clear
   echo "Exiting..."
   transmission-remote -t all -r
   sleep 1
