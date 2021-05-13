@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+#
+# todo - simple script to keep track of items I want to work on
+#   usage: todo [a|d]
+#
+
+# Todos
+declare -a TODOS_ARRAY
+TODOS_FILE="$HOME/.td"
+
+# Ansi color codes
+BOLD_GREEN="\e[1;32m"
+BOLD_WHITE="\e[1;37m"
+BOLD_RED="\e[1;31m"
+RESET_TXT="\e[0m"
+
+# Print usage information
+usage() {
+	printf "Usage: %s [a|d]\n\n" "$0"
+	printf "\ta | add - add a todo item\n"
+	printf "\td | del - delete a todo item\n"
+}
+
+# Print todo items
+print_todo() {
+	local counter
+	counter=1
+  clear
+	printf "$BOLD_GREEN%s$RESET_TXT\n\n" "To do items:"
+	for item in "${TODOS_ARRAY[@]}"; do
+		printf "$BOLD_WHITE%s.\t%s$RESET_TXT\n" "$counter" "$item"
+		((counter++))
+	done
+}
+
+# Updates todo file
+update_todo_file() {
+	{
+		for item in "${TODOS_ARRAY[@]}"; do
+			echo "$item"
+		done
+	} > "$TODOS_FILE"
+}
+
+# Adds todo items
+add_todo() {
+	printf "\n$BOLD_WHITE%s$RESET_TXT" "Add new item: "
+	read -r item
+	TODOS_ARRAY+=("$item")
+	update_todo_file
+}
+
+# Deletes todo items
+del_todo() {
+	printf "\n$BOLD_RED%s$RESET_TXT" "Item to delete? (#): "
+	read -r item_to_delete
+  ((item_to_delete--))
+  unset "TODOS_ARRAY[$item_to_delete]"
+  update_todo_file
+}
+
+# Check for existence of file, create if necessary
+[[ ! -e "$TODOS_FILE" ]] && touch "$TODOS_FILE"
+
+# Initialize todo items
+while read -r item; do
+	TODOS_ARRAY+=("$item")
+done <"$TODOS_FILE"
+
+# Print the todo list
+print_todo
+
+# Read what to do
+case "$1" in
+a | add)
+	add_todo
+  print_todo
+	exit 0
+	;;
+d | del)
+	del_todo
+  print_todo
+	exit 0
+	;;
+h | help)
+	usage
+	exit 1
+	;;
+*)
+	exit 0
+	;;
+esac
