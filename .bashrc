@@ -26,8 +26,8 @@ HISTFILESIZE=20000
 export VISUAL="/usr/local/bin/nvim"
 export EDITOR="/usr/local/bin/nvim"
 export FCEDIT="$EDITOR"
-export PAGER="/usr/bin/less"
-export MANPAGER="less -J"
+export PAGER="bat --theme='ansi' --tabs 4"
+export MANPAGER="less -J -i -x4"
 export MANWIDTH=100
 export BG_IMAGE="$HOME/Pictures/Wallpapers/fishbg.jpg"
 export SXHKD_SHELL=/bin/sh
@@ -50,6 +50,7 @@ shopt -s checkwinsize # check for resize
 shopt -s globstar     # use for recursive search
 shopt -s autocd       # change to named dir
 shopt -s cdspell      # fix misspellings
+shopt -s dirspell     # fix misspellings
 
 # Ignore upper and lowercase when TAB completion
 bind "set completion-ignore-case on"

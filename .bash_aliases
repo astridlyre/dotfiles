@@ -29,6 +29,10 @@ es() {
   vim "$(which "$@")"
 }
 
+l() {
+  bat --tabs=4 --theme='ansi' "$@"
+}
+
 # =========== Aliases ===========
 
 # Confirm before overwriting
@@ -44,7 +48,7 @@ alias lt="exa -aT --color=always -s type"
 
 # cat replacement
 alias cat="bat -pp --theme='ansi'"
-alias bat="bat --theme='ansi'"
+alias bat="bat --theme='ansi' --tabs=4"
 
 # vim is my editor
 alias vi="vim"
@@ -59,6 +63,7 @@ alias python="python3"
 alias py="bpython"
 alias js="node"
 alias pdate="date +'%d/%m/%y'"
+alias less="less -J -i -x4"
 
 # Include hidden files by default
 alias fd="fd -H"
