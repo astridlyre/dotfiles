@@ -64,6 +64,7 @@ alias py="bpython"
 alias js="node"
 alias pdate="date +'%d/%m/%y'"
 alias less="less -J -i -x4"
+alias dmesg='dmesg -H'
 
 # Include hidden files by default
 alias fd="fd -H"
@@ -101,3 +102,4 @@ alias jctl="journalctl -p 3 -xb"
 alias pip-upgrade="pip freeze --user | cut -d'=' -f1 | xargs -n1 pip install -U"
 alias update-neovim="sudo /home/ml/.bin/update-neovim"
 alias fedora="ssh-add ~/.ssh/id_fedora-dt; ssh -o IdentitiesOnly=yes -i ~/.ssh/id_fedora-dt nerd@192.168.50.69"
+alias debian='qemu-system-x86_64 -accel kvm -m 4G   -drive file=~/Downloads/debian-10-nocloud-amd64-daily-20210515-638.qcow2,format=qcow2   -display gtk'

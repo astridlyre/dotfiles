@@ -28,7 +28,7 @@ export EDITOR="/usr/local/bin/nvim"
 export FCEDIT="$EDITOR"
 export PAGER="bat --theme='ansi' --tabs 4"
 export MANPAGER="less -J -i -x4"
-export MANWIDTH=100
+export MANWIDTH=110
 export BG_IMAGE="$HOME/Pictures/Wallpapers/fishbg.jpg"
 export SXHKD_SHELL=/bin/sh
 export LESS_TERMCAP_mb=$'\e[1;34m'
@@ -67,9 +67,18 @@ export color_prompt=yes
 # Get color sequence for exit code
 get_exit_color() {
   if (($? > 0)); then
-    printf '\e[1;31m'
+    EXIT_COLOR=31
   else
-    printf '\e[1;32m'
+    EXIT_COLOR=32
+  fi
+}
+
+# Format man page width
+check_man_width() {
+  if ((COLUMNS > 110)); then
+    MANWIDTH=110
+  else
+    MANWIDTH="$((COLUMNS - 1))"
   fi
 }
 
@@ -81,8 +90,13 @@ else
 fi
 
 # Prompt
-PS1='\n\[\e[0;35m\]\w\n\[$(get_exit_color)\]  \[\e[1;30m\]${PROMPT_ICON}\[\e[0m\] '
+PS1='\n\[\e[0;35m\]\w\n\[\e[1;${EXIT_COLOR}m\]  \[\e[1;30m\]${PROMPT_ICON}\[\e[0m\] '
 PS2="〉"
+
+# Prompt Command
+declare -a PROMPT_COMMAND
+PROMPT_COMMAND=(check_man_width get_exit_color)
+export PROMPT_COMMAND
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
