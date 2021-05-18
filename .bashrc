@@ -27,10 +27,11 @@ export VISUAL="/usr/local/bin/nvim"
 export EDITOR="/usr/local/bin/nvim"
 export FCEDIT="$EDITOR"
 export PAGER="bat --theme='ansi' --tabs 4"
-export MANPAGER="less -J -i -x4"
+export MANPAGER="less"
 export MANWIDTH=110
 export BG_IMAGE="$HOME/Pictures/Wallpapers/fishbg.jpg"
 export SXHKD_SHELL=/bin/sh
+export LESS='-J -i -x4'
 export LESS_TERMCAP_mb=$'\e[1;34m'
 export LESS_TERMCAP_md=$'\e[1;35m'
 export LESS_TERMCAP_me=$'\e[0m'
@@ -153,3 +154,6 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color=fg+:#b2b2b2,hl+:#8DA54E
 --color=info:#CAD4C8,prompt:#8DA54E
 --color=marker:#774051,spinner:#8DA54E'
+
+# bw completion
+[ -f "$HOME/.bin/bw-completion" ] && source "$HOME/.bin/bw-completion"

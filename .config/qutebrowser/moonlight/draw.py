@@ -237,7 +237,7 @@ def blood(c, options={}):
 
     # Foreground color of unselected even tabs.
     # Type: QtColor
-    c.colors.tabs.even.fg = palette["foreground"]
+    c.colors.tabs.even.fg = palette["background"]
 
     # Color for the tab indicator on errors.
     # Type: QtColor
@@ -266,7 +266,7 @@ def blood(c, options={}):
 
     # Foreground color of unselected odd tabs.
     # Type: QtColor
-    c.colors.tabs.odd.fg = palette["foreground"]
+    c.colors.tabs.odd.fg = palette["background"]
 
     # # Background color of selected even tabs.
     # # Type: QtColor

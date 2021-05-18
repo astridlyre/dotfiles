@@ -25,12 +25,9 @@ port() {
   grep --color=auto -E -i "^$1" /etc/services
 }
 
+# Easily edit script in PATH
 es() {
   vim "$(which "$@")"
-}
-
-l() {
-  bat --tabs=4 --theme='ansi' "$@"
 }
 
 # =========== Aliases ===========
@@ -57,13 +54,11 @@ alias e="vim"
 
 # easy typed common things
 alias c="clear"
-alias x="exit"
 alias n="nnn -c"
 alias python="python3"
 alias py="bpython"
 alias js="node"
 alias pdate="date +'%d/%m/%y'"
-alias less="less -J -i -x4"
 alias dmesg='dmesg -H'
 alias up='yay -Syyu'
 alias info='info --vi-keys'
@@ -91,11 +86,6 @@ alias egrep='egrep --color=auto'
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-
-# Reboot and shutdown
-alias ssn="sudo shutdown now"
-alias sr="sudo reboot now"
-alias sus="sudo systemctl suspend"
 
 # Get error messages from journalctl
 alias jctl="journalctl -p 3 -xb"

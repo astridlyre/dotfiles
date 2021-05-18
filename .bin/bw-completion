@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+__BW_BASE_OPTS="--pretty 
+  --raw
+  --response
+  --quiet
+  --nointeraction
+  --session
+  -v --version
+  -h --help
+"
+__BW_BASE_COMMANDS=""
+
+[[ $- != *i* ]] && return
+
+__bw_opts_completion() {
+	local cur prev opts
+	COMPREPLY=()
+	cur="${COMP_WORDS[COMP_CWORD]}"
+	prev="${COMP_WORDS[COMP_CWORD - 1]}"
+	opts="
+   --pretty
+   --raw
+   --response
+   --quiet
+   --nointeraction
+   --session
+   -v --version
+   -h --help
+ "
+	COMPREPLY=($(compgen -W "${opts}" -- "$cur"))
+	return 0
+}
+
+__bw_command_completion() {
+	local cur prev opts
+	COMPREPLY=()
+	cur="${COMP_WORDS[COMP_CWORD]}"
+	prev="${COMP_WORDS[COMP_CWORD - 1]}"
+	opts="
+    login logout lock
+    unlock sync generate
+    encode config update
+    completion status list
+    get create edit
+    delete restore share
+    confirm import export
+    send receive help
+  "
+	COMPREPLY=($(compgen -W "${opts}" -- "$cur"))
+	return 0
+}
+
+__bw_completion() {
+	if [[ "${COMP_WORDS[COMP_CWORD]}" =~ ^- ]]; then
+		__bw_opts_completion
+		return 0
+	else
+		__bw_command_completion
+		return 0
+	fi
+}
+
+complete -o default -F __bw_completion bw

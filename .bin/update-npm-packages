@@ -13,6 +13,7 @@ DEFAULT_PACKAGES=("bash-language-server" \
 	"vscode-css-languageserver-bin" \
 	"vscode-html-languageserver-bin" \
 	"vscode-json-languageserver" \
-	"yaml-language-server")
+	"yaml-language-server" \
+  "@bitwarden/cli")
 
 npm i -g "${DEFAULT_PACKAGES[@]}"
