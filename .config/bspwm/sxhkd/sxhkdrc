@@ -15,7 +15,7 @@ super + w
 
 # Brave Browser
 super + b
-    brave --use-gl=desktop
+    qutebrowser
 
 # Pavucontrol
 super + v
@@ -23,14 +23,11 @@ super + v
 
 # Alacritty
 super + Return
-    alacritty
-
-super + a
-    alacritty
+    alacritty --title 'ml'
 
 # nnn File Manager
 super + e
-    alacritty -e nnn -c
+    alacritty --title 'nnn' --class nnn,nnn -e nnn -c
 
 # Zathura
 super + z
@@ -42,7 +39,7 @@ super + shift + BackSpace
 
 # Network manager
 super + n
-    alacritty --class iwctl,iwctl -e iwctl
+    alacritty --title iwctl --class iwctl,iwctl -e iwctl
 
 # Hide polybar
 super + y
@@ -70,7 +67,7 @@ super + BackSpace
 
 # Zutty
 super + shift + Return
-  alacritty
+  alacritty --title 'm00nl1ght l33t h4x0rz'
 
 # PCManFM
 super + shift + e
@@ -86,7 +83,7 @@ super + shift + o
 
 # Blender
 super + shift + b
-  qutebrowser
+  brave --use-gl=desktop
 
 #################################################################
 #     SCREENSHOTS

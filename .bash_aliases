@@ -30,6 +30,17 @@ es() {
   vim "$(which "$@")"
 }
 
+bwinit() {
+  local pw
+  printf 'pw: '
+  read -rs pw
+  eval $(bw unlock "$pw" | grep -Eo 'export BW_SESSION=.*')
+}
+
+bwget() {
+  bw get password "$1" | xsel -b
+}
+
 # =========== Aliases ===========
 
 # Confirm before overwriting
@@ -54,6 +65,7 @@ alias e="vim"
 
 # easy typed common things
 alias c="clear"
+alias x="exit"
 alias n="nnn -c"
 alias python="python3"
 alias py="bpython"

@@ -15,6 +15,7 @@ settings:
     global: '#181819'
   content.notifications.enabled:
     https://www.reddit.com: false
+    https://www.youtube.com: false
   fonts.default_family:
     global: Iosevka
   url.default_page:

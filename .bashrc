@@ -23,6 +23,7 @@ HISTSIZE=100000
 HISTFILESIZE=20000
 
 # Set some global variables
+export INPUTRC="$HOME/.inputrc"
 export VISUAL="/usr/local/bin/nvim"
 export EDITOR="/usr/local/bin/nvim"
 export FCEDIT="$EDITOR"
@@ -41,6 +42,8 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;34m'
 GPG_TTY="$(tty)"
 export GPG_TTY
+export MAILCHECK=off
+export CDPATH="$HOME/projects/:$HOME/LPI-notes/"
 
 # A few RegExp variables because I hate typing them
 export MATCH_IP='([0-9]{1,3}\.){3}[0-9]{1,3}'
@@ -156,4 +159,4 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color=marker:#774051,spinner:#8DA54E'
 
 # bw completion
-[ -f "$HOME/.bin/bw-completion" ] && source "$HOME/.bin/bw-completion"
+[ -f "$HOME/.bin/bw-completion" ] && source "$HOME/.bin/bw-completion" 2>/dev/null
