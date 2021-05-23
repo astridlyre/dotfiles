@@ -33,6 +33,4 @@ fi
 [ ! -f "$COIN_SCRIPT" ] && error_exit "No script file found"
 
 # Do the thing
-"$NODE" "$COIN_SCRIPT" "$COIN_LIST"
-
-exit 0
+exec "$NODE" "$COIN_SCRIPT" "$COIN_LIST"

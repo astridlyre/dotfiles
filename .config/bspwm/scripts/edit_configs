@@ -8,7 +8,7 @@ ALACRITTY=$HOME/.config/alacritty/alacritty.yml
 POLYBAR=$HOME/.config/polybar/config
 
 openConfig() {
-  alacritty --title "$2 - config editor" -e bash -c "vim -u $HOME/.config/nvim/init_minimal.vim $1"
+  exec alacritty --title "$2 - config editor" -e bash -c "vim -u $HOME/.config/nvim/init_minimal.vim $1"
 }
 
 case $1 in

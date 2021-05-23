@@ -9,36 +9,23 @@
 call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'astridlyre/vim-moonlight'                             " Colorscheme
 Plug 'mhinz/vim-startify'                                   " Fancy start screen
-Plug 'neoclide/coc.nvim', {'branch': 'release'}             " LSP and more
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
 Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
 Plug 'junegunn/vim-easy-align'                              " Easy align
 Plug 'honza/vim-snippets'                                   " actual snippets
 Plug 'tpope/vim-commentary'                                 " better commenting
 Plug 'tpope/vim-fugitive'                                   " git support
+Plug 'ludovicchabant/vim-gutentags'                         " automatic tags management
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Syntax support
 Plug 'jiangmiao/auto-pairs'                                 " Auto bracket pairs
+Plug 'neovim/nvim-lspconfig'                                " LSP configs
+Plug 'hrsh7th/nvim-compe'                                   " Autocompletion
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }          " Go lang plugin
 call plug#end()
 
-" ==================== Treesitter ======================== "
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
-  highlight = {
-    enable = true,
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<M-w>',
-      node_incremental = '<M-w>',
-      scope_incremental = '<M-e>',
-      node_decremental = '<M-C-w>',
-    },
-  },
-}
-EOF
+" ==================== Lua Stuff ======================== "
+
+lua require('config')
 
 " ==================== statusline ======================== "
 set statusline=                                                               " Clear default statusline
@@ -62,7 +49,7 @@ set wrap breakindent                                " wrap long lines to the wid
 set showtabline=0                                   " Never show tabline
 set noshowmode                                      " Do not show mode under statusline
 set splitright splitbelow                           " Splits 
-set tw=90                                           " auto wrap lines
+set tw=80                                           " auto wrap lines
 set history=1000                                    " history limit
 set undofile undodir=/tmp                           " enable persistent undo
 set inccommand=nosplit                              " visual feedback while substituting
@@ -87,6 +74,8 @@ set redrawtime=10000                                " Allow more time for redraw
 set synmaxcol=180                                   " No syntax on long lines
 set timeoutlen=850                                  " Time to wait between keypress
 set maxmempattern=20000                             " Max mem to use
+set completeopt=menuone,noselect                    " Default complete opt
+set pumheight=20                                    " Max 20 items at once
 
 " ======================== Plugin Configurations ======================== "
 let g:loaded_gzip              = 1                  " Disable Unused plugins
@@ -106,25 +95,6 @@ let g:python3_host_prog        = '/usr/bin/python3' " Default python3
 " Colorscheme
 let g:moonlightTransparent = 1
 colorscheme moonlight
-
-" Ensure coc-extensions are installed
-let g:coc_global_extensions = [
-            \'coc-json',
-            \'coc-go',
-            \'coc-css',
-            \'coc-html',
-            \'coc-emmet',
-            \'coc-tsserver',
-            \'coc-yaml',
-            \'coc-lists',
-            \'coc-clangd',
-            \'coc-prettier',
-            \'coc-git',
-            \'coc-highlight',
-            \'coc-sh',
-            \'coc-pyright',
-            \'coc-rust-analyzer',
-            \'coc-diagnostic' ]
 
 " FZF
 let g:fzf_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
@@ -173,9 +143,6 @@ augroup highlight_yank
   au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=350}
 augroup END
 
-" coc completion popup
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
 " fzf if passed argument is a folder
 augroup folderarg
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
@@ -189,11 +156,7 @@ command! -bang -nargs=? -complete=dir Files
 " Return to last edit position when opening files
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
-" format with available file format formatter
-command! -nargs=0 Format :call CocAction('format')
-
-" organize imports
-command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
+command! Format execute 'lua vim.lsp.buf.formatting()'
 
 " advanced grep
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
@@ -209,17 +172,6 @@ function! RipgrepFzf(query, fullscreen)
     let reload_command = printf(command_fmt, '{q}')
     let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
     call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
-" coc documentation
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
 endfunction
 
 " Temporary fix for when treesitter highlight goes wonky
@@ -252,16 +204,17 @@ map Y y$
 " Map leader to space
 let mapleader=' '
 
-" Install or Update Plugins
-nnoremap <leader>lf :Format<CR>
-nnoremap <leader>i :PlugInstall<CR>
-nnoremap <leader>u :PlugUpdate<CR>
-nnoremap <leader>\ :qa!<CR>
+" Install or Update Plugins <leader>p*
+nnoremap <leader>ui :PlugInstall<CR>
+nnoremap <leader>uu :PlugUpdate<CR>
+
+" Misc helper things <leader>?
 nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
 nnoremap <leader>e :call ResetHightlight()<CR>
-nnoremap <leader>w :w<CR>
+nnoremap <leader>; :w<CR>
+nnoremap <leader>\ :qa!<CR>
 
-" Easy Buffer switching
+" Easy Buffer switching <leader>[np]
 nnoremap <leader>n :bnext<CR>
 nnoremap <leader>p :bprevious<CR>
 
@@ -272,9 +225,9 @@ nnoremap <leader>] myo<ESC>`y
 " open terminal
 nnoremap <leader>' :sp term://bash<CR>i
 
-" lil scripties
-vnoremap <leader>s !sort -d -b -f<CR>
-vnoremap <leader>bc !scriptbc<CR>
+" lil scripties <leader>s*
+vnoremap <leader>ss !sort -d -b -f<CR>
+vnoremap <leader>sc !scriptbc<CR>
 
 " easy system clipboard copy & paste
 nnoremap <leader>Y mqgg"+yG`q
@@ -284,35 +237,21 @@ vnoremap <leader>Y "+Y
 vnoremap <leader>cp "+p
 vnoremap <leader>y "+y
 
-" FZF
-nmap <leader>/ :Rg<CR>
-nmap <leader>: :Commands<CR>
-nmap <leader>b :Buffers<CR>
-nmap <leader>tt :BTags<CR>
-nmap <leader>tc :Commits<CR>
-nmap <leader>tf :GFiles?<CR>
-nmap <leader>h :History<CR>
-nmap <leader>f :Files<CR>
+" FZF <leader>f*
+nmap <leader>fr :Rg<CR>
+nmap <leader>f: :Commands<CR>
+nmap <leader>fb :Buffers<CR>
+nmap <leader>ft :BTags<CR>
+nmap <leader>fc :Commits<CR>
+nmap <leader>fg :GFiles?<CR>
+nmap <leader>fh :History<CR>
+nmap <leader>ff :Files<CR>
 
-" coc-commands
-nmap <leader>cu :CocUpdate<CR>
-nmap <leader>cc <Plug>(coc-fix-current)
-nmap <leader>cd <Plug>(coc-definition)
-nmap <leader>cl <Plug>(coc-codelens-action)
-nmap <leader>cf <Plug>(coc-refactor)
-nmap <leader>ci <Plug>(coc-implementation)
-nmap <leader>cn <Plug>(coc-rename)
-nmap <leader>cr <Plug>(coc-references)
-nmap <leader>ct <Plug>(coc-type-definition)
-nmap <leader>c] <Plug>(coc-diagnostic-next)
-nmap <leader>c[ <Plug>(coc-diagnostic-prev)
-nmap <leader>o :OR <CR>
+" fugitive mappings <leader>g[bd]
+nmap <leader>gb :Git blame<CR>
+nmap <leader>gd :Gdiffsplit<CR>
 
-" fugitive mappings
-nmap <leader>tb :Git blame<CR>
-nmap <leader>td :Gdiffsplit<CR>
-
-" vim-go mappings
+" vim-go mappings <leader>g*
 nmap <leader>ga :GoAlternate<CR>
 nmap <leader>gc :GoCoverageToggle<CR>
 nmap <leader>ge :GoIfErr<CR>
@@ -322,14 +261,30 @@ nmap <leader>gr :GoRun<CR>
 nmap <leader>gs :GoFillStruct<CR>
 nmap <leader>gt :GoTest<CR>
 
-" vim-easy-align
+" vim-easy-align <leader>a
 xmap <leader>a <Plug>(EasyAlign)
 nmap <leader>a <Plug>(EasyAlign)
 
-" =================== Normal Mappings ==========================
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" LSP <leader>l*
+nnoremap gD :lua vim.lsp.buf.declaration()<CR>
+nnoremap gd :lua vim.lsp.buf.definition()<CR>
+nnoremap K :lua vim.lsp.buf.hover()<CR>
+nnoremap gi :lua vim.lsp.buf.implementation()<CR>
+nnoremap gr :lua vim.buf.references()<CR>
+nnoremap <leader>lk :lua vim.lsp.buf.signature_help()<CR>
+nnoremap <leader>wa :lua vim.lsp.buf.add_workspace_folder()<CR>
+nnoremap <leader>wr :lua vim.lsp.buf.remove_workspace_folder()<CR>
+nnoremap <leader>wp :lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
+nnoremap <leader>ld :lua vim.lsp.buf.type_definition()<CR>
+nnoremap <leader>lr :lua vim.lsp.buf.rename()<CR>
+nnoremap <leader>la :lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>le :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <leader>ln :lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <leader>lp :lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <leader>lq :lua vim.lsp.diagnostic.set_loclist()<CR>
+nnoremap <leader>lf :lua vim.lsp.buf.formatting()<CR>
 
+" =================== Normal Mappings ==========================
 " Easier move line with alt+j / alt+k
 nnoremap <M-j> mz:m+<cr>`z
 nnoremap <M-k> mz:m-2<cr>`z
@@ -346,25 +301,9 @@ nmap sf :call SpellOff()<CR>
 vnoremap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
-" Coc function and class text objects and selection ranges
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
-
-" =================== Terminal Mappings ==========================
-" Easier close terminal
-tnoremap <Esc> <C-\><C-n><C-w>q
-
 " =================== Insert Mappings ==========================
-imap <C-l> <Plug>(coc-snippets-expand)
-vmap <C-j> <Plug>(coc-snippets-select)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-inoremap <expr> <CR> pumvisible() ? "\<C-e>\<CR>" : "\<CR>"
-inoremap jk <ESC>
+inoremap <expr> <C-e> compe#close('<C-e>')
+inoremap <expr> <CR> pumvisible() ? "\<C-e><CR>" : "\<CR>"
+inoremap <expr> <C-y> pumvisible() ? "\<C-n>\<C-y>" : "\<C-y>"
+inoremap <silent><expr> <C-f> compe#scroll({ 'delta': +4 }) 
+inoremap <silent><expr> <C-d> compe#scroll({ 'delta': -4 })

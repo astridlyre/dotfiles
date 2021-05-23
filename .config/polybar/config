@@ -1019,7 +1019,7 @@ type              = internal/xwindow
 ;   %title%
 ; Default: %title%
 label             = %title%
-label-maxlen      = 50
+label-maxlen      = 75
 label-padding     = 2
 
 format-foreground = ${colors.green}

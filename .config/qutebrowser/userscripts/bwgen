@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+URL="$1"
+FULL_URL="$2"
+USERNAME="$3"
+MP="$4"
+PASS="$(bw generate -lusn --length 20 <<<"$MP")"
+
+cat <<EOF | base64 | bw create item
+{ "organizationId": null, "collectionIds": null, "folderId": null, "type": 1, "name": "$1", "notes": null, "favorite": false, "fields": [], "login": { "uris": [ { "match": null, "uri": "$2" } ], "username": "$3", "password": "$PASS", "totp": null, "passwordRevisionDate": null }, "secureNote": null, "card": null, "identity": null }"
+EOF

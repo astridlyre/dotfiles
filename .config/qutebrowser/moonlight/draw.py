@@ -233,11 +233,11 @@ def blood(c, options={}):
 
     # Background color of unselected even tabs.
     # Type: QtColor
-    c.colors.tabs.even.bg = palette["selection"]
+    c.colors.tabs.even.bg = palette["background"]
 
     # Foreground color of unselected even tabs.
     # Type: QtColor
-    c.colors.tabs.even.fg = palette["background"]
+    c.colors.tabs.even.fg = palette["foreground"]
 
     # Color for the tab indicator on errors.
     # Type: QtColor
@@ -262,27 +262,27 @@ def blood(c, options={}):
 
     # Background color of unselected odd tabs.
     # Type: QtColor
-    c.colors.tabs.odd.bg = palette["selection"]
+    c.colors.tabs.odd.bg = palette["background"]
 
     # Foreground color of unselected odd tabs.
     # Type: QtColor
-    c.colors.tabs.odd.fg = palette["background"]
+    c.colors.tabs.odd.fg = palette["foreground"]
 
     # # Background color of selected even tabs.
     # # Type: QtColor
-    c.colors.tabs.selected.even.bg = palette["background"]
+    c.colors.tabs.selected.even.bg = palette["selection"]
 
     # # Foreground color of selected even tabs.
     # # Type: QtColor
-    c.colors.tabs.selected.even.fg = palette["foreground"]
+    c.colors.tabs.selected.even.fg = palette["background"]
 
     # # Background color of selected odd tabs.
     # # Type: QtColor
-    c.colors.tabs.selected.odd.bg = palette["background"]
+    c.colors.tabs.selected.odd.bg = palette["selection"]
 
     # # Foreground color of selected odd tabs.
     # # Type: QtColor
-    c.colors.tabs.selected.odd.fg = palette["foreground"]
+    c.colors.tabs.selected.odd.fg = palette["background"]
 
     # Tab padding
     c.tabs.padding = padding

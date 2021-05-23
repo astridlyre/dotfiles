@@ -23,11 +23,11 @@ super + v
 
 # Alacritty
 super + Return
-    alacritty --title 'ml'
+    alacritty --title 'hax terminal'
 
 # nnn File Manager
 super + e
-    alacritty --title 'nnn' --class nnn,nnn -e nnn -c
+    alacritty --title 'hax browser' --class nnn,nnn -e nnn -c
 
 # Zathura
 super + z
@@ -39,7 +39,7 @@ super + shift + BackSpace
 
 # Network manager
 super + n
-    alacritty --title iwctl --class iwctl,iwctl -e iwctl
+    iwctl_open
 
 # Hide polybar
 super + y
@@ -56,10 +56,6 @@ super + s
 # Image viewer
 super + i
   ristretto
-
-# Lockscreen
-super + BackSpace
-  lockscreen_do
 
 #################################################################
 # SUPER + SHIFT KEYS

@@ -1,0 +1,39 @@
+# vim:filetype=sh
+
+# ensure prompt has colors
+export color_prompt=yes
+
+# Get color sequence for exit code
+get_exit_color() {
+	if (($? > 0)); then
+		EXIT_COLOR=31
+	else
+		EXIT_COLOR=32
+	fi
+}
+
+# Format man page width
+check_man_width() {
+	if ((COLUMNS > 110)); then
+		MANWIDTH=110
+	else
+		MANWIDTH="$((COLUMNS - 1))"
+	fi
+}
+
+# Make nice exit codes
+if [[ $DISPLAY ]]; then
+	PROMPT_ICON='❱'
+else
+	PROMPT_ICON='$'
+fi
+
+# Prompt
+PS1='\n\[\e[0;35m\]\w\n\[\e[1;${EXIT_COLOR}m\]  \[\e[1;30m\]${PROMPT_ICON}\[\e[0m\] '
+PS2="〉"
+PS4="> "
+
+# Prompt Command
+declare -a PROMPT_COMMAND
+PROMPT_COMMAND=(check_man_width get_exit_color)
+export PROMPT_COMMAND

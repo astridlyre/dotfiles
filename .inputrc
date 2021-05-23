@@ -40,4 +40,4 @@ set colored-stats On
 set completion-ignore-case On
 set completion-map-case On
 Control-o: backward-kill-word
-Control-e: ">/dev/null"
+Control-,: ">/dev/null"

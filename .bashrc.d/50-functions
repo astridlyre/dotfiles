@@ -1,0 +1,42 @@
+# vim:filetype=sh
+
+# Top disk usage
+ducks() {
+	du -sh ./* | sort -hr | head -11
+}
+
+# minimal editor without coc or vim-go
+min() {
+  vim -u "$HOME/.config/nvim/init_minimal.vim" "$@"
+}
+
+# quick make c file
+mk() {
+  local fname
+  fname="$(ls -- *.c)"
+  cc -o "${fname%.c}" "$PWD/$fname"
+  "$PWD/${fname%.c}"
+}
+
+# Find a service port quickly
+port() {
+  grep --color=auto -E -i "^$1" /etc/services
+}
+
+# Easily edit script in PATH
+es() {
+  vim "$(which "$@")"
+}
+
+# Unlock my bitwarden session
+bwinit() {
+  local pw
+  printf 'pw: '
+  read -rs pw
+  eval $(bw unlock "$pw" | grep -Eo 'export BW_SESSION=.*')
+}
+
+# Get a password
+bwget() {
+  bw get password "$1" | xsel -b
+}

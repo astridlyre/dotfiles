@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+printf "Add new user\n"
+printf "Login: " ; read -r login
+printf "\nFull name: " ; read -r name
+printf "\nShell: " ; read -r shell
+printf "\nSupplementary groups: " ; read -r groups
+printf "\nSetting up account %s for %s\n" "$login" "$name"
+
+if [[ -n "$groups" ]]; then
+  groups=${groups//[:blank:]/,}
+  groups_opt="--groups $groups"
+fi
+
+sudo useradd --comment "$name" \
+  ${groups_opt:} \
+  --skel \
+  --create-home \
+  --shell "$shell"
+
+printf "Account created."
+sudo passwd "$login"

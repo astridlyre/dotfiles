@@ -1,0 +1,15 @@
+# vim:filetype=sh
+
+# shopts
+shopt -s histappend   # don't overwrite history
+shopt -s checkwinsize # check for resize
+shopt -s globstar     # use for recursive search
+shopt -s autocd       # change to named dir
+shopt -s cdspell      # fix misspellings
+shopt -s dirspell     # fix misspellings
+
+# Ignore upper and lowercase when TAB completion
+bind "set completion-ignore-case on"
+
+# Default umask, recommended for security
+umask 0077

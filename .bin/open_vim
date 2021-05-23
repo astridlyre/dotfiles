@@ -1,0 +1,6 @@
+#!/bin/sh
+
+exec alacritty --config-file "$HOME/.config/alacritty/alacritty_dark.yml" \
+  --class iwctl,iwctl \
+  --title 'edit cmd' \
+  -e bash -c "/usr/bin/vim '$1'"

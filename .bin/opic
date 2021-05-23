@@ -1,8 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-opic() {
-  ristretto "$1" &
-  disown
-}
+exec ristretto "$1"
 
-opic "$1"

@@ -246,9 +246,9 @@ __bw_completion() {
 	config)
 		__bw_generic_completion "$__BW_CONFIG_OPTS" "$__BW_CONFIG_OBJECTS"
 		;;
-  completion)
-    __bw_generic_completion "$__BW_COMPLETION_OPTS" "$__BW_COMPLETION_OBJECTS"
-    ;;
+	completion)
+		__bw_generic_completion "$__BW_COMPLETION_OPTS" "$__BW_COMPLETION_OBJECTS"
+		;;
 	update)
 		__bw_generic_completion "$__BW_UPDATE_OPTS" ""
 		;;
@@ -285,11 +285,12 @@ __bw_completion() {
 	receive)
 		__bw_generic_completion "$__BW_RECEIVE_OPTS" ""
 		;;
-  bw)
-    __bw_generic_completion "$__BW_BASE_OPTS" "$__BW_BASE_COMMANDS"
+	bw)
+		__bw_generic_completion "$__BW_BASE_OPTS" "$__BW_BASE_COMMANDS"
 		;;
-  *)
-    __bw_generic_completion ""
+	*)
+		__bw_generic_completion ""
+		;;
 	esac
 }
 

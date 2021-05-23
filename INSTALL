@@ -2,47 +2,106 @@
 #
 # Simple script to link dots
 #
+declare -a FILES=(".Xresources" ".bash_aliases" ".bash_logout" ".bash_profile" ".bashrc" ".inputrc" ".xinitrc")
 
-declare -a MISC=(".bashrc" ".bash_aliases" ".bash_profile" ".Xresources" ".xinitrc")
+function error_msg() {
+	printf "\e[1;31m%s\e[0m\n" "$1" 1>&2
+}
 
-# Link files in .config
-echo "Linking config files"
-while read -r file; do
-  ln -sf "$PWD/${file#./}" "$HOME/${file#./}"
-done <<< "$(find "./.config" -type f)"
-echo
+function msg() {
+	local color
+	case "$2" in
+		green)
+			color="\e[1;32m"
+			;;
+		brown)
+			color="\e[1;33m"
+			;;
+		*)
+			color="\e[1;37m"
+			;;
+	esac
+	printf "$color%s\e[0m\n" "$1"
+}
+
+function link_file() {
+	local file
+	file="${1#./}"
+	if [[ "$2" == "abs" ]]; then
+    sudo ln -sf "$PWD/$file" "/$file"
+	else
+		ln -sf "$PWD/$file" "$HOME/$file"
+	fi
+}
+
+function link_dir() {
+	local hdir ddir
+	ddir="$PWD/$1"
+	hdir="$HOME/$1"
+
+	if [[ -L $hdir ]]; then
+		# If a link, remove and remake it
+		rm -f "$hdir"
+		ln -sf "$ddir" "$hdir"
+		msg "Linked $ddir to $hdir"
+	elif [[ -d $hdir ]]; then
+		# Otherwise if it's a dir, prompt before overwriting
+		read -rp "$hdir exists. Remove and link directory? "
+		if [[ $REPLY =~ y|Y ]]; then
+			rm -rf "$hdir"
+			ln -sf "$ddir" "$hdir"
+		else
+			error_msg "Cannot link directory because it already exists."
+		fi
+	fi
+}
+
+function mkdir_if_nonexistant() {
+	if [[ ! -d $1 ]]; then
+		mkdir -p "$1"
+		msg "Created $1"
+	fi
+}
+
+function link_dir_files() {
+	while read -r dir; do
+		# Establish an absolute or relative path
+		local dest
+		if [[ $2 == "abs" ]]; then
+			dest="/${dir#./}"
+		else
+			dest="$HOME/${dir#./}"
+		fi
+		mkdir_if_nonexistant "$dest"
+	done <<<"$(find "./$1" -type d)"
+
+	# Link the files
+	while read -r file; do
+		link_file "$file" "$2"
+	done <<<"$(find "./$1" -type f)"
+}
+
+# Link entire directories
+msg "Linking directories"
+link_dir ".bin"
+link_dir ".icons"
+link_dir ".themes"
+
+# Link .config files
+msg "Linking config files"
+link_dir_files ".config"
+
+# Ask to link system files
+printf "\e[1;31mLink etc system files? (y|n): "
+read -r
+if [[ "$REPLY" =~ y|Y ]]; then
+  link_dir_files "etc" "abs"
+fi
 
 # Link misc files
-echo "Linking misc files"
-for file in "${MISC[@]}"; do
-  ln -sf "$PWD/$file" "$HOME/$file"
+for file in "${FILES[@]}"; do
+	link_file "$file"
+	msg "Linked $file"
 done
-echo
 
-echo "Copying /etc files"
-while read -r file; do
-  sudo cp -i "$PWD/${file#./}" "/${file#./}"
-  sudo chmod 0644 "/${file#./}"
-done <<< "$(find "./etc" -type f)"
-echo
-
-echo "Linking themes"
-for dir in $(find "./.themes" -maxdepth 1 -type d | sed 1d); do
-  [ -L "$HOME/${dir#./}" ] && rm -f "$HOME/${dir#./}"
-  ln -sf "$PWD/${dir#./}" "$HOME/${dir#./}"
-done
-echo
-
-echo "Linking icons"
-for dir in $(find "./.icons" -maxdepth 1 -type d | sed 1d); do
-  [ -L "$HOME/${dir#./}" ] && rm -f "$HOME/${dir#./}"
-  ln -sf "$PWD/${dir#./}" "$HOME/${dir#./}"
-done
-echo
-
-echo "Linking .bin"
-[ -L "$HOME/.bin" ] && rm -f "$HOME/.bin"
-ln -sf "$PWD/.bin" "$HOME/.bin"
-
-echo "Done!"
-exit 0
+msg "Done!" "green"

@@ -1,0 +1,2 @@
+#!/bin/sh
+printf ":open https://%s%s\n" "$1" "$2" > "$QUTE_FIFO"

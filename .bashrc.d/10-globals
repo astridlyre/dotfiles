@@ -1,0 +1,64 @@
+# vim:filetype=sh
+
+# History
+HISTCONTROL=ignoreboth
+HISTSIZE=100000
+HISTFILESIZE=20000
+
+# Editor is vim
+export VISUAL="/usr/local/bin/nvim"
+export EDITOR="/usr/local/bin/nvim"
+export FCEDIT="/usr/local/bin/nvim"
+
+# Use bat as a pager
+export PAGER="bat --theme='ansi' --tabs 4"
+
+# Man pages
+export MANPAGER="less"
+export MANWIDTH=110
+
+# Less
+export LESS='-J -i -x4'
+export LESS_TERMCAP_mb=$'\e[1;34m'
+export LESS_TERMCAP_md=$'\e[1;35m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;35m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;34m'
+
+# Shell for keybinds
+export SXHKD_SHELL=/bin/sh
+
+# My desktop BG
+export BG_IMAGE="$HOME/Pictures/Wallpapers/fishbg.jpg"
+
+# GPG
+GPG_TTY="$(tty)"
+export GPG_TTY
+
+# No mailcheck
+export MAILCHECK=off
+
+# Go
+export GOPATH="$HOME/go"
+
+# IP Regexp
+export MATCH_IP='([0-9]{1,3}\.){3}[0-9]{1,3}'
+
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# bat theme
+export BAT_THEME='ansi'
+
+# nnn
+export NNN_COLORS='5555'
+export NNN_FCOLORS='0A0B0C02000D0E0809030601'
+
+# fzf colors
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+--color=fg:#b2b2b2,hl:#D1616B
+--color=fg+:#b2b2b2,hl+:#8DA54E
+--color=info:#CAD4C8,prompt:#8DA54E
+--color=marker:#774051,spinner:#8DA54E'

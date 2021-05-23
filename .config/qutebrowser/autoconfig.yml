@@ -10,12 +10,33 @@ settings:
     global:
       normal:
         ',M': hint links spawn mpv {hint-url}
-        ',m': spawn mpv {url}
+        ',e': edit-text
+        ',f': fake-key -g ":spawn --userscript bwfill {url:host} "
+        ',m': hint links spawn mpv {hint-url}
+        ',sg': fake-key -g ':spawn --userscript search github.com/search?q= '
+        ',sm': fake-key -g ':spawn --userscript search developer.mozilla.org/en-US/search?q=
+          '
+        ',sp': fake-key -g ':spawn --userscript search docs.python.org/3/search.html?q=
+          '
+        ',ss': fake-key -g ':spawn --userscript search duckduckgo.com/?q= '
+        ',sy': fake-key -g ':spawn --userscript search www.youtube.com/results?search_query=
+          '
+        ',u': edit-url
   colors.webpage.bg:
     global: '#181819'
+  colors.webpage.darkmode.enabled:
+    global: false
+  colors.webpage.preferred_color_scheme:
+    global: dark
   content.notifications.enabled:
+    https://mail.protonmail.com: true
+    https://old.reddit.com: false
     https://www.reddit.com: false
     https://www.youtube.com: false
+  editor.command:
+    global:
+    - open_vim
+    - '{file}'
   fonts.default_family:
     global: Iosevka
   url.default_page:
