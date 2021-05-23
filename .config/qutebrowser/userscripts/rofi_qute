@@ -1,0 +1,7 @@
+#!/bin/sh
+
+URL="$(cut -d' ' -f1 "$HOME/.config/qutebrowser/bookmarks/urls" | rofi -dmenu)"
+
+if [ "$URL" ]; then
+  echo "open $URL" >> "$QUTE_FIFO" || qutebrowser "$URL"
+fi

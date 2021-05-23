@@ -13,14 +13,11 @@ settings:
         ',e': edit-text
         ',f': fake-key -g ":spawn --userscript bwfill {url:host} "
         ',m': hint links spawn mpv {hint-url}
-        ',sg': fake-key -g ':spawn --userscript search github.com/search?q= '
-        ',sm': fake-key -g ':spawn --userscript search developer.mozilla.org/en-US/search?q=
-          '
-        ',sp': fake-key -g ':spawn --userscript search docs.python.org/3/search.html?q=
-          '
-        ',ss': fake-key -g ':spawn --userscript search duckduckgo.com/?q= '
-        ',sy': fake-key -g ':spawn --userscript search www.youtube.com/results?search_query=
-          '
+        ',sg': fake-key -g ':open https://github.com/search?q='
+        ',sm': fake-key -g ':open https://developer.mozilla.org/en-US/search?q='
+        ',sp': fake-key -g ':open https://docs.python.org/3/search.html?q='
+        ',ss': fake-key -g ':open https://duckduckgo.com/?q='
+        ',sy': fake-key -g ':open https://www.youtube.com/results?search_query='
         ',u': edit-url
   colors.webpage.bg:
     global: '#181819'

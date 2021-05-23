@@ -27,8 +27,8 @@ function msg() {
 function link_file() {
 	local file
 	file="${1#./}"
-	if [[ "$2" == "abs" ]]; then
-    sudo ln -sf "$PWD/$file" "/$file"
+	if [[ $2 == "abs" ]]; then
+		sudo ln -sf "$PWD/$file" "/$file"
 	else
 		ln -sf "$PWD/$file" "$HOME/$file"
 	fi
@@ -64,7 +64,7 @@ function mkdir_if_nonexistant() {
 }
 
 function link_dir_files() {
-	while read -r dir; do
+	find "./$1" -type d | while read -r dir; do
 		# Establish an absolute or relative path
 		local dest
 		if [[ $2 == "abs" ]]; then
@@ -73,16 +73,17 @@ function link_dir_files() {
 			dest="$HOME/${dir#./}"
 		fi
 		mkdir_if_nonexistant "$dest"
-	done <<<"$(find "./$1" -type d)"
+	done
 
 	# Link the files
-	while read -r file; do
+	find "./$1" -type f | while read -r file; do
 		link_file "$file" "$2"
-	done <<<"$(find "./$1" -type f)"
+	done
 }
 
 # Link entire directories
 msg "Linking directories"
+link_dir ".bashrc.d"
 link_dir ".bin"
 link_dir ".icons"
 link_dir ".themes"
@@ -94,8 +95,8 @@ link_dir_files ".config"
 # Ask to link system files
 printf "\e[1;31mLink etc system files? (y|n): "
 read -r
-if [[ "$REPLY" =~ y|Y ]]; then
-  link_dir_files "etc" "abs"
+if [[ $REPLY =~ y|Y ]]; then
+	link_dir_files "etc" "abs"
 fi
 
 # Link misc files

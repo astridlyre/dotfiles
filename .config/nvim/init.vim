@@ -8,7 +8,6 @@
 " ================= Plugins ================== "
 call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'astridlyre/vim-moonlight'                             " Colorscheme
-Plug 'mhinz/vim-startify'                                   " Fancy start screen
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
 Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
 Plug 'junegunn/vim-easy-align'                              " Easy align
@@ -107,18 +106,6 @@ let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build
 let g:go_fmt_autosave = 1
 let g:go_fmt_command  = "goimports"
 
-let g:startify_bookmarks = [ { 'c': '~/.config/nvim/init.vim' } ]
-let g:startify_padding_left = 4
-let g:startify_files_number = 5
-let g:startify_custom_header = [
-      \ '                                 _ _       _     _',
-      \ '     _ __ ___   ___   ___  _ __ | (_) __ _| |__ | |_',
-      \ "    | '_ ` _ \\ / _ \\ / _ \\| '_ \\| | |/ _` | '_ \\| __|",
-      \ "    | | | | | | (_) | (_) | | | | | | (_| | | | | |_",
-      \ '    |_| |_| |_|\___/ \___/|_| |_|_|_|\__, |_| |_|\__|',
-      \ '                                     |___/'
-      \]
-
 " lorem ipsum
 iab <expr> lorem system('curl -s http://metaphorpsum.com/paragraphs/1')
 
@@ -177,18 +164,6 @@ endfunction
 " Temporary fix for when treesitter highlight goes wonky
 function! ResetHightlight()
   execute 'write | edit | TSBufEnable highlight'
-endfunction
-
-" Spell checking on
-function! SpellOn()
-  set spell
-  echo "Spell Check Enabled"
-endfunction
-
-" Spell checking off
-function! SpellOff()
-  set nospell
-  echo "Spell Check Disabled"
 endfunction
 
 " =================== Global Mappings ==========================
@@ -291,10 +266,6 @@ nnoremap <M-k> mz:m-2<cr>`z
 
 " Disable hl with 2 esc
 noremap <silent><esc><esc> :noh<CR><esc>
-
-" Spelling
-nmap so :call SpellOn()<CR>
-nmap sf :call SpellOff()<CR>
 
 " =================== Visual Mappings ==========================
 " Easier move line with alt+j / alt+k

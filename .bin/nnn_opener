@@ -1,0 +1,20 @@
+#!/bin/sh
+
+case "$(file -b --mime-type "$1")" in
+	text/* | application/json)
+		exec alacritty -e bash -c "vim $1"
+		;;
+	application/pdf | application/epub*)
+		exec zathura "$1"
+		;;
+	video/* | audio/*)
+		exec mpv "$1"
+		;;
+	image/*)
+		exec ristretto "$1"
+		;;
+	application/*opendocument*)
+		exec libreoffice "$1"
+		;;
+	*) ;;
+esac

@@ -55,6 +55,7 @@ export BAT_THEME='ansi'
 # nnn
 export NNN_COLORS='5555'
 export NNN_FCOLORS='0A0B0C02000D0E0809030601'
+export NNN_OPENER='nnn_opener'
 
 # fzf colors
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
