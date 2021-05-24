@@ -4,7 +4,6 @@
 alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -I"
-alias su="su --login"
 
 # ls replacement
 alias ls="exa -aG --color=always -s type"
@@ -27,9 +26,7 @@ alias n="nnn -c"
 alias python="python3"
 alias py="bpython"
 alias js="node"
-alias pdate="date +'%d/%m/%y'"
 alias dmesg='dmesg -H'
-alias up='yay -Syyu'
 alias info='info --vi-keys'
 
 # Include hidden files by default
@@ -61,5 +58,4 @@ alias jctl="journalctl -p 3 -xb"
 
 # Upgrade python packages
 alias pip-upgrade="pip freeze --user | cut -d'=' -f1 | xargs -n1 pip install -U"
-alias update-neovim="sudo /home/ml/.bin/update-neovim"
 alias fedora="ssh-add ~/.ssh/id_fedora-dt; ssh -o IdentitiesOnly=yes -i ~/.ssh/id_fedora-dt nerd@192.168.50.69"

@@ -6,9 +6,9 @@ HISTSIZE=100000
 HISTFILESIZE=20000
 
 # Editor is vim
-export VISUAL="/usr/local/bin/nvim"
-export EDITOR="/usr/local/bin/nvim"
-export FCEDIT="/usr/local/bin/nvim"
+export VISUAL="/usr/bin/vim"
+export EDITOR="/usr/bin/vim"
+export FCEDIT="/usr/bin/vim"
 
 # Use bat as a pager
 export PAGER="bat --theme='ansi' --tabs 4"
@@ -58,6 +58,12 @@ export NNN_FCOLORS='0A0B0C02000D0E0809030601'
 export NNN_OPENER='nnn_opener'
 
 # fzf colors
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS=$FZF_DEFAULT_OPTS' --preview "batfile {}" --no-height'
+export FZF_CTRL_R_COMMAND='fd -H'
+export FZF_ALT_C_COMMAND="fd -H --type d . '/'"
+export FZF_ALT_C_OPTS='--preview "exa -a -T -L 1 --color=always {}" --no-height'
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color=fg:#b2b2b2,hl:#D1616B
 --color=fg+:#b2b2b2,hl+:#8DA54E

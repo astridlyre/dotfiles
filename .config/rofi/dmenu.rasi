@@ -14,31 +14,31 @@ window {
     anchor:     center;
     location:   center;
     border:     1px solid;
-    padding:    4px;
-    width:      33%;
+    padding:    2px;
+    width:      42%;
     children:   [ horibox ];
 }
 
 horibox {
-    orientation: horizontal;
+    orientation: vertical;
     children:   [ prompt, entry, listview ];
 }
 
 prompt {
-    padding:    4px;
+    padding:    2px;
 }
 
 listview {
     layout:     vertical;
-    spacing:    4px;
-    padding:    4px;
-    lines:      15;
+    spacing:    2px;
+    padding:    2px;
+    lines:      16;
 }
 
 entry {
     expand:     false;
-    width:      10em;
-    padding:    4px;
+    width:      100%;
+    padding:    2px;
 }
 
 element {

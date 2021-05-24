@@ -33,10 +33,32 @@ bwinit() {
   local pw
   printf 'pw: '
   read -rs pw
-  eval $(bw unlock "$pw" | grep -Eo 'export BW_SESSION=.*')
+  eval "$(bw unlock "$pw" | grep -Eo 'export BW_SESSION=.*')"
 }
 
 # Get a password
 bwget() {
   bw get password "$1" | xsel -b
+}
+
+# Use fd instead of the default find
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
+f() {
+  local file
+  file="$(fzf --preview 'batfile {}' --no-height --reverse --ansi)"
+  [[ "$file" ]] && vim "$file"
+}
+
+m() {
+  man -k . | fzf -q "$1" --prompt='man> ' --reverse \
+      --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man' \
+          | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
 }

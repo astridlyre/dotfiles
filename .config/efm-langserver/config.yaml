@@ -93,6 +93,10 @@ tools:
     format-command: 'lua-format -i'
     format-stdin: true
 
+  rust-format: &rust-format
+    format-command: 'rustfmt --emit stdout'
+    format-stdin: true
+
 languages:
   vim:
     - <<: *vim-vint
@@ -132,3 +136,6 @@ languages:
 
   lua:
     - <<: *lua-lua-format
+
+  rust:
+    - <<: *rust-format

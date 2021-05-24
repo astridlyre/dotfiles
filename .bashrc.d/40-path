@@ -29,8 +29,5 @@ append_path "$HOME/go/bin/"
 append_path "$HOME/.fnm"
 eval "$(fnm env)"
 
-# zoxide
-eval "$(zoxide init bash)"
-
 # ruby
 append_path "$HOME/.local/share/gem/ruby/2.7.0/bin"

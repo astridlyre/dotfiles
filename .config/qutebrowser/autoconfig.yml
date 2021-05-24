@@ -12,6 +12,7 @@ settings:
         ',M': hint links spawn mpv {hint-url}
         ',e': edit-text
         ',f': fake-key -g ":spawn --userscript bwfill {url:host} "
+        ',h': spawn --userscript rofi_qute
         ',m': hint links spawn mpv {hint-url}
         ',sg': fake-key -g ':open https://github.com/search?q='
         ',sm': fake-key -g ':open https://developer.mozilla.org/en-US/search?q='

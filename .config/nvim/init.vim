@@ -55,7 +55,7 @@ set inccommand=nosplit                              " visual feedback while subs
 set grepprg=rg\ --vimgrep                           " use rg as default grepper
 set wildmode=longest:full,full
 set wildignorecase
-set wildignore=*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache
+set wildignore=*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache,*/node_modules/*
 set re=1
 set hidden                                          " Keep buffers around
 set nobackup nowritebackup                          " Do not make backup files
@@ -95,6 +95,10 @@ let g:python3_host_prog        = '/usr/bin/python3' " Default python3
 let g:moonlightTransparent = 1
 colorscheme moonlight
 
+" For quickfix / location list toggle
+let g:moonlight_qf_g = 0
+let g:moonlight_gf_l = 0
+
 " FZF
 let g:fzf_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'border': 'sharp' } }
@@ -132,13 +136,13 @@ augroup END
 
 " fzf if passed argument is a folder
 augroup folderarg
-    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
-    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'Files ' fnameescape(argv()[0]) | endif
+  autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
+  autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'Files ' fnameescape(argv()[0]) | endif
 augroup END
 
 " files in fzf
 command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
 
 " Return to last edit position when opening files
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -154,11 +158,11 @@ command! StripWhitespace :%s/\s\+$//e
 " ================== Custom Functions ===================== "
 " advanced grep(faster with preview)
 function! RipgrepFzf(query, fullscreen)
-    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
-    let initial_command = printf(command_fmt, shellescape(a:query))
-    let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
 " Temporary fix for when treesitter highlight goes wonky
@@ -166,11 +170,18 @@ function! ResetHightlight()
   execute 'write | edit | TSBufEnable highlight'
 endfunction
 
-" =================== Global Mappings ==========================
-" Easy edit vim config
-map <F3> :e ~/.config/nvim/init.vim<CR>
-map <F2> :StripWhitespace<CR>
+" Toggle quickfix
+fun! ToggleQFList(global)
+  if a:global == 1
+    if g:moonlight_qf_g == 1 | let g:moonlight_qf_g = 0 | cclose | else
+      let g:moonlight_qf_g = 1 | copen | end
+  else
+    if g:moonlight_qf_l == 1 | let g:moonlight_qf_l = 0 | lclose | else
+      let g:moonlight_qf_l = 1 | lopen | end
+  end
+endfun
 
+" =================== Global Mappings ==========================
 " Disable s and make y consistent
 nmap s <Nop>
 map Y y$
@@ -178,6 +189,10 @@ map Y y$
 " =================== Leader Mappings ==========================
 " Map leader to space
 let mapleader=' '
+
+" Edit configs
+nnoremap <leader>ee :e ~/.config/nvim/init.vim<CR>
+nnoremap <leader>el :e ~/.config/nvim/lua/config.lua<CR>
 
 " Install or Update Plugins <leader>p*
 nnoremap <leader>ui :PlugInstall<CR>
@@ -188,10 +203,9 @@ nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
 nnoremap <leader>e :call ResetHightlight()<CR>
 nnoremap <leader>; :w<CR>
 nnoremap <leader>\ :qa!<CR>
-
-" Easy Buffer switching <leader>[np]
-nnoremap <leader>n :bnext<CR>
-nnoremap <leader>p :bprevious<CR>
+nnoremap <leader>q :call ToggleQFList(0)<CR>
+nnoremap <leader>j :lnext<CR>zz
+nnoremap <leader>k :lprev<CR>zz
 
 " new line in normal mode and back
 nnoremap <leader>[ myO<ESC>`y
@@ -203,6 +217,7 @@ nnoremap <leader>' :sp term://bash<CR>i
 " lil scripties <leader>s*
 vnoremap <leader>ss !sort -d -b -f<CR>
 vnoremap <leader>sc !scriptbc<CR>
+nnoremap <leader>sw :StripWhitespace<CR>
 
 " easy system clipboard copy & paste
 nnoremap <leader>Y mqgg"+yG`q
@@ -243,9 +258,9 @@ nmap <leader>a <Plug>(EasyAlign)
 " LSP <leader>l*
 nnoremap gD :lua vim.lsp.buf.declaration()<CR>
 nnoremap gd :lua vim.lsp.buf.definition()<CR>
-nnoremap K :lua vim.lsp.buf.hover()<CR>
+nnoremap K :lua vim.lsp.buf.hover() vim.lsp.buf.hover()<CR>
 nnoremap gi :lua vim.lsp.buf.implementation()<CR>
-nnoremap gr :lua vim.buf.references()<CR>
+nnoremap gr :lua vim.lsp.buf.references()<CR>
 nnoremap <leader>lk :lua vim.lsp.buf.signature_help()<CR>
 nnoremap <leader>wa :lua vim.lsp.buf.add_workspace_folder()<CR>
 nnoremap <leader>wr :lua vim.lsp.buf.remove_workspace_folder()<CR>
@@ -263,6 +278,11 @@ nnoremap <leader>lf :lua vim.lsp.buf.formatting()<CR>
 " Easier move line with alt+j / alt+k
 nnoremap <M-j> mz:m+<cr>`z
 nnoremap <M-k> mz:m-2<cr>`z
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-p> :bprev<CR>
+nnoremap <C-q> :call ToggleQFList(1)<CR>
+nnoremap <C-j> :cnext<CR>zz
+nnoremap <C-k> :cprev<CR>zz
 
 " Disable hl with 2 esc
 noremap <silent><esc><esc> :noh<CR><esc>

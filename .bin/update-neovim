@@ -13,11 +13,16 @@ error_exit() {
 # -------------------------
 echo "Updating neovim"
 
+scripts_path="$HOME/.bin"
+app_image="$PWD/nvim.appimage"
+
 if wget "https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage"; then
-	mv ./nvim.appimage /usr/local/bin/nvim || error_exit "Unable to move file"
-	chmod 755 /usr/local/bin/nvim || error_exit "Unable to change file permissions"
-	sudo ln -sf /usr/local/bin/nvim /bin/vim
+	chmod 755 "$app_image" || error_exit "Unable to change file permissions"
+	mv "$app_image" "$scripts_path/nvim" || error_exit "Unable to move file"
+	sudo ln -sf "$scripts_path/nvim" /usr/bin/vim || error_exit "Unable to link file"
 	echo "Update complete"
 else
 	error_exit "Update failed, unable to download file"
 fi
+
+exit 0

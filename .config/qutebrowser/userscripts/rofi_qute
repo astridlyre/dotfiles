@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-URL="$(cut -d' ' -f1 "$HOME/.config/qutebrowser/bookmarks/urls" | rofi -dmenu)"
+HIST="$HOME/.local/share/qutebrowser/history.sqlite"
+URL="$(sqlite3 "$HIST" <<<"select * from History" | cut -d'|' -f1 \
+  | rofi -dmenu -matching fuzzy -p 'history search')"
 
 if [ "$URL" ]; then
   echo "open $URL" >> "$QUTE_FIFO" || qutebrowser "$URL"
