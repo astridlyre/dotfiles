@@ -5,26 +5,23 @@ ducks() {
 	du -sh ./* | sort -hr | head -11
 }
 
-# minimal editor without coc or vim-go
-min() {
-  vim -u "$HOME/.config/nvim/init_minimal.vim" "$@"
-}
-
-# quick make c file
-mk() {
-  local fname
-  fname="$(ls -- *.c)"
-  cc -o "${fname%.c}" "$PWD/$fname"
-  "$PWD/${fname%.c}"
-}
-
 # Find a service port quickly
-port() {
+wp?() {
   grep --color=auto -E -i "^$1" /etc/services
 }
 
-p() {
+# Which service for which port
+ws?() {
   awk '{printf "%s\t", $2} {print $1}' /etc/services | grep -i --color=auto "^$1/"
+}
+
+# Edit with vim
+e() {
+  if (($# > 0)); then
+    vim "$@"
+  else
+    vim .
+  fi
 }
 
 # Easily edit script in PATH
@@ -55,12 +52,14 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
+# fzf find a file to edit in vim
 f() {
   local file
   file="$(fzf --preview 'batfile {}' --no-height --reverse --ansi)"
   [[ "$file" ]] && vim "$file"
 }
 
+# fzf find a man page
 m() {
   man -k . | fzf -q "$1" --prompt='man> ' --reverse \
       --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man' \

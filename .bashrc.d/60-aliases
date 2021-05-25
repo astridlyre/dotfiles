@@ -14,11 +14,6 @@ alias lt="exa -aT --color=always -s type"
 alias cat="bat -pp --theme='ansi'"
 alias bat="bat --theme='ansi' --tabs=4"
 
-# vim is my editor
-alias vi="vim"
-alias nvim="vim"
-alias e="vim"
-
 # easy typed common things
 alias c="clear"
 alias x="exit"
@@ -27,7 +22,7 @@ alias python="python3"
 alias py="bpython"
 alias js="node"
 alias dmesg='dmesg -H'
-alias info='info --vi-keys'
+alias i='info --vi-keys'
 alias se='sudoedit'
 
 # Include hidden files by default
