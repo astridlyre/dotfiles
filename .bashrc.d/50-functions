@@ -1,4 +1,4 @@
-# vim:filetype=sh
+# vim:filetype=bash
 
 # Top disk usage
 ducks() {

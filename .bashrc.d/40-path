@@ -9,9 +9,11 @@ prepend_path() {
   esac
 }
 
-# local scripts dir
-prepend_path "$HOME/.bin"
-prepend_path "$HOME/.local/bin"
+# ruby
+prepend_path "$HOME/.local/share/gem/ruby/2.7.0/bin"
+
+# fnm
+prepend_path "$HOME/.fnm"
 
 # rust
 prepend_path "$HOME/.cargo/bin"
@@ -20,11 +22,9 @@ prepend_path "$HOME/.cargo/bin"
 prepend_path "/usr/local/go/bin"
 prepend_path "$HOME/go/bin"
 
-# fnm
-prepend_path "$HOME/.fnm"
-
-# ruby
-prepend_path "$HOME/.local/share/gem/ruby/2.7.0/bin"
+# local scripts dir
+prepend_path "$HOME/.local/bin"
+prepend_path "$HOME/.bin"
 
 # fzf
 source "$HOME/.fzf.bash"
