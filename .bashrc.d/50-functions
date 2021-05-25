@@ -23,6 +23,10 @@ port() {
   grep --color=auto -E -i "^$1" /etc/services
 }
 
+p() {
+  awk '{printf "%s\t", $2} {print $1}' /etc/services | grep -i --color=auto "^$1/"
+}
+
 # Easily edit script in PATH
 es() {
   vim "$(which "$@")"

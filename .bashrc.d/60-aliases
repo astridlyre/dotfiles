@@ -28,6 +28,7 @@ alias py="bpython"
 alias js="node"
 alias dmesg='dmesg -H'
 alias info='info --vi-keys'
+alias se='sudoedit'
 
 # Include hidden files by default
 alias fd="fd -H"

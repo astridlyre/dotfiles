@@ -26,6 +26,8 @@ settings:
     global: false
   colors.webpage.preferred_color_scheme:
     global: dark
+  content.blocking.method:
+    global: adblock
   content.notifications.enabled:
     https://mail.protonmail.com: true
     https://old.reddit.com: false
@@ -37,6 +39,10 @@ settings:
     - '{file}'
   fonts.default_family:
     global: Iosevka
+  hints.radius:
+    global: 0
+  keyhint.radius:
+    global: 0
   url.default_page:
     global: file:///home/ml/projects/dotfiles/.config/brave-home/index.html
   url.start_pages:

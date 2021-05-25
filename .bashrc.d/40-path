@@ -1,33 +1,30 @@
 # vim:filetype=sh
 
-# function to append to PATH
-append_path() {
-	case ":$PATH:" in
-		*:"$1":*) ;;
-
-		*)
-			PATH="${PATH:+$PATH:}$1"
-			;;
-	esac
+# function to prepend to PATH
+prepend_path() {
+  case "$PATH" in
+    *"$1"*) ;;
+    *)
+    PATH="$1:$PATH"
+  esac
 }
 
 # local scripts dir
-append_path "$HOME/.bin/"
-append_path "$HOME/.local/bin/"
+prepend_path "$HOME/.bin"
+prepend_path "$HOME/.local/bin"
 
 # rust
-append_path "$HOME/.cargo/bin/"
+prepend_path "$HOME/.cargo/bin"
 
 # go
-append_path "/usr/local/go/bin/"
-append_path "$HOME/go/bin/"
-
-# fzf
-[ -f "$HOME/.fzf.bash" ] && source "$HOME/.fzf.bash"
+prepend_path "/usr/local/go/bin"
+prepend_path "$HOME/go/bin"
 
 # fnm
-append_path "$HOME/.fnm"
-eval "$(fnm env)"
+prepend_path "$HOME/.fnm"
 
 # ruby
-append_path "$HOME/.local/share/gem/ruby/2.7.0/bin"
+prepend_path "$HOME/.local/share/gem/ruby/2.7.0/bin"
+
+# fzf
+source "$HOME/.fzf.bash"

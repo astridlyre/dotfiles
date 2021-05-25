@@ -294,7 +294,5 @@ vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " =================== Insert Mappings ==========================
 inoremap <expr> <C-e> compe#close('<C-e>')
+inoremap <expr> <C-y> compe#confirm('<C-n><C-y>')
 inoremap <expr> <CR> pumvisible() ? "\<C-e><CR>" : "\<CR>"
-inoremap <expr> <C-y> pumvisible() ? "\<C-n>\<C-y>" : "\<C-y>"
-inoremap <silent><expr> <C-f> compe#scroll({ 'delta': +4 }) 
-inoremap <silent><expr> <C-d> compe#scroll({ 'delta': -4 })

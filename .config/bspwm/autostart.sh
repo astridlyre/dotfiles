@@ -26,4 +26,4 @@ run picom --experimental-backends --config "$HOME/.config/bspwm/picom.conf"
 #/usr/lib/xfce4/notifyd/xfce4-notifyd &
 
 # Background image
-run feh --bg-fill "$BG_IMAGE"
+run feh --bg-fill "$HOME/Pictures/Wallpapers/fishbg.jpg"
