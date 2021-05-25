@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# If not running interactively, do nothing
-[[ $- != *i* ]] && return
-
+[[ $- != *i* ]] && return # Return if not interactive
 #                             _ _       _     _
 # _ __ ___   ___   ___  _ __ | (_) __ _| |__ | |_
 #| '_ ` _ \ / _ \ / _ \| '_ \| | |/ _` | '_ \| __|
@@ -17,9 +15,8 @@
 #       ||  |---'\  \
 #      (_(__|   ((__|
 #
-
-# Source files
-if [[ -d ~/.bashrc.d ]]; then
+if [[ -d ~/.bashrc.d ]]; then 
+  # Source files
   for file in ~/.bashrc.d/*; do
     [[ -f "$file" ]] && . "$file"
   done

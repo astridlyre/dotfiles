@@ -6,38 +6,44 @@ declare -a FILES=(".Xresources" ".bash_logout" ".bash_profile" ".bashrc" ".input
 
 function error_msg() {
 	printf "\e[1;31m%s\e[0m\n" "$1" 1>&2
-  return 0
+	return 0
 }
 
 function msg() {
 	local color
-	case "$2" in
+	case "$1" in
 		green)
 			color="\e[1;32m"
+			shift
 			;;
 		brown)
 			color="\e[1;33m"
+			shift
 			;;
 		*)
 			color="\e[1;37m"
 			;;
 	esac
-	printf "$color%s\e[0m\n" "$1"
-  return 0
+	printf "$color%s\e[0m\n" "$@"
+	return 0
 }
 
 function link_file() {
 	# If file does not exist, don't try to link it
 	[[ ! -f $1 ]] && return 1
 
-	local file
+	local file dpath lpath
 	file="${1#./}"
+	dpath="$PWD/$file"
 
 	if [[ $2 == "abs" ]]; then
-		sudo ln -sf "$PWD/$file" "/$file"
+		lpath="/$file"
+		sudo ln -sf "$dpath" "$lpath"
 	else
-		ln -sf "$PWD/$file" "$HOME/$file"
+		lpath="$HOME/$file"
+		ln -sf "$dpath" "$lpath"
 	fi
+	printf "\e[0;37mLinked %s \u2192 %s\e[0m\n" "$dpath" "$lpath"
 	return 0
 }
 
@@ -50,7 +56,7 @@ function link_dir() {
 		# If a link, remove and remake it
 		rm -f "$hdir"
 		ln -sf "$ddir" "$hdir"
-		msg "Linked $ddir to $hdir"
+		printf  "\e[1;37mLinked %s \u2192 %s\e[0m\n" "$ddir" "$hdir"
 
 	elif [[ -d $hdir ]]; then
 		# Otherwise if it's a dir, prompt before overwriting
@@ -70,7 +76,7 @@ function mkdir_if_nonexistant() {
 		mkdir -p "$1"
 		msg "Created $1"
 	fi
-  return 0
+	return 0
 }
 
 function link_dir_files() {
@@ -89,7 +95,7 @@ function link_dir_files() {
 	find "./$1" -type f | while read -r file; do
 		link_file "$file" "$2"
 	done
-  return 0
+	return 0
 }
 
 # Link entire directories
@@ -104,7 +110,7 @@ msg "Linking config files"
 link_dir_files ".config"
 
 # Ask to link system files
-printf "\e[1;31mLink etc system files? (y|n): "
+msg "brown" "Link etc system files? (y|n): "
 read -r
 if [[ $REPLY =~ y|Y ]]; then
 	link_dir_files "etc" "abs"
@@ -113,7 +119,6 @@ fi
 # Link misc files
 for file in "${FILES[@]}"; do
 	link_file "$file"
-	msg "Linked $file"
 done
 
-msg "Done!" "green"
+msg "green" "Done!"

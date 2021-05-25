@@ -8,5 +8,5 @@ while pgrep -x polybar >/dev/null; do sleep 1; done
 
 # Load polybar for each monitor
 for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-  MONITOR=$m polybar --reload mainbar-bspwm -c ~/.config/polybar/config &
+	MONITOR="$m" polybar --reload mainbar-bspwm -c ~/.config/polybar/config &
 done

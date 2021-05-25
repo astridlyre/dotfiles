@@ -3,11 +3,20 @@
 # Run a different xrandr depending on connected monitors
 NUMMONS="$(xrandr --query | rg " connected" | cut -d" " -f1 | wc -l)"
 if [ "$NUMMONS" -eq 2 ]; then
-	/home/ml/.bin/dm-do
+  # If I haz two monitors
+  xrandr --output HDMI-0 --primary --mode 3840x2160 --pos 0x0 --rotate normal \
+    --output eDP-1-1 --mode 1920x1080 --pos 3840x1080 --rotate normal
 	bspc monitor eDP-1-1 -d 6
 	bspc monitor HDMI-0 -d 1 2 3 4 5
 else
-	/home/ml/.bin/sm-do
+  # If I haz still two monitors but should have one
+  if bspc query -M --names | grep HDMI-0 &>/dev/null ; then
+    bspc monitor HDMI-0 -r
+    xrandr --auto
+    bspc wm -o
+  fi
+  # If i haz only one yay!
+  xrandr --output eDP-1-1 --primary --rotate normal --pos 0x0 --mode 1920x1080
 	bspc monitor eDP-1-1 -d 1 2 3 4 5 6
 fi
 
@@ -43,8 +52,6 @@ bspc config presel_feedback_color "#89b482"
 
 #Floating applications
 bspc rule -a iwctl                   state=floating
-bspc rule -a Arandr                  state=floating
-bspc rule -a Arcolinux-tweak-tool.py state=floating
 bspc rule -a feh                     state=floating
 
 #Tiled applications
