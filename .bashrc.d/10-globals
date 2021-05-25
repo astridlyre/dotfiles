@@ -11,7 +11,7 @@ export EDITOR="/usr/bin/vim"
 export FCEDIT="/usr/bin/vim"
 
 # Use bat as a pager
-export PAGER="bat --theme='ansi' --tabs 4"
+export PAGER="bat"
 
 # Man pages
 export MANPAGER="less"

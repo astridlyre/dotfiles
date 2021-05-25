@@ -12,7 +12,7 @@ alias lt="exa -aT --color=always -s type"
 
 # cat replacement
 alias cat="bat -pp --theme='ansi'"
-alias bat="bat --theme='ansi' --tabs=4"
+alias bat="bat --theme='ansi' --tabs=4 --decorations never"
 
 # easy typed common things
 alias c="clear"
@@ -24,6 +24,9 @@ alias js="node"
 alias dmesg='dmesg -H'
 alias i='info --vi-keys'
 alias se='sudoedit'
+alias stanoff="xset -dpms"
+alias stanon="xset +dpms"
+alias sus="xset dpms force suspend"
 
 # Include hidden files by default
 alias fd="fd -H"

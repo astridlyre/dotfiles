@@ -2,7 +2,6 @@
 /usr/bin/prime-offload &                                     # Start optimus manager
 xset r r off &                                               # Turn off key repeat
 setxkbmap -option ctrl:nocaps &                              # Map capslock to esc & ctrl
-pgrep xcape >/dev/null 2>&1 || xcape -e 'Control_L=Escape' & # Map Ctrl to Escape
 xsetroot -cursor_name left_ptr &                             # cursor fix
 eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
 
