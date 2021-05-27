@@ -98,6 +98,7 @@ colorscheme moonlight
 " For quickfix / location list toggle
 let g:moonlight_qf_g = 0
 let g:moonlight_gf_l = 0
+let g:autoFormat = 1
 
 " FZF
 let g:fzf_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
@@ -147,7 +148,11 @@ command! -bang -nargs=? -complete=dir Files
 " Return to last edit position when opening files
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
-command! Format execute 'lua vim.lsp.buf.formatting()'
+" Autoformat on save
+let autoFormatable = ['markdown', 'sh', 'bash', 'python', 'javascript', 'rust',
+      \ 'go', 'yaml', 'html', 'css', 'json', 'lua']
+autocmd BufWritePost * if index(autoFormatable, &ft) >= 0 && g:autoFormat == 1
+      \ | exe 'lua vim.lsp.buf.formatting()' | endif
 
 " advanced grep
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
@@ -169,6 +174,11 @@ endfunction
 function! ResetHightlight()
   execute 'write | edit | TSBufEnable highlight'
 endfunction
+
+fun! ToggleAutoFormat()
+  if g:autoFormat == 1 | let g:autoFormat = 0 | echo "Autoformatting disabled"
+  else | let g:autoFormat = 1 | echo "Autoformatting enabled" | end
+endfun
 
 " Toggle quickfix
 fun! ToggleQFList(global)
@@ -206,6 +216,7 @@ nnoremap <leader>\ :qa!<CR>
 nnoremap <leader>q :call ToggleQFList(0)<CR>
 nnoremap <leader>j :lnext<CR>zz
 nnoremap <leader>k :lprev<CR>zz
+nnoremap <leader>af :call ToggleAutoFormat()<CR>
 
 " new line in normal mode and back
 nnoremap <leader>[ myO<ESC>`y

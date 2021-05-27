@@ -4,7 +4,7 @@
 [[ $- != *i* ]] && return
 
 # Base options for bw
-__BW_BASE_OPTS="
+_bw_opts="
   --pretty 
   --raw
   --response
@@ -15,7 +15,7 @@ __BW_BASE_OPTS="
   -h --help
 "
 # Base commands for bw
-__BW_BASE_COMMANDS="
+_bw_objs="
   login logout lock
   unlock sync generate
   encode config update
@@ -25,12 +25,13 @@ __BW_BASE_COMMANDS="
   confirm import export
   send receive help
 "
+
 # Generic help options for simple commands
-__BW_HELP_OPTS="
+_bw_help_opts="
   -h --help
 "
 # Options for bw login
-__BW_LOGIN_OPTS="
+_bw_login_opts="
   --method
   --code
   --sso
@@ -40,20 +41,25 @@ __BW_LOGIN_OPTS="
   --check
   -h --help
 "
+
+_bw_login_method_objs="
+1 2 3
+"
+
 # Options for bw unlock
-__BW_UNLOCK_OPTS="
+_bw_unlock_opts="
   --raw
   --check
   -h --help
 "
 # Options for bw sync
-__BW_SYNC_OPTS="
+_bw_sync_opts="
   -f --force
   --last
   -h --help
 "
 # Options for bw generate
-__BW_GENERATE_OPTS="
+_bw_generate_opts="
   -u --uppercase
   -l --lowercase
   -n --number
@@ -65,7 +71,7 @@ __BW_GENERATE_OPTS="
   -h --help
 "
 # Options for bw config
-__BW_CONFIG_OPTS="
+_bw_config_opts="
   --web-vault
   --api
   --identity
@@ -75,25 +81,25 @@ __BW_CONFIG_OPTS="
   -h --help
 "
 # Objects for bw config
-__BW_CONFIG_OBJECTS="
+_bw_config_objs="
   server
 "
 # Options for bw completion
-__BW_COMPLETION_OPTS="
+_bw_completion_opts="
   --shell
   -h --help
 "
 # Objects for bw completion
-__BW_COMPLETION_OBJECTS="
+_bw_shell_objs="
   zsh bash
 "
 # Options for bw update
-__BW_UPDATE_OPTS="
+_bw_update_opts="
   --raw
   -h --help
 "
 # Options for bw list
-__BW_LIST_OPTS="
+_bw_list_opts="
   --search
   --url
   --folderid
@@ -103,20 +109,20 @@ __BW_LIST_OPTS="
   -h --help
 "
 # Objects for bw list
-__BW_LIST_OBJECTS="
+_bw_list_objs="
   items folders collections
   organizations org-collections
   org-members
 "
 # Options for bw get
-__BW_GET_OPTS="
+_bw_get_opts="
   --itemid
   --output
   --organizationid
   -h --help
 "
 # Objects for bw get
-__BW_GET_OBJECTS="
+_bw_get_objs="
   item username password
   uri totp exposed
   attachment folder collection
@@ -124,59 +130,59 @@ __BW_GET_OBJECTS="
   fingerprint send email
 "
 # Options for bw create
-__BW_CREATE_OPTS="
+_bw_create_opts="
   --file
   --itemid
   --organizationid
   -h --help
 "
 # Objects for bw create
-__BW_CREATE_OBJECTS="
+_bw_create_objs="
   item attachment folder
   org-collection
 "
 # Options for bw edit
-__BW_EDIT_OPTS="
+_bw_edit_opts="
   --organizationid
   -h --help
 "
 # Objects for bw edit
-__BW_EDIT_OBJECTS="
+_bw_edit_objs="
   item item-collections
   folder org-collection
 "
 # Options for bw delete
-__BW_DELETE_OPTS="
+_bw_delete_opts="
   --itemid
   --organizationid
   -p --permanent
   -h --help
 "
 # Objects for bw delete
-__BW_DELETE_OBJECTS="
+_bw_delete_objs="
   item attachment folder
   org-collection
 "
 # Objects for bw restore
-__BW_RESTORE_OBJECTS="
+_bw_restore_objs="
   item
 "
 # Options for bw confirm
-__BW_CONFIRM_OPTS="
+_bw_confirm_opts="
   --organizationid
   -h --help
 "
 # Objects for bw confirm
-__BW_CONFIRM_OBJECTS="
+_bw_confirm_objs="
   org-member
 "
 # Options for bw import
-__BW_IMPORT_OPTS="
+_bw_import_opts="
   --formats
   -h --help
 "
 # Options for bw export
-__BW_EXPORT_OPTS="
+_bw_export_opts="
   --output
   --format
   --raw
@@ -184,7 +190,7 @@ __BW_EXPORT_OPTS="
   -h --help
 "
 # Options for bw send
-__BW_SEND_OPTS="
+_bw_send_opts="
   -f --file
   -d --deleteInDays
   --hidden
@@ -194,13 +200,13 @@ __BW_SEND_OPTS="
   -h --help
 "
 # Objects for bw send
-__BW_SEND_OBJECTS="
+_bw_send_objs="
   list template get
   receive create edit
   remove-password delete
 "
 # Options for bw receive
-__BW_RECEIVE_OPTS="
+_bw_receive_opts="
   --password
   --passwordenv
   --passwordfile
@@ -209,89 +215,46 @@ __BW_RECEIVE_OPTS="
   -h --help
 "
 
-__bw_generic_completion() {
-	local cur
+function _bw() {
+	local arguments commands current_word previous_word
+	arguments="$_bw_opts"
+	commands="$_bw_objs"
+
+	current_word="$2" # Current word is the completion candidate
+	previous_word="${COMP_WORDS[COMP_CWORD - 1]}"
 	COMPREPLY=()
-	cur="${COMP_WORDS[COMP_CWORD]}"
 
-	if [[ "$cur" =~ ^- ]]; then
-		COMPREPLY=($(compgen -W "$1" -- "$cur"))
-		return 0
-	else
-		COMPREPLY=($(compgen -W "$2" -- "$cur"))
-		return 0
+	# If base command, do base completion
+	if [[ $previous_word == "bw" ]]; then
+		if [[ $current_word =~ ^- ]]; then
+			COMPREPLY=($(compgen -W "$arguments" -- "$current_word"))
+			return 0
+		else
+			COMPREPLY=($(compgen -W "$commands $arguments" -- "$current_word"))
+			return 0
+		fi
 	fi
+
+	# Perform completion for first subcommand found
+	local word command opts objs
+	for word in "${COMP_WORDS[@]}"; do
+		for command in $commands; do
+			if [[ $word == "$command" ]]; then
+				opts="_bw_${word}_opts"
+				objs="_bw_${word}_objs"
+				COMPREPLY=()
+				if [[ $current_word =~ ^- ]] || [[ -z ${!objs} ]]; then
+					COMPREPLY=($(compgen -W "${!opts}" -- "$current_word"))
+					return 0
+				else
+					COMPREPLY=($(compgen -W "${!objs}" -- "$current_word"))
+					return 0
+				fi
+				return 0
+			fi
+		done
+	done
+	return 1
 }
 
-__bw_completion() {
-	local prev
-	prev="${COMP_WORDS[COMP_CWORD - 1]}"
-
-	case "$prev" in
-	login)
-		__bw_generic_completion "$__BW_LOGIN_OPTS" ""
-		;;
-	logout | lock | encode | status | share)
-		__bw_generic_completion "$__BW_HELP_OPTS" ""
-		;;
-	unlock)
-		__bw_generic_completion "$__BW_UNLOCK_OPTS" ""
-		;;
-	sync)
-		__bw_generic_completion "$__BW_SYNC_OPTS" ""
-		;;
-	generate)
-		__bw_generic_completion "$__BW_GENERATE_OPTS" ""
-		;;
-	config)
-		__bw_generic_completion "$__BW_CONFIG_OPTS" "$__BW_CONFIG_OBJECTS"
-		;;
-	completion)
-		__bw_generic_completion "$__BW_COMPLETION_OPTS" "$__BW_COMPLETION_OBJECTS"
-		;;
-	update)
-		__bw_generic_completion "$__BW_UPDATE_OPTS" ""
-		;;
-	list)
-		__bw_generic_completion "$__BW_LIST_OPTS" "$__BW_LIST_OBJECTS"
-		;;
-	get)
-		__bw_generic_completion "$__BW_GET_OPTS" "$__BW_GET_OBJECTS"
-		;;
-	create)
-		__bw_generic_completion "$__BW_CREATE_OPTS" "$__BW_CREATE_OBJECTS"
-		;;
-	edit)
-		__bw_generic_completion "$__BW_EDIT_OPTS" "$__BW_EDIT_OBJECTS"
-		;;
-	delete)
-		__bw_generic_completion "$__BW_DELETE_OPTS" "$__BW_DELETE_OBJECTS"
-		;;
-	restore)
-		__bw_generic_completion "$__BW_HELP_OPTS" "$__BW_RESTORE_OBJECTS"
-		;;
-	confirm)
-		__bw_generic_completion "$__BW_CONFIRM_OPTS" "$__BW_CONFIRM_OBJECTS"
-		;;
-	import)
-		__bw_generic_completion "$__BW_IMPORT_OPTS" ""
-		;;
-	export)
-		__bw_generic_completion "$__BW_EXPORT_OPTS" ""
-		;;
-	send)
-		__bw_generic_completion "$__BW_SEND_OPTS" "$__BW_SEND_OBJECTS"
-		;;
-	receive)
-		__bw_generic_completion "$__BW_RECEIVE_OPTS" ""
-		;;
-	bw)
-		__bw_generic_completion "$__BW_BASE_OPTS" "$__BW_BASE_COMMANDS"
-		;;
-	*)
-		__bw_generic_completion ""
-		;;
-	esac
-}
-
-complete -o default -F __bw_completion bw
+complete -o default -F _bw bw

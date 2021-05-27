@@ -1,8 +1,8 @@
 #!/bin/sh
-/usr/bin/prime-offload &                                     # Start optimus manager
-xset r r off &                                               # Turn off key repeat
-setxkbmap -option ctrl:nocaps &                              # Map capslock to esc & ctrl
-xsetroot -cursor_name left_ptr &                             # cursor fix
+/usr/bin/prime-offload &         # Start optimus manager
+xset r r off &                   # Turn off key repeat
+setxkbmap -option ctrl:nocaps &  # Map capslock to esc & ctrl
+xsetroot -cursor_name left_ptr & # cursor fix
 eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
 
 export SSH_AUTH_SOCK                 # Keyring setup

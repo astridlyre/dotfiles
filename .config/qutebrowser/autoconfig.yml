@@ -14,6 +14,7 @@ settings:
         ',f': fake-key -g ":spawn --userscript bwfill {url:host} "
         ',h': spawn --userscript rofi_qute
         ',m': hint links spawn mpv {hint-url}
+        ',sa': fake-key -g ':open https://wiki.archlinux.org/index.php?search='
         ',sg': fake-key -g ':open https://github.com/search?q='
         ',sm': fake-key -g ':open https://developer.mozilla.org/en-US/search?q='
         ',sp': fake-key -g ':open https://docs.python.org/3/search.html?q='

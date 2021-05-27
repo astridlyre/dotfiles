@@ -6,9 +6,6 @@
 super + d
     rofi -show run
 
-super + space
-    rofi -show run
-
 # Rofi Window Switcher
 super + w
     rofi -show window
@@ -24,6 +21,11 @@ super + v
 # Alacritty
 super + Return
     alacritty --title 'hax terminal'
+
+# Hacker floating term
+super + space
+  alacritty --title 'm00nl1ght l33t h4x0rz' --class l33th4x0rz,l33th4x0rz \
+    --config-file ~/.config/alacritty/alacritty_dark.yml
 
 # nnn File Manager
 super + e
@@ -60,10 +62,6 @@ super + i
 #################################################################
 # SUPER + SHIFT KEYS
 #################################################################
-
-# Zutty
-super + shift + Return
-  alacritty --title 'm00nl1ght l33t h4x0rz'
 
 # PCManFM
 super + shift + e
@@ -149,14 +147,6 @@ ctrl + alt + o
 # SUPER + KEYS
 #################################################################
 
-# Toggle fullscreen of window
-super + f
-	bspc node --state \~fullscreen
-
-# Toggle pseudo tiling of window
-super + p
-	bspc node --state \~pseudo_tiled
-
 # kill
 super + q
 	bspc node -c
@@ -236,6 +226,14 @@ super + shift + Up
 # Move focused window to other monitor
 super + shift + Down
 		bspc node -m next --follow
+
+# Toggle fullscreen of window
+super + shift + f
+	bspc node --state \~fullscreen
+
+# Toggle pseudo tiling of window
+super + shift + p
+	bspc node --state \~pseudo_tiled
 
 #################################################################
 # SUPER + CONTROL KEYS

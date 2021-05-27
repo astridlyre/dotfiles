@@ -52,6 +52,7 @@ bspc config presel_feedback_color "#89b482"
 
 #Floating applications
 bspc rule -a iwctl                   state=floating
+bspc rule -a l33th4x0rz              state=floating
 bspc rule -a feh                     state=floating
 
 #Tiled applications

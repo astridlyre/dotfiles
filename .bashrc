@@ -15,12 +15,12 @@
 #       ||  |---'\  \
 #      (_(__|   ((__|
 #
-if [[ -d ~/.bashrc.d ]]; then 
-  # Source files
-  for file in ~/.bashrc.d/*; do
-    [[ -f "$file" ]] && . "$file"
-  done
-  unset file
+if [[ -d ~/.bashrc.d ]]; then
+	# Source files
+	for file in ~/.bashrc.d/*; do
+		[[ -f $file ]] && . "$file"
+	done
+	unset file
 fi
 
 # enable programmable completion features

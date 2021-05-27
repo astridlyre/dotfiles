@@ -56,13 +56,13 @@ export NNN_OPENER='nnn_opener'
 
 # fzf
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-export FZF_DEFAULT_OPTS='
---color=fg:#b2b2b2,hl:#D1616B
+export FZF_DEFAULT_OPTS='--color=fg:#b2b2b2,hl:#D1616B
 --color=fg+:#b2b2b2,hl+:#8DA54E
 --color=info:#CAD4C8,prompt:#8DA54E
 --color=marker:#774051,spinner:#8DA54E'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS=' --preview "batfile {}" --no-height'
 export FZF_CTRL_R_COMMAND='fd -H'
-export FZF_ALT_C_COMMAND="fd -H --type d . '/'"
+export FZF_ALT_C_COMMAND='fd -H --maxdepth 5 -H --exclude "*.git" --exclude "*/node_modules/*" \
+  --type d --search-path "/etc" --search-path "/home/ml"'
 export FZF_ALT_C_OPTS='--preview "exa -a -T -L 1 --color=always {}" --no-height'
