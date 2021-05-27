@@ -150,7 +150,7 @@ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "norm
 
 " Autoformat on save
 let autoFormatable = ['markdown', 'sh', 'bash', 'python', 'javascript', 'rust',
-      \ 'go', 'yaml', 'html', 'css', 'json', 'lua']
+      \ 'go', 'yaml', 'html', 'css', 'json', 'lua', 'c', 'typescript']
 autocmd BufWritePost * if index(autoFormatable, &ft) >= 0 && g:autoFormat == 1
       \ | exe 'lua vim.lsp.buf.formatting()' | endif
 
@@ -304,6 +304,6 @@ vnoremap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " =================== Insert Mappings ==========================
-inoremap <expr> <C-e> compe#close('<C-e>')
-inoremap <expr> <C-y> compe#confirm('<C-n><C-y>')
-inoremap <expr> <CR> pumvisible() ? "\<C-e><CR>" : "\<CR>"
+inoremap <silent><expr> <C-e> compe#close('<C-e>')
+inoremap <silent><expr> <C-y> compe#confirm('<C-y>')
+inoremap <silent><expr> <CR> pumvisible() ? compe#confirm('<C-y><CR>') : "\<CR>"
