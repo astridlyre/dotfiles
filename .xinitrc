@@ -3,9 +3,7 @@
 xset r r off &                   # Turn off key repeat
 setxkbmap -option ctrl:nocaps &  # Map capslock to esc & ctrl
 xsetroot -cursor_name left_ptr & # cursor fix
-eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
 
-export SSH_AUTH_SOCK                 # Keyring setup
 export QT_AUTO_SCREEN_SCALE_FACTOR=1 # Scaling fix for QT
 export AWT_TOOLKIT=MToolkit          # Fixes for Java Apps
 export _JAVA_AWT_WM_NONREPARENTING=1 # Fixes for ghidra

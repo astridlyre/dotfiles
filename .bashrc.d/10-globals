@@ -33,6 +33,11 @@ export SXHKD_SHELL=/bin/sh
 # GPG
 GPG_TTY="$(tty)"
 export GPG_TTY
+unset SSH_AGENT_PID
+if ((${gnupg_SSH_AUTH_SOCK_by:-0} != $$)); then
+	declare -x SSH_AUTH_SOCK
+	SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+fi
 
 # No mailcheck
 export MAILCHECK=off
