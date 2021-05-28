@@ -1,9 +1,35 @@
 -- Lsp Configs
 local nvim_lsp = require('lspconfig')
 
+local function nmap(keymap, action, opts)
+    return vim.api.nvim_set_keymap('n', keymap, action, opts)
+end
+
 -- LSP settings
 local on_attach = function(_client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    local opts = {noremap = true, silent = true}
+    nmap('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    nmap('gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    nmap('K', '<cmd>lua vim.lsp.buf.hover() vim.lsp.buf.hover()<CR>', opts)
+    nmap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    nmap('gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    nmap('<leader>lk', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    nmap('<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+    nmap('<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',
+         opts)
+    nmap('<leader>wp',
+         '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
+         opts)
+    nmap('<leader>ld', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    nmap('<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    nmap('<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    nmap('<leader>le',
+         '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    nmap('<leader>ln', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    nmap('<leader>lp', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    nmap('<leader>lq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+    nmap('<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
 -- Snippet Support

@@ -97,7 +97,7 @@ colorscheme moonlight
 
 " For quickfix / location list toggle
 let g:moonlight_qf_g = 0
-let g:moonlight_gf_l = 0
+let g:moonlight_qf_l = 0
 let g:autoFormat = 1
 
 " FZF
@@ -265,25 +265,6 @@ nmap <leader>gt :GoTest<CR>
 " vim-easy-align <leader>a
 xmap <leader>a <Plug>(EasyAlign)
 nmap <leader>a <Plug>(EasyAlign)
-
-" LSP <leader>l*
-nnoremap gD :lua vim.lsp.buf.declaration()<CR>
-nnoremap gd :lua vim.lsp.buf.definition()<CR>
-nnoremap K :lua vim.lsp.buf.hover() vim.lsp.buf.hover()<CR>
-nnoremap gi :lua vim.lsp.buf.implementation()<CR>
-nnoremap gr :lua vim.lsp.buf.references()<CR>
-nnoremap <leader>lk :lua vim.lsp.buf.signature_help()<CR>
-nnoremap <leader>wa :lua vim.lsp.buf.add_workspace_folder()<CR>
-nnoremap <leader>wr :lua vim.lsp.buf.remove_workspace_folder()<CR>
-nnoremap <leader>wp :lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
-nnoremap <leader>ld :lua vim.lsp.buf.type_definition()<CR>
-nnoremap <leader>lr :lua vim.lsp.buf.rename()<CR>
-nnoremap <leader>la :lua vim.lsp.buf.code_action()<CR>
-nnoremap <leader>le :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-nnoremap <leader>ln :lua vim.lsp.diagnostic.goto_next()<CR>
-nnoremap <leader>lp :lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <leader>lq :lua vim.lsp.diagnostic.set_loclist()<CR>
-nnoremap <leader>lf :lua vim.lsp.buf.formatting()<CR>
 
 " =================== Normal Mappings ==========================
 " Easier move line with alt+j / alt+k
