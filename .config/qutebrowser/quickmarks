@@ -5,3 +5,5 @@ youtube https://www.youtube.com/feed/subscriptions
 nodedocs https://nodejs.org/dist/latest-v16.x/docs/api/
 godocs https://golang.org/doc/
 rustdocs https://www.rust-lang.org/learn
+deno https://deno.land/manual
+xiny https://learnxinyminutes.com/

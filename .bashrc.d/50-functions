@@ -1,22 +1,22 @@
 # vim:filetype=bash
 
 # Top disk usage
-ducks() {
+function ducks() {
 	du -sh ./* | sort -hr | head -11
 }
 
 # Find a service port quickly
-wp?() {
+function wp?() {
   grep --color=auto -E -i "^$1" /etc/services
 }
 
 # Which service for which port
-ws?() {
+function ws?() {
   awk '{printf "%s\t", $2} {print $1}' /etc/services | grep -i --color=auto "^$1/"
 }
 
 # Edit with vim
-e() {
+function e() {
   if (($# > 0)); then
     vim "$@"
   else
@@ -25,12 +25,12 @@ e() {
 }
 
 # Easily edit script in PATH
-es() {
+function es() {
   vim "$(which "$@")"
 }
 
 # Unlock my bitwarden session
-bwinit() {
+function bwinit() {
   local pw
   printf 'pw: '
   read -rs pw
@@ -38,29 +38,29 @@ bwinit() {
 }
 
 # Get a password
-bwget() {
+function bwget() {
   bw get password "$1" | xsel -b
 }
 
 # Use fd instead of the default find
-_fzf_compgen_path() {
+function _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
 }
 
 # Use fd to generate the list for directory completion
-_fzf_compgen_dir() {
+function _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
 # fzf find a file to edit in vim
-f() {
+function f() {
   local file
   file="$(fzf --preview 'batfile {}' --no-height --reverse --ansi)"
   [[ "$file" ]] && vim "$file"
 }
 
 # fzf find a man page
-m() {
+function m() {
   man -k . | fzf -q "$1" --prompt='man> ' --reverse \
       --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man' \
           | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man

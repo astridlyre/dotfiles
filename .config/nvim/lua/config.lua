@@ -1,24 +1,12 @@
--- Treesitter
-require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained",
-    highlight = {enable = true},
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = '<M-w>',
-            node_incremental = '<M-w>',
-            scope_incremental = '<M-e>',
-            node_decremental = '<M-C-w>'
-        }
-    }
-}
+-- Lsp Configs
+local nvim_lsp = require('lspconfig')
 
 -- LSP settings
-local nvim_lsp = require('lspconfig')
 local on_attach = function(_client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
--- snippetSupport
+
+-- Snippet Support
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
@@ -28,8 +16,10 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 -- Enable the following language servers
 local servers = {
     'clangd', 'rust_analyzer', 'pyright', 'bashls', 'gopls', 'yamlls', 'vimls',
-    'html', 'cssls', 'tsserver'
+    'html', 'cssls'
 }
+
+-- Loop and set them up
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {on_attach = on_attach, capabilities = capabilities}
 end
@@ -57,7 +47,14 @@ nvim_lsp.sumneko_lua.setup {
     }
 }
 
--- efm config
+-- Deno for Javascript and TypeScript
+nvim_lsp.denols.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    init_options = {enable = true, lint = true, unstable = false}
+}
+
+-- efm-langserver linting and formatting
 local vim_vint = {
     lintCommand = 'vint -',
     lintStdin = true,
@@ -142,4 +139,19 @@ require'compe'.setup {
     max_menu_width = 100,
     documentation = true,
     source = {path = true, buffer = true, nvim_lsp = true}
+}
+
+-- Treesitter
+require'nvim-treesitter.configs'.setup {
+    ensure_installed = "maintained",
+    highlight = {enable = true},
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = '<M-w>',
+            node_incremental = '<M-w>',
+            scope_incremental = '<M-e>',
+            node_decremental = '<M-C-w>'
+        }
+    }
 }

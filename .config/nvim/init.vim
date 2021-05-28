@@ -72,7 +72,7 @@ set lazyredraw                                      " Performance boost for macr
 set redrawtime=10000                                " Allow more time for redraws
 set synmaxcol=180                                   " No syntax on long lines
 set timeoutlen=850                                  " Time to wait between keypress
-set maxmempattern=20000                             " Max mem to use
+set maxmempattern=100000                            " Max mem to use
 set completeopt=menuone,noselect                    " Default complete opt
 set pumheight=20                                    " Max 20 items at once
 
