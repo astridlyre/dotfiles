@@ -30,14 +30,17 @@ export LESS_TERMCAP_us=$'\e[1;4;34m'
 # Shell for keybinds
 export SXHKD_SHELL=/bin/sh
 
-# GPG
-GPG_TTY="$(tty)"
-export GPG_TTY
+# GPG and SSH
 unset SSH_AGENT_PID
 if ((${gnupg_SSH_AUTH_SOCK_by:-0} != $$)); then
 	declare -x SSH_AUTH_SOCK
 	SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
+
+# Update startup TTY
+GPG_TTY="$(tty)"
+gpg-connect-agent updatestartuptty /bye &>/dev/null
+export GPG_TTY
 
 # No mailcheck
 export MAILCHECK=off

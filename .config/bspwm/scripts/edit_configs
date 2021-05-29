@@ -8,15 +8,15 @@ ALACRITTY=$HOME/.config/alacritty/alacritty.yml
 POLYBAR=$HOME/.config/polybar/config
 
 openConfig() {
-  exec alacritty --title "$2 - config editor" -e bash -c "vim -u $HOME/.config/nvim/init_minimal.vim $1"
+	exec alacritty --title "$2 - config editor" -e bash -c "vim -u $HOME/.config/nvim/init_minimal.vim $1"
 }
 
 case $1 in
-nvim) openConfig "$NVIM" "$1" ;;
-bspwm) openConfig "$BSPWM" "$1" ;;
-sxhkd) openConfig "$SXHKD" "$1" ;;
-bash) openConfig "$BASH" "$1" ;;
-alacritty) openConfig "$ALACRITTY" "$1" ;;
-polybar) openConfig "$POLYBAR" "$1" ;;
-*) ;;
+	nvim) openConfig "$NVIM" "$1" ;;
+	bspwm) openConfig "$BSPWM" "$1" ;;
+	sxhkd) openConfig "$SXHKD" "$1" ;;
+	bash) openConfig "$BASH" "$1" ;;
+	alacritty) openConfig "$ALACRITTY" "$1" ;;
+	polybar) openConfig "$POLYBAR" "$1" ;;
+	*) ;;
 esac

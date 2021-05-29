@@ -14,7 +14,6 @@ Plug 'junegunn/vim-easy-align'                              " Easy align
 Plug 'honza/vim-snippets'                                   " actual snippets
 Plug 'tpope/vim-commentary'                                 " better commenting
 Plug 'tpope/vim-fugitive'                                   " git support
-Plug 'ludovicchabant/vim-gutentags'                         " automatic tags management
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Syntax support
 Plug 'jiangmiao/auto-pairs'                                 " Auto bracket pairs
 Plug 'neovim/nvim-lspconfig'                                " LSP configs

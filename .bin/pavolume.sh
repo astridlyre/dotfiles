@@ -17,42 +17,42 @@ CURRENT_VOLUME=""    # Current Volume
 # Returns usage information
 usage() {
 	printf '\n\e[1;32m%s\e[0m - An easy to use bar script to adjust volume\n' "$(basename "$0")"
-	printf '\n\t\e[0;35mOptions:\t\e[1;39m--up\e[0m\t\t(increase volume)'
-	printf '\n\t\t\t\e[1;39m--down\e[0m\t\t(decrease volume)'
-	printf '\n\t\t\t\e[1;39m--togmute\e[0m\t(toggle muted)'
-	printf '\n\t\t\t\e[1;39m--mute\e[0m\t\t(mute volume)'
-	printf '\n\t\t\t\e[1;39m--unmute\e[0m\t(unmute volume)'
-	printf '\n\t\t\t\e[1;39m--listen\e[0m\t(listen for events)'
-	printf '\n\t\t\t\e[1;39m--help\e[0m\t\t(print this message)'
+	printf '\n\e[0;35mOptions:\t\e[1;39m--up\e[0m\t\t(increase volume)'
+	printf '\n\t\t\e[1;39m--down\e[0m\t\t(decrease volume)'
+	printf '\n\t\t\e[1;39m--togmute\e[0m\t(toggle muted)'
+	printf '\n\t\t\e[1;39m--mute\e[0m\t\t(mute volume)'
+	printf '\n\t\t\e[1;39m--unmute\e[0m\t(unmute volume)'
+	printf '\n\t\t\e[1;39m--listen\e[0m\t(listen for events)'
+	printf '\n\t\t\e[1;39m--help\e[0m\t\t(print this message)'
 	printf '\n\nBy default, this script prints output for a bar like polybar\nor lemonbar.\n'
 	exit 0
 }
 
 # Returns name of default sink
 get_active_sink() {
-  # Read Default Sink
-  while read -r line; do
-    [[ "$line" =~ ^Default\ Sink:\  ]] && ACTIVE_SINK="${line//Default Sink: /}" && break
-  done <<< "$(pactl info)"
+	# Read Default Sink
+	while read -r line; do
+		[[ $line =~ ^Default\ Sink:\  ]] && ACTIVE_SINK="${line//Default Sink: /}" && break
+	done <<<"$(pactl info)"
 }
 
 # Returns 0 if muted and 1 if not muted
 is_muted() {
 	local state
 	state=$(pactl list sinks | grep -E -o 'Mute: (yes|no)')
-	[[ "${state//Mute: /}" =~ 'yes' ]] && return 0
+	[[ ${state//Mute: /} =~ 'yes' ]] && return 0
 	return 1
 }
 
 # Returns the current volume of the ACTIVE_SINK
 refresh_volume() {
-  while read -r line; do
-    if [[ "$line" =~ ^\s*Volume: ]]; then
-      CURRENT_VOLUME="${line#*/ *[^0-9]}"
-      CURRENT_VOLUME="${CURRENT_VOLUME%%\%*}"
-      break
-    fi
-  done <<< "$(pactl list sinks | grep -A 8 -m 1 -E "$ACTIVE_SINK")"
+	while read -r line; do
+		if [[ $line =~ ^\s*Volume: ]]; then
+			CURRENT_VOLUME="${line#*/ *[^0-9]}"
+			CURRENT_VOLUME="${CURRENT_VOLUME%%\%*}"
+			break
+		fi
+	done <<<"$(pactl list sinks | grep -A 8 -m 1 -E "$ACTIVE_SINK")"
 }
 
 # increases the volume by INC
@@ -129,34 +129,34 @@ output() {
 # Script Control Flow
 get_active_sink
 case "$1" in
---up)
-	increase_volume
-	;;
---down)
-	decrease_volume
-	;;
---togmute)
-	if is_muted; then
-		unmute_volume
-	else
+	--up)
+		increase_volume
+		;;
+	--down)
+		decrease_volume
+		;;
+	--togmute)
+		if is_muted; then
+			unmute_volume
+		else
+			mute_volume
+		fi
+		;;
+	--mute)
 		mute_volume
-	fi
-	;;
---mute)
-	mute_volume
-	;;
---unmute)
-	unmute_volume
-	;;
---listen)
-	# Listen for changes and immediately create new output for the bar
-	listen
-	;;
---help)
-	usage
-	;;
-*)
-	# By default print output for bar
-	output
-	;;
+		;;
+	--unmute)
+		unmute_volume
+		;;
+	--listen)
+		# Listen for changes and immediately create new output for the bar
+		listen
+		;;
+	--help)
+		usage
+		;;
+	*)
+		# By default print output for bar
+		output
+		;;
 esac

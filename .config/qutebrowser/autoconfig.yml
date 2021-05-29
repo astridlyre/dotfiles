@@ -46,5 +46,13 @@ settings:
     global: 0
   url.default_page:
     global: file:///home/ml/projects/dotfiles/.config/brave-home/index.html
+  url.searchengines:
+    global:
+      DEFAULT: https://duckduckgo.com/?q={}
+      a: https://wiki.archlinux.org/index.php?search={}
+      g: https://github.com/search?q={}
+      m: https://developer.mozilla.org/en-US/search?q={}
+      p: https://docs.python.org/3/search.html?q={}
+      y: https://www.youtube.com/results?search_query={}
   url.start_pages:
     global: file:///home/ml/projects/dotfiles/.config/brave-home/index.html
