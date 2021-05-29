@@ -28,8 +28,8 @@ compositing-underline    = over
 compositing-border       = over
 
 ; Define fallback values used by all module formats
-format-foreground   = #b2b2b2
-format-background   = #181819
+format-foreground   = #b4b4b9
+format-background   = #1b1b20
 format-underline    =
 format-overline     =
 format-spacing      =
@@ -39,13 +39,13 @@ format-offset       =
 
 [colors]
 ; Moonfly         === =========
-background          = #181819
-foreground          = #b2b2b2
-red                 = #D1616B
-green               = #8DA54E
-blue                = #617E9C
-magenta             = #984673
-grey                = #D0BCBB
+background          = #1b1b20
+foreground          = #b4b4b9
+red                 = #FCD5CE
+green               = #ff3600
+blue                = #13315C
+magenta             = #ffc552
+grey                = #6B6D76
 ; =======================
 
 ################################################################################

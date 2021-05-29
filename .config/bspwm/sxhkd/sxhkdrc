@@ -24,8 +24,7 @@ super + Return
 
 # Hacker floating term
 super + space
-  alacritty --title 'm00nl1ght l33t h4x0rz' --class l33th4x0rz,l33th4x0rz \
-    --config-file ~/.config/alacritty/alacritty_dark.yml
+  alacritty --title 'm00nl1ght l33t h4x0rz' --class l33th4x0rz,l33th4x0rz
 
 # nnn File Manager
 super + e

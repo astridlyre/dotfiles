@@ -1,4 +1,4 @@
-# vim:filetype=sh
+#!/bin/bash
 
 # ensure prompt has colors
 export color_prompt=yes
@@ -8,7 +8,7 @@ get_exit_color() {
 	if (($? > 0)); then
 		EXIT_COLOR=31
 	else
-		EXIT_COLOR=32
+		EXIT_COLOR=33
 	fi
 }
 
@@ -29,7 +29,7 @@ else
 fi
 
 # Prompt
-PS1='\n\[\e[0;35m\]\w\n\[\e[1;${EXIT_COLOR}m\]  \[\e[1;30m\]${PROMPT_ICON}\[\e[0m\] '
+PS1='\n\[\e[0;37m\]\w\n\[\e[1;${EXIT_COLOR}m\]  \[\e[0;37m\]${PROMPT_ICON}\[\e[0m\] '
 PS2="〉"
 PS4="> "
 

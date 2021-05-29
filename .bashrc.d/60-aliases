@@ -1,4 +1,4 @@
-# vim:filetype=sh
+#!/bin/bash
 
 # Confirm before overwriting
 alias cp="cp -i"

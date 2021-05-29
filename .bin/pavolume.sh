@@ -9,8 +9,8 @@ declare -i INC=2       # Increment step
 declare -i LIMIT=100   # Volume Limit
 declare -i FIRST_RUN=0 # First time running the script?
 
-ICON_COLOR="#8DA54E" # Icon color
-TEXT_COLOR="#B2B2B2" # Text color
+ICON_COLOR="#ff3600" # Icon color
+TEXT_COLOR="#b4b4b9" # Text color
 ACTIVE_SINK=""       # Active Sink
 CURRENT_VOLUME=""    # Current Volume
 

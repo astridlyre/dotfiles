@@ -4,9 +4,9 @@
  * Copyright: Dave Davenport
  */
 * {
-    background-color:      #181819;
-    border-color:          #373c40;
-    text-color:           #b2b2b2;
+    background-color:      #1b1b20;
+    border-color:          #ffc552;
+    text-color:           #b4b4b9;
     font:            "Iosevka 12";
 }
 
@@ -45,6 +45,6 @@ element {
     padding: 0px 2px;
 }
 element selected {
-    background-color: #8DA54E;
-    text-color: #181819;
+    background-color: #ffc552;
+    text-color: #1b1b20;
 }

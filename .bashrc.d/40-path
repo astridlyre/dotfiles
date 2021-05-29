@@ -1,12 +1,13 @@
-# vim:filetype=sh
+#!/bin/bash
 
 # function to prepend to PATH
 prepend_path() {
-  case "$PATH" in
-    *"$1"*) ;;
-    *)
-    PATH="$1:$PATH"
-  esac
+	case "$PATH" in
+		*"$1"*) ;;
+		*)
+			PATH="$1:$PATH"
+			;;
+	esac
 }
 
 # ruby

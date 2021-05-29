@@ -339,7 +339,7 @@ font:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.9
+background_opacity: 1
 
 #selection:
   # This string contains all characters that are used as separators for
@@ -811,44 +811,41 @@ key_bindings:
   # Print all received window events.
   #print_events: false
 # The definition of color schemes.
-
-draw_bold_text_with_bright_colors: false
-
+# falcon colorscheme for alacritty
+# by fenetikm, https://github.com/fenetikm/falcon
 colors:
   # Default colors
   primary:
-    background:        '#181819'
-    foreground:        '#b2b2b2'
-    bright_foreground: '#eeeeee'
+    background: '#1b1b20'
+    foreground: '#b4b4b9'
 
-  # Cursor colors
+  # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text:   '#181819'
-    cursor: '#8DA54E'
-
-  # Selection colors
-  selection:
-    text:       '#181819'
-    background: '#8DA54E'
+    text: '#020221'
+    cursor: '#ffe8c0'
 
   # Normal colors
   normal:
-    black:   '#373c40'
-    red:     '#D1616B'
-    green:   '#8DA54E'
-    yellow:  '#B0A280'
-    blue:    '#617E9C'
-    magenta: '#984673'
-    cyan:    '#6CCEB8'
-    white:   '#CAD4C8'
+    black:   '#000004'
+    red:     '#ff3600'
+    green:   '#718e3f'
+    yellow:  '#ffc552'
+    blue:    '#635196'
+    magenta: '#ff761a'
+    cyan:    '#34bfa4'
+    white:   '#b4b4b9'
 
   # Bright colors
   bright:
-    black:   '#7c8f8f'
-    red:     '#C33552'
-    green:   '#a7c659'
-    yellow:  '#E8F198'
-    blue:    '#367CA8'
-    magenta: '#D19FA5'
-    cyan:    '#36c692'
-    white:   '#D0BCBB'
+    black:   '#020221'
+    red:     '#ff8e78'
+    green:   '#b1bf75'
+    yellow:  '#ffd392'
+    blue:    '#99a4bc'
+    magenta: '#ffb07b'
+    cyan:    '#8bccbf'
+    white:   '#f8f8ff'
+
+# Use custom cursor colors. If true, display the cursor in the cursor.foreground
+# and cursor.background colors, otherwise invert the colors of the cursor.
+custom_cursor_colors: true

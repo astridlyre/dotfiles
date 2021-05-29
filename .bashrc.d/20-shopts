@@ -1,4 +1,4 @@
-# vim:filetype=sh
+#!/bin/bash
 
 # shopts
 shopt -s histappend   # don't overwrite history

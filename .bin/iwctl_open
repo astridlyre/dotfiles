@@ -1,6 +1,2 @@
 #!/bin/sh
-
-exec alacritty --config-file "$HOME/.config/alacritty/alacritty_dark.yml" \
-  --title iwctl \
-  --class iwctl,iwctl \
-  -e iwctl
+exec alacritty --title iwctl --class iwctl,iwctl -e iwctl

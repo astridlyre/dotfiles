@@ -21,6 +21,12 @@ settings:
         ',ss': fake-key -g ':open https://duckduckgo.com/?q='
         ',sy': fake-key -g ':open https://www.youtube.com/results?search_query='
         ',u': edit-url
+  colors.statusbar.command.fg:
+    global: '#ffc552'
+  colors.statusbar.url.fg:
+    global: '#ffc552'
+  colors.statusbar.url.hover.fg:
+    global: '#34bfa4'
   colors.webpage.bg:
     global: '#181819'
   colors.webpage.darkmode.enabled:

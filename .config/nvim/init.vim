@@ -7,7 +7,8 @@
 
 " ================= Plugins ================== "
 call plug#begin(expand('~/.config/nvim/plugged'))
-Plug 'astridlyre/vim-moonlight'                             " Colorscheme
+Plug 'fenetikm/falcon'
+Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
 Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
 Plug 'junegunn/vim-easy-align'                              " Easy align
@@ -27,11 +28,11 @@ lua require('config')
 
 " ==================== statusline ======================== "
 set statusline=                                                               " Clear default statusline
-set statusline+=\ %#moonlightLime#❱\ %t                                       " Filename
+set statusline+=\ ❱\ %t                                       " Filename
 set statusline+=%=                                                            " Spacer
-set statusline+=\ %#moonlightGrey246#%m                                       " Modified symbol
-set statusline+=\ %#moonlightPurple#%y                                        " Filetype
-set statusline+=\ %#moonlightGrey246#%{&fileencoding?&fileencoding:&encoding} " Encoding
+set statusline+=\ %m                                       " Modified symbol
+set statusline+=\ %y                                        " Filetype
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding} " Encoding
 set statusline+=\ %p%%\                                                       " Percent
 
 " ==================== general config ======================== "
@@ -91,8 +92,9 @@ let g:loaded_ruby_provider     = 0                  " Disable ruby
 let g:python3_host_prog        = '/usr/bin/python3' " Default python3
 
 " Colorscheme
-let g:moonlightTransparent = 1
-colorscheme moonlight
+let g:falcon_lightline = 1
+let g:lightline = { 'colorscheme': 'falcon' }
+colorscheme falcon
 
 " For quickfix / location list toggle
 let g:moonlight_qf_g = 0
