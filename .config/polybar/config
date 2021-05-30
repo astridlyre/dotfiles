@@ -41,7 +41,7 @@ format-offset       =
 ; Moonfly         === =========
 background          = #1b1b20
 foreground          = #b4b4b9
-red                 = #FCD5CE
+red                 = #ffc552
 green               = #ff3600
 blue                = #13315C
 magenta             = #ffc552
@@ -208,14 +208,14 @@ format = <label-state>
 
 label-focused                = %icon%
 label-focused-background     = ${colors.background}
-label-focused-underline      = ${colors.green}
+label-focused-underline      = ${colors.magenta}
 label-focused-padding        = 3
-label-focused-foreground     = ${colors.green}
+label-focused-foreground     = ${colors.magenta}
 
 label-occupied               = %icon%
 label-occupied-padding       = 3
 label-occupied-background    = ${colors.background}
-label-occupied-foreground    = ${colors.magenta}
+label-occupied-foreground    = ${colors.green}
 
 label-urgent                 = %icon%
 label-urgent-padding         = 3

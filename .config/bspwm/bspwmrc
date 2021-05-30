@@ -12,9 +12,12 @@ if [ "$MONITOR_NUM" -eq 2 ]; then
 	bspc monitor $LAPTOP -d 6
 else
 	# If I haz still two monitors but should have one
-	if bspc query -M --names | grep $EXTERNAL >/dev/null 2>&1; then
-		bspc monitor $EXTERNAL -r
-		xrandr --output $EXTERNAL --off
+	OTHER_MONS="$(bspc query -M --names | grep -v $LAPTOP)"
+	if [ "$OTHER_MONS" ]; then
+		for mon in $OTHER_MONS; do
+			bspc monitor "$mon" -r
+			xrandr --output "$mon" --off
+		done
 		bspc wm -o
 	fi
 	# If i haz only one yay!

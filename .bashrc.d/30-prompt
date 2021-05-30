@@ -29,7 +29,7 @@ else
 fi
 
 # Prompt
-PS1='\n\[\e[0;37m\]\w\n\[\e[1;${EXIT_COLOR}m\]  \[\e[0;37m\]${PROMPT_ICON}\[\e[0m\] '
+PS1='\n\[\e[0;30m\]\w\n\[\e[1;${EXIT_COLOR}m\]  \[\e[0;30m\]${PROMPT_ICON}\[\e[0m\] '
 PS2="〉"
 PS4="> "
 

@@ -10,7 +10,7 @@ const ANSI = {
   green: "\u001b[32m",
   red: "\u001b[31m",
   yellow: "\u001b[0;33m",
-  blue: "\u001b[1;34m",
+  blue: "\u001b[0;34m",
   black: "\u001b[30m",
   boldWhite: "\u001b[1;37m",
   end: "\u001b[0;39m",
@@ -58,10 +58,10 @@ const printData = (data) => {
   // Print header
   console.log("\n");
   printLine(
-    color("blue", padToWidth("Coins", 10)),
-    color("blue", padToWidth("USD", 15)),
-    color("blue", padToWidth("24h Change", 15)),
-    color("blue", padToWidth("Hodlings", 15)),
+    color("yellow", padToWidth("Coins", 10)),
+    color("yellow", padToWidth("USD", 15)),
+    color("yellow", padToWidth("24h Change", 15)),
+    color("yellow", padToWidth("Hodlings", 15)),
   );
 
   // Divider
@@ -91,7 +91,7 @@ const printData = (data) => {
   // Print Total
   printLine(
     padToWidth(" ", 26),
-    color("blue", padToWidth("Total in USD:", 15)),
+    color("yellow", padToWidth("Total in USD:", 15)),
     color("boldWhite", padToWidth(`$${total.toFixed(2)}`, 15)),
     "\n",
   );

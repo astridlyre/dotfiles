@@ -11,7 +11,7 @@ local on_attach = function(_client, bufnr)
     local opts = {noremap = true, silent = true}
     nmap('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     nmap('gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    nmap('K', '<cmd>lua vim.lsp.buf.hover() vim.lsp.buf.hover()<CR>', opts)
+    nmap('K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     nmap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     nmap('gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     nmap('<leader>lk', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
@@ -131,7 +131,10 @@ nvim_lsp.efm.setup {
         completion = true
     },
     root_dir = function() return vim.fn.getcwd() end,
-    filetypes = {"sh", "go", "rust", "vim", "lua", "python", "yaml"},
+    filetypes = {
+        "sh", "go", "rust", "vim", "lua", "python", "yaml", "markdown", "html",
+        "css", "sass", "json"
+    },
     settings = {
         formattting_seq = true,
         languages = {

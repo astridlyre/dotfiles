@@ -2,7 +2,8 @@
 #
 # Simple script to link dots
 #
-declare -a FILES=(".Xresources" ".bash_logout" ".bash_profile" ".bashrc" ".inputrc" ".xinitrc")
+declare -a SERVER_FILES=(".bash_logout" ".bashrc" ".inputrc" ".tmux.conf")
+declare -a FILES=(".Xresources" ".bash_logout" ".bash_profile" ".bashrc" ".inputrc" ".xinitrc" ".tmux.conf")
 
 function error_msg() {
 	printf "\e[1;31m%s\e[0m\n" "$1" 1>&2
@@ -43,7 +44,6 @@ function link_file() {
 		lpath="$HOME/$file"
 		ln -sf "$dpath" "$lpath"
 	fi
-	printf "\e[0;37mLinked %s \u2192 %s\e[0m\n" "$dpath" "$lpath"
 	return 0
 }
 
@@ -56,7 +56,7 @@ function link_dir() {
 		# If a link, remove and remake it
 		rm -f "$hdir"
 		ln -sf "$ddir" "$hdir"
-		printf  "\e[1;37mLinked %s \u2192 %s\e[0m\n" "$ddir" "$hdir"
+		printf "\e[1;37mLinked %s \u2192 %s\e[0m\n" "$ddir" "$hdir"
 
 	elif [[ -d $hdir ]]; then
 		# Otherwise if it's a dir, prompt before overwriting
@@ -98,27 +98,73 @@ function link_dir_files() {
 	return 0
 }
 
-# Link entire directories
-msg "Linking directories"
-link_dir ".bashrc.d"
-link_dir ".bin"
-link_dir ".icons"
-link_dir ".themes"
+function full_install() {
+	msg "Performing full install"
+	# Link entire directories
+	msg "Linking directories"
+	link_dir ".bashrc.d"
+	link_dir ".bin"
+	link_dir ".icons"
+	link_dir ".themes"
 
-# Link .config files
-msg "Linking config files"
-link_dir_files ".config"
+	# Link .config files
+	msg "Linking config files"
+	link_dir_files ".config"
 
-# Ask to link system files
-msg "brown" "Link etc system files? (y|n): "
-read -r
-if [[ $REPLY =~ y|Y ]]; then
-	link_dir_files "etc" "abs"
-fi
+	# Ask to link system files
+	msg "brown" "Link etc system files? (y|n): "
+	read -r
+	if [[ $REPLY =~ y|Y ]]; then
+		link_dir_files "etc" "abs"
+	fi
 
-# Link misc files
-for file in "${FILES[@]}"; do
-	link_file "$file"
-done
+	# Link misc files
+	for file in "${FILES[@]}"; do
+		link_file "$file"
+	done
 
-msg "green" "Done!"
+	msg "green" "Done!"
+}
+
+function server_install() {
+	msg "Performing server install"
+	# Link entire directories
+	msg "Linking directories"
+	link_dir ".bashrc.d"
+	link_dir ".bin"
+
+	# Link .config files
+	msg "Linking nvim config"
+	link_dir_files ".config/nvim"
+
+	# Link misc files
+	for file in "${SERVER_FILES[@]}"; do
+		link_file "$file"
+	done
+
+	msg "green" "Done!"
+}
+
+msg "Perform (f)ull install or (s)erver install?"
+printf "(f/s): "
+read -r install_type
+
+case "$install_type" in
+	f | F | full)
+		if ! full_install; then
+			error_msg "Install failed"
+			exit 1
+		fi
+		;;
+
+	s | S | server)
+		if ! server_install; then
+			error_msg "Install failed"
+			exit 1
+		fi
+		;;
+	*)
+		error_msg "Aborting"
+		exit 1
+		;;
+esac

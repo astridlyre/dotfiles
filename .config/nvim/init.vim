@@ -7,7 +7,7 @@
 
 " ================= Plugins ================== "
 call plug#begin(expand('~/.config/nvim/plugged'))
-Plug 'fenetikm/falcon'
+Plug 'astridlyre/falcon'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
 Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
@@ -67,7 +67,6 @@ set spelllang=en_gb                                 " Canadian spelling
 
 " ==================== performance tweaks ======================== "
 set nocursorline nocursorcolumn                     " Do not show cursorline or colum
-set scrolljump=3 scrolloff=3                        " Keep cursor 5 lines from edges
 set lazyredraw                                      " Performance boost for macros
 set redrawtime=10000                                " Allow more time for redraws
 set synmaxcol=180                                   " No syntax on long lines
@@ -93,7 +92,13 @@ let g:python3_host_prog        = '/usr/bin/python3' " Default python3
 
 " Colorscheme
 let g:falcon_lightline = 1
-let g:lightline = { 'colorscheme': 'falcon' }
+let g:lightline = { 'colorscheme': 'falcon',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': { 'gitbranch': 'FugitiveHead' },
+      \ }
 colorscheme falcon
 
 " For quickfix / location list toggle
@@ -211,13 +216,13 @@ nnoremap <leader>uu :PlugUpdate<CR>
 
 " Misc helper things <leader>?
 nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
-nnoremap <leader>e :call ResetHightlight()<CR>
+nnoremap <silent><leader>e :call ResetHightlight()<CR>
 nnoremap <leader>; :w<CR>
 nnoremap <leader>\ :qa!<CR>
-nnoremap <leader>q :call ToggleQFList(0)<CR>
+nnoremap <silent><leader>q :call ToggleQFList(0)<CR>
 nnoremap <leader>j :lnext<CR>zz
 nnoremap <leader>k :lprev<CR>zz
-nnoremap <leader>af :call ToggleAutoFormat()<CR>
+nnoremap <silent><leader>af :call ToggleAutoFormat()<CR>
 
 " new line in normal mode and back
 nnoremap <leader>[ myO<ESC>`y
@@ -273,7 +278,7 @@ nnoremap <M-j> mz:m+<cr>`z
 nnoremap <M-k> mz:m-2<cr>`z
 nnoremap <C-n> :bnext<CR>
 nnoremap <C-p> :bprev<CR>
-nnoremap <C-q> :call ToggleQFList(1)<CR>
+nnoremap <silent> <C-q> :call ToggleQFList(1)<CR>
 nnoremap <C-j> :cnext<CR>zz
 nnoremap <C-k> :cprev<CR>zz
 
