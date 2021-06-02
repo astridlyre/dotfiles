@@ -2,8 +2,8 @@
 
 HIST="$HOME/.local/share/qutebrowser/history.sqlite"
 URL="$(sqlite3 "$HIST" <<<"select * from History" | cut -d'|' -f1 \
-  | rofi -dmenu -matching fuzzy -p 'history search')"
+	| rofi -dmenu -p 'history search')"
 
 if [ "$URL" ]; then
-  echo "open $URL" >> "$QUTE_FIFO" || qutebrowser "$URL"
+	echo "open $URL" >>"$QUTE_FIFO" || qutebrowser "$URL"
 fi

@@ -6,62 +6,71 @@ function ducks() {
 }
 
 # Find a service port quickly
-function wp?() {
-  grep --color=auto -E -i "^$1" /etc/services
+function wp() {
+	grep --color=auto -E -i "^$1" /etc/services
 }
 
 # Which service for which port
-function ws?() {
-  awk '{printf "%s\t", $2} {print $1}' /etc/services | grep -i --color=auto "^$1/"
+function ws() {
+	awk '{printf "%s\t", $2} {print $1}' /etc/services | grep -i --color=auto "^$1/"
 }
 
 # Edit with vim
 function e() {
-  if (($# > 0)); then
-    vim "$@"
-  else
-    vim .
-  fi
+	if (($# > 0)); then
+		vim "$@"
+	else
+		vim .
+	fi
 }
 
 # Easily edit script in PATH
 function es() {
-  vim "$(which "$@")"
+	local script prev
+	script="$(which "$1")"
+	prev="$PWD"
+	cd "$(dirname "$script")" || exit 1
+	vim "$script"
+	cd "$prev" || exit 1
 }
 
 # Unlock my bitwarden session
 function bwinit() {
-  local pw
-  printf 'pw: '
-  read -rs pw
-  eval "$(bw unlock "$pw" | grep -Eo 'export BW_SESSION=.*')"
+	local pw
+	printf 'pw: '
+	read -rs pw
+	eval "$(bw unlock "$pw" | grep -Eo 'export BW_SESSION=.*')"
 }
 
 # Get a password
 function bwget() {
-  bw get password "$1" | xsel -b
+	bw get password "$1" | xsel -b
 }
 
 # Use fd instead of the default find
 function _fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
+	rg --files --hidden --follow --glob "!.git/**" --glob "!build/**" --glob \
+		"!node_modules/**" --glob "!vendor/bundle/**". "$1"
 }
 
 # Use fd to generate the list for directory completion
 function _fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
+	fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
 # fzf find a file to edit in vim
 function f() {
-  local file
-  file="$(fzf --preview 'batfile {}' --no-height --reverse --ansi)"
-  [[ "$file" ]] && vim "$file"
+	local file prev
+	file="$(fzf --preview 'batfile {}' --no-height --reverse --ansi)"
+	prev="$PWD"
+	cd "$(dirname "$prev/$file")" || exit 1
+	[[ "$file" ]] && vim "$prev/$file"
+	cd "$prev" || exit 1
 }
 
 # fzf find a man page
 function m() {
-  man -k . | fzf -q "$1" --prompt='man> ' --reverse \
-      --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man' \
-          | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
+	man -k . | fzf -q "$1" --prompt='man> ' --reverse \
+		--preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man' \
+		| tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
 }

@@ -7,7 +7,7 @@
 [[ "$TMUX" ]] && return 0
 
 # fnm
-eval "$(fnm env)"
+# eval "$(fnm env)"
 
 # start X server
 [[ -z $DISPLAY ]] && [[ $XDG_VTNR -eq 1 ]] \

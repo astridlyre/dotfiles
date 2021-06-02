@@ -10,9 +10,12 @@ super + d
 super + w
     rofi -show window
 
-# Brave Browser
+# qutebrowser
 super + b
-    qutebrowser
+    firejail --whitelist=~/projects/dotfiles/* \
+                --whitelist=~/.config/rofi/* \
+                --whitelist=~/.fnm/aliases/default/* \
+                --whitelist=~/.config/Bitwarden\ CLI/* qutebrowser
 
 # Pavucontrol
 super + v
@@ -32,7 +35,7 @@ super + e
 
 # Zathura
 super + z
-    zathura
+    firejail zathura
 
 # Xkill
 super + shift + BackSpace
@@ -52,11 +55,11 @@ super + 8
 
 # Reload sxhkd:
 super + s
-	pkill -USR1 -x sxhkd
+        pkill -USR1 -x sxhkd
 
 # Image viewer
 super + i
-  ristretto
+        ristretto
 
 #################################################################
 # SUPER + SHIFT KEYS
@@ -64,7 +67,7 @@ super + i
 
 # PCManFM
 super + shift + e
-	pcmanfm
+        pcmanfm
 
 # GIMP
 super + shift + g
@@ -72,11 +75,13 @@ super + shift + g
 
 # OBS
 super + shift + o
-  obs
+  firejail obs
 
 # Blender
 super + shift + b
-  brave --use-gl=desktop
+  firejail --whitelist=~/.themes/* \
+        --whitelist=~/.config/brave-home/* \
+        --whitelist=~/.icons/* brave --use-gl=desktop
 
 #################################################################
 #     SCREENSHOTS
@@ -148,7 +153,7 @@ ctrl + alt + o
 
 # kill
 super + q
-	bspc node -c
+        bspc node -c
 
 #################################################################
 # SUPER KEYS
@@ -156,15 +161,15 @@ super + q
 
 # Focus selected desktop
 super + Tab
-	rofi -show window
+        rofi -show window
 
 # Increase/decrease window gap on focused desktop
 super + bracket{right,left}
-	bspc config -d focused window_gap $((`bspc config -d focused window_gap` {-,+} 24 ))
+        bspc config -d focused window_gap $((`bspc config -d focused window_gap` {-,+} 24 ))
 
 # set the window state
 super + t
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+        bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 #################################################################
 # SUPER + ALT KEYS
@@ -172,7 +177,7 @@ super + t
 
 # Move floating window
 super + alt + {_,shift + }{h,j,k,l}
-	~/.config/bspwm/scripts/move-window {_,edge-}{west,south,north,east}
+        ~/.config/bspwm/scripts/move-window {_,edge-}{west,south,north,east}
 
 #################################################################
 # SUPER + SHIFT KEYS
@@ -180,27 +185,27 @@ super + alt + {_,shift + }{h,j,k,l}
 
 # Reload bspwm
 super + shift + r
-	~/.config/bspwm/bspwmrc
+        ~/.config/bspwm/bspwmrc
 
 # kill
 super + shift + q
-	bspc node -c
+        bspc node -c
 
 # Logout
 super + shift + x
-	bspc quit
+        bspc quit
 
 # Focus/swap windows by direction
 super + {_,shift + }{h,j,k,l}
-	bspc node --{focus,swap} {west,south,north,east}
+        bspc node --{focus,swap} {west,south,north,east}
 
 # Split horizontal, vertical or cancel
 super + shift + {v,s,c}
-	bspc node -p {east,south,cancel}
+        bspc node -p {east,south,cancel}
 
 # Preselect the ratio
 super + ctrl + {1-9}
-	bspc node -o 0.{1-9}
+        bspc node -o 0.{1-9}
 
 # Swap the current node and the biggest node
 super + g
@@ -208,31 +213,31 @@ super + g
 
 # Send focused window to another workspace
 super + {_,shift + }{1-8}
-	bspc {desktop -f,node -d} '^{1-8}'
+        bspc {desktop -f,node -d} '^{1-8}'
 
 # Move focused window to other monitor
 super + shift + Left
-	bspc node -m next --follow
+        bspc node -m next --follow
 
 # Move focused window to other monitor
 super + shift + Right
-		bspc node -m next --follow
+                bspc node -m next --follow
 
 # Move focused window to other monitor
 super + shift + Up
-	bspc node -m next --follow
+        bspc node -m next --follow
 
 # Move focused window to other monitor
 super + shift + Down
-		bspc node -m next --follow
+                bspc node -m next --follow
 
 # Toggle fullscreen of window
 super + shift + f
-	bspc node --state \~fullscreen
+        bspc node --state \~fullscreen
 
 # Toggle pseudo tiling of window
 super + shift + p
-	bspc node --state \~pseudo_tiled
+        bspc node --state \~pseudo_tiled
 
 #################################################################
 # SUPER + CONTROL KEYS
@@ -260,15 +265,15 @@ super + ctrl + u
 
 # Focus selected desktop
 alt + Tab
-	rofi -show window
+        rofi -show window
 
 # Focus selected desktop
 alt + shift + Tab
-	rofi -show window
+        rofi -show window
 
 # Rotate desktop
 alt + space
-	bspc node @/ --rotate {90,-90}
+        bspc node @/ --rotate {90,-90}
 
 #################################################################
 # ALT + SHIFT KEYS

@@ -39,5 +39,5 @@ set colored-completion-prefix On
 set colored-stats On
 set completion-ignore-case On
 set completion-map-case On
-Control-o: backward-kill-word
+Control-o: f
 Control-,: ">/dev/null"

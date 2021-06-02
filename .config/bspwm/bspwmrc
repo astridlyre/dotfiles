@@ -1,10 +1,16 @@
 #!/bin/sh
 
+# Launcher function
+run() {
+	if ! pgrep "$1"; then
+		"$@" &
+	fi
+}
+
 # Run a different xrandr depending on connected monitors
 LAPTOP="eDP-1-1"
 EXTERNAL="HDMI-0"
-MONITOR_NUM="$(xrandr --query | rg ' connected' | wc -l)"
-if [ "$MONITOR_NUM" -eq 2 ]; then
+if xrandr | grep "$EXTERNAL connected"; then
 	# If I haz two monitors
 	xrandr --output $EXTERNAL --primary --mode 3840x2160 --pos 0x0 --rotate normal \
 		--output $LAPTOP --mode 1920x1080 --pos 3840x1080 --rotate normal
@@ -14,19 +20,44 @@ else
 	# If I haz still two monitors but should have one
 	OTHER_MONS="$(bspc query -M --names | grep -v $LAPTOP)"
 	if [ "$OTHER_MONS" ]; then
-		for mon in $OTHER_MONS; do
-			bspc monitor "$mon" -r
-			xrandr --output "$mon" --off
+		for m in $OTHER_MONS; do
+			bspc monitor "$m" -r
+			xrandr --output "$m" --off
 		done
-		bspc wm -o
+		bspc wm -r
+		# bspc wm -o
 	fi
 	# If i haz only one yay!
 	xrandr --output $LAPTOP --primary --rotate normal --pos 0x0 --mode 1920x1080
 	bspc monitor $LAPTOP -d 1 2 3 4 5 6
 fi
 
-#LAUNCHERS
-"$HOME/.config/bspwm/autostart.sh"
+# Launch polybar
+run "$HOME/.config/polybar/launch.sh"
+
+# Start hotkey daemon
+run sxhkd -c ~/.config/bspwm/sxhkd/sxhkdrc
+
+# Start unclutter to hide cursor
+run unclutter --timeout 1
+
+# cursor fix
+run xsetroot -cursor_name left_ptr
+
+# Turn off key repeat
+run xset r r off
+
+# Map capslock to esc & ctrl
+run setxkbmap -option ctrl:nocaps
+
+# Applets
+run numlockx on
+
+# Compositor
+run picom --experimental-backends --config "$HOME/.config/bspwm/picom.conf"
+
+# Background image
+run feh --bg-fill "$HOME/Pictures/mountain.jpg"
 
 # Configure no border gaps
 bspc config border_width 1

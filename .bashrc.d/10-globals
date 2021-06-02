@@ -11,7 +11,7 @@ export EDITOR="/usr/bin/vim"
 export FCEDIT="/usr/bin/vim"
 
 # Use bat as a pager
-export PAGER="bat"
+export PAGER="bat --color=always --decorations=never --paging=always --theme=ansi"
 
 # Man pages
 export MANPAGER="less"
@@ -19,13 +19,13 @@ export MANWIDTH=110
 
 # Less
 export LESS='-J -i -x4'
-export LESS_TERMCAP_mb=$'\e[1;34m'
-export LESS_TERMCAP_md=$'\e[1;35m'
+export LESS_TERMCAP_mb=$'\e[1;31m'
+export LESS_TERMCAP_md=$'\e[1;33m'
 export LESS_TERMCAP_me=$'\e[0m'
 export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_so=$'\e[01;35m'
+export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
-export LESS_TERMCAP_us=$'\e[1;4;34m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 # Shell for keybinds
 export SXHKD_SHELL=/bin/sh
@@ -66,14 +66,13 @@ export NNN_FCOLORS='0A0B0C02000D0E0809030601'
 export NNN_OPENER='nnn_opener'
 
 # fzf
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-export FZF_DEFAULT_OPTS='--color=fg:#b2b2b2,hl:#D1616B
---color=fg+:#b2b2b2,hl+:#8DA54E
---color=info:#CAD4C8,prompt:#8DA54E
---color=marker:#774051,spinner:#8DA54E'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!*/.git/**" --glob "!*/build/**" --glob "!*/node_modules/**" --glob "!*/vendor/bundle/**" --glob "!*/.cache/**"'
+export FZF_DEFAULT_OPTS='--color=fg:#b4b4b9,hl:#ff3600
+--color=fg+:#b4b4b9,hl+:#ffc552
+--color=info:#CAD4C8,prompt:#ffc552
+--color=marker:#ffc552,spinner:#525258'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS=' --preview "batfile {}" --no-height'
-export FZF_CTRL_R_COMMAND='fd -H'
-export FZF_ALT_C_COMMAND='fd -H --maxdepth 5 -H --exclude "*.git" --exclude "*/node_modules/*" \
-  --type d --search-path "/etc" --search-path "/home/ml"'
+export FZF_CTRL_R_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd -H --maxdepth 5  --exclude "*.git*" --exclude "*.cache*" --exclude "*.mypy*" --exclude "*node_modules*" --type d --follow --search-path "/etc" --search-path "/home/ml"'
 export FZF_ALT_C_OPTS='--preview "exa -a -T -L 1 --color=always {}" --no-height'

@@ -38,15 +38,14 @@ format-margin       =
 format-offset       =
 
 [colors]
-; Moonfly         === =========
+; Falcon ====================
 background          = #1b1b20
 foreground          = #b4b4b9
-red                 = #ffc552
-green               = #ff3600
-blue                = #13315C
-magenta             = #ffc552
-grey                = #6B6D76
-; =======================
+red                 = #ff3600
+green               = #718e3f
+yellow              = #ffc552
+grey                = #525258
+; ===========================
 
 ################################################################################
 ################################################################################
@@ -67,7 +66,7 @@ bottom              = false
 separator           = ::
 
 background          = ${colors.background}
-foreground          = ${colors.magenta}
+foreground          = ${colors.yellow}
 
 line-size           = 0
 line-color          = ${colors.red}
@@ -124,16 +123,16 @@ scroll-down         = bspwm-deskprev
 monitor             = ${env:MONITOR}
 ;monitor-fallback   = HDMI1
 width               = 100%
-height              = 25%
+height              = 24
 ;offset-x           = 1%
 ;offset-y           = 1%
 radius              = 0.0
 fixed-center        = true
-bottom              = true
-separator           = |
+bottom              = false
+separator           = ::
 
 background          = ${colors.background}
-foreground          = ${colors.foreground}
+foreground          = ${colors.yellow}
 
 line-size           = 0
 line-color          = ${colors.red}
@@ -153,18 +152,18 @@ border-size         = 0
 border-color        = ${colors.red}
 
 padding-left        = 0
-padding-right       = 1
+padding-right       = 2
 
 module-margin-left  = 2
 module-margin-right = 2
 
 ;https://github.com/jaagr/polybar/wiki/Fonts
-font-0              = "Iosevka Term:size=10;0"
-font-1              = "FontAwesome:size=10;1"
+font-0              = "Iosevka Nerd Font:size=10;0"
+font-1              = "Noto Color Emoji:size=10:scale=10;1"
 
-modules-left        = bspwm
-modules-center      = networkspeeddown networkspeedup
-modules-right       = filesystem load-average
+modules-left        = bspwm xwindow
+modules-center      = 
+modules-right       = cpu2 memory2 load-average
 
 ;tray-detached      = false
 ;tray-offset-x      = 0
@@ -175,8 +174,8 @@ modules-right       = filesystem load-average
 ;tray-position      = right
 ;tray-background    = ${colors.background}
 
-scroll-up           = bspwm-desknext
-scroll-down         = bspwm-deskprev
+;scroll-up           = bspwm-desknext
+;scroll-down         = bspwm-deskprev
 
 ################################################################################
 ################################################################################
@@ -208,14 +207,14 @@ format = <label-state>
 
 label-focused                = %icon%
 label-focused-background     = ${colors.background}
-label-focused-underline      = ${colors.magenta}
+label-focused-underline      = ${colors.yellow}
 label-focused-padding        = 3
-label-focused-foreground     = ${colors.magenta}
+label-focused-foreground     = ${colors.yellow}
 
 label-occupied               = %icon%
 label-occupied-padding       = 3
 label-occupied-background    = ${colors.background}
-label-occupied-foreground    = ${colors.green}
+label-occupied-foreground    = ${colors.red}
 
 label-urgent                 = %icon%
 label-urgent-padding         = 3
@@ -292,18 +291,18 @@ label-charging                = %percentage%%
 label-charging-foreground     = ${colors.foreground}
 format-charging-foreground    = ${colors.foreground}
 format-charging-background    = ${colors.background}
-format-charging-underline     = ${colors.green}
+format-charging-underline     = ${colors.red}
 
 format-discharging            = <ramp-capacity> <label-discharging>
 label-discharging             = %percentage%%
 label-discharging-foreground  = ${colors.foreground}
-format-discharging-underline  = ${colors.green}
+format-discharging-underline  = ${colors.red}
 format-discharging-foreground = ${colors.foreground}
 format-discharging-background = ${colors.background}
 
 format-full-prefix            = "  "
-format-full-prefix-foreground = ${colors.green}
-format-full-underline         = ${colors.green}
+format-full-prefix-foreground = ${colors.red}
+format-full-underline         = ${colors.red}
 format-full-foreground        = ${colors.foreground}
 format-full-background        = ${colors.background}
 
@@ -319,7 +318,7 @@ animation-charging-1          = "  "
 animation-charging-2          = "  "
 animation-charging-3          = "  "
 animation-charging-4          = "  "
-animation-charging-foreground = ${colors.green}
+animation-charging-foreground = ${colors.red}
 animation-charging-framerate  = 750
 
 ################################################################################
@@ -384,12 +383,12 @@ ramp-coreload-7-foreground = #ff5555
 type                     = internal/cpu
 ; Seconds to sleep between updates
 ; Default: 1
-interval                 = 1
+interval                 = 2
 format-foreground        = ${colors.foreground}
 format-background        = ${colors.background}
 format-prefix            = "  "
-format-prefix-foreground = ${colors.green}
-format-underline         = ${colors.green}
+format-prefix-foreground = ${colors.red}
+format-underline         = ${colors.red}
 
 label-font               = 0
 
@@ -422,8 +421,8 @@ date                     = " %d-%m-%Y"
 time                     = %H:%M
 time-alt                 = %H:%M
 format-prefix            = " "
-format-prefix-foreground = ${colors.green}
-format-underline         = ${colors.green}
+format-prefix-foreground = ${colors.red}
+format-underline         = ${colors.red}
 format-foreground        = ${colors.foreground}
 format-background        = ${colors.background}
 label                    = %date% %time%
@@ -501,7 +500,7 @@ mount-0                     = /
 
 ; Seconds to sleep between updates
 ; Default: 30
-interval                    = 30
+interval                    = 360
 
 ; Display fixed precision values
 ; Default: false
@@ -519,7 +518,7 @@ spacing                     = 4
 format-mounted              = <label-mounted>
 format-mounted-foreground   = ${colors.foreground}
 format-mounted-background   = ${colors.background}
-format-mounted-underline    = #D1616B
+format-mounted-underline    = ${colors.red}
 
 
 ; Available tokens:
@@ -532,7 +531,7 @@ format-mounted-underline    = #D1616B
 ;   %free%
 ;   %used%
 ; Default: %mountpoint% %percentage_free%%
-label-mounted               = %mountpoint% : %used% used of %total%
+label-mounted               = %used% used of %total%
 
 ; Available tokens:
 ;   %mountpoint%
@@ -570,18 +569,18 @@ format-background = ${colors.background}
 
 [module/load-average]
 type = custom/script
-exec = uptime | grep -ohe 'load average[s:][: ].*' | awk '{ print $3" "$4" "$5"," }' | sed 's/,//g'
+exec = grep -E -o "([0-9]+\.[0-9]+ ){3}" /proc/loadavg
 interval = 100
 
 ;HOW TO SET IT MINIMAL 10 CHARACTERS - HIDDEN BEHIND SYSTEM ICONS
 ;label = %output%
-label = %output:10%
+label = %output%
 
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
-format-prefix = "  "
-format-prefix-foreground = #62FF00
-format-underline = #62FF00
+format-prefix = " "
+format-prefix-foreground = ${colors.red}
+format-underline = ${colors.red}
 
 ################################################################################
 
@@ -618,7 +617,7 @@ format-background         = ${colors.background}
 [module/memory2]
 ;https://github.com/jaagr/polybar/wiki/Module:-memory
 type                     = internal/memory
-interval                 = 1
+interval                 = 3
 ; Available tokens:
 ;   %percentage_used% (default)
 ;   %percentage_free%
@@ -632,8 +631,8 @@ label                    = %percentage_used:2%%
 
 format                   = Mem <label>
 format-prefix            = "  "
-format-prefix-foreground = ${colors.green}
-format-underline         = ${colors.green}
+format-prefix-foreground = ${colors.red}
+format-underline         = ${colors.red}
 format-foreground        = ${colors.foreground}
 format-background        = ${colors.background}
 
@@ -761,8 +760,8 @@ click-right              = exec pavucontrol
 click-left               = ~/.bin/pavolume.sh --togmute
 scroll-up                = ~/.bin/pavolume.sh --up
 scroll-down              = ~/.bin/pavolume.sh --down
-format-underline         = ${colors.green}
-format-prefix-foreground = ${colors.green}
+format-underline         = ${colors.red}
+format-prefix-foreground = ${colors.red}
 format-foreground        = ${colors.foreground}
 format-background        = ${colors.background}
 
@@ -962,9 +961,9 @@ format-connected                      = <label-connected>
 format-connected-foreground           = ${colors.foreground}
 format-connected-background           = ${colors.background}
 format-connected-prefix               = "  "
-format-connected-prefix-foreground    = ${colors.green}
+format-connected-prefix-foreground    = ${colors.red}
 format-connected-prefix-background    = ${colors.background}
-format-connected-underline            = ${colors.green}
+format-connected-underline            = ${colors.red}
 
 label-disconnected                    = %ifname% idle
 label-disconnected-foreground         = ${colors.foreground}
@@ -974,9 +973,8 @@ format-disconnected                   = <label-disconnected>
 format-disconnected-foreground        = ${colors.foreground}
 format-disconnected-background        = ${colors.background}
 format-disconnected-prefix            = "  "
-format-disconnected-prefix-foreground = ${colors.magenta}
+format-disconnected-prefix-foreground = ${colors.yellow}
 format-disconnected-prefix-background = ${colors.background}
-format-disconnected-underline         = ${colors.magenta}
 
 ramp-signal-0                         = ▁
 ramp-signal-1                         = ▂
@@ -986,7 +984,7 @@ ramp-signal-4                         = ▅
 ramp-signal-5                         = ▆
 ramp-signal-6                         = ▇
 ramp-signal-7                         = █
-ramp-signal-foreground                = ${colors.green}
+ramp-signal-foreground                = ${colors.red}
 
 ################################################################################
 
@@ -1022,7 +1020,7 @@ label             = %title%
 label-maxlen      = 75
 label-padding     = 2
 
-format-foreground = ${colors.green}
+format-foreground = ${colors.red}
 format-background = ${colors.background}
 
 ###############################################################################

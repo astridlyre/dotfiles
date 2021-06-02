@@ -7,8 +7,8 @@
 
 " ================= Plugins ================== "
 call plug#begin(expand('~/.config/nvim/plugged'))
-Plug 'astridlyre/falcon'
-Plug 'itchyny/lightline.vim'
+Plug 'astridlyre/falcon'							    	" colorscheme
+Plug 'hoob3rt/lualine.nvim'									" statusline
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
 Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
 Plug 'junegunn/vim-easy-align'                              " Easy align
@@ -19,29 +19,21 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Syntax support
 Plug 'jiangmiao/auto-pairs'                                 " Auto bracket pairs
 Plug 'neovim/nvim-lspconfig'                                " LSP configs
 Plug 'hrsh7th/nvim-compe'                                   " Autocompletion
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }          " Go lang plugin
+Plug 'hrsh7th/vim-vsnip'									" Snippets
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'rafamadriz/friendly-snippets'
 call plug#end()
 
 " ==================== Lua Stuff ======================== "
 
 lua require('config')
 
-" ==================== statusline ======================== "
-set statusline=                                                               " Clear default statusline
-set statusline+=\ ❱\ %t                                       " Filename
-set statusline+=%=                                                            " Spacer
-set statusline+=\ %m                                       " Modified symbol
-set statusline+=\ %y                                        " Filetype
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding} " Encoding
-set statusline+=\ %p%%\                                                       " Percent
-
 " ==================== general config ======================== "
 set number relativenumber                           " Line numbers and relative numbers
 set termguicolors                                   " True colors
 set mouse=a                                         " Enable mouse scroll
 set foldmethod=manual                               " Manual folding only
-set tabstop=2 softtabstop=2 shiftwidth=2 autoindent " tab width
-set expandtab
+set tabstop=4 softtabstop=4 shiftwidth=4 autoindent " tab width
 set ignorecase smartcase                            " highlight text while searching
 set list listchars=trail:»,tab:»-                   " use tab to navigate in list mode
 set wrap breakindent                                " wrap long lines to the width set by tw
@@ -111,11 +103,7 @@ let g:fzf_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'border': 'sharp' } }
 let g:fzf_tags_command = 'ctags -R'
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
-let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build/**' --glob '!node_modules/**' --glob '!vendor/bundle/**'"
-
-" vim-go
-let g:go_fmt_autosave = 1
-let g:go_fmt_command  = "goimports"
+let $FZF_DEFAULT_COMMAND = "rg --files --follow --hidden --glob '!.git/**' --glob '!build/**' --glob '!node_modules/**' --glob '!vendor/bundle/**'"
 
 " lorem ipsum
 iab <expr> lorem system('curl -s http://metaphorpsum.com/paragraphs/1')
@@ -134,6 +122,9 @@ augroup end
 " enable spell only if file type is normal text
 let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
 autocmd BufEnter * if index(spellable, &ft) < 0 | set nospell | else | set spell | endif
+
+" set make program for go
+autocmd BufEnter * if &ft == 'go' | set makeprg=go\ build\ % | endif
 
 " highlight yanked text
 augroup highlight_yank
@@ -258,16 +249,6 @@ nmap <leader>ff :Files<CR>
 nmap <leader>gb :Git blame<CR>
 nmap <leader>gd :Gdiffsplit<CR>
 
-" vim-go mappings <leader>g*
-nmap <leader>ga :GoAlternate<CR>
-nmap <leader>gc :GoCoverageToggle<CR>
-nmap <leader>ge :GoIfErr<CR>
-nmap <leader>gi :GoImports<CR>
-nmap <leader>gl :GoMetaLint<CR>
-nmap <leader>gr :GoRun<CR>
-nmap <leader>gs :GoFillStruct<CR>
-nmap <leader>gt :GoTest<CR>
-
 " vim-easy-align <leader>a
 xmap <leader>a <Plug>(EasyAlign)
 nmap <leader>a <Plug>(EasyAlign)
@@ -294,3 +275,11 @@ vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 inoremap <silent><expr> <C-e> compe#close('<C-e>')
 inoremap <silent><expr> <C-y> compe#confirm('<C-y>')
 inoremap <silent><expr> <CR> pumvisible() ? compe#confirm('<C-y><CR>') : "\<CR>"
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'

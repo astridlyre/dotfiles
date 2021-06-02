@@ -15,6 +15,7 @@ prepend_path "$HOME/.local/share/gem/ruby/2.7.0/bin"
 
 # fnm
 prepend_path "$HOME/.fnm"
+prepend_path "$HOME/.fnm/aliases/default/bin"
 
 # rust
 prepend_path "$HOME/.cargo/bin"

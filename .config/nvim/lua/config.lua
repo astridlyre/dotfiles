@@ -6,7 +6,7 @@ local function nmap(keymap, action, opts)
 end
 
 -- LSP settings
-local on_attach = function(_client, bufnr)
+local on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     local opts = {noremap = true, silent = true}
     nmap('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -132,11 +132,10 @@ nvim_lsp.efm.setup {
     },
     root_dir = function() return vim.fn.getcwd() end,
     filetypes = {
-        "sh", "go", "rust", "vim", "lua", "python", "yaml", "markdown", "html",
-        "css", "sass", "json"
+        "sh", "rust", "vim", "lua", "python", "yaml", "markdown", "html", "css",
+        "sass", "json"
     },
     settings = {
-        formattting_seq = true,
         languages = {
             vim = {vim_vint},
             markdown = {markdown},
@@ -167,7 +166,7 @@ require'compe'.setup {
     max_kind_width = 100,
     max_menu_width = 100,
     documentation = true,
-    source = {path = true, buffer = true, nvim_lsp = true}
+    source = {path = true, buffer = true, nvim_lsp = true, vsnip = true}
 }
 
 -- Treesitter
@@ -182,5 +181,61 @@ require'nvim-treesitter.configs'.setup {
             scope_incremental = '<M-e>',
             node_decremental = '<M-C-w>'
         }
+    }
+}
+
+-- Lualine
+local function theme()
+    local colors = {
+        black = '#1b1b20',
+        white = '#b4b4b9',
+        red = '#ff3600',
+        green = '#718e3f',
+        blue = '#635196',
+        yellow = '#ffc552',
+        gray = '#57575e',
+        darkgray = '#36363a',
+        lightgray = '#dfdfe5',
+        inactivegray = '#28282d'
+    }
+    return {
+        normal = {
+            a = {bg = colors.yellow, fg = colors.black, gui = 'bold'},
+            b = {bg = colors.gray, fg = colors.lightgray},
+            c = {bg = colors.darkgray, fg = colors.lightgray}
+        },
+        insert = {
+            a = {bg = colors.red, fg = colors.black, gui = 'bold'},
+            b = {bg = colors.gray, fg = colors.lightgray},
+            c = {bg = colors.darkgray, fg = colors.lightgray}
+        },
+        visual = {
+            a = {bg = colors.green, fg = colors.black, gui = 'bold'},
+            b = {bg = colors.gray, fg = colors.lightgray},
+            c = {bg = colors.darkgray, fg = colors.lightgray}
+        },
+        replace = {
+            a = {bg = colors.blue, fg = colors.black, gui = 'bold'},
+            b = {bg = colors.gray, fg = colors.lightgray},
+            c = {bg = colors.darkgray, fg = colors.lightgray}
+        },
+        command = {
+            a = {bg = colors.green, fg = colors.black, gui = 'bold'},
+            b = {bg = colors.gray, fg = colors.lightgray},
+            c = {bg = colors.darkgray, fg = colors.lightgray}
+        },
+        inactive = {
+            a = {bg = colors.gray, fg = colors.gray, gui = 'bold'},
+            b = {bg = colors.inactivegray, fg = colors.gray},
+            c = {bg = colors.inactivegray, fg = colors.gray}
+        }
+    }
+end
+require('lualine').setup {
+    options = {
+        theme = theme(),
+        section_separators = '',
+        component_separators = '',
+        padding = 1
     }
 }

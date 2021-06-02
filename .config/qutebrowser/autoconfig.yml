@@ -35,7 +35,11 @@ settings:
     global: dark
   content.blocking.method:
     global: adblock
+  content.desktop_capture:
+    https://app.kosmi.io: true
   content.notifications.enabled:
+    global: false
+    https://app.kosmi.io: true
     https://mail.protonmail.com: true
     https://old.reddit.com: false
     https://www.reddit.com: false
