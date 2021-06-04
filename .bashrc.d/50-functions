@@ -15,15 +15,6 @@ function ws() {
 	awk '{printf "%s\t", $2} {print $1}' /etc/services | grep -i --color=auto "^$1/"
 }
 
-# Edit with vim
-function e() {
-	if (($# > 0)); then
-		vim "$@"
-	else
-		vim .
-	fi
-}
-
 # Easily edit script in PATH
 function es() {
 	local script prev
@@ -50,7 +41,7 @@ function bwget() {
 # Use fd instead of the default find
 function _fzf_compgen_path() {
 	rg --files --hidden --follow --glob "!.git/**" --glob "!build/**" --glob \
-		"!node_modules/**" --glob "!vendor/bundle/**". "$1"
+		"!node_modules/**" --glob "!vendor/bundle/**" "$1"
 }
 
 # Use fd to generate the list for directory completion
@@ -66,6 +57,17 @@ function f() {
 	cd "$(dirname "$prev/$file")" || exit 1
 	[[ "$file" ]] && vim "$prev/$file"
 	cd "$prev" || exit 1
+}
+
+function z() {
+	local file old
+	old="$FZF_DEFAULT_COMMAND"
+	FZF_DEFAULT_COMMAND="rg --files $HOME/Documents/codingbooks"
+	file="$(fzf --no-height --reverse --ansi)"
+	[[ "$file" ]] && zathura "$file" &>/dev/null &
+	disown
+	clear
+	FZF_DEFAULT_COMMAND="$old"
 }
 
 # fzf find a man page

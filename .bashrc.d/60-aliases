@@ -58,3 +58,4 @@ alias jctl="journalctl -p 3 -xb"
 # Upgrade python packages
 alias pip-upgrade="pip freeze --user | cut -d'=' -f1 | xargs -n1 pip install -U"
 alias suse="ssh -p 2222 moonlight@suse"
+alias g="gpg-connect-agent updatestartuptty /bye &>/dev/null"

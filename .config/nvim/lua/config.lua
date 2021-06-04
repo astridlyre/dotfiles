@@ -1,12 +1,13 @@
 -- Lsp Configs
 local nvim_lsp = require('lspconfig')
 
+-- Normal keymap function
 local function nmap(keymap, action, opts)
     return vim.api.nvim_set_keymap('n', keymap, action, opts)
 end
 
--- LSP settings
-local on_attach = function(_, bufnr)
+-- LSP Keymaps
+local lsp_maps = function(bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     local opts = {noremap = true, silent = true}
     nmap('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -32,6 +33,14 @@ local on_attach = function(_, bufnr)
     nmap('<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
+-- LSP settings
+local on_attach = function(client, bufnr)
+    lsp_maps(bufnr)
+    if client.config.flags then
+        client.config.flags.allow_incremental_sync = true
+    end
+end
+
 -- Snippet Support
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -47,7 +56,10 @@ local servers = {
 
 -- Loop and set them up
 for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup {on_attach = on_attach, capabilities = capabilities}
+    nvim_lsp[lsp].setup {
+        on_attach = on_attach,
+        capabilities = capabilities
+    }
 end
 
 -- Sumneko Language Server
@@ -73,11 +85,19 @@ nvim_lsp.sumneko_lua.setup {
     }
 }
 
--- Deno for Javascript and TypeScript
+-- Deno for TypeScript
 nvim_lsp.denols.setup {
     on_attach = on_attach,
     capabilities = capabilities,
-    init_options = {enable = true, lint = true, unstable = false}
+    init_options = {enable = true, lint = true, unstable = false},
+    filetypes = {"typescript", "typescriptreact", "typescript.tsx"}
+}
+
+-- TSserver for javacript (nodejs support)
+nvim_lsp.tsserver.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = {"javascript", "javascript.jsx", "javascriptreact"}
 }
 
 -- efm-langserver linting and formatting

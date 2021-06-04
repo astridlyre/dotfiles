@@ -4,3 +4,4 @@ tags.lock
 tags.temp
 .bin/nvim
 .bin/ytfzf
+.mypy_cache

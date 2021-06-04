@@ -7,8 +7,8 @@
 
 " ================= Plugins ================== "
 call plug#begin(expand('~/.config/nvim/plugged'))
-Plug 'astridlyre/falcon'							    	" colorscheme
-Plug 'hoob3rt/lualine.nvim'									" statusline
+Plug 'astridlyre/falcon'                                    " colorscheme
+Plug 'hoob3rt/lualine.nvim'                                 " statusline
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
 Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
 Plug 'junegunn/vim-easy-align'                              " Easy align
@@ -19,13 +19,12 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Syntax support
 Plug 'jiangmiao/auto-pairs'                                 " Auto bracket pairs
 Plug 'neovim/nvim-lspconfig'                                " LSP configs
 Plug 'hrsh7th/nvim-compe'                                   " Autocompletion
-Plug 'hrsh7th/vim-vsnip'									" Snippets
+Plug 'hrsh7th/vim-vsnip'                                    " Snippets
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
 call plug#end()
 
 " ==================== Lua Stuff ======================== "
-
 lua require('config')
 
 " ==================== general config ======================== "
@@ -85,12 +84,12 @@ let g:python3_host_prog        = '/usr/bin/python3' " Default python3
 " Colorscheme
 let g:falcon_lightline = 1
 let g:lightline = { 'colorscheme': 'falcon',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': { 'gitbranch': 'FugitiveHead' },
-      \ }
+                        \ 'active': {
+                                \   'left': [ [ 'mode', 'paste' ],
+                                \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+                                \ },
+                                \ 'component_function': { 'gitbranch': 'FugitiveHead' },
+                                \ }
 colorscheme falcon
 
 " For quickfix / location list toggle
@@ -114,9 +113,9 @@ au FileType help wincmd L           " open help in vertical split
 
 " No line numbers or relative numbers in terminal window
 augroup TerminalEnter
-  autocmd!
-  au TermOpen * setlocal nonumber
-  au TermOpen * setlocal norelativenumber
+        autocmd!
+        au TermOpen * setlocal nonumber
+        au TermOpen * setlocal norelativenumber
 augroup end
 
 " enable spell only if file type is normal text
@@ -128,28 +127,28 @@ autocmd BufEnter * if &ft == 'go' | set makeprg=go\ build\ % | endif
 
 " highlight yanked text
 augroup highlight_yank
-  autocmd!
-  au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=350}
+        autocmd!
+        au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=350}
 augroup END
 
 " fzf if passed argument is a folder
 augroup folderarg
-  autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
-  autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'Files ' fnameescape(argv()[0]) | endif
+        autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
+        autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'Files ' fnameescape(argv()[0]) | endif
 augroup END
 
 " files in fzf
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
+                        \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
 
 " Return to last edit position when opening files
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
 " Autoformat on save
 let autoFormatable = ['markdown', 'sh', 'bash', 'python', 'javascript', 'rust',
-      \ 'go', 'yaml', 'html', 'css', 'json', 'lua', 'c', 'typescript']
+                        \ 'go', 'yaml', 'html', 'css', 'json', 'lua', 'c', 'typescript']
 autocmd BufWritePost * if index(autoFormatable, &ft) >= 0 && g:autoFormat == 1
-      \ | exe 'lua vim.lsp.buf.formatting()' | endif
+                        \ | exe 'lua vim.lsp.buf.formatting()' | endif
 
 " advanced grep
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
@@ -160,32 +159,32 @@ command! StripWhitespace :%s/\s\+$//e
 " ================== Custom Functions ===================== "
 " advanced grep(faster with preview)
 function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+        let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+        let initial_command = printf(command_fmt, shellescape(a:query))
+        let reload_command = printf(command_fmt, '{q}')
+        let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+        call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
 " Temporary fix for when treesitter highlight goes wonky
 function! ResetHightlight()
-  execute 'write | edit | TSBufEnable highlight'
+        execute 'write | edit | TSBufEnable highlight'
 endfunction
 
 fun! ToggleAutoFormat()
-  if g:autoFormat == 1 | let g:autoFormat = 0 | echo "Autoformatting disabled"
-  else | let g:autoFormat = 1 | echo "Autoformatting enabled" | end
+        if g:autoFormat == 1 | let g:autoFormat = 0 | echo "Autoformatting disabled"
+        else | let g:autoFormat = 1 | echo "Autoformatting enabled" | end
 endfun
 
 " Toggle quickfix
 fun! ToggleQFList(global)
-  if a:global == 1
-    if g:moonlight_qf_g == 1 | let g:moonlight_qf_g = 0 | cclose | else
-      let g:moonlight_qf_g = 1 | copen | end
-  else
-    if g:moonlight_qf_l == 1 | let g:moonlight_qf_l = 0 | lclose | else
-      let g:moonlight_qf_l = 1 | lopen | end
-  end
+        if a:global == 1
+                if g:moonlight_qf_g == 1 | let g:moonlight_qf_g = 0 | cclose | else
+                        let g:moonlight_qf_g = 1 | copen | end
+        else
+                if g:moonlight_qf_l == 1 | let g:moonlight_qf_l = 0 | lclose | else
+                        let g:moonlight_qf_l = 1 | lopen | end
+        end
 endfun
 
 " =================== Global Mappings ==========================
@@ -274,7 +273,8 @@ vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 " =================== Insert Mappings ==========================
 inoremap <silent><expr> <C-e> compe#close('<C-e>')
 inoremap <silent><expr> <C-y> compe#confirm('<C-y>')
-inoremap <silent><expr> <CR> pumvisible() ? compe#confirm('<C-y><CR>') : "\<CR>"
+inoremap <silent><expr> <CR> pumvisible() ? compe#confirm('<C-y><CR>')   : "\<CR>"
+inoremap <C-c> <ESC>
 imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
