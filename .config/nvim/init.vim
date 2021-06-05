@@ -7,19 +7,32 @@
 
 " ================= Plugins ================== "
 call plug#begin(expand('~/.config/nvim/plugged'))
-Plug 'astridlyre/falcon'                                    " colorscheme
-Plug 'hoob3rt/lualine.nvim'                                 " statusline
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fzf itself
-Plug 'junegunn/fzf.vim'                                     " fuzzy search integration
-Plug 'junegunn/vim-easy-align'                              " Easy align
-Plug 'honza/vim-snippets'                                   " actual snippets
-Plug 'tpope/vim-commentary'                                 " better commenting
-Plug 'tpope/vim-fugitive'                                   " git support
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Syntax support
-Plug 'jiangmiao/auto-pairs'                                 " Auto bracket pairs
-Plug 'neovim/nvim-lspconfig'                                " LSP configs
-Plug 'hrsh7th/nvim-compe'                                   " Autocompletion
-Plug 'hrsh7th/vim-vsnip'                                    " Snippets
+
+" Color scheme and statusline
+Plug 'astridlyre/falcon'
+Plug 'hoob3rt/lualine.nvim'
+
+" fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" Align, comments, git
+Plug 'junegunn/vim-easy-align'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+
+" Treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'windwp/nvim-ts-autotag'
+Plug 'andymass/vim-matchup'
+
+" LSP and completion
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-compe'
+Plug 'windwp/nvim-autopairs'
+
+" Snippets
+Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
 call plug#end()
@@ -28,43 +41,42 @@ call plug#end()
 lua require('config')
 
 " ==================== general config ======================== "
-set number relativenumber                           " Line numbers and relative numbers
-set termguicolors                                   " True colors
-set mouse=a                                         " Enable mouse scroll
-set foldmethod=manual                               " Manual folding only
-set tabstop=4 softtabstop=4 shiftwidth=4 autoindent " tab width
-set ignorecase smartcase                            " highlight text while searching
-set list listchars=trail:»,tab:»-                   " use tab to navigate in list mode
-set wrap breakindent                                " wrap long lines to the width set by tw
-set showtabline=0                                   " Never show tabline
-set noshowmode                                      " Do not show mode under statusline
-set splitright splitbelow                           " Splits 
-set tw=80                                           " auto wrap lines
-set history=1000                                    " history limit
-set undofile undodir=/tmp                           " enable persistent undo
-set inccommand=nosplit                              " visual feedback while substituting
-set grepprg=rg\ --vimgrep                           " use rg as default grepper
-set wildmode=longest:full,full
-set wildignorecase
-set wildignore=*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache,*/node_modules/*
-set re=1
-set hidden                                          " Keep buffers around
-set nobackup nowritebackup                          " Do not make backup files
 set cmdheight=1                                     " Make hight 1 line
-set updatetime=100                                  " For CursorHold autocmd
+set foldmethod=manual                               " Manual folding only
+set grepprg=rg\ --vimgrep                           " use rg as default grepper
+set hidden                                          " Keep buffers around
+set history=1000                                    " history limit
+set ignorecase smartcase                            " highlight text while searching
+set inccommand=nosplit                              " visual feedback while substituting
+set list listchars=trail:»,tab:»-                   " use tab to navigate in list mode
+set mouse=a                                         " Enable mouse scroll
+set nobackup nowritebackup                          " Do not make backup files
+set noshowmode                                      " Do not show mode under statusline
+set number relativenumber                           " Line numbers and relative numbers
 set shortmess+=actI                                 " Avoid more press enters
+set showtabline=0                                   " Never show tabline
 set signcolumn=yes                                  " Always show signcolumn
 set spelllang=en_gb                                 " Canadian spelling
+set splitright splitbelow                           " Splits
+set tabstop=4 softtabstop=4 shiftwidth=4 autoindent " tab width
+set termguicolors                                   " True colors
+set tw=80                                           " auto wrap lines
+set undofile undodir=/tmp                           " enable persistent undo
+set updatetime=100                                  " For CursorHold autocmd
+set wildignorecase
+set wildignore=*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache,*/node_modules/*
+set wildmode=longest:full,full
+set wrap breakindent                                " wrap long lines to the width set by tw
 
 " ==================== performance tweaks ======================== "
-set nocursorline nocursorcolumn                     " Do not show cursorline or colum
+set completeopt=menuone,noselect                    " Default complete opt
 set lazyredraw                                      " Performance boost for macros
+set maxmempattern=100000                            " Max mem to use
+set nocursorline nocursorcolumn                     " Do not show cursorline or colum
+set pumheight=20                                    " Max 20 items at once
 set redrawtime=10000                                " Allow more time for redraws
 set synmaxcol=180                                   " No syntax on long lines
 set timeoutlen=850                                  " Time to wait between keypress
-set maxmempattern=100000                            " Max mem to use
-set completeopt=menuone,noselect                    " Default complete opt
-set pumheight=20                                    " Max 20 items at once
 
 " ======================== Plugin Configurations ======================== "
 let g:loaded_gzip              = 1                  " Disable Unused plugins
@@ -84,12 +96,12 @@ let g:python3_host_prog        = '/usr/bin/python3' " Default python3
 " Colorscheme
 let g:falcon_lightline = 1
 let g:lightline = { 'colorscheme': 'falcon',
-                        \ 'active': {
-                                \   'left': [ [ 'mode', 'paste' ],
-                                \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-                                \ },
-                                \ 'component_function': { 'gitbranch': 'FugitiveHead' },
-                                \ }
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+    \ },
+    \ 'component_function': { 'gitbranch': 'FugitiveHead' },
+    \ }
 colorscheme falcon
 
 " For quickfix / location list toggle
@@ -113,9 +125,9 @@ au FileType help wincmd L           " open help in vertical split
 
 " No line numbers or relative numbers in terminal window
 augroup TerminalEnter
-        autocmd!
-        au TermOpen * setlocal nonumber
-        au TermOpen * setlocal norelativenumber
+    autocmd!
+    au TermOpen * setlocal nonumber
+    au TermOpen * setlocal norelativenumber
 augroup end
 
 " enable spell only if file type is normal text
@@ -127,28 +139,28 @@ autocmd BufEnter * if &ft == 'go' | set makeprg=go\ build\ % | endif
 
 " highlight yanked text
 augroup highlight_yank
-        autocmd!
-        au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=350}
+    autocmd!
+    au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=350}
 augroup END
 
 " fzf if passed argument is a folder
 augroup folderarg
-        autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
-        autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'Files ' fnameescape(argv()[0]) | endif
+    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
+    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'Files ' fnameescape(argv()[0]) | endif
 augroup END
 
 " files in fzf
 command! -bang -nargs=? -complete=dir Files
-                        \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
 
 " Return to last edit position when opening files
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
 " Autoformat on save
 let autoFormatable = ['markdown', 'sh', 'bash', 'python', 'javascript', 'rust',
-                        \ 'go', 'yaml', 'html', 'css', 'json', 'lua', 'c', 'typescript']
+    \ 'go', 'yaml', 'html', 'css', 'json', 'lua', 'c', 'typescript']
 autocmd BufWritePost * if index(autoFormatable, &ft) >= 0 && g:autoFormat == 1
-                        \ | exe 'lua vim.lsp.buf.formatting()' | endif
+    \ | exe 'lua vim.lsp.buf.formatting()' | endif
 
 " advanced grep
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
@@ -159,32 +171,32 @@ command! StripWhitespace :%s/\s\+$//e
 " ================== Custom Functions ===================== "
 " advanced grep(faster with preview)
 function! RipgrepFzf(query, fullscreen)
-        let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
-        let initial_command = printf(command_fmt, shellescape(a:query))
-        let reload_command = printf(command_fmt, '{q}')
-        let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-        call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
 " Temporary fix for when treesitter highlight goes wonky
 function! ResetHightlight()
-        execute 'write | edit | TSBufEnable highlight'
+    execute 'write | edit | TSBufEnable highlight'
 endfunction
 
 fun! ToggleAutoFormat()
-        if g:autoFormat == 1 | let g:autoFormat = 0 | echo "Autoformatting disabled"
-        else | let g:autoFormat = 1 | echo "Autoformatting enabled" | end
+    if g:autoFormat == 1 | let g:autoFormat = 0 | echo "Autoformatting disabled"
+    else | let g:autoFormat = 1 | echo "Autoformatting enabled" | end
 endfun
 
 " Toggle quickfix
 fun! ToggleQFList(global)
-        if a:global == 1
-                if g:moonlight_qf_g == 1 | let g:moonlight_qf_g = 0 | cclose | else
-                        let g:moonlight_qf_g = 1 | copen | end
-        else
-                if g:moonlight_qf_l == 1 | let g:moonlight_qf_l = 0 | lclose | else
-                        let g:moonlight_qf_l = 1 | lopen | end
-        end
+    if a:global == 1
+        if g:moonlight_qf_g == 1 | let g:moonlight_qf_g = 0 | cclose | else
+            let g:moonlight_qf_g = 1 | copen | end
+    else
+        if g:moonlight_qf_l == 1 | let g:moonlight_qf_l = 0 | lclose | else
+            let g:moonlight_qf_l = 1 | lopen | end
+    end
 endfun
 
 " =================== Global Mappings ==========================
@@ -273,7 +285,6 @@ vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 " =================== Insert Mappings ==========================
 inoremap <silent><expr> <C-e> compe#close('<C-e>')
 inoremap <silent><expr> <C-y> compe#confirm('<C-y>')
-inoremap <silent><expr> <CR> pumvisible() ? compe#confirm('<C-y><CR>')   : "\<CR>"
 inoremap <C-c> <ESC>
 imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
