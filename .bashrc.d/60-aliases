@@ -21,6 +21,7 @@ alias n="nnn -c"
 alias python="python3"
 alias py="bpython"
 alias js="node"
+alias vi="vim"
 alias dmesg='dmesg -H'
 alias i='info --vi-keys'
 alias se='sudoedit'
