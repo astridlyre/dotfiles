@@ -122,6 +122,7 @@ iab <expr> lorem system('curl -s http://metaphorpsum.com/paragraphs/1')
 " ======================== Commands ============================= "
 au BufEnter * set fo-=c fo-=r fo-=o " stop annoying auto commenting on new lines
 au FileType help wincmd L           " open help in vertical split
+au FileType qf set nobuflisted      " no quickfix in buffer list
 
 " No line numbers or relative numbers in terminal window
 augroup TerminalEnter
@@ -159,8 +160,8 @@ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "norm
 " Autoformat on save
 let autoFormatable = ['markdown', 'sh', 'bash', 'python', 'javascript', 'rust',
     \ 'go', 'yaml', 'html', 'css', 'json', 'lua', 'c', 'typescript']
-autocmd BufWritePost * if index(autoFormatable, &ft) >= 0 && g:autoFormat == 1
-    \ | exe 'lua vim.lsp.buf.formatting()' | endif
+autocmd BufWritePre * if index(autoFormatable, &ft) >= 0 && g:autoFormat == 1
+    \ | exe 'lua vim.lsp.buf.formatting_sync(nil, 1000)' | endif
 
 " advanced grep
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
