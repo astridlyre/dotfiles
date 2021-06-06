@@ -20,6 +20,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -60,7 +62,7 @@ set signcolumn=yes                                  " Always show signcolumn
 set cursorline                                      " Show line where cursor is
 set spelllang=en_gb                                 " Canadian spelling
 set splitright splitbelow                           " Splits
-set tabstop=4 softtabstop=4 shiftwidth=4 autoindent " tab width
+set tabstop=4 softtabstop=4 shiftwidth=4			" tab width
 set termguicolors                                   " True colors
 set tw=80                                           " auto wrap lines
 set undofile undodir=/tmp                           " enable persistent undo
