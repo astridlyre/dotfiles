@@ -1,10 +1,31 @@
-set font "Iosevka" normal 11
+set font "Iosevka normal 10"
+set highlight-color "#ffc552"
+set highlight-active-color "#ffc552"
+set highlight-transparency 1.0
 set recolor-darkcolor "#b4b4b9"
 set recolor-lightcolor "#1b1b20"
 set statusbar-fg "#b4b4b9"
 set statusbar-bg "#1b1b20"
 set default-bg "#1b1b20"
 set default-fg "#b4b4b9"
+set completion-bg "#282831"
+set completion-fg "#f8f8ff"
+set completion-highlight-bg "#ffc552"
+set completion-highlight-fg "#000004"
+set completion-group-bg "#282831"
+set completion-group-fg "#b4b4b9"
+set inputbar-bg "#718e3f"
+set inputbar-fg "#000004"
+set notification-error-bg "#ff3600"
+set notification-error-fg "#000004"
+set notification-warning-bg "#ff761a"
+set notification-warning-fg "#000004"
+set tabbar-bg "#1b1b20"
+set tabbar-fg "#b4b4b9"
+set tabbar-focus-bg "#ffc552"
+set tabbar-focus-fg "#000004"
+set statusbar-bg "#ffc552"
+set statusbar-fg "#000004"
 set sandbox none
 set statusbar-h-padding 0
 set statusbar-v-padding 0

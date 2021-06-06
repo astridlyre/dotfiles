@@ -28,7 +28,7 @@ settings:
   colors.statusbar.url.hover.fg:
     global: '#34bfa4'
   colors.webpage.bg:
-    global: '#181819'
+    global: white
   colors.webpage.darkmode.enabled:
     global: false
   colors.webpage.preferred_color_scheme:

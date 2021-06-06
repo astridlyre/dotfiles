@@ -74,25 +74,25 @@ def blood(c, options={}):
     c.colors.contextmenu.disabled.fg = palette["grey"]
 
     # Keyhints
-    c.colors.keyhint.bg = palette["background"]
-    c.colors.keyhint.fg = palette["purple"]
+    c.colors.keyhint.bg = palette["background-alt"]
+    c.colors.keyhint.fg = palette["foreground-alt"]
     c.colors.keyhint.suffix.fg = palette["selection-background"]
 
     # Messages
-    c.colors.messages.error.bg = palette["background"]
-    c.colors.messages.error.border = palette["border"]
+    c.colors.messages.error.bg = palette["background-alt"]
+    c.colors.messages.error.border = palette["red"]
     c.colors.messages.error.fg = palette["red"]
-    c.colors.messages.info.bg = palette["background"]
+    c.colors.messages.info.bg = palette["background-alt"]
     c.colors.messages.info.border = palette["border"]
-    c.colors.messages.info.fg = palette["comment"]
-    c.colors.messages.warning.bg = palette["background"]
-    c.colors.messages.warning.border = palette["border"]
-    c.colors.messages.warning.fg = palette["red"]
+    c.colors.messages.info.fg = palette["foreground"]
+    c.colors.messages.warning.bg = palette["background-alt"]
+    c.colors.messages.warning.border = palette["orange"]
+    c.colors.messages.warning.fg = palette["orange"]
 
     # Prompts
     c.colors.prompts.bg = palette["background-alt"]
     c.colors.prompts.border = "1px solid " + palette["selection-background"]
-    c.colors.prompts.fg = palette["red"]
+    c.colors.prompts.fg = palette["foreground-alt"]
     c.colors.prompts.selected.bg = palette["selection-background"]
 
     # Statusbar
