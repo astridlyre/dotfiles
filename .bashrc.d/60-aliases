@@ -8,7 +8,7 @@ alias rm="rm -I"
 # ls replacement
 alias ls="exa -aG --color=always -s type"
 alias ll="exa -al --color=always -s type"
-alias lt="exa -aT --color=always -s type"
+alias t="exa -aT --color=always -s type"
 
 # cat replacement
 alias cat="bat -pp --theme='ansi'"

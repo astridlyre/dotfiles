@@ -10,7 +10,8 @@ local markdown = {
     lintCommand = 'markdownlint -s',
     lintStdin = true,
     lintFormats = {'%f:%l %m', '%f:%l:%c %m', '%f: %l: %m'},
-    formatCommand = 'prettier --parser markdown'
+    formatCommand = 'prettier --parser markdown',
+	formatStdin = true
 }
 
 -- Yaml Linting
@@ -38,7 +39,8 @@ local python_lint = {
     lintCommand = 'mypy --show-column-numbers',
     lintFormats = {
         '%f:%l:%c: %trror: %m', '%f:%l:%c: %tarning: %m', '%f:%l:%c: %tote: %m'
-    }
+    },
+	lintStdin = true
 }
 local python_fmt = {formatCommand = 'black --quiet -', formatStdin = true}
 local python_isort = {formatCommand = 'isort --quiet -', formatStdin = true}
@@ -49,22 +51,22 @@ local python_flake = {
 }
 
 -- HTML Formatting
-local html_fmt = {formatCommand = 'prettier --parser html'}
+local html_fmt = {formatCommand = 'prettier --parser html', formatStdin = true}
 
 -- CSS Formatting
-local css_fmt = {formatCommand = 'prettier --parser css'}
+local css_fmt = {formatCommand = 'prettier --parser css', formatStdin = true}
 
 -- JSON Formatting
-local json = {formatCommand = 'fixjson', lintCommand = 'jq .'}
+local json = {formatCommand = 'fixjson', lintCommand = 'jq .', formatStdin = true, lintStdin = true}
 
 -- EFM Server Setup
 require"lspconfig".efm.setup {
     init_options = {
         documentFormatting = true,
-        hover = true,
-        documentSymbol = true,
-        codeAction = true,
-        completion = true
+        hover = false,
+        documentSymbol = false,
+        codeAction = false,
+        completion = false
     },
     root_dir = function() return vim.fn.getcwd() end,
     filetypes = {

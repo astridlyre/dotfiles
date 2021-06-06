@@ -1,19 +1,19 @@
 def blood(c, options={}):
     palette = {
         "background": "#1b1b20",
-        "background-alt": "#1b1b20",
+        "background-alt": "#282831",
         "background-attention": "#ffc552",
-        "border": "#333333",
-        "current-line": "#ffc552",
-        "selection": "#ffc552",
+        "border": "#333335",
+        "selection-background": "#ffc552",
+        "selection-foreground": "#000004",
         "foreground": "#b4b4b9",
-        "foreground-alt": "#b4b4b9",
+        "foreground-alt": "#f8f8ff",
         "foreground-attention": "#000004",
+        "grey": "#525258",
         "comment": "#ffc552",
         "cyan": "#34bfa4",
         "green": "#718e3f",
-        "orange": "#ffd392",
-        "pink": "#ffb07b",
+        "orange": "#ff761a",
         "purple": "#ff761a",
         "red": "#ff3600",
         "yellow": "#ffc552",
@@ -37,12 +37,12 @@ def blood(c, options={}):
     c.colors.completion.category.border.top = palette["border"]
     c.colors.completion.category.fg = palette["foreground"]
     c.colors.completion.even.bg = palette["background"]
-    c.colors.completion.odd.bg = palette["background-alt"]
+    c.colors.completion.odd.bg = palette["background"]
     c.colors.completion.fg = palette["foreground"]
-    c.colors.completion.item.selected.bg = palette["selection"]
-    c.colors.completion.item.selected.border.bottom = palette["selection"]
-    c.colors.completion.item.selected.border.top = palette["selection"]
-    c.colors.completion.item.selected.fg = palette["background"]
+    c.colors.completion.item.selected.bg = palette["selection-background"]
+    c.colors.completion.item.selected.border.bottom = palette["selection-background"]
+    c.colors.completion.item.selected.border.top = palette["selection-background"]
+    c.colors.completion.item.selected.fg = palette["selection-foreground"]
     c.colors.completion.item.selected.match.fg = palette["foreground-attention"]
     c.colors.completion.match.fg = palette["comment"]
     c.colors.completion.scrollbar.bg = palette["background"]
@@ -62,59 +62,67 @@ def blood(c, options={}):
     # Hints
     c.colors.hints.bg = palette["background-attention"]
     c.colors.hints.fg = palette["foreground-attention"]
-    c.hints.border = "1px solid " + palette["background-alt"]
-    c.colors.hints.match.fg = palette["foreground-alt"]
+    c.hints.border = "1px solid " + palette["background-attention"]
+    c.colors.hints.match.fg = palette["foreground-attention"]
+
+    # Context Menu
+    c.colors.contextmenu.menu.bg = palette["background"]
+    c.colors.contextmenu.menu.fg = palette["foreground"]
+    c.colors.contextmenu.selected.bg = palette["selection-background"]
+    c.colors.contextmenu.selected.fg = palette["selection-foreground"]
+    c.colors.contextmenu.disabled.bg = palette["background"]
+    c.colors.contextmenu.disabled.fg = palette["grey"]
 
     # Keyhints
     c.colors.keyhint.bg = palette["background"]
     c.colors.keyhint.fg = palette["purple"]
-    c.colors.keyhint.suffix.fg = palette["selection"]
+    c.colors.keyhint.suffix.fg = palette["selection-background"]
 
     # Messages
     c.colors.messages.error.bg = palette["background"]
-    c.colors.messages.error.border = palette["background-alt"]
+    c.colors.messages.error.border = palette["border"]
     c.colors.messages.error.fg = palette["red"]
     c.colors.messages.info.bg = palette["background"]
-    c.colors.messages.info.border = palette["background-alt"]
+    c.colors.messages.info.border = palette["border"]
     c.colors.messages.info.fg = palette["comment"]
     c.colors.messages.warning.bg = palette["background"]
-    c.colors.messages.warning.border = palette["background-alt"]
+    c.colors.messages.warning.border = palette["border"]
     c.colors.messages.warning.fg = palette["red"]
 
     # Prompts
-    c.colors.prompts.bg = palette["background"]
-    c.colors.prompts.border = "1px solid " + palette["background-alt"]
-    c.colors.prompts.fg = palette["cyan"]
-    c.colors.prompts.selected.bg = palette["selection"]
+    c.colors.prompts.bg = palette["background-alt"]
+    c.colors.prompts.border = "1px solid " + palette["selection-background"]
+    c.colors.prompts.fg = palette["red"]
+    c.colors.prompts.selected.bg = palette["selection-background"]
 
     # Statusbar
     c.colors.statusbar.caret.bg = palette["background"]
-    c.colors.statusbar.caret.fg = palette["orange"]
-    c.colors.statusbar.caret.selection.bg = palette["background"]
-    c.colors.statusbar.caret.selection.fg = palette["orange"]
-    c.colors.statusbar.command.bg = palette["background"]
-    c.colors.statusbar.command.fg = palette["pink"]
-    c.colors.statusbar.command.private.bg = palette["background"]
-    c.colors.statusbar.command.private.fg = palette["foreground-alt"]
-    c.colors.statusbar.insert.bg = palette["background-attention"]
+    c.colors.statusbar.caret.fg = palette["foreground"]
+    c.colors.statusbar.caret.selection.bg = palette["selection-background"]
+    c.colors.statusbar.caret.selection.fg = palette["selection-foreground"]
+    c.colors.statusbar.command.bg = palette["green"]
+    c.colors.statusbar.command.fg = palette["foreground-attention"]
+    c.colors.statusbar.command.private.bg = palette["green"]
+    c.colors.statusbar.command.private.fg = palette["foreground-attention"]
+    c.colors.statusbar.insert.bg = palette["red"]
     c.colors.statusbar.insert.fg = palette["foreground-attention"]
-    c.colors.statusbar.normal.bg = palette["background"]
-    c.colors.statusbar.normal.fg = palette["foreground"]
-    c.colors.statusbar.passthrough.bg = palette["background"]
-    c.colors.statusbar.passthrough.fg = palette["orange"]
-    c.colors.statusbar.private.bg = palette["background-alt"]
-    c.colors.statusbar.private.fg = palette["foreground-alt"]
+    c.colors.statusbar.normal.bg = palette["selection-background"]
+    c.colors.statusbar.normal.fg = palette["selection-foreground"]
+    c.colors.statusbar.passthrough.bg = palette["orange"]
+    c.colors.statusbar.passthrough.fg = palette["foreground-attention"]
+    c.colors.statusbar.private.bg = palette["selection-background"]
+    c.colors.statusbar.private.fg = palette["selection-foreground"]
     c.colors.statusbar.progress.bg = palette["background"]
     c.colors.statusbar.url.error.fg = palette["red"]
-    c.colors.statusbar.url.fg = palette["foreground"]
-    c.colors.statusbar.url.hover.fg = palette["cyan"]
-    c.colors.statusbar.url.success.http.fg = palette["green"]
-    c.colors.statusbar.url.success.https.fg = palette["green"]
-    c.colors.statusbar.url.warn.fg = palette["yellow"]
+    c.colors.statusbar.url.fg = palette["foreground-attention"]
+    c.colors.statusbar.url.hover.fg = palette["foreground-attention"]
+    c.colors.statusbar.url.success.http.fg = palette["foreground-attention"]
+    c.colors.statusbar.url.success.https.fg = palette["foreground-attention"]
+    c.colors.statusbar.url.warn.fg = palette["foreground-attention"]
     c.statusbar.padding = padding
 
     # Background color of the tab bar.
-    c.colors.tabs.bar.bg = palette["selection"]
+    c.colors.tabs.bar.bg = palette["selection-background"]
     c.colors.tabs.even.bg = palette["background"]
     c.colors.tabs.even.fg = palette["foreground"]
     c.colors.tabs.indicator.error = palette["red"]
@@ -123,10 +131,10 @@ def blood(c, options={}):
     c.colors.tabs.indicator.system = "none"
     c.colors.tabs.odd.bg = palette["background"]
     c.colors.tabs.odd.fg = palette["foreground"]
-    c.colors.tabs.selected.even.bg = palette["selection"]
-    c.colors.tabs.selected.even.fg = palette["background"]
-    c.colors.tabs.selected.odd.bg = palette["selection"]
-    c.colors.tabs.selected.odd.fg = palette["background"]
+    c.colors.tabs.selected.even.bg = palette["selection-background"]
+    c.colors.tabs.selected.even.fg = palette["selection-foreground"]
+    c.colors.tabs.selected.odd.bg = palette["selection-background"]
+    c.colors.tabs.selected.odd.fg = palette["selection-foreground"]
     c.colors.tabs.pinned.even.fg = palette["purple"]
     c.colors.tabs.pinned.even.bg = palette["background"]
     c.colors.tabs.pinned.odd.fg = palette["purple"]

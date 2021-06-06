@@ -56,6 +56,8 @@ settings:
     global: 0
   keyhint.radius:
     global: 0
+  prompt.radius:
+    global: 0
   url.default_page:
     global: file:///home/ml/projects/dotfiles/.config/brave-home/index.html
   url.searchengines:

@@ -73,12 +73,6 @@ for _, lsp in ipairs(servers) do
     }
 end
 
--- Special On-Attach for TSServer to disable formatting
-function lsp_config.tsserver_on_attach(client, bufnr)
-    lsp_config.on_attach(client, bufnr)
-    client.resolved_capabilities.document_formatting = false
-end
-
 -- Diagnostic Signs
 vim.fn.sign_define("LspDiagnosticsSignError", {
     texthl = "LspDiagnosticsSignError",
