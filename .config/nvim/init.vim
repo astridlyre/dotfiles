@@ -57,6 +57,7 @@ set number relativenumber                           " Line numbers and relative 
 set shortmess+=actI                                 " Avoid more press enters
 set showtabline=0                                   " Never show tabline
 set signcolumn=yes                                  " Always show signcolumn
+set cursorline                                      " Show line where cursor is
 set spelllang=en_gb                                 " Canadian spelling
 set splitright splitbelow                           " Splits
 set tabstop=4 softtabstop=4 shiftwidth=4 autoindent " tab width
@@ -73,7 +74,7 @@ set wrap breakindent                                " wrap long lines to the wid
 set completeopt=menuone,noselect                    " Default complete opt
 set lazyredraw                                      " Performance boost for macros
 set maxmempattern=100000                            " Max mem to use
-set nocursorline nocursorcolumn                     " Do not show cursorline or colum
+set nocursorcolumn                                  " Do not show cursorline or colum
 set pumheight=20                                    " Max 20 items at once
 set redrawtime=10000                                " Allow more time for redraws
 set synmaxcol=180                                   " No syntax on long lines

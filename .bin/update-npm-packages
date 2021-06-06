@@ -1,7 +1,6 @@
 #!/bin/bash
 
 DEFAULT_PACKAGES=("bash-language-server"
-	"eslint_d"
 	"live-server"
 	"neovim"
 	"prettier"
@@ -14,9 +13,9 @@ DEFAULT_PACKAGES=("bash-language-server"
 	"vscode-json-languageserver"
 	"yaml-language-server"
 	"markdownlint"
+	"markdownlint-cli"
 	"fixjson"
-    "dockerfile-language-server-nodejs"
-    "emmet-ls"
+	"dockerfile-language-server-nodejs"
 	"@bitwarden/cli")
 
 npm i -g "${DEFAULT_PACKAGES[@]}"
