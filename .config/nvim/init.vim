@@ -23,6 +23,7 @@ Plug 'tpope/vim-fugitive'
 
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'windwp/nvim-ts-autotag'
 Plug 'andymass/vim-matchup'
 
