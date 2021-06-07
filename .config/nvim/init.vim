@@ -22,11 +22,11 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'ludovicchabant/vim-gutentags'
 
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'https://github.com/RRethy/nvim-treesitter-textsubjects'
 Plug 'windwp/nvim-ts-autotag'
 Plug 'andymass/vim-matchup'
 
@@ -99,9 +99,6 @@ let g:python3_host_prog        = '/usr/bin/python3' " Default python3
 
 " Colorscheme
 colorscheme falcon
-
-" Tags cache folder
-let g:gutentags_cache_dir = '/home/ml/.cache/tags'
 
 " For quickfix / location list toggle
 let g:moonlight_qf_g = 0

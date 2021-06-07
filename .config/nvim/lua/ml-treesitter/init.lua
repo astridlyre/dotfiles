@@ -3,6 +3,7 @@ require'nvim-treesitter.configs'.setup {
     ensure_installed = "maintained",
     highlight = {enable = true},
     indent = {enable = true},
+    textsubjects = {enable = true, keymaps = {['.'] = 'textsubjects-smart'}},
     textobjects = {
         select = {
             enable = true,
@@ -19,27 +20,6 @@ require'nvim-treesitter.configs'.setup {
             enable = true,
             swap_next = {['<leader>a'] = '@parameter.inner'},
             swap_previous = {['<leader>A'] = '@parameter.inner'}
-        },
-        move = {
-            enable = true,
-            set_jumps = true,
-            goto_next_start = {
-                [']f'] = '@function.outer',
-                [']c'] = '@class.outer'
-            },
-            goto_previous_start = {
-                ['[f'] = '@function.outer',
-                ['[c'] = '@class.outer'
-            }
-        }
-    },
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = '<M-w>',
-            node_incremental = '<M-w>',
-            scope_incremental = '<M-e>',
-            node_decremental = '<M-C-w>'
         }
     },
     autotag = {enable = true},

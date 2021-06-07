@@ -61,8 +61,8 @@ lsp_config.diagnostics = {
 
 -- Enable the following language servers
 local servers = {
-    'clangd', 'rust_analyzer', 'pyright', 'yamlls', 'vimls', 'html', 'cssls',
-    'dockerls', 'cmake', 'bashls'
+    'clangd', 'pyright', 'yamlls', 'vimls', 'html', 'cssls', 'dockerls',
+    'cmake', 'bashls'
 }
 
 -- Loop and set them up
