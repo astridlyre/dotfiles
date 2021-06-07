@@ -4,8 +4,6 @@ require('ml-compe')
 require('ml-lualine')
 require('ml-matchup')
 require('ml-treesitter')
-require('ml-telescope')
-require('ml-devicons')
 
 -- Lsp
 require('lsp')

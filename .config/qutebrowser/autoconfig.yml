@@ -34,7 +34,7 @@ settings:
   colors.webpage.preferred_color_scheme:
     global: dark
   content.blocking.method:
-    global: adblock
+    global: both
   content.desktop_capture:
     https://app.kosmi.io: true
   content.media.audio_capture:

@@ -11,18 +11,18 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 " Color scheme and statusline
 Plug 'astridlyre/falcon'
 Plug 'hoob3rt/lualine.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
 
-" Telescope
-Plug 'nvim-lua/popup.nvim'
+" fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
 
-" Align, comments, git
+" Align, comments, git, tags
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
+Plug 'ludovicchabant/vim-gutentags'
 
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -72,7 +72,6 @@ set wildignorecase
 set wildignore=*.git/*,*.tags,tags,*.o,*.class,*.ccls-cache,*/node_modules/*
 set wildmode=longest:full,full
 set wrap breakindent                                " wrap long lines to the width set by tw
-set formatoptions=tqrbj1
 
 " ==================== performance tweaks ======================== "
 set completeopt=menuone,noselect                    " Default complete opt
@@ -101,6 +100,9 @@ let g:python3_host_prog        = '/usr/bin/python3' " Default python3
 " Colorscheme
 colorscheme falcon
 
+" Tags cache folder
+let g:gutentags_cache_dir = '/home/ml/.cache/tags'
+
 " For quickfix / location list toggle
 let g:moonlight_qf_g = 0
 let g:moonlight_qf_l = 0
@@ -108,6 +110,13 @@ let g:autoFormat = 1
 
 " lorem ipsum
 iab <expr> lorem system('curl -s http://metaphorpsum.com/paragraphs/1')
+
+" fzf
+let g:fzf_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
+let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'border': 'sharp' } }
+let g:fzf_tags_command = 'ctags -R'
+let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
+let $FZF_DEFAULT_COMMAND = "rg --files --follow --hidden --glob '!.git/**' --glob '!build/**' --glob '!node_modules/**' --glob '!vendor/bundle/**'"
 
 " ======================== Commands ============================= "
 au BufEnter * set fo-=c fo-=r fo-=o " stop annoying auto commenting on new lines
@@ -131,8 +140,18 @@ autocmd BufEnter * if &ft == 'go' | set makeprg=go\ build\ % | endif
 " highlight yanked text
 augroup highlight_yank
     autocmd!
-    au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=200}
+    au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
 augroup END
+
+" fzf if passed argument is a folder
+augroup folderarg
+    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
+    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'Files ' fnameescape(argv()[0]) | endif
+augroup END
+
+" files in fzf
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
 
 " Return to last edit position when opening files
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -146,7 +165,19 @@ autocmd BufWritePre * if index(autoFormatable, &ft) >= 0 && g:autoFormat == 1
 " Strip whitespace
 command! StripWhitespace :%s/\s\+$//e
 
+" Advanced grep
+command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
+
 " ================== Custom Functions ===================== "
+" advanced grep(faster with preview)
+function! RipgrepFzf(query, fullscreen)
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
 " Temporary fix for when treesitter highlight goes wonky
 function! ResetHightlight()
     execute 'write | edit | TSBufEnable highlight'
@@ -215,11 +246,15 @@ vnoremap <leader>Y "+Y
 vnoremap <leader>cp "+p
 vnoremap <leader>y "+y
 
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+" FZF <leader>f*
+nmap <leader>fr :Rg<CR>
+nmap <leader>f: :Commands<CR>
+nmap <leader>fb :Buffers<CR>
+nmap <leader>ft :BTags<CR>
+nmap <leader>fc :Commits<CR>
+nmap <leader>fg :GFiles?<CR>
+nmap <leader>fh :History<CR>
+nmap <leader>ff :Files<CR>
 
 " fugitive mappings <leader>g[bd]
 nmap <leader>gb :Git blame<CR>
