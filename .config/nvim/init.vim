@@ -63,7 +63,6 @@ set number relativenumber                           " Line numbers and relative 
 set shortmess+=actI                                 " Avoid more press enters
 set showtabline=0                                   " Never show tabline
 set signcolumn=yes                                  " Always show signcolumn
-set cursorline                                      " Show line where cursor is
 set spelllang=en_gb                                 " Canadian spelling
 set splitright splitbelow                           " Splits
 set tabstop=4 softtabstop=4 shiftwidth=4            " tab width
@@ -86,14 +85,24 @@ set synmaxcol=180                                   " No syntax on long lines
 set timeoutlen=850                                  " Time to wait between keypress
 
 " ======================== Plugin Configurations ======================== "
-let g:loaded_gzip              = 1                  " Disable Unused plugins
+let g:loaded_gzip              = 1
+let g:loaded_tar               = 1
 let g:loaded_tarPlugin         = 1
+let g:loaded_zip               = 1
 let g:loaded_zipPlugin         = 1
+let g:loaded_getscript         = 1
+let g:loaded_getscriptPlugin   = 1
+let g:loaded_vimball           = 1
+let g:loaded_vimballPlugin     = 1
+let g:loaded_matchit           = 1
+let g:loaded_matchparen        = 1
 let g:loaded_2html_plugin      = 1
+let g:loaded_logiPat           = 1
 let g:loaded_rrhelper          = 1
-let g:loaded_remote_plugins    = 1
-let g:loaded_netrw             = 1                  " Disable netrw
+let g:loaded_netrw             = 1
 let g:loaded_netrwPlugin       = 1
+let g:loaded_netrwSettings     = 1
+let g:loaded_netrwFileHandlers = 1
 let g:omni_sql_no_default_maps = 1                  " disable sql omni completion
 let g:loaded_python_provider   = 0                  " Disable python2
 let g:loaded_perl_provider     = 0                  " Disable perl
@@ -113,7 +122,7 @@ let g:fzf_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'border': 'sharp' } }
 let g:fzf_tags_command = 'ctags -R'
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
-let $FZF_DEFAULT_COMMAND = "rg --files --follow --hidden --glob '!.git/**' --glob '!build/**' --glob '!node_modules/**' --glob '!vendor/bundle/**'"
+let $FZF_DEFAULT_COMMAND = "rg --files --follow --hidden --glob '!.git/**' --glob '!build/**' --glob '!node_modules/**' --glob '!vendor/bundle/**' --glob '!Documents/**' --glob '!Pictures/**' --glob '!Videos/**' --glob '!.themes/**' --glob '!.icons/**' --glob '!.cache/**'"
 
 " ======================== Commands ============================= "
 au BufEnter * set fo-=c fo-=r fo-=o " stop annoying auto commenting on new lines
@@ -126,6 +135,16 @@ augroup TerminalEnter
     au TermOpen * setlocal nonumber
     au TermOpen * setlocal norelativenumber
 augroup end
+
+" Show cursorline only in focused window
+augroup CursorLine
+	autocmd!
+	au WinEnter,BufEnter,InsertLeave * if ! &cursorline && ! &pvw | setlocal cursorline | endif
+	au WinLeave,BufLeave,InsertEnter * if &cursorline && ! &pvw | setlocal nocursorline | endif
+augroup end
+
+" Resize windows automatically
+autocmd VimResized * tabdo wincmd =
 
 " enable spell only if file type is normal text
 let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
@@ -196,9 +215,6 @@ fun! ToggleQFList(global)
     end
 endfun
 
-" lorem ipsum
-iab <expr> lorem system('curl -s http://metaphorpsum.com/paragraphs/1')
-
 " =================== Global Mappings ==========================
 " Disable s and make y consistent
 nmap s <Nop>
@@ -217,14 +233,15 @@ nnoremap <leader>ui :PlugInstall<CR>
 nnoremap <leader>uu :PlugUpdate<CR>
 
 " Misc helper things <leader>?
-nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
-nnoremap <silent><leader>e :call ResetHightlight()<CR>
+nnoremap <leader>rr :so ~/.config/nvim/init.vim<CR>
+nnoremap <silent><leader>re :call ResetHightlight()<CR>
 nnoremap <leader>; :w<CR>
 nnoremap <leader>\ :qa!<CR>
 nnoremap <silent><leader>q :call ToggleQFList(0)<CR>
 nnoremap <leader>j :lnext<CR>zz
 nnoremap <leader>k :lprev<CR>zz
 nnoremap <silent><leader>af :call ToggleAutoFormat()<CR>
+nnoremap <silent><leader>wg :!write-good %<cr>
 
 " new line in normal mode and back
 nnoremap <leader>[ myO<ESC>`y
@@ -286,6 +303,9 @@ vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 inoremap <silent><expr> <C-e> compe#close('<C-e>')
 inoremap <silent><expr> <C-y> compe#confirm('<C-y>')
 inoremap <C-c> <ESC>
+inoremap <C-d> <Del>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
 imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
@@ -294,3 +314,10 @@ imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab
 smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" =================== Command Line ==========================
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-d> <Del>

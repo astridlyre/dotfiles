@@ -76,3 +76,19 @@ function m() {
 		--preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man' \
 		| tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
 }
+
+# nnn
+function n() {
+	if [[ -n $NNNLVL ]] && ((${NNNLVL:-0} >= 1)); then
+		echo "nnn is already running"
+		return
+	fi
+
+	export NNN_TMPFILE="$HOME/.config/nnn/.lastd"
+	nnn -c "$@"
+
+	if [[ -f $NNN_TMPFILE ]]; then
+		. "$NNN_TMPFILE"
+		rm -f "$NNN_TMPFILE" >/dev/null
+	fi
+}

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+TMPFILE="$(mktemp).txt"
+
+# Read Stdin if there is any
+while read -r INPUT; do
+	echo "$INPUT" >>"$TMPFILE"
+done
+# Open vim
+open_vim "$TMPFILE"
+
+# Add to clipboard selection
+xsel -b <"$TMPFILE"
+rm -f "$TMPFILE"

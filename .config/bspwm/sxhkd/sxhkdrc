@@ -15,7 +15,8 @@ super + b
     firejail --whitelist=~/projects/dotfiles/* \
                 --whitelist=~/.config/rofi/* \
                 --whitelist=~/.fnm/aliases/default/* \
-                --whitelist=~/.config/Bitwarden\ CLI/* qutebrowser
+                --whitelist=~/.config/Bitwarden\ CLI/* \
+				qutebrowser
 
 # Pavucontrol
 super + v
@@ -28,6 +29,10 @@ super + Return
 # Hacker floating term
 super + space
   alacritty --title 'm00nl1ght l33t h4x0rz' --class l33th4x0rz,l33th4x0rz
+
+# Write something in vim
+super + m
+  vpipe
 
 # nnn File Manager
 super + e

@@ -12,10 +12,13 @@ require'compe'.setup {
     max_kind_width = 100,
     max_menu_width = 100,
     documentation = true,
+    allow_prefix_unmatch = false,
     source = {
         path = {kind = "   "},
         buffer = {kind = "   "},
+        nvim_lsp = {kind = "   "},
         vsnip = {kind = "   "},
-        nvim_lsp = {kind = "   "}
+        spell = {kind = "   "},
+        calc = {kind = "   "}
     }
 }

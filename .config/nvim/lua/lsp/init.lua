@@ -54,15 +54,15 @@ lsp_config.capabilities.textDocument.completion.completionItem.resolveSupport =
 -- Diagnostic Handlers
 lsp_config.diagnostics = {
     virtual_text = {spacing = 0, prefix = ""},
-    signs = true,
+    signs = {enable = true, priority = 20},
     underline = true,
     update_in_insert = false
 }
 
 -- Enable the following language servers
 local servers = {
-    'clangd', 'pyright', 'yamlls', 'vimls', 'html', 'cssls', 'dockerls',
-    'cmake', 'bashls'
+    'pyright', 'yamlls', 'vimls', 'html', 'cssls', 'dockerls', 'cmake',
+    'bashls', 'clangd'
 }
 
 -- Loop and set them up

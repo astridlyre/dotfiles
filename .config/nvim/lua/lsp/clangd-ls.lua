@@ -1,9 +1,9 @@
--- Go Language Server
-require'lspconfig'.gopls.setup {
-    cmd = {"gopls", "--remote=auto"},
-    settings = {gopls = {analyses = {unusedparams = true}, staticcheck = true}},
-    root_dir = require'lspconfig'.util.root_pattern(".git", "go.mod", "."),
-    init_options = {usePlaceholders = true, completeUnimported = true},
+-- clangd
+require'lspconfig'.clangd.setup {
+    cmd = {
+        "clangd", "--background-index", "--suggest-missing-includes",
+        "--clang-tidy", "--header-insertion=iwyu"
+    },
     on_attach = require'lsp'.on_attach,
     capabilities = require'lsp'.capabilities,
     handlers = {
