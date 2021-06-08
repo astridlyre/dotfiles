@@ -105,9 +105,6 @@ let g:moonlight_qf_g = 0
 let g:moonlight_qf_l = 0
 let g:autoFormat = 1
 
-" lorem ipsum
-iab <expr> lorem system('curl -s http://metaphorpsum.com/paragraphs/1')
-
 " fzf
 let g:fzf_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'border': 'sharp' } }
@@ -148,7 +145,7 @@ augroup END
 
 " files in fzf
 command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
+	\ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
 
 " Return to last edit position when opening files
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -195,6 +192,9 @@ fun! ToggleQFList(global)
             let g:moonlight_qf_l = 1 | lopen | end
     end
 endfun
+
+" lorem ipsum
+iab <expr> lorem system('curl -s http://metaphorpsum.com/paragraphs/1')
 
 " =================== Global Mappings ==========================
 " Disable s and make y consistent
