@@ -124,7 +124,7 @@ osd.unhilight.bg: flat solid
 osd.unhilight.bg.color: #1b1b20
 
 osd.button.unpressed.bg: flat border
-osd.button.unpressed.bg.color: #333333
+osd.button.unpressed.bg.color: #282831
 #osd.button.unpressed.*.border.color: #b4b4b9
 
 osd.button.pressed.bg: flat border

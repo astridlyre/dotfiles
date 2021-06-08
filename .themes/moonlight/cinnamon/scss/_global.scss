@@ -2,7 +2,7 @@
 
 // main colors used in theme
 // 1.0 < 1 will result in most cinnamon surfaces being transparent
-$button_bg_color: #333333;
+$button_bg_color: #282831;
 $button_fg_color: #b4b4b9;
 $selected_bg_color: #ffc552;
 $selected_fg_color: #1b1b20;
@@ -65,7 +65,7 @@ $scrollbar_slider_color: mix($dark_bg_color, $dark_fg_color, 20%);
 $scrollbar_slider_hover_color: mix($dark_bg_color, $selected_bg_color, 20%);
 
 // caret colors for dialog entrys
-$primary_caret_color: #333333;
+$primary_caret_color: #282831;
 
 // other colors used in the theme
 $link_color: #617E9C;

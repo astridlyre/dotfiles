@@ -14,9 +14,6 @@ local markdown = {
     formatStdin = true
 }
 
--- Text Linting
-local txt = {lintCommand = 'write-good --parse', lintFormats = {'%f:%l:%c:%m'}}
-
 -- Yaml Linting
 local yaml_lint = {lintCommand = 'yamllint -f parsable -', lintStdin = true}
 
@@ -94,8 +91,7 @@ require"lspconfig".efm.setup {
             json = {json},
             html = {html_fmt},
             css = {css_fmt},
-            sass = {css_fmt},
-            text = {txt}
+            sass = {css_fmt}
         }
     }
 }

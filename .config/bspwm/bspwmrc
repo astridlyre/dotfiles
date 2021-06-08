@@ -10,7 +10,9 @@ run() {
 # Run a different xrandr depending on connected monitors
 LAPTOP="eDP-1-1"
 EXTERNAL="HDMI-0"
+export MONITORS
 if xrandr | grep "$EXTERNAL connected"; then
+	MONITORS="$EXTERNAL $LAPTOP"
 	# If I haz two monitors
 	xrandr --output $EXTERNAL --primary --mode 3840x2160 --pos 0x0 --rotate normal \
 		--output $LAPTOP --mode 1920x1080 --pos 3840x1080 --rotate normal
@@ -27,6 +29,7 @@ else
 		bspc wm -r
 		# bspc wm -o
 	fi
+	MONITORS="$LAPTOP"
 	# If i haz only one yay!
 	xrandr --output $LAPTOP --primary --rotate normal --pos 0x0 --mode 1920x1080
 	bspc monitor $LAPTOP -d 1 2 3 4 5 6
