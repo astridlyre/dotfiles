@@ -11,6 +11,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 " Color scheme and statusline
 Plug 'astridlyre/falcon'
 Plug 'hoob3rt/lualine.nvim'
+Plug 'norcalli/nvim-colorizer.lua'
 
 " fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -19,7 +20,7 @@ Plug 'nvim-lua/plenary.nvim'
 
 " Align, comments, git, tags
 Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-commentary'
+Plug 'b3nj5m1n/kommentary'
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
 
@@ -34,12 +35,14 @@ Plug 'andymass/vim-matchup'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'windwp/nvim-autopairs'
+Plug 'ray-x/lsp_signature.nvim'
 
 " Snippets
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
 call plug#end()
+set termguicolors
 
 " ==================== Lua Stuff ======================== "
 lua require('config')

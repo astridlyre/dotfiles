@@ -1,9 +1,11 @@
 -- Require Config Files
 require('ml-autopairs')
 require('ml-compe')
+require('ml-lspsignature')
 require('ml-lualine')
 require('ml-matchup')
 require('ml-treesitter')
+require('ml-colorizer')
 
 -- Lsp
 require('lsp')
