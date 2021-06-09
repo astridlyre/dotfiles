@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+read -r title
+
+declare -i length
+prefix='========================='
+postfix=''
+length=$((45 - ${#title}))
+
+while ((length > 0)); do
+	postfix+='='
+	((length--))
+done
+
+printf '" %s %s %s "' "$prefix" "$title" "$postfix"
