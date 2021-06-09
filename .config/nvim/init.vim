@@ -245,7 +245,7 @@ vnoremap <leader>cp "+p
 vnoremap <leader>y "+y
 
 " Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden=true, follow=true})<cr>
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden = true, follow = true})<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
