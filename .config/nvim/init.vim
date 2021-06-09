@@ -204,8 +204,7 @@ map Y y$
 let mapleader=' '
 
 " edit configs
-nnoremap <leader>ee :e ~/.config/nvim/init.vim<cr>
-nnoremap <leader>el :e ~/.config/nvim/lua/config.lua<cr>
+nnoremap <leader>ee :e ~/projects/dotfiles/.config/nvim/init.vim<cr>
 
 " install or update plugins <leader>p*
 nnoremap <leader>ui :PlugInstall<cr>
@@ -248,6 +247,8 @@ nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden=tru
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fc <cmd>Telescope git_commits<cr>
+nnoremap <leader>fm <cmd>Telescope man_pages<cr>
 
 " fugitive mappings <leader>g[bd]
 nmap <leader>gb :Git blame<cr>
