@@ -1,6 +1,6 @@
 local M = {
     go = {'go run ', 'go test '},
-    c = {'cc '},
+    c = {'make-n-run '},
     lua = {'lua '},
     python = {'python '},
     javascript = {'node '},
