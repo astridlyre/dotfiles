@@ -212,15 +212,15 @@ nnoremap <leader>uu :PlugUpdate<cr>
 
 " misc helper things <leader>?
 nnoremap <leader>si :so ~/.config/nvim/init.vim<cr>
-nnoremap <silent><leader><esc> :call ResetHightlight()<cr>
+nnoremap <silent><leader><esc> <cmd>call ResetHightlight()<cr>
 nnoremap <leader>; :w<cr>
 nnoremap <leader>\ :qa!<cr>
-nnoremap <silent><leader>q :call ToggleQFList(0)<cr>
+nnoremap <silent><leader>q <cmd>call ToggleQFList(0)<cr>
 nnoremap <leader>j :lnext<cr>zz
 nnoremap <leader>k :lprev<cr>zz
-nnoremap <silent><leader>af :call ToggleAutoFormat()<cr>
-nnoremap <silent><leader>wg :!write-good %<cr>
-nnoremap <silent><leader>r :lua require'ml-quickrun'.run_command()<cr>
+nnoremap <silent><leader>af <cmd>call ToggleAutoFormat()<cr>
+nnoremap <silent><leader>wg <cmd>!write-good %<cr>
+nnoremap <silent><leader>r <cmd>lua require'ml-quickrun'.run_command()<cr>
 
 " new line in normal mode and back
 nnoremap <leader>[ myO<esc>`y
@@ -232,7 +232,7 @@ nnoremap <leader>' :sp term://bash<cr>i
 " lil scripties <leader>s*
 vnoremap <leader>ss !sort -d -b -f<cr>
 vnoremap <leader>sc !scriptbc<cr>
-nnoremap <leader>sw :StripWhitespace<cr>
+nnoremap <leader>sw <cmd>StripWhitespace<cr>
 
 " easy system clipboard copy & paste
 nnoremap <leader>Y mqgg"+yG`q
@@ -251,8 +251,8 @@ nnoremap <leader>fc <cmd>Telescope git_commits<cr>
 nnoremap <leader>fm <cmd>Telescope man_pages<cr>
 
 " fugitive mappings <leader>g[bd]
-nmap <leader>gb :Git blame<cr>
-nmap <leader>gd :Gdiffsplit<cr>
+nmap <leader>gb <cmd>Git blame<cr>
+nmap <leader>gd <cmd>Gdiffsplit<cr>
 
 " vim-easy-align <leader>a
 xmap <leader>a <Plug>(EasyAlign)
@@ -262,14 +262,14 @@ nmap <leader>a <Plug>(EasyAlign)
 " easier move line with alt+j / alt+k
 nnoremap <M-j> mz:m+<cr>`z
 nnoremap <M-k> mz:m-2<cr>`z
-nnoremap <C-n> :bnext<cr>
-nnoremap <C-p> :bprev<cr>
-nnoremap <silent> <C-q> :call ToggleQFList(1)<cr>
-nnoremap <C-j> :cnext<cr>zz
-nnoremap <C-k> :cprev<cr>zz
+nnoremap <C-n> <cmd>bnext<cr>
+nnoremap <C-p> <cmd>bprev<cr>
+nnoremap <silent> <C-q> <cmd>call ToggleQFList(1)<cr>
+nnoremap <C-j> <cmd>cnext<cr>zz
+nnoremap <C-k> <cmd>cprev<cr>zz
 
 " disable hl with 2 esc
-noremap <silent><esc><esc> :noh<cr><esc>
+noremap <silent><esc><esc> <cmd>noh<cr><esc>
 
 " ========================= visual mappings ============================== "
 " easier move line with alt+j / alt+k

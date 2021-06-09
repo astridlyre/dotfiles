@@ -48,8 +48,6 @@ require('telescope').setup {
 }
 require('telescope').load_extension('fzy_native')
 
-require('ml-smartinput').setup {['go'] = {';', ':=', ';'}}
-
 -- autopairs
 require('nvim-autopairs').setup()
 local remap = vim.api.nvim_set_keymap

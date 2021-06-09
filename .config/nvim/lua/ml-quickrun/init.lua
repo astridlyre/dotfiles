@@ -23,3 +23,5 @@ function M.run_command()
     local output_list = vim.fn.split(vim.fn.system(cmd .. file_name), '\n')
     for _, v in ipairs(output_list) do print(v) end
 end
+
+return M
