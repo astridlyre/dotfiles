@@ -1,3 +1,0 @@
-#ifndef {{+HEADER_H+}}
-{{+/* header body */+}}
-#endif /* end of include guard: {{~\~1}} */

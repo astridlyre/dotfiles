@@ -1,1 +1,0 @@
-{{+~substitute(&commentstring,'%s.*','','')+}} {{+`~snippet_helpers#FoldManage(0, 'foldname')+}} {{+~substitute(&foldmarker,',.*','','')+}} {{+~substitute(&commentstring,'%s.*','','')+}}{{+`~snippet_helpers#FoldManage(1, 'foldlevel')+}}

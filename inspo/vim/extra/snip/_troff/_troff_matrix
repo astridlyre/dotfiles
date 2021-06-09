@@ -1,9 +1,0 @@
-left [
-matrix {
-ccol{
-{{+x+}}
-above
-{{+y+}}
-}
-{{++}}
-} right ]

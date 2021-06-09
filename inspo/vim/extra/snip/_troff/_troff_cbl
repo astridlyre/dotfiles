@@ -1,6 +1,0 @@
-.\" this is a code block
-.LD
-.ft CW
-{{+code here+}}
-.ft
-.DE

@@ -1,3 +1,0 @@
-#!/bin/sh
-# pgrep -x transmission-da > /dev/null 2>&1 ||  exit 1
-echo "[T]"

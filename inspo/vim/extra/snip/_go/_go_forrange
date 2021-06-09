@@ -1,3 +1,0 @@
-for {{+index+}}, {{+val+}} := range {{+stack+}} {
-    {{-fmt.Printf("{{+<stack+}} at %v is %v\n",{{+<index+}}, {{+<val+}})-}}
-}

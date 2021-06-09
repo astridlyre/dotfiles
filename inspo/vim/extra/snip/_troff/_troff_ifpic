@@ -1,3 +1,0 @@
-if {{+i = 1+}} then {
-	{{+# your code here+}}
-}

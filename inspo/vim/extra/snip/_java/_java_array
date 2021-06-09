@@ -1,5 +1,0 @@
-// declare an array of {{+?integers?+}}
-{{+int[]+}} = {{+anArray+}};
-
-// allocate memory for {{+?number?+}} items
-{{+<anArray+}} = new {{+int[{{+<?number?+}}]+}};

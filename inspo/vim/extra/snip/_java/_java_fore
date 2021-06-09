@@ -1,3 +1,0 @@
-for ({{+int+}} {{+item+}} : {{+array_name+}}) {
-    {{-System.out.println("{{+<item+}} is " + {{+<item+}})-}}
-}

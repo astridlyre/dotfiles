@@ -1,3 +1,0 @@
-for {{+neadle+}} in {{+haystack+}}
-	{{+"code+}}
-endfor

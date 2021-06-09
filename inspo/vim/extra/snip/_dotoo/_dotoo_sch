@@ -1,1 +1,0 @@
-SCHEDULED: <{{+~strftime(g:org_date_format)+}}>{{--}}

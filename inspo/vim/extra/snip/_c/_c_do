@@ -1,3 +1,0 @@
-do {
-	{{+/* expression */+}}
-} while ({{+/* condition */+}})

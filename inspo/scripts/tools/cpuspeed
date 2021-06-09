@@ -1,3 +1,0 @@
-#!/bin/bash
-cpupower frequency-info -fm | grep -oP '(?<=frequency: )([^ ]+ [^ ]+)'
-# vim:ft=sh

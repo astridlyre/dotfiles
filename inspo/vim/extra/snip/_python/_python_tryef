@@ -1,8 +1,0 @@
-try:
-    {{+#try body+}}
-except {{+Expression+}}:
-    {{+#exp body+}}
-else:
-    {{+#statements+}}
-finally:
-    {{+#fin body+}}

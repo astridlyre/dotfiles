@@ -1,3 +1,0 @@
-echo "{{+What is your quest?+}}"
-read answer
-{{++}}

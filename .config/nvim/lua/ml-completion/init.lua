@@ -34,14 +34,18 @@ require('telescope').setup {
         selection_caret = "❱ ",
         sorting_strategy = 'ascending',
         results_width = 0.6,
-        file_ignore_patterns = {'.icons', '.themes'},
+        file_ignore_patterns = {
+            '.icons', '.themes', '.git/*', 'node_modules/*', 'Documents/*',
+            'Videos/*', '.cache/*', 'Pictures/*', 'BraveSoftware/*',
+            '.bundle/*', '.mypy_cache/*'
+        },
         file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
         grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
         qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new
     },
     extensions = {
         fzy_native = {
-            override_generic_sorter = false,
+            override_generic_sorter = true,
             override_file_sorter = true
         }
     }

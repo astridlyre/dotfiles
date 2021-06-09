@@ -1,4 +1,0 @@
-try:
-    {{+#try body+}}
-except {{+Exception+}}:
-    {{+#exp boxy+}}

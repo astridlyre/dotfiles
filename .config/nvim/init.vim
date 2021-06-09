@@ -133,8 +133,8 @@ augroup end
 " show cursorline only in focused window
 augroup CursorLine
 	autocmd!
-	au WinEnter,BufEnter,InsertLeave * if ! &cursorline && ! &pvw | setlocal cursorline | endif
-	au WinLeave,BufLeave,InsertEnter * if &cursorline && ! &pvw | setlocal nocursorline | endif
+	au WinEnter,BufEnter,InsertLeave * if ! &cursorline && win_gettype() != 'popup' && ! &pvw | setlocal cursorline | endif
+	au WinLeave,BufLeave,InsertEnter * if &cursorline && win_gettype() != 'popup' && ! &pvw | setlocal nocursorline | endif
 augroup end
 
 " resize windows automatically
@@ -155,8 +155,10 @@ augroup END
 
 " telescope if passed argument is a folder
 augroup folderarg
+	autocmd!
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
-    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'lua require("telescope.builtin").find_files({hidden=true, follow=true})' | endif
+    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) 
+				\| execute 'lua require("telescope.builtin").find_files({hidden=true, follow=true})' | endif
 augroup END
 
 " return to last edit position when opening files

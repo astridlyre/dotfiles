@@ -1,7 +1,0 @@
-/**
- * @author      : {{+~g:name+}} ({{+~g:email+}})
- * @file        : {{+~expand('%:t')+}}
- * @created     : {{+~strftime("%c")+}}
- */
-
-#include "{{+ FILE +}}.h"

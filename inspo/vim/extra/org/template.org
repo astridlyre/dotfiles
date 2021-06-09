@@ -1,3 +1,0 @@
-* TODO {{++}}
-SCHEDULED: <{{+~strftime(g:org_date_format)+}}>
-[[{{+~g:temp_org_file+}}][{{++}}]]

@@ -1,4 +1,0 @@
-{{+int+}} {{+function_name+}}({{+int a+}})
-{
-	{{+return 0;+}}
-}
