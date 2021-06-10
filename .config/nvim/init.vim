@@ -13,8 +13,7 @@ Plug 'astridlyre/falcon'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 
-" Telescope
-Plug 'nvim-lua/plenary.nvim'
+" fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
@@ -22,6 +21,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'b3nj5m1n/kommentary'
 Plug 'tpope/vim-fugitive'
+Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 
 " treesitter
