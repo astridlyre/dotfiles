@@ -1,4 +1,10 @@
 -- LSP and Completion
+function _G.reload_lsp()
+    vim.lsp.stop_client(vim.lsp.get_active_clients())
+    vim.cmd [[edit]]
+end
+vim.cmd('command! -nargs=0 LspRestart call v:lua.reload_lsp()')
+
 local completion = require('ml-completion')
 completion.compe()
 completion.telescope()
