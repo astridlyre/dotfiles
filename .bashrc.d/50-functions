@@ -50,7 +50,7 @@ function _fzf_compgen_dir() {
 }
 
 # fzf find a file to edit in vim
-function f() {
+function s() {
 	local file prev
 	file="$(fzf --preview 'batfile {}' --no-height --reverse --ansi)"
 	prev="$PWD"

@@ -119,7 +119,7 @@ let g:autoFormat = 1
 
 " fzf
 let g:fzf_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
-let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'border': 'sharp' } }
+let g:fzf_layout = {'up':'~50%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'border': 'sharp' } }
 let g:fzf_tags_command = 'ctags -R'
 
 " ========================= autocommands ================================= "
@@ -259,25 +259,22 @@ vnoremap <leader>sc !scriptbc<cr>
 nnoremap <leader>sw <cmd>StripWhitespace<cr>
 
 " easy system clipboard copy & paste
-nnoremap <leader>Y mqgg"+yG`q
-nnoremap <leader>cp "+p
 nnoremap <leader>y "+y
-vnoremap <leader>Y "+Y
-vnoremap <leader>cp "+p
 vnoremap <leader>y "+y
 
 " FZF <leader>f*
 nmap <leader>fr :Rg<CR>
 nmap <leader>f: :Commands<CR>
-nmap <leader>fb :Buffers<CR>
+nmap <leader>b :Buffers<CR>
 nmap <leader>ft :BTags<CR>
 nmap <leader>fc :Commits<CR>
 nmap <leader>fg :GFiles?<CR>
 nmap <leader>fh :History<CR>
-nmap <leader>ff :Files<CR>
+nmap s :Files<CR>
 
 " fugitive mappings <leader>g[bd]
 nmap <leader>gb <cmd>Git blame<cr>
+nmap <leader>gg <cmd>Git<cr>
 nmap <leader>gd <cmd>Gdiffsplit<cr>
 
 " vim-easy-align <leader>a
@@ -296,11 +293,6 @@ nnoremap <C-k> <cmd>cprev<cr>zz
 
 " disable hl with 2 esc
 noremap <silent><esc><esc> <cmd>noh<cr><esc>
-
-" ========================= visual mappings ============================== "
-" easier move line with alt+j / alt+k
-vnoremap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " ========================= insert mappings ============================== "
 inoremap <silent><expr> <C-e> compe#close('<C-e>')
