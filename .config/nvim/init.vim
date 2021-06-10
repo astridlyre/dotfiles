@@ -52,7 +52,7 @@ lua require('config')
 " ========================= general config =============================== "
 set breakindent                                               " wrap long lines to the width set by tw
 set completeopt=menuone,noselect                              " default complete opt
-set formatoptions=1jcroql                                     " text formatting options
+set formatoptions=1cjql                                     " text formatting options
 set grepformat=%f:%l:%c:%m                                    " grep format
 set grepprg=rg\ --hidden\ --vimgrep\ --smart-case\ --         " use rg for vimgrep
 set hidden                                                    " keep buffers around
