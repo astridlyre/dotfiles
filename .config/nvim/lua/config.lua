@@ -7,7 +7,6 @@ vim.cmd('command! -nargs=0 LspRestart call v:lua.reload_lsp()')
 
 local completion = require('ml-completion')
 completion.compe()
-completion.telescope()
 completion.autopairs()
 completion.lsp_signature()
 completion.matchup()

@@ -12,13 +12,11 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'astridlyre/falcon'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
-Plug 'kyazdani42/nvim-web-devicons'
 
 " Telescope
-Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " align, comments, git, tags
 Plug 'junegunn/vim-easy-align'
@@ -119,74 +117,98 @@ let g:moonlight_qf_g = 0
 let g:moonlight_qf_l = 0
 let g:autoFormat = 1
 
+" fzf
+let g:fzf_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
+let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'border': 'sharp' } }
+let g:fzf_tags_command = 'ctags -R'
+
 " ========================= autocommands ================================= "
-au FileType help wincmd L           " open help in vertical split
-au FileType qf set nobuflisted      " no quickfix in buffer list
-
-" no line numbers or relative numbers in terminal window
-augroup TerminalEnter
-    autocmd!
-    au TermOpen * setlocal nonumber
-    au TermOpen * setlocal norelativenumber
+augroup HelpSplit     " open help in vertical split
+	autocmd!
+	autocmd FileType help wincmd L
 augroup end
 
-" show cursorline only in focused window
-augroup CursorLine
+augroup NoListQuick   " no quickfix in buffer list
 	autocmd!
-	au WinEnter,BufEnter,InsertLeave * if ! &cursorline && win_gettype() != 'popup' && ! &pvw | setlocal cursorline | endif
-	au WinLeave,BufLeave,InsertEnter * if &cursorline && win_gettype() != 'popup' && ! &pvw | setlocal nocursorline | endif
+	autocmd FileType qf set nobuflisted
 augroup end
 
-" resize windows automatically
-autocmd VimResized * tabdo wincmd =
-
-" enable spell only if file type is normal text
-let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
-autocmd BufEnter * if index(spellable, &ft) < 0 | set nospell | else | set spell | endif
-
-" set make program for go
-autocmd BufEnter * if &ft == 'go' | set makeprg=go\ build\ % | endif
-
-" highlight yanked text
-augroup highlight_yank
+augroup TerminalEnter " no line numbers or relative numbers in terminal window
     autocmd!
-    au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
-augroup END
+    autocmd TermOpen * setlocal nonumber
+    autocmd TermOpen * setlocal norelativenumber
+augroup end
 
-" telescope if passed argument is a folder
-augroup folderarg
+augroup CursorLine    " show cursorline only in focused window
 	autocmd!
+	autocmd WinEnter,BufEnter,InsertLeave * if ! &cursorline && win_gettype() != 'popup' && ! &pvw | setlocal cursorline | endif
+	autocmd WinLeave,BufLeave,InsertEnter * if &cursorline && win_gettype() != 'popup' && ! &pvw | setlocal nocursorline | endif
+augroup end
+
+augroup WinResize     " resize windows automatically
+	autocmd!
+	autocmd VimResized * tabdo wincmd =
+augroup end
+
+augroup SpellCheck    " enable spell only if file type is normal text
+	autocmd!
+	let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
+	autocmd BufEnter * if index(spellable, &ft) < 0 | set nospell | else | set spell | endif
+augroup end
+
+augroup HighlightYank " highlight yanked text
+    autocmd!
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
+augroup end
+
+augroup FolderArg    " fzf if passed argument is a folder
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
-    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) 
-				\| execute 'lua require("telescope.builtin").find_files({hidden=true, follow=true})' | endif
+    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'Files ' fnameescape(argv()[0]) | endif
 augroup END
 
-" return to last edit position when opening files
-autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup ReturnPos    " return to last edit position when opening files
+	autocmd!
+	autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup end
 
-" autoformat on save
-let autoFormatable = ['markdown', 'sh', 'bash', 'python', 'javascript', 'rust',
-    \ 'go', 'yaml', 'html', 'css', 'json', 'lua', 'c', 'typescript']
-autocmd BufWritePre * if index(autoFormatable, &ft) >= 0 && g:autoFormat == 1
-    \ | exe 'lua vim.lsp.buf.formatting_sync(nil, 1000)' | endif
+augroup AutoFormat   " autoformat on save
+	autocmd!
+	let autoFormatable = ['markdown', 'sh', 'bash', 'python', 'javascript', 'rust',
+		\ 'go', 'yaml', 'html', 'css', 'json', 'lua', 'c', 'typescript']
+	autocmd BufWritePre * if index(autoFormatable, &ft) >= 0 && g:autoFormat == 1
+		\ | exe 'lua vim.lsp.buf.formatting_sync(nil, 1000)' | endif
+augroup end
 
+" ========================= custom commands ============================== "
 " strip whitespace
 command! StripWhitespace :%s/\s\+$//e
+"
+" files in fzf
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
+
+" Advanced grep
+command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
 " ========================= custom functions ============================= "
-" temporary fix for when treesitter highlight goes wonky
-function! ResetHightlight()
+function! RipgrepFzf(query, fullscreen) " advanced grep(faster with preview)
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+function! ResetHightlight() " temporary fix for when treesitter highlight goes wonky
     execute 'write | edit | TSBufEnable highlight'
 endfunction
 
-" turn on / off formatting on save
-fun! ToggleAutoFormat()
+function! ToggleAutoFormat() " turn on / off formatting on save
     if g:autoFormat == 1 | let g:autoFormat = 0 | echo "Autoformatting disabled"
     else | let g:autoFormat = 1 | echo "Autoformatting enabled" | end
-endfun
+endfunction
 
-" toggle quickfix
-fun! ToggleQFList(global)
+function! ToggleQFList(global) " toggle quickfix
     if a:global == 1
         if g:moonlight_qf_g == 1 | let g:moonlight_qf_g = 0 | cclose | else
             let g:moonlight_qf_g = 1 | copen | end
@@ -194,7 +216,7 @@ fun! ToggleQFList(global)
         if g:moonlight_qf_l == 1 | let g:moonlight_qf_l = 0 | lclose | else
             let g:moonlight_qf_l = 1 | lopen | end
     end
-endfun
+endfunction
 
 " ========================= global mappings ============================== "
 " disable s and make y consistent
@@ -244,13 +266,15 @@ vnoremap <leader>Y "+Y
 vnoremap <leader>cp "+p
 vnoremap <leader>y "+y
 
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden = true, follow = true})<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fc <cmd>Telescope git_commits<cr>
-nnoremap <leader>fm <cmd>Telescope man_pages<cr>
+" FZF <leader>f*
+nmap <leader>fr :Rg<CR>
+nmap <leader>f: :Commands<CR>
+nmap <leader>fb :Buffers<CR>
+nmap <leader>ft :BTags<CR>
+nmap <leader>fc :Commits<CR>
+nmap <leader>fg :GFiles?<CR>
+nmap <leader>fh :History<CR>
+nmap <leader>ff :Files<CR>
 
 " fugitive mappings <leader>g[bd]
 nmap <leader>gb <cmd>Git blame<cr>

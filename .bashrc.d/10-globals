@@ -67,11 +67,11 @@ export NNN_OPENER='nnn_opener'
 export NNN_TMPFILE="$HOME/.config}/nnn/.lastd"
 
 # fzf directories to ignore
-FZF_IGNORE_DIRS=(".git" "build" "node_modules" ".fzf" ".fnm" "vendor/bundle" ".cache" ".mypy" ".icons" ".themes")
+FZF_IGNORE_DIRS=(".git" "build" "node_modules" ".fzf" ".fnm" "vendor/bundle" ".cache" ".mypy_cache" ".icons" ".themes" "Videos" "Pictures")
 FZF_IGNORE_GLOB=""
 FZF_IGNORE_EXCLUDE=""
 for p in "${FZF_IGNORE_DIRS[@]}"; do
-	FZF_IGNORE_GLOB+="--glob '!*/$p/**' "
+	FZF_IGNORE_GLOB+="--glob '!**/$p/**' "
 	FZF_IGNORE_EXCLUDE+="--exclude '*$p' "
 done
 
