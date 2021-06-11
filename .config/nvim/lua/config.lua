@@ -1,7 +1,6 @@
 -- LSP and Completion
 local completion = require('ml-completion')
 completion.compe()
-completion.telescope()
 completion.autopairs()
 completion.lsp_signature()
 completion.matchup()

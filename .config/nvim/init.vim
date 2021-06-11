@@ -15,10 +15,8 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 
 " Telescope
-Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'camspiers/snap', {'branch': 'fixes/lsp-preview'}
 
 " align, comments, git, tags
 Plug 'junegunn/vim-easy-align'
@@ -245,12 +243,7 @@ vnoremap <leader>cp "+p
 vnoremap <leader>y "+y
 
 " Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden = true, follow = true})<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fc <cmd>Telescope git_commits<cr>
-nnoremap <leader>fm <cmd>Telescope man_pages<cr>
+nnoremap <leader>ff <cmd>lua require('ml-snap').files()<cr>
 
 " fugitive mappings <leader>g[bd]
 nmap <leader>gb <cmd>Git blame<cr>
