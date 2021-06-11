@@ -1,7 +1,7 @@
-local treesitter = {}
+local ts = {}
 
 -- Treesitter
-treesitter.configure = function()
+function ts.configure()
     require'nvim-treesitter.configs'.setup {
         ensure_installed = "maintained",
         highlight = {enable = true},
@@ -34,4 +34,4 @@ treesitter.configure = function()
     }
 end
 
-return treesitter
+return ts

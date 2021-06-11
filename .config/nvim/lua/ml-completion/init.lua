@@ -1,7 +1,7 @@
 local completion = {}
 
 -- Compe setup
-completion.compe = function()
+function completion.compe()
     require'compe'.setup {
         enabled = true,
         autocomplete = true,
@@ -28,7 +28,7 @@ completion.compe = function()
 end
 
 -- autopairs
-completion.autopairs = function()
+function completion.autopairs()
     require('nvim-autopairs').setup()
     local remap = vim.api.nvim_set_keymap
     local npairs = require('nvim-autopairs')
@@ -57,7 +57,7 @@ completion.autopairs = function()
 end
 
 -- Function signatures as you type
-completion.lsp_signature = function()
+function completion.lsp_signature()
     local cfg = {
         bind = true,
         doc_lines = 2,
@@ -76,7 +76,7 @@ completion.lsp_signature = function()
 end
 
 -- Matchup
-completion.matchup = function()
+function completion.matchup()
     vim.g.matchup_matchparen_offscreen = {method = 'popup'}
 end
 

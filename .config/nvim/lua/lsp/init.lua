@@ -2,43 +2,12 @@
 local lspconfig = require('lspconfig')
 local lsp_config = {}
 
--- Diagnostic Signs
-vim.fn.sign_define("LspDiagnosticsSignError", {
-    texthl = "LspDiagnosticsSignError",
-    text = "",
-    numhl = "LspDiagnosticsSignError"
-})
-vim.fn.sign_define("LspDiagnosticsSignWarning", {
-    texthl = "LspDiagnosticsSignWarning",
-    text = "",
-    numhl = "LspDiagnosticsSignWarning"
-})
-vim.fn.sign_define("LspDiagnosticsSignHint", {
-    texthl = "LspDiagnosticsSignHint",
-    text = "",
-    numhl = "LspDiagnosticsSignHint"
-})
-vim.fn.sign_define("LspDiagnosticsSignInformation", {
-    texthl = "LspDiagnosticsSignInformation",
-    text = "",
-    numhl = "LspDiagnosticsSignInformation"
-})
-
--- symbols for autocomplete
-vim.lsp.protocol.CompletionItemKind = {
-    "   ", "   ", "   ", "   ", " ﴲ  ", "[] ", "   ",
-    " ﰮ  ", "   ", " 襁 ", "   ", "   ", " 練 ", "   ",
-    "   ", "   ", "   ", "   ", "   ", "   ", " ﲀ  ",
-    " ﳤ  ", "   ", "   ", "   "
-}
-
--- Normal keymap function
-local function nmap(keymap, action, opts)
-    return vim.api.nvim_set_keymap('n', keymap, action, opts)
-end
-
 -- LSP Keymaps
 local lsp_maps = function(bufnr)
+    -- Normal keymap function
+    local function nmap(keymap, action, opts)
+        return vim.api.nvim_set_keymap('n', keymap, action, opts)
+    end
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     local opts = {noremap = true, silent = true}
     nmap('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -87,9 +56,11 @@ local diagnostics = {
     update_in_insert = false
 }
 
--- Set Default Prefix.
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-    vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, diagnostics)
+local handlers = {
+    ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic
+                                                           .on_publish_diagnostics,
+                                                       diagnostics)
+}
 
 -- clangd
 local function clangd()
@@ -100,12 +71,7 @@ local function clangd()
         },
         on_attach = on_attach,
         capabilities = capabilities,
-        handlers = {
-            ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp
-                                                                   .diagnostic
-                                                                   .on_publish_diagnostics,
-                                                               diagnostics)
-        }
+        handlers = handlers
     }
 end
 
@@ -116,94 +82,14 @@ local function denols()
         capabilities = capabilities,
         init_options = {enable = true, lint = true, unstable = false},
         filetypes = {"typescript", "typescriptreact", "typescript.tsx"},
-        handlers = {
-            ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp
-                                                                   .diagnostic
-                                                                   .on_publish_diagnostics,
-                                                               diagnostics)
-        }
+        handlers = handlers
     }
 end
 
 -- efm language server
 local function efm()
-    -- Vim linting
-    local vim_vint = {
-        lintCommand = 'vint -',
-        lintStdin = true,
-        lintFormats = {'%f:%l:%c: %m'}
-    }
-
-    -- Markdown Lint & Formatting
-    local markdown = {
-        lintCommand = 'markdownlint -s',
-        lintStdin = true,
-        lintFormats = {'%f:%l %m', '%f:%l:%c %m', '%f: %l: %m'},
-        formatCommand = 'prettier --parser markdown',
-        formatStdin = true
-    }
-
-    -- Yaml Linting
-    local yaml_lint = {lintCommand = 'yamllint -f parsable -', lintStdin = true}
-
-    -- Shell formatting & linting
-    local shell = {
-        lintCommand = 'shellcheck -f gcc -x',
-        lintSource = 'shellcheck',
-        lintFormats = {
-            '%f:%l:%c: %trror: %m', '%f:%l:%c: %tarning: %m',
-            '%f:%l:%c: %tote: %m'
-        },
-        formatCommand = 'shfmt -ci -s -bn',
-        formatStdin = true
-    }
-
-    -- Lua formatting
-    local lua_fmt = {formatCommand = 'lua-format -i', formatStdin = true}
-
-    -- Rust formatting
-    local rust_fmt = {
-        formatCommand = 'rustfmt --emit stdout',
-        formatStdin = true
-    }
-
-    -- Python formatting & Linting
-    local python_lint = {
-        lintCommand = 'mypy --show-column-numbers',
-        lintFormats = {
-            '%f:%l:%c: %trror: %m', '%f:%l:%c: %tarning: %m',
-            '%f:%l:%c: %tote: %m'
-        },
-        lintStdin = true
-    }
-    local python_fmt = {formatCommand = 'black --quiet -', formatStdin = true}
-    local python_isort = {formatCommand = 'isort --quiet -', formatStdin = true}
-    local python_flake = {
-        lintCommand = 'flake8 --stdin-display-name ${INPUT} -',
-        lintStdin = true,
-        lintFormats = {'%f:%l:%c: %m'}
-    }
-
-    -- HTML Formatting
-    local html_fmt = {
-        formatCommand = 'prettier --parser html',
-        formatStdin = true
-    }
-
-    -- CSS Formatting
-    local css_fmt = {
-        formatCommand = 'prettier --parser css',
-        formatStdin = true
-    }
-
-    -- JSON Formatting
-    local json = {
-        formatCommand = 'fixjson',
-        lintCommand = 'jq .',
-        formatStdin = true,
-        lintStdin = true
-    }
-
+    local languages = require('lsp.efm-ls').languages
+    local filetypes = require('lsp.efm-ls').filetypes
     lspconfig.efm.setup {
         init_options = {
             documentFormatting = true,
@@ -213,26 +99,8 @@ local function efm()
             completion = false
         },
         root_dir = function() return vim.fn.getcwd() end,
-        filetypes = {
-            "sh", "rust", "vim", "lua", "python", "yaml", "markdown", "html",
-            "css", "sass", "json", "text"
-        },
-        settings = {
-            rootMarkers = {".git/"},
-            languages = {
-                vim = {vim_vint},
-                markdown = {markdown},
-                yaml = {yaml_lint},
-                sh = {shell},
-                lua = {lua_fmt},
-                rust = {rust_fmt},
-                python = {python_lint, python_fmt, python_isort, python_flake},
-                json = {json},
-                html = {html_fmt},
-                css = {css_fmt},
-                sass = {css_fmt}
-            }
-        }
+        filetypes = filetypes,
+        settings = {rootMarkers = {".git/"}, languages = languages}
     }
 end
 
@@ -247,12 +115,7 @@ local function gopls()
         init_options = {usePlaceholders = true, completeUnimported = true},
         on_attach = on_attach,
         capabilities = capabilities,
-        handlers = {
-            ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp
-                                                                   .diagnostic
-                                                                   .on_publish_diagnostics,
-                                                               diagnostics)
-        }
+        handlers = handlers
     }
 end
 
@@ -261,12 +124,7 @@ local function rust_analyzer()
     lspconfig.rust_analyzer.setup {
         on_attach = on_attach,
         capabilities = capabilities,
-        handlers = {
-            ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp
-                                                                   .diagnostic
-                                                                   .on_publish_diagnostics,
-                                                               diagnostics)
-        },
+        handlers = handlers,
         settings = {
             ['rust-analyzer'] = {
                 checkOnSave = {
@@ -289,11 +147,12 @@ local function sumneko_lua()
     local sumneko_binary_path = "/bin/Linux/lua-language-server"
 
     lspconfig.sumneko_lua.setup {
+        on_attach = on_attach,
+        handlers = handlers,
         cmd = {
             sumneko_root_path .. sumneko_binary_path, "-E",
             sumneko_root_path .. "/main.lua"
         },
-        on_attach = on_attach,
         settings = {
             Lua = {
                 runtime = {
@@ -309,12 +168,6 @@ local function sumneko_lua()
                     maxPreload = 10000
                 }
             }
-        },
-        handlers = {
-            ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp
-                                                                   .diagnostic
-                                                                   .on_publish_diagnostics,
-                                                               diagnostics)
         }
     }
 end
@@ -325,34 +178,63 @@ local function tsserver()
         on_attach = on_attach,
         capabilities = capabilities,
         filetypes = {"javascript", "javascript.jsx", "javascriptreact"},
-        handlers = {
-            ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp
-                                                                   .diagnostic
-                                                                   .on_publish_diagnostics,
-                                                               diagnostics)
-        }
+        handlers = handlers
     }
 end
 
+-- Diagnostic Signs
+local setup_diagnostic_defaults = function(default_diagnostics)
+    vim.fn.sign_define("LspDiagnosticsSignError", {
+        texthl = "LspDiagnosticsSignError",
+        text = "",
+        numhl = "LspDiagnosticsSignError"
+    })
+    vim.fn.sign_define("LspDiagnosticsSignWarning", {
+        texthl = "LspDiagnosticsSignWarning",
+        text = "",
+        numhl = "LspDiagnosticsSignWarning"
+    })
+    vim.fn.sign_define("LspDiagnosticsSignHint", {
+        texthl = "LspDiagnosticsSignHint",
+        text = "",
+        numhl = "LspDiagnosticsSignHint"
+    })
+    vim.fn.sign_define("LspDiagnosticsSignInformation", {
+        texthl = "LspDiagnosticsSignInformation",
+        text = "",
+        numhl = "LspDiagnosticsSignInformation"
+    })
+
+    -- symbols for autocomplete
+    vim.lsp.protocol.CompletionItemKind = {
+        "   ", "   ", "   ", "   ", " ﴲ  ", "[] ", "   ",
+        " ﰮ  ", "   ", " 襁 ", "   ", "   ", " 練 ", "   ",
+        "   ", "   ", "   ", "   ", "   ", "   ", " ﲀ  ",
+        " ﳤ  ", "   ", "   ", "   "
+    }
+
+    -- Set Default Prefix.
+    vim.lsp.handlers["textDocument/publishDiagnostics"] =
+        vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics,
+                     default_diagnostics)
+end
+
 lsp_config.configure = function()
-    -- Enable the following language servers
-    local servers = {
+    setup_diagnostic_defaults(diagnostics)
+    -- Enable the following default language servers
+    local default_servers = {
         'pyright', 'yamlls', 'vimls', 'html', 'cssls', 'dockerls', 'cmake',
         'bashls', 'clangd'
     }
-
-    -- Loop and set them up
-    for _, ls in ipairs(servers) do
+    for _, ls in ipairs(default_servers) do
         lspconfig[ls].setup {on_attach = on_attach, capabilities = capabilities}
     end
 
-    clangd()
-    denols()
-    efm()
-    gopls()
-    rust_analyzer()
-    sumneko_lua()
-    tsserver()
+    -- Custom server configurations
+    local custom_servers = {
+        clangd, denols, efm, gopls, rust_analyzer, sumneko_lua, tsserver
+    }
+    for _, ls in ipairs(custom_servers) do ls() end
 end
 
 return lsp_config

@@ -156,6 +156,7 @@ augroup HighlightYank " highlight yanked text
 augroup end
 
 augroup FolderArg    " fzf if passed argument is a folder
+	autocmd VimEnter * if argc() !=0 && isdirectory(argv()[0]) | set nocursorline
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'lua require("ml-snap").files()' | endif
 augroup END

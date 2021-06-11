@@ -1,7 +1,7 @@
 local ui = {}
 
 -- Lualine
-ui.lualine = function()
+function ui.lualine()
     local function theme()
         local colors = {
             black = '#1b1b20',
@@ -59,7 +59,7 @@ ui.lualine = function()
 end
 
 -- Attach Colorizer to these filetypes
-ui.colorizer = function()
+function ui.colorizer()
     require'colorizer'.setup {
         'css', 'javascript', 'html', 'yaml', 'sass', 'markdown', 'lua',
         'typescript', 'vim', 'sh', 'bash'
@@ -67,7 +67,7 @@ ui.colorizer = function()
 end
 
 -- Git Signs
-ui.gitsigns = function()
+function ui.gitsigns()
     require('gitsigns').setup {
         signs = {
             add = {hl = 'GitGutterAdd', text = '▋'},
