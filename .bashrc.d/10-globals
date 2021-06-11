@@ -77,7 +77,6 @@ done
 
 # fzf
 export FZF_DEFAULT_COMMAND="rg --files --hidden $FZF_IGNORE_GLOB"
-alias rg="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='--color=fg:#b4b4b9,hl:#ff3600
 --color=fg+:#b4b4b9,hl+:#ffc552
 --color=info:#CAD4C8,prompt:#ffc552

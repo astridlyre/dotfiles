@@ -1,6 +1,13 @@
 local snap = require 'snap'
+local ignore_dirs = {
+    "--hidden", "--iglob", "!**/.git/**", "--iglob", "!**/build/**", "--iglob",
+    "!**/node_modules/**", "--iglob", "!**/vendor/bundle/**", "--iglob",
+    "!**/.cache/**", "--iglob", "!**/.mypy_cache/**", "--iglob",
+    "!**/.icons/**", "--iglob", "!**/.themes/**", "--iglob", "!Pictures/*",
+    "--iglob", "!Videos/*"
+}
 
-local fzy = snap.get 'consumer.fzy'
+local fzf = snap.get 'consumer.fzf'
 local limit = snap.get 'consumer.limit'
 local producer_file = snap.get 'producer.ripgrep.file'
 local producer_vimgrep = snap.get 'producer.ripgrep.vimgrep'
@@ -16,7 +23,7 @@ local s = {}
 function s.files()
     snap.run({
         prompt = 'Files',
-        producer = fzy(producer_file),
+        producer = fzf(producer_file.args(ignore_dirs)),
         select = select_file.select,
         multiselect = select_file.multiselect,
         views = {preview_file}
@@ -36,7 +43,7 @@ end
 function s.buffers()
     snap.run({
         prompt = 'Buffers',
-        producer = fzy(producer_buffer),
+        producer = fzf(producer_buffer),
         select = select_file.select,
         multiselect = select_file.multiselect,
         views = {preview_file}
@@ -46,7 +53,7 @@ end
 function s.oldfiles()
     snap.run({
         prompt = 'Oldfiles',
-        producer = fzy(producer_oldfile),
+        producer = fzf(producer_oldfile),
         select = select_file.select,
         multiselect = select_file.multiselect,
         views = {preview_file}

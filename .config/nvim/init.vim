@@ -13,8 +13,7 @@ Plug 'astridlyre/falcon'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 
-" Telescope
-Plug 'nvim-lua/plenary.nvim'
+" finder
 Plug 'camspiers/snap', {'branch': 'fixes/lsp-preview'}
 
 " align, comments, git, tags
@@ -158,7 +157,7 @@ augroup end
 
 augroup FolderArg    " fzf if passed argument is a folder
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
-    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'lua require"ml-snap".files()' fnameescape(argv()[0]) | endif
+    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'lua require("ml-snap").files()' | endif
 augroup END
 
 augroup ReturnPos    " return to last edit position when opening files
@@ -243,11 +242,14 @@ nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 
 " Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>lua require('ml-snap').files()<cr>
+nnoremap s <cmd>lua require('ml-snap').files()<cr>
+nnoremap <leader>gg <cmd>lua require('ml-snap').grep()<cr>
+nnoremap <leader>b <cmd>lua require('ml-snap').buffers()<cr>
+nnoremap <leader>o <cmd>lua require('ml-snap').oldfiles()<cr>
 
 " fugitive mappings <leader>g[bd]
 nmap <leader>gb <cmd>Git blame<cr>
-nmap <leader>gg <cmd>Git<cr>
+nmap <leader>gs <cmd>Git<cr>
 nmap <leader>gd <cmd>Gdiffsplit<cr>
 
 " vim-easy-align <leader>a
