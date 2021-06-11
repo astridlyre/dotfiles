@@ -1,6 +1,6 @@
 local snap = require 'snap'
 
-local fzf = snap.get 'consumer.fzf'
+local fzy = snap.get 'consumer.fzy'
 local limit = snap.get 'consumer.limit'
 local producer_file = snap.get 'producer.ripgrep.file'
 local producer_vimgrep = snap.get 'producer.ripgrep.vimgrep'
@@ -13,17 +13,17 @@ local preview_vimgrep = snap.get 'preview.vimgrep'
 
 local s = {}
 
-s.files = function()
+function s.files()
     snap.run({
         prompt = 'Files',
-        producer = fzf(producer_file),
+        producer = fzy(producer_file),
         select = select_file.select,
         multiselect = select_file.multiselect,
         views = {preview_file}
     })
 end
 
-s.grep = function()
+function s.grep()
     snap.run({
         prompt = 'Grep',
         producer = limit(10000, producer_vimgrep),
@@ -33,20 +33,20 @@ s.grep = function()
     })
 end
 
-s.buffers = function()
+function s.buffers()
     snap.run({
         prompt = 'Buffers',
-        producer = fzf(producer_buffer),
+        producer = fzy(producer_buffer),
         select = select_file.select,
         multiselect = select_file.multiselect,
         views = {preview_file}
     })
 end
 
-s.oldfiles = function()
+function s.oldfiles()
     snap.run({
         prompt = 'Oldfiles',
-        producer = fzf(producer_oldfile),
+        producer = fzy(producer_oldfile),
         select = select_file.select,
         multiselect = select_file.multiselect,
         views = {preview_file}

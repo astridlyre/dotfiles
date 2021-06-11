@@ -13,9 +13,9 @@ Plug 'astridlyre/falcon'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 
-" fzf
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+" Telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'camspiers/snap', {'branch': 'fixes/lsp-preview'}
 
 " align, comments, git, tags
 Plug 'junegunn/vim-easy-align'
@@ -117,11 +117,6 @@ let g:moonlight_qf_g = 0
 let g:moonlight_qf_l = 0
 let g:autoFormat = 1
 
-" fzf
-let g:fzf_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
-let g:fzf_layout = {'up':'~50%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'border': 'sharp' } }
-let g:fzf_tags_command = 'ctags -R'
-
 " ========================= autocommands ================================= "
 augroup HelpSplit     " open help in vertical split
 	autocmd!
@@ -163,7 +158,7 @@ augroup end
 
 augroup FolderArg    " fzf if passed argument is a folder
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
-    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'Files ' fnameescape(argv()[0]) | endif
+    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'lua require"ml-snap".files()' fnameescape(argv()[0]) | endif
 augroup END
 
 augroup ReturnPos    " return to last edit position when opening files
@@ -182,23 +177,8 @@ augroup end
 " ========================= custom commands ============================== "
 " strip whitespace
 command! StripWhitespace :%s/\s\+$//e
-"
-" files in fzf
-command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
-
-" Advanced grep
-command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
 " ========================= custom functions ============================= "
-function! RipgrepFzf(query, fullscreen) " advanced grep(faster with preview)
-    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
-    let initial_command = printf(command_fmt, shellescape(a:query))
-    let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
 function! ResetHightlight() " temporary fix for when treesitter highlight goes wonky
     execute 'write | edit | TSBufEnable highlight'
 endfunction
@@ -262,15 +242,8 @@ nnoremap <leader>sw <cmd>StripWhitespace<cr>
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 
-" FZF <leader>f*
-nmap <leader>fr :Rg<CR>
-nmap <leader>f: :Commands<CR>
-nmap <leader>b :Buffers<CR>
-nmap <leader>ft :BTags<CR>
-nmap <leader>fc :Commits<CR>
-nmap <leader>fg :GFiles?<CR>
-nmap <leader>fh :History<CR>
-nmap s :Files<CR>
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>lua require('ml-snap').files()<cr>
 
 " fugitive mappings <leader>g[bd]
 nmap <leader>gb <cmd>Git blame<cr>
