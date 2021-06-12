@@ -1,8 +1,23 @@
 return require('packer').startup(function(use)
-    -- use 'wbthomason/packer.nvim'
+    use 'wbthomason/packer.nvim'
 
     local ui = require('ml-ui')
-    use {'astridlyre/falcon', config = vim.cmd('colorscheme falcon')}
+    use {
+        'astridlyre/falcon',
+        config = vim.cmd('colorscheme falcon')
+        -- Fix for packer deleting my plugins??
+        --[[ requires = {
+            'hoob3rt/lualine.nvim', 'norcalli/nvim-colorizer.lua',
+            'camspiers/snap', 'junegunn/vim-easy-align', 'b3nj5m1n/kommentary',
+            'tpope/vim-fugitive', 'lewis6991/gitsigns.nvim',
+            'nvim-treesitter/nvim-treesitter',
+            'nvim-treesitter/nvim-treesitter-textobjects',
+            'RRethy/nvim-treesitter-textsubjects', 'andymass/vim-matchup',
+            'windwp/nvim-ts-autotag', 'neovim/nvim-lspconfig',
+            'hrsh7th/nvim-compe', 'ray-x/lsp_signature.nvim',
+            'windwp/nvim-autopairs', 'hrsh7th/vim-vsnip'
+        } ]]
+    }
     use {'hoob3rt/lualine.nvim', config = ui.lualine()}
     use {
         'norcalli/nvim-colorizer.lua',
