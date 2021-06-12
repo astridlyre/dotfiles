@@ -1,26 +1,33 @@
--- LSP and Completion
-function _G.reload_lsp()
-    vim.lsp.stop_client(vim.lsp.get_active_clients())
-    vim.cmd [[edit]]
-end
-vim.cmd('command! -nargs=0 LspRestart call v:lua.reload_lsp()')
+return require('packer').startup(function(use)
+    use 'wbthomason/packer.nvim'
 
-local completion = require('ml-completion')
-completion.compe()
-completion.autopairs()
-completion.lsp_signature()
-completion.matchup()
+    use 'astridlyre/falcon'
+    use 'hoob3rt/lualine.nvim'
+    use 'norcalli/nvim-colorizer.lua'
+    use 'camspiers/snap'
+    use 'junegunn/vim-easy-align'
+    use 'b3nj5m1n/kommentary'
+    use 'tpope/vim-fugitive'
+    use 'nvim-lua/plenary.nvim'
+    use 'lewis6991/gitsigns.nvim'
+    use 'nvim-treesitter/nvim-treesitter'
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use 'RRethy/nvim-treesitter-textsubjects'
+    use 'windwp/nvim-ts-autotag'
+    use 'andymass/vim-matchup'
+    use 'neovim/nvim-lspconfig'
+    use 'hrsh7th/nvim-compe'
+    use 'windwp/nvim-autopairs'
+    use 'ray-x/lsp_signature.nvim'
+    use 'hrsh7th/vim-vsnip'
+    use 'hrsh7th/vim-vsnip-integ'
+    use 'rafamadriz/friendly-snippets'
 
--- UI Components
-local ui = require('ml-ui')
-ui.lualine()
-ui.colorizer()
-ui.gitsigns()
+    -- Load modules
+    local modules = {
+        require('ml-completion'), require('ml-ui'), require('ml-treesitter'),
+        require('lsp')
+    }
+    for _, m in pairs(modules) do for _, config in pairs(m) do config() end end
 
--- Treesitter
-local treesitter = require('ml-treesitter')
-treesitter.configure()
-
--- Lsp
-local lsp = require('lsp')
-lsp.configure()
+end)

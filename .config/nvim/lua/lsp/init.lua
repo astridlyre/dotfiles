@@ -235,6 +235,13 @@ lsp_config.configure = function()
         clangd, denols, efm, gopls, rust_analyzer, sumneko_lua, tsserver
     }
     for _, ls in ipairs(custom_servers) do ls() end
+
+    -- Add reload lsp function
+    function _G.reload_lsp()
+        vim.lsp.stop_client(vim.lsp.get_active_clients())
+        vim.cmd [[edit]]
+    end
+    vim.cmd('command! -nargs=0 LspRestart call v:lua.reload_lsp()')
 end
 
 return lsp_config
