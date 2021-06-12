@@ -7,7 +7,7 @@ local ignore_dirs = {
     "--iglob", "!Videos/*"
 }
 
-local fzf = snap.get 'consumer.fzf'
+local fzy = snap.get 'consumer.fzy'
 local limit = snap.get 'consumer.limit'
 local producer_file = snap.get 'producer.ripgrep.file'
 local producer_vimgrep = snap.get 'producer.ripgrep.vimgrep'
@@ -23,7 +23,7 @@ local s = {}
 function s.files()
     snap.run({
         prompt = 'Files ❱',
-        producer = fzf(producer_file.args(ignore_dirs)),
+        producer = fzy(producer_file.args(ignore_dirs)),
         select = select_file.select,
         multiselect = select_file.multiselect,
         views = {preview_file}
@@ -43,7 +43,7 @@ end
 function s.buffers()
     snap.run({
         prompt = 'Buffers ❱',
-        producer = fzf(producer_buffer),
+        producer = fzy(producer_buffer),
         select = select_file.select,
         multiselect = select_file.multiselect,
         views = {preview_file}
@@ -53,7 +53,7 @@ end
 function s.oldfiles()
     snap.run({
         prompt = 'Oldfiles ❱',
-        producer = fzf(producer_oldfile),
+        producer = fzy(producer_oldfile),
         select = select_file.select,
         multiselect = select_file.multiselect,
         views = {preview_file}

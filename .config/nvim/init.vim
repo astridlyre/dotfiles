@@ -65,9 +65,6 @@ let g:loaded_perl_provider     = 0                  " disable perl
 let g:loaded_ruby_provider     = 0                  " disable ruby
 let g:python3_host_prog        = '/usr/bin/python3' " default python3
 
-" colorscheme
-colorscheme falcon
-
 " for quickfix / location list toggle
 let g:moonlight_qf_g = 0
 let g:moonlight_qf_l = 0
