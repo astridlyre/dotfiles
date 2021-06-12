@@ -240,10 +240,6 @@ super + shift + Down
 super + shift + f
         bspc node --state \~fullscreen
 
-# Toggle pseudo tiling of window
-super + shift + p
-        bspc node --state \~pseudo_tiled
-
 #################################################################
 # SUPER + CONTROL KEYS
 #################################################################

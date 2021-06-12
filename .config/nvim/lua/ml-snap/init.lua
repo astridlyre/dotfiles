@@ -22,7 +22,7 @@ local s = {}
 
 function s.files()
     snap.run({
-        prompt = 'Files',
+        prompt = 'Files ❱',
         producer = fzf(producer_file.args(ignore_dirs)),
         select = select_file.select,
         multiselect = select_file.multiselect,
@@ -32,7 +32,7 @@ end
 
 function s.grep()
     snap.run({
-        prompt = 'Grep',
+        prompt = 'Grep ❱',
         producer = limit(10000, producer_vimgrep),
         select = select_vimgrep.select,
         multiselect = select_vimgrep.multiselect,
@@ -42,7 +42,7 @@ end
 
 function s.buffers()
     snap.run({
-        prompt = 'Buffers',
+        prompt = 'Buffers ❱',
         producer = fzf(producer_buffer),
         select = select_file.select,
         multiselect = select_file.multiselect,
@@ -52,7 +52,7 @@ end
 
 function s.oldfiles()
     snap.run({
-        prompt = 'Oldfiles',
+        prompt = 'Oldfiles ❱',
         producer = fzf(producer_oldfile),
         select = select_file.select,
         multiselect = select_file.multiselect,

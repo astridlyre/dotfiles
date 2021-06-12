@@ -1,11 +1,13 @@
 # My Dotfiles
 
-As in the Linux tradition, here are my dotfiles. Since I'm just starting my journey
-(learning to code and how to use Linux) there is not much here.
+As in the Linux tradition, here are my dotfiles. I use BSPWM and a few Xfce
+programs for my desktop. I mostly work from the terminal.
 
-![Screen Shot One](https://raw.githubusercontent.com/astridlyre/dotfiles/master/screenshot1.jpg)
+![Screen Shot One](https://raw.githubusercontent.com/astridlyre/dotfiles/master/screenshot_0.jpg)
 
-![Screen Shot Two](https://raw.githubusercontent.com/astridlyre/dotfiles/master/screenshot2.jpg)
+![Screen Shot Two](https://raw.githubusercontent.com/astridlyre/dotfiles/master/screenshot_1.jpg)
+
+![Screen Shot Two](https://raw.githubusercontent.com/astridlyre/dotfiles/master/screenshot_2.jpg)
 
 ## Install Script
 
@@ -21,10 +23,9 @@ git clone https://www.gitlab.com/ebflat9/dotfiles && cd dotfiles
 
 ## About Me
 
-I'm teaching myself how to code, and how to use Linux. I'm using Arch Linux, which is good
-entry into the Linux world, and offers a customizable experience. In the spirit of
-learning, I am using `bspwm` and other such tools to force me to configure things on my
-own.
+I am a professional guitarist turned Linux nerd in this post-Covid world. I am
+learning to program and just passed my LPIC-1 certificate. Aiming to get work in
+Cypersecurity someday, if music does not pick up again.
 
 ## Some of the Applications I am using
 
@@ -40,5 +41,5 @@ own.
 
 ## Contact
 
-I am always looking for new programming friends to learn from and share ideas with. My
-website is [flat9.dev](https://flat9.dev).
+I am always looking for new programming friends to learn from and share ideas
+with. My website is [flat9.dev](https://flat9.dev).

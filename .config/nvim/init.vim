@@ -14,7 +14,7 @@ Plug 'hoob3rt/lualine.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 
 " finder
-Plug 'camspiers/snap', {'branch': 'fixes/lsp-preview'}
+Plug 'camspiers/snap'
 
 " align, comments, git, tags
 Plug 'junegunn/vim-easy-align'
