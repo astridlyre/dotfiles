@@ -20,13 +20,24 @@ local preview_vimgrep = snap.get 'preview.vimgrep'
 
 local s = {}
 
+local function prerun()
+    vim.cmd(
+        [[hi CursorLine guifg=#000004 ctermfg=0 guibg=#FFC552 ctermbg=221 gui=NONE cterm=NONE ]])
+end
+local function postrun()
+    vim.cmd(
+        [[hi CursorLine guifg=NONE ctermfg=NONE guibg=#282831 ctermbg=236 gui=NONE cterm=NONE ]])
+end
+
 function s.files()
     snap.run({
         prompt = 'Files ❱',
         producer = fzy(producer_file.args(ignore_dirs)),
         select = select_file.select,
         multiselect = select_file.multiselect,
-        views = {preview_file}
+        views = {preview_file},
+        prerun = prerun,
+        postrun = postrun
     })
 end
 
@@ -36,7 +47,9 @@ function s.grep()
         producer = limit(10000, producer_vimgrep),
         select = select_vimgrep.select,
         multiselect = select_vimgrep.multiselect,
-        views = {preview_vimgrep}
+        views = {preview_vimgrep},
+        prerun = prerun,
+        postrun = postrun
     })
 end
 
@@ -46,7 +59,9 @@ function s.buffers()
         producer = fzy(producer_buffer),
         select = select_file.select,
         multiselect = select_file.multiselect,
-        views = {preview_file}
+        views = {preview_file},
+        prerun = prerun,
+        postrun = postrun
     })
 end
 
@@ -56,7 +71,9 @@ function s.oldfiles()
         producer = fzy(producer_oldfile),
         select = select_file.select,
         multiselect = select_file.multiselect,
-        views = {preview_file}
+        views = {preview_file},
+        prerun = prerun,
+        postrun = postrun
     })
 end
 

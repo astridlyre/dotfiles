@@ -25,7 +25,7 @@ set redrawtime=8000                                           " time to wait for
 set shortmess=aoOTIcF                                         " status messages
 set showbreak=↳\ \                                            " show when lines wrap
 set showtabline=0                                             " never show tabline
-set sidescroll=5                                              " scroll off sideways
+set sidescroll=5 scrolloff=3                                  " scroll off
 set signcolumn=yes                                            " always show signcolumn
 set spelllang=en_gb                                           " canadian spelling
 set splitright splitbelow                                     " splits

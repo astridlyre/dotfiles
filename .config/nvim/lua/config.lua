@@ -1,5 +1,5 @@
 return require('packer').startup(function(use)
-    use 'wbthomason/packer.nvim'
+    -- use 'wbthomason/packer.nvim'
 
     local ui = require('ml-ui')
     use {
