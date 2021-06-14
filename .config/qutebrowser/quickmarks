@@ -11,3 +11,5 @@ secguide https://infosec.mozilla.org/guidelines/web_security
 dontknowjs https://github.com/getify/You-Dont-Know-JS
 tlpi-errata https://man7.org/tlpi/errata/index.html
 tlpi-updates https://man7.org/tlpi/api_changes/index.html
+glibc https://www.gnu.org/software/libc/manual/html_mono/libc.html#Introduction
+gnuc https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Preface
