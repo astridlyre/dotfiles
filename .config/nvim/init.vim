@@ -19,6 +19,7 @@ set maxmempattern=100000                                      " max mem to use
 set mouse=a                                                   " enable mouse scroll
 set nobackup nowritebackup                                    " do not make backup files
 set noshowmode                                                " do not show mode under statusline
+set nowrapscan                                                " Do not wrap searches
 set number relativenumber                                     " line numbers and relative numbers
 set pumheight=15                                              " max 15 items at once
 set redrawtime=8000                                           " time to wait for redraws
@@ -169,16 +170,16 @@ nnoremap <leader>ui :PlugInstall<cr>
 nnoremap <leader>uu :PlugUpdate<cr>
 
 " misc helper things <leader>?
-nnoremap <leader>si :so ~/.config/nvim/init.vim<cr>
-nnoremap <silent><leader><esc> <cmd>call ResetHightlight()<cr>
-nnoremap <leader>; :w<cr>
-nnoremap <leader>\ :qa!<cr>
-nnoremap <silent><leader>q <cmd>call ToggleQFList(0)<cr>
 nnoremap <leader>j :lnext<cr>zz
 nnoremap <leader>k :lprev<cr>zz
+nnoremap <leader>\ :qa!<cr>
+nnoremap <leader>si :so ~/.config/nvim/init.vim<cr>
+nnoremap <leader>; :w<cr>
 nnoremap <silent><leader>af <cmd>call ToggleAutoFormat()<cr>
-nnoremap <silent><leader>wg <cmd>!write-good %<cr>
+nnoremap <silent><leader><esc> <cmd>call ResetHightlight()<cr>
+nnoremap <silent><leader>q <cmd>call ToggleQFList(0)<cr>
 nnoremap <silent><leader>r <cmd>lua require'ml-quickrun'.run_command()<cr>
+nnoremap <silent><leader>wg <cmd>!write-good %<cr>
 
 " new line in normal mode and back
 nnoremap <leader>[ myO<esc>`y

@@ -40,7 +40,7 @@ update_plugins() {
 	for dir in *; do
 		echo "Updating $dir"
 		cd "./$dir" || error_exit "Unable to cd"
-		git pull
+		git pull &
 		cd ..
 	done
 

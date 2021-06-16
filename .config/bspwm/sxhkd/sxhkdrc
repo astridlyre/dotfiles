@@ -26,6 +26,9 @@ super + v
 super + Return
     alacritty --title 'hax terminal'
 
+super + p
+	alacritty --title 'vim scratch' --class l33th4x0rz,l33th4x0rz -e vpipe
+
 # Hacker floating term
 super + space
   alacritty --title 'm00nl1ght l33t h4x0rz' --class l33th4x0rz,l33th4x0rz
