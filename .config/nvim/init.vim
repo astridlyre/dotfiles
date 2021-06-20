@@ -129,6 +129,11 @@ augroup AutoFormat   " autoformat on save
 		\ | exe 'lua vim.lsp.buf.formatting_sync(nil, 1000)' | endif
 augroup end
 
+augroup GoEquals     " Go equals abbr
+	autocmd!
+	autocmd InsertEnter * if &ft == 'go' | iabbrev ;; := | endif
+augroup end
+
 " ========================= custom commands ============================== "
 " strip whitespace
 command! StripWhitespace :%s/\s\+$//e

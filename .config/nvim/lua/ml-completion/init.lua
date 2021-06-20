@@ -20,9 +20,7 @@ function completion.compe()
             path = {kind = "   "},
             buffer = {kind = "   "},
             nvim_lsp = {kind = "   "},
-            vsnip = {kind = "   "},
-            spell = {kind = "   "},
-            calc = {kind = "   "}
+            vsnip = {kind = "   "}
         }
     }
 end

@@ -15,7 +15,8 @@ return require('packer').startup(function(use)
             'RRethy/nvim-treesitter-textsubjects', 'andymass/vim-matchup',
             'windwp/nvim-ts-autotag', 'neovim/nvim-lspconfig',
             'hrsh7th/nvim-compe', 'ray-x/lsp_signature.nvim',
-            'windwp/nvim-autopairs', 'hrsh7th/vim-vsnip'
+            'windwp/nvim-autopairs', 'hrsh7th/vim-vsnip',
+            'hrsh7th/vim-vsnip-integ', 'rafamadriz/friendly-snippets'
         } ]]
     }
     use {'hoob3rt/lualine.nvim', config = ui.lualine()}

@@ -67,7 +67,7 @@ local json = {
 }
 
 efm.filetypes = {
-    "css", "html", "json", "lua", "markdown", "python", "rust", "sass", "sh",
+    "css", "html", "json", "lua", "markdown", "python", "rust", "scss", "sh",
     "text", "vim", "yaml"
 }
 
@@ -79,7 +79,7 @@ efm.languages = {
     markdown = {markdown},
     python = {python_lint, python_isort, python_fmt, python_flake},
     rust = {rust_fmt},
-    sass = {css_fmt},
+    scss = {css_fmt},
     sh = {shell},
     vim = {vim_vint},
     yaml = {yaml_lint}
