@@ -47,7 +47,6 @@ return require('packer').startup(function(use)
         after = 'nvim-treesitter'
     }
     use {'RRethy/nvim-treesitter-textsubjects', after = 'nvim-treesitter'}
-    use {'andymass/vim-matchup', after = 'nvim-treesitter'}
     use {'windwp/nvim-ts-autotag', after = 'nvim-treesitter'}
 
     local lsp = require('lsp')

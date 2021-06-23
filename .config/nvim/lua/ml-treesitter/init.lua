@@ -28,7 +28,7 @@ function ts.configure()
         autotag = {enable = true},
         autopairs = {enable = true},
         matchup = {
-            enable = true, -- mandatory, false will disable the whole extension
+            enable = false, -- mandatory, false will disable the whole extension
             disable = {"sh"} -- optional, list of language that will be disabled
         }
     }
