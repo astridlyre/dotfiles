@@ -4,6 +4,7 @@ set termguicolors " has to be set before nvim-colorizer is loaded
 lua require('config')
 
 " ========================= general config =============================== "
+set autoindent                                                " keep indent level on new line
 set breakindent                                               " wrap long lines to the width set by tw
 set completeopt=menuone,noselect                              " default complete opt
 set formatoptions=1jql                                        " text formatting options
@@ -183,8 +184,10 @@ nnoremap <leader>; :w<cr>
 nnoremap <silent><leader>af <cmd>call ToggleAutoFormat()<cr>
 nnoremap <silent><leader><esc> <cmd>call ResetHightlight()<cr>
 nnoremap <silent><leader>q <cmd>call ToggleQFList(0)<cr>
-nnoremap <silent><leader>r <cmd>lua require'ml-quickrun'.run_command()<cr>
+nnoremap <silent><leader>r <cmd>make<cr>
 nnoremap <silent><leader>wg <cmd>!write-good %<cr>
+nnoremap <silent><leader>gt <cmd>!go test<cr>
+nnoremap <silent><leader>gr <cmd>!go run %<cr>
 
 " new line in normal mode and back
 nnoremap <leader>[ myO<esc>`y
