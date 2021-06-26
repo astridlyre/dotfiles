@@ -2,17 +2,23 @@ local qr = {
     go = {'go run ', 'go test '},
     c = {'make-n-run '},
     lua = {'lua '},
-    python = {'python '},
-    javascript = {'node '},
-    typescript = {'deno run '}
+    py = {'python ', 'pytest '},
+    js = {'node '},
+    ts = {'deno run '}
 }
 
-function qr.run_command()
+function qr.run_command(test)
     local cmd = nil
     local file_type = vim.fn.expand("%:e")
     local file_name = vim.fn.expand("%:p")
     if file_type == 'go' then
-        if file_name:match("_test") then
+        if file_name:match("_test") or test then
+            cmd = qr[file_type][2]
+        else
+            cmd = qr[file_type][1]
+        end
+    elseif file_type == 'py' then
+        if file_name:match("test_") or test then
             cmd = qr[file_type][2]
         else
             cmd = qr[file_type][1]
