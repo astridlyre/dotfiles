@@ -5,7 +5,7 @@ function ts.configure()
     require'nvim-treesitter.configs'.setup {
         ensure_installed = "maintained",
         highlight = {enable = true},
-        indent = {enable = true},
+        -- indent = {enable = true},
         textsubjects = {enable = true, keymaps = {['.'] = 'textsubjects-smart'}},
         textobjects = {
             select = {

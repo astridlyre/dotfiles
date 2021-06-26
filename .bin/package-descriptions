@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+declare -A PACKAGES
+
+while read -r package; do
+	PACKAGES[$package]="$(paru -Qi "$package" | grep -E '(Name.*:*)|(Description.*:*)|(Required.*:*)')"
+	if [[ ${PACKAGES[$package]} =~ Required.*None ]]; then
+		printf '%s\n\n' "${PACKAGES[$package]}"
+	fi
+done <<<"$(paru -Q | cut -d' ' -f1)"

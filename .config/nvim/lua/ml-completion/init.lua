@@ -7,7 +7,7 @@ function completion.compe()
         autocomplete = true,
         debug = false,
         min_length = 1,
-        preselect = 'enable',
+        preselect = 'always',
         throttle_time = 80,
         source_timeout = 200,
         incomplete_delay = 400,
@@ -36,7 +36,7 @@ function completion.autopairs()
     MUtils.completion_confirm = function()
         if vim.fn.pumvisible() ~= 0 then
             if vim.fn.complete_info()["selected"] ~= -1 then
-                return vim.fn["compe#confirm"](npairs.esc("<cr>"))
+                return npairs.esc("<c-p><cr>")
             else
                 return npairs.esc("<cr>")
             end
