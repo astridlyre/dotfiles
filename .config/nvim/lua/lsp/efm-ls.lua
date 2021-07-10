@@ -31,7 +31,7 @@ local shell = {
 }
 
 -- Lua formatting
-local lua_fmt = {formatCommand = 'lua-format -i', formatStdin = true}
+local lua_fmt = {formatCommand = 'stylua -', formatStdin = true}
 
 -- Rust formatting
 local rust_fmt = {formatCommand = 'rustfmt --emit stdout', formatStdin = true}
@@ -61,6 +61,11 @@ local html_fmt = {formatCommand = 'prettier --parser html', formatStdin = true}
 -- CSS Formatting
 local css_fmt = {formatCommand = 'prettier --parser css', formatStdin = true}
 
+local js_fmt = {
+    formatCommand = 'prettier --parser typescript --no-semi --tab-width 4 --single-quote --arrow-parens avoid',
+    formatStdin = true
+}
+
 -- JSON Formatting
 local json = {
     formatCommand = 'fixjson',
@@ -71,7 +76,7 @@ local json = {
 
 efm.filetypes = {
     "css", "html", "json", "lua", "markdown", "python", "rust", "scss", "sh",
-    "text", "vim", "yaml"
+    "text", "vim", "yaml", 'javascript', 'javascriptreact'
 }
 
 efm.languages = {
@@ -85,7 +90,8 @@ efm.languages = {
     scss = {css_fmt},
     sh = {shell},
     vim = {vim_vint},
-    yaml = {yaml_lint}
+    yaml = {yaml_lint},
+    javascript = {js_fmt}
 }
 
 return efm

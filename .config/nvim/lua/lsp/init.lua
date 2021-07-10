@@ -34,10 +34,15 @@ local lsp_maps = function(bufnr)
 end
 
 -- Generic On-Attach Function
-local on_attach = function(client, bufnr)
-    lsp_maps(bufnr)
-    if client.config.flags then
-        client.config.flags.allow_incremental_sync = true
+local on_attach = function(no_format)
+    return function(client, bufnr)
+        lsp_maps(bufnr)
+        if client.config.flags then
+            client.config.flags.allow_incremental_sync = true
+        end
+        if no_format then
+            client.resolved_capabilities.document_formatting = false
+        end
     end
 end
 
@@ -69,7 +74,7 @@ local function clangd()
             "clangd", "--background-index", "--suggest-missing-includes",
             "--clang-tidy", "--header-insertion=iwyu"
         },
-        on_attach = on_attach,
+        on_attach = on_attach(false),
         capabilities = capabilities,
         handlers = handlers
     }
@@ -78,7 +83,7 @@ end
 -- Deno for TypeScript
 local function denols()
     lspconfig.denols.setup {
-        on_attach = on_attach,
+        on_attach = on_attach(false),
         capabilities = capabilities,
         init_options = {enable = true, lint = true, unstable = false},
         filetypes = {"typescript", "typescriptreact", "typescript.tsx"},
@@ -113,7 +118,7 @@ local function gopls()
         },
         root_dir = lspconfig.util.root_pattern(".git", "go.mod", "."),
         init_options = {usePlaceholders = true, completeUnimported = true},
-        on_attach = on_attach,
+        on_attach = on_attach(false),
         capabilities = capabilities,
         handlers = handlers
     }
@@ -122,7 +127,7 @@ end
 -- Rust Analyzer
 local function rust_analyzer()
     lspconfig.rust_analyzer.setup {
-        on_attach = on_attach,
+        on_attach = on_attach(false),
         capabilities = capabilities,
         handlers = handlers,
         settings = {
@@ -147,7 +152,7 @@ local function sumneko_lua()
     local sumneko_binary_path = "/bin/Linux/lua-language-server"
 
     lspconfig.sumneko_lua.setup {
-        on_attach = on_attach,
+        on_attach = on_attach(true),
         handlers = handlers,
         cmd = {
             sumneko_root_path .. sumneko_binary_path, "-E",
@@ -175,7 +180,7 @@ end
 -- TSserver for javacript (nodejs support)
 local function tsserver()
     lspconfig.tsserver.setup {
-        on_attach = on_attach,
+        on_attach = on_attach(true),
         capabilities = capabilities,
         filetypes = {"javascript", "javascript.jsx", "javascriptreact"},
         handlers = handlers
@@ -227,7 +232,10 @@ lsp_config.configure = function()
         'bashls', 'clangd'
     }
     for _, ls in ipairs(default_servers) do
-        lspconfig[ls].setup {on_attach = on_attach, capabilities = capabilities}
+        lspconfig[ls].setup {
+            on_attach = on_attach(true),
+            capabilities = capabilities
+        }
     end
 
     -- Custom server configurations
