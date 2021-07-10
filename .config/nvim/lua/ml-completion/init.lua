@@ -19,8 +19,8 @@ function completion.compe()
         source = {
             path = {kind = "   "},
             buffer = {kind = "   "},
-            nvim_lsp = {kind = "   "},
-            vsnip = {kind = "   "}
+            nvim_lsp = {kind = "   ", priority = 1000},
+            vsnip = {kind = "   ", priority = 500}
         }
     }
 end

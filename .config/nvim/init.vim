@@ -135,6 +135,11 @@ augroup GoEquals     " Go equals abbr
 	autocmd InsertEnter * if &ft == 'go' | iabbrev ;; := | endif
 augroup end
 
+iabbr ressm @media screen and (min-width: 601px) {
+iabbr resmd @media screen and (min-width: 901px) {
+iabbr reslg @media screen and (min-width: 1281px) {
+iabbr resxl @media screen and (min-width: 1921px) {
+
 " ========================= custom commands ============================== "
 " strip whitespace
 command! StripWhitespace :%s/\s\+$//e
@@ -190,6 +195,7 @@ nnoremap <silent><leader>gt <cmd>!go test<cr>
 nnoremap <silent><leader>gr <cmd>!go run %<cr>
 nnoremap <silent><leader>r <cmd>lua require"ml-quickrun".run_command()<cr>
 nnoremap <silent><leader>t <cmd>lua require"ml-quickrun".run_command(true)<cr>
+nnoremap <silent><leader>fp magg!Gprettier --parser typescript --no-semi --tab-width 4 --single-quote --arrow-parens avoid<cr>`a
 
 " new line in normal mode and back
 nnoremap <leader>[ myO<esc>`y

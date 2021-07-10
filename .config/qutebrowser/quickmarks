@@ -13,3 +13,5 @@ tlpi-errata https://man7.org/tlpi/errata/index.html
 tlpi-updates https://man7.org/tlpi/api_changes/index.html
 glibc https://www.gnu.org/software/libc/manual/html_mono/libc.html#Introduction
 gnuc https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Preface
+flask https://flask.palletsprojects.com/en/2.0.x/
+django https://docs.djangoproject.com/en/3.2/

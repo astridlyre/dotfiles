@@ -38,16 +38,19 @@ local rust_fmt = {formatCommand = 'rustfmt --emit stdout', formatStdin = true}
 
 -- Python formatting & Linting
 local python_lint = {
-    lintCommand = 'mypy --show-column-numbers',
+    lintCommand = 'mypy --show-column-numbers --disallow-untyped-calls --warn-return-any --warn-redundant-casts --warn-unused-ignores --disallow-untyped-defs --cache-dir=/dev/null',
     lintFormats = {
         '%f:%l:%c: %trror: %m', '%f:%l:%c: %tarning: %m', '%f:%l:%c: %tote: %m'
     },
     lintStdin = true
 }
 local python_fmt = {formatCommand = 'black --quiet -', formatStdin = true}
-local python_isort = {formatCommand = 'isort --quiet -', formatStdin = true}
+local python_isort = {
+    formatCommand = 'isort --profile black --quiet -',
+    formatStdin = true
+}
 local python_flake = {
-    lintCommand = 'flake8 --stdin-display-name ${INPUT} -',
+    lintCommand = 'flake8 --max-line-length 88 --extend-ignore E203 --stdin-display-name ${INPUT} -',
     lintStdin = true,
     lintFormats = {'%f:%l:%c: %m'}
 }
