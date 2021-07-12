@@ -4,7 +4,6 @@ set termguicolors " has to be set before nvim-colorizer is loaded
 lua require('config')
 
 " ========================= general config =============================== "
-set autoindent                                                " keep indent level on new line
 set breakindent                                               " wrap long lines to the width set by tw
 set completeopt=menuone,noselect                              " default complete opt
 set formatoptions=1jql                                        " text formatting options
@@ -20,7 +19,6 @@ set maxmempattern=100000                                      " max mem to use
 set mouse=a                                                   " enable mouse scroll
 set nobackup nowritebackup                                    " do not make backup files
 set noshowmode                                                " do not show mode under statusline
-set nowrapscan                                                " Do not wrap searches
 set number relativenumber                                     " line numbers and relative numbers
 set pumheight=15                                              " max 15 items at once
 set redrawtime=8000                                           " time to wait for redraws
