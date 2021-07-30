@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+ZIRCUS_DIR=~/projects/zircus
+
+cd $ZIRCUS_DIR || exit
+tmux new-session -d -n Zircus bundle exec jekyll build --watch
+tmux split-window -v npm run watch
+tmux selectp -t 1
+tmux split-window -h live-server _site/
+tmux -2 attach-session -d
