@@ -199,7 +199,8 @@ nnoremap <leader>[ myO<esc>`y
 nnoremap <leader>] myo<esc>`y
 
 " open terminal
-nnoremap <leader>' :sp term://bash<cr>i
+nnoremap <leader>' :10sp term://bash<cr>i
+tnoremap <C-d> <C-\><C-n>
 
 " lil scripties <leader>s*
 vnoremap <leader>ss !sort -d -b -f<cr>
@@ -257,6 +258,10 @@ imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab
 smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
 
 " ========================= command mode mappings ======================== "
 cnoremap <C-b> <left>

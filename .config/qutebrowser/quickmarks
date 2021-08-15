@@ -15,3 +15,4 @@ glibc https://www.gnu.org/software/libc/manual/html_mono/libc.html#Introduction
 gnuc https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Preface
 flask https://flask.palletsprojects.com/en/2.0.x/
 django https://docs.djangoproject.com/en/3.2/
+ramda https://ramdajs.com/docs/#partial

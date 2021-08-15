@@ -1,2 +1,2 @@
-setl ts=4 sw=4 expandtab
+setl ts=2 sw=2 expandtab
 set makeprg=node\ %
