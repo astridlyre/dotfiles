@@ -1,5 +1,15 @@
+local execute = vim.api.nvim_command
+local fn = vim.fn
+
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+
+if fn.empty(fn.glob(install_path)) > 0 then
+	fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
+	execute("packadd packer.nvim")
+end
+
 return require("packer").startup(function(use)
-	-- use 'wbthomason/packer.nvim'
+	-- use("wbthomason/packer.nvim")
 
 	local ui = require("ml-ui")
 	use({
@@ -7,23 +17,33 @@ return require("packer").startup(function(use)
 		config = vim.cmd("colorscheme falcon"),
 		-- Fix for packer deleting my plugins??
 		--[[ requires = {
-            'hoob3rt/lualine.nvim', 'norcalli/nvim-colorizer.lua',
-            'camspiers/snap', 'junegunn/vim-easy-align', 'b3nj5m1n/kommentary',
-            'tpope/vim-fugitive', 'lewis6991/gitsigns.nvim',
-            'nvim-treesitter/nvim-treesitter',
-            'nvim-treesitter/nvim-treesitter-textobjects',
-            'RRethy/nvim-treesitter-textsubjects', 'andymass/vim-matchup',
-            'windwp/nvim-ts-autotag', 'neovim/nvim-lspconfig',
-            'hrsh7th/nvim-compe', 'ray-x/lsp_signature.nvim',
-            'windwp/nvim-autopairs', 'hrsh7th/vim-vsnip',
-            'hrsh7th/vim-vsnip-integ', 'rafamadriz/friendly-snippets'
-        } ]]
+			"hoob3rt/lualine.nvim",
+			"norcalli/nvim-colorizer.lua",
+			"camspiers/snap",
+			"junegunn/vim-easy-align",
+			"b3nj5m1n/kommentary",
+			"tpope/vim-fugitive",
+			"lewis6991/gitsigns.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-treesitter/nvim-treesitter-textobjects",
+			"RRethy/nvim-treesitter-textsubjects",
+			"andymass/vim-matchup",
+			"windwp/nvim-ts-autotag",
+			"neovim/nvim-lspconfig",
+			"hrsh7th/nvim-compe",
+			"ray-x/lsp_signature.nvim",
+			"windwp/nvim-autopairs",
+			"hrsh7th/vim-vsnip",
+			"hrsh7th/vim-vsnip-integ",
+			"rafamadriz/friendly-snippets",
+			"kyazdani42/nvim-tree.lua",
+			"kyazdani42/nvim-web-devicons",
+		}, ]]
 	})
 	use({ "hoob3rt/lualine.nvim", config = ui.lualine() })
 	use({
 		"norcalli/nvim-colorizer.lua",
 		config = ui.colorizer(),
-		event = "BufRead",
 	})
 	use({ "camspiers/snap", rocks = { "fzy" } })
 	use("junegunn/vim-easy-align")
@@ -33,6 +53,10 @@ return require("packer").startup(function(use)
 		"lewis6991/gitsigns.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
 		event = { "BufRead", "BufNewFile" },
+	})
+	use({
+		"kyazdani42/nvim-tree.lua",
+		requires = "kyazdani42/nvim-web-devicons",
 	})
 
 	local ts = require("ml-treesitter")

@@ -37,3 +37,4 @@ PS4="> "
 declare -a PROMPT_COMMAND
 PROMPT_COMMAND=(check_man_width get_exit_color)
 export PROMPT_COMMAND
+export MANWIDTH

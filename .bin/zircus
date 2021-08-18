@@ -3,8 +3,8 @@
 ZIRCUS_DIR=~/projects/zircus
 
 cd $ZIRCUS_DIR || exit
-tmux new-session -d -n Zircus bundle exec jekyll build --watch
-tmux split-window -v rollup -c --watch
-tmux selectp -t 1
-tmux split-window -h live-server _site/
+tmux new-session -d -n Zircus rollup -c --watch
+tmux split-window -h bundle exec jekyll build --watch
+tmux split-window -v live-server _site/
+tmux split-window -v bzircus
 tmux -2 attach-session -d
