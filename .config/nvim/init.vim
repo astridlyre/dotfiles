@@ -193,7 +193,6 @@ nnoremap <silent><leader>gt <cmd>!go test<cr>
 nnoremap <silent><leader>gr <cmd>!go run %<cr>
 nnoremap <silent><leader>r <cmd>lua require"ml-quickrun".run_command()<cr>
 nnoremap <silent><leader>t <cmd>lua require"ml-quickrun".run_command(true)<cr>
-nnoremap <silent><leader>= :NvimTreeToggle<cr>
 
 " new line in normal mode and back
 nnoremap <leader>[ myO<esc>`y
