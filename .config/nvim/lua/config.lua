@@ -9,14 +9,14 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 return require("packer").startup(function(use)
-	use("wbthomason/packer.nvim")
+	-- use("wbthomason/packer.nvim")
 
 	local ui = require("ml-ui")
 	use({
 		"astridlyre/falcon",
 		config = vim.cmd("colorscheme falcon"),
 		-- Fix for packer deleting my plugins??
-		requires = {
+		--[[ requires = {
 			"hoob3rt/lualine.nvim",
 			"norcalli/nvim-colorizer.lua",
 			"camspiers/snap",
@@ -35,7 +35,7 @@ return require("packer").startup(function(use)
 			"hrsh7th/vim-vsnip",
 			"hrsh7th/vim-vsnip-integ",
 			"rafamadriz/friendly-snippets",
-		},
+		}, ]]
 	})
 	use({ "hoob3rt/lualine.nvim", config = ui.lualine() })
 	use({
