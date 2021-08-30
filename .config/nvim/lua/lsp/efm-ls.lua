@@ -1,5 +1,5 @@
 local efm = {}
-local enableTsServer = false
+local enableTsServer = true
 
 -- Vim linting
 local vim_vint = {

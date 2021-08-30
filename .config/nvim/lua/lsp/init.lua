@@ -1,7 +1,7 @@
 -- Lsp Configs
 local lspconfig = require("lspconfig")
 local lsp_config = {}
-local enableTsServer = false
+local enableTsServer = true
 
 -- LSP Keymaps
 local lsp_maps = function(bufnr)

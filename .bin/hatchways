@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+HATCHWAYS_DIR=~/projects/hatchways/messenger-498
+
+cd $HATCHWAYS_DIR || exit
+tmux new-session -d -n Client
+tmux split-window -h -n Server
+tmux -2 attach-session -d

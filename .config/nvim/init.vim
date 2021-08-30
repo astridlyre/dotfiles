@@ -193,6 +193,9 @@ nnoremap <silent><leader>gt <cmd>!go test<cr>
 nnoremap <silent><leader>gr <cmd>!go run %<cr>
 nnoremap <silent><leader>r <cmd>lua require"ml-quickrun".run_command()<cr>
 nnoremap <silent><leader>t <cmd>lua require"ml-quickrun".run_command(true)<cr>
+nnoremap <silent><leader>p <C-^>
+nnoremap ' `
+nnoremap ` '
 
 " new line in normal mode and back
 nnoremap <leader>[ myO<esc>`y
@@ -234,8 +237,8 @@ nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
 " easier move line with alt+j / alt+k
 nnoremap <M-j> mz:m+<cr>`z
 nnoremap <M-k> mz:m-2<cr>`z
-nnoremap <C-n> <cmd>bnext<cr>
-nnoremap <C-p> <cmd>bprev<cr>
+nnoremap <Tab> <cmd>bnext<cr>
+nnoremap <S-Tab> <cmd>bprev<cr>
 nnoremap <silent> <C-q> <cmd>call ToggleQFList(1)<cr>
 nnoremap <C-j> <cmd>cnext<cr>zz
 nnoremap <C-k> <cmd>cprev<cr>zz
@@ -245,6 +248,7 @@ noremap <silent><esc><esc> <cmd>noh<cr><esc>
 
 " ========================= insert mappings ============================== "
 inoremap <silent><expr> <C-e> compe#close('<C-e>')
+inoremap <silent><expr> <C-Space> compe#confirm('<C-y>')
 inoremap <silent><expr> <C-y> compe#confirm('<C-y>')
 inoremap <C-c> <esc>
 inoremap <C-d> <del>
