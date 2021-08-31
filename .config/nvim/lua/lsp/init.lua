@@ -2,6 +2,7 @@
 local lspconfig = require("lspconfig")
 local lsp_config = {}
 local enableTsServer = true
+local coq = require("coq")
 
 -- LSP Keymaps
 local lsp_maps = function(bufnr)
@@ -64,7 +65,7 @@ local handlers = {
 
 -- clangd
 local function clangd()
-	lspconfig.clangd.setup({
+	lspconfig.clangd.setup(coq.lsp_ensure_capabilities({
 		cmd = {
 			"clangd",
 			"--background-index",
@@ -75,7 +76,7 @@ local function clangd()
 		on_attach = on_attach(false),
 		capabilities = capabilities,
 		handlers = handlers,
-	})
+	}))
 end
 
 -- Deno for TypeScript
@@ -86,13 +87,13 @@ local function denols()
 	else
 		filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact" }
 	end
-	lspconfig.denols.setup({
+	lspconfig.denols.setup(coq.lsp_ensure_capabilities({
 		on_attach = on_attach(false),
 		capabilities = capabilities,
 		init_options = { enable = true, lint = true, unstable = false },
 		filetypes = filetypes,
 		handlers = handlers,
-	})
+	}))
 end
 
 -- efm language server
@@ -117,7 +118,7 @@ end
 
 -- Go Language Server
 local function gopls()
-	lspconfig.gopls.setup({
+	lspconfig.gopls.setup(coq.lsp_ensure_capabilities({
 		cmd = { "gopls", "--remote=auto" },
 		settings = {
 			gopls = { analyses = { unusedparams = true }, staticcheck = true },
@@ -127,12 +128,12 @@ local function gopls()
 		on_attach = on_attach(false),
 		capabilities = capabilities,
 		handlers = handlers,
-	})
+	}))
 end
 
 -- Rust Analyzer
 local function rust_analyzer()
-	lspconfig.rust_analyzer.setup({
+	lspconfig.rust_analyzer.setup(coq.lsp_ensure_capabilities({
 		on_attach = on_attach(false),
 		capabilities = capabilities,
 		handlers = handlers,
@@ -151,7 +152,7 @@ local function rust_analyzer()
 				},
 			},
 		},
-	})
+	}))
 end
 
 -- Sumneko Language Server
@@ -159,7 +160,7 @@ local function sumneko_lua()
 	local sumneko_root_path = vim.fn.getenv("HOME") .. "/.local/lua-language-server"
 	local sumneko_binary_path = "/bin/Linux/lua-language-server"
 
-	lspconfig.sumneko_lua.setup({
+	lspconfig.sumneko_lua.setup(coq.lsp_ensure_capabilities({
 		on_attach = on_attach(true),
 		handlers = handlers,
 		cmd = {
@@ -183,17 +184,17 @@ local function sumneko_lua()
 				},
 			},
 		},
-	})
+	}))
 end
 
 -- TSserver for javascript (nodejs support)
 local function tsserver()
-	lspconfig.tsserver.setup({
+	lspconfig.tsserver.setup(coq.lsp_ensure_capabilities({
 		on_attach = on_attach(true),
 		capabilities = capabilities,
 		filetypes = { "javascript", "javascript.jsx", "javascriptreact" },
 		handlers = handlers,
-	})
+	}))
 end
 
 -- Diagnostic Signs
@@ -270,10 +271,10 @@ lsp_config.configure = function()
 		"clangd",
 	}
 	for _, ls in ipairs(default_servers) do
-		lspconfig[ls].setup({
+		lspconfig[ls].setup(coq.lsp_ensure_capabilities({
 			on_attach = on_attach(true),
 			capabilities = capabilities,
-		})
+		}))
 	end
 
 	-- Custom server configurations

@@ -1,46 +1,30 @@
-local execute = vim.api.nvim_command
 local fn = vim.fn
-
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-
 if fn.empty(fn.glob(install_path)) > 0 then
 	fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
-	execute("packadd packer.nvim")
+	vim.cmd("packadd packer.nvim")
 end
 
 return require("packer").startup(function(use)
-	-- use("wbthomason/packer.nvim")
+	use("wbthomason/packer.nvim")
 
-	local ui = require("ml-ui")
 	use({
 		"astridlyre/falcon",
-		config = vim.cmd("colorscheme falcon"),
-		-- Fix for packer deleting my plugins??
-		--[[ requires = {
-			"hoob3rt/lualine.nvim",
-			"norcalli/nvim-colorizer.lua",
-			"camspiers/snap",
-			"junegunn/vim-easy-align",
-			"b3nj5m1n/kommentary",
-			"tpope/vim-fugitive",
-			"lewis6991/gitsigns.nvim",
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-treesitter/nvim-treesitter-textobjects",
-			"RRethy/nvim-treesitter-textsubjects",
-			"windwp/nvim-ts-autotag",
-			"neovim/nvim-lspconfig",
-			"hrsh7th/nvim-compe",
-			"ray-x/lsp_signature.nvim",
-			"windwp/nvim-autopairs",
-			"hrsh7th/vim-vsnip",
-			"hrsh7th/vim-vsnip-integ",
-			"rafamadriz/friendly-snippets",
-		}, ]]
+		config = function()
+			vim.cmd("colorscheme falcon")
+		end,
 	})
-	use({ "hoob3rt/lualine.nvim", config = ui.lualine() })
+	use({
+		"hoob3rt/lualine.nvim",
+		config = function()
+			require("ml-ui").lualine()
+		end,
+	})
 	use({
 		"norcalli/nvim-colorizer.lua",
-		config = ui.colorizer(),
+		config = function()
+			require("ml-ui").colorizer()
+		end,
 	})
 	use({ "camspiers/snap", rocks = { "fzy" } })
 	use("junegunn/vim-easy-align")
@@ -51,11 +35,11 @@ return require("packer").startup(function(use)
 		requires = { "nvim-lua/plenary.nvim" },
 		event = { "BufRead", "BufNewFile" },
 	})
-	local ts = require("ml-treesitter")
 	use({
 		"nvim-treesitter/nvim-treesitter",
-		config = ts.configure(),
-		event = "BufRead",
+		config = function()
+			require("ml-treesitter").configure()
+		end,
 		run = ":TSUpdate",
 	})
 	use({
@@ -65,24 +49,26 @@ return require("packer").startup(function(use)
 	use({ "RRethy/nvim-treesitter-textsubjects", after = "nvim-treesitter" })
 	use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" })
 
-	local lsp = require("lsp")
+	-- packer
+	use({ "ms-jpq/coq_nvim", branch = "coq" }) -- main one
+	use({ "ms-jpq/coq.artifacts", branch = "artifacts" }) -- 9000+ Snippets
+
 	use({
 		"neovim/nvim-lspconfig",
-		config = lsp.configure(),
-		event = "BufReadPre",
+		config = function()
+			require("lsp").configure()
+		end,
 	})
-
-	local completion = require("ml-completion")
 	use({
-		"hrsh7th/nvim-compe",
-		config = completion.compe(),
-		event = "InsertEnter",
+		"ray-x/lsp_signature.nvim",
+		config = function()
+			require("ml-completion").lsp_signature()
+		end,
 	})
-	use({ "ray-x/lsp_signature.nvim", config = completion.lsp_signature() })
-	use({ "windwp/nvim-autopairs", config = completion.autopairs() })
 	use({
-		"hrsh7th/vim-vsnip",
-		event = "InsertCharPre",
-		requires = { "hrsh7th/vim-vsnip-integ", "rafamadriz/friendly-snippets" },
+		"windwp/nvim-autopairs",
+		config = function()
+			require("ml-completion").autopairs()
+		end,
 	})
 end)

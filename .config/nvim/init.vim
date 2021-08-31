@@ -1,4 +1,5 @@
 set termguicolors " has to be set before nvim-colorizer is loaded
+let g:coq_settings = { 'auto_start': 'shut-up' }
 
 " ========================= lua config =================================== "
 lua require('config')
@@ -20,7 +21,7 @@ set mouse=a                                                   " enable mouse scr
 set nobackup nowritebackup                                    " do not make backup files
 set noshowmode                                                " do not show mode under statusline
 set number relativenumber                                     " line numbers and relative numbers
-set pumheight=15                                              " max 15 items at once
+set pumheight=16                                              " max 15 items at once
 set redrawtime=8000                                           " time to wait for redraws
 set shortmess=aoOTIcF                                         " status messages
 set showbreak=↳\ \                                            " show when lines wrap
@@ -179,6 +180,7 @@ nnoremap <leader>ui :PlugInstall<cr>
 nnoremap <leader>uu :PlugUpdate<cr>
 
 " misc helper things <leader>?
+nnoremap <leader>v <cmd>CHADopen<cr>
 nnoremap <leader>j :lnext<cr>zz
 nnoremap <leader>k :lprev<cr>zz
 nnoremap <leader>\ :qa!<cr>
@@ -247,25 +249,15 @@ nnoremap <C-k> <cmd>cprev<cr>zz
 noremap <silent><esc><esc> <cmd>noh<cr><esc>
 
 " ========================= insert mappings ============================== "
-inoremap <silent><expr> <C-e> compe#close('<C-e>')
-inoremap <silent><expr> <C-Space> compe#confirm('<C-y>')
-inoremap <silent><expr> <C-y> compe#confirm('<C-y>')
 inoremap <C-c> <esc>
 inoremap <C-d> <del>
 inoremap <C-b> <left>
 inoremap <C-f> <right>
-imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 inoremap , ,<c-g>u
 inoremap . .<c-g>u
 inoremap ! !<c-g>u
 inoremap ? ?<c-g>u
+inoremap <silent><expr> <C-y> pumvisible() ? (complete_info().selected == -1 ? "\<C-n><C-y>" : "\<C-y>") : "\<C-y>"
 
 " ========================= command mode mappings ======================== "
 cnoremap <C-b> <left>

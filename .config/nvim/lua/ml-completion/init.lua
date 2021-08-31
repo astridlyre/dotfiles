@@ -1,56 +1,44 @@
 local completion = {}
 
--- Compe setup
-function completion.compe()
-	require("compe").setup({
-		enabled = true,
-		autocomplete = true,
-		debug = false,
-		min_length = 1,
-		preselect = "always",
-		throttle_time = 80,
-		source_timeout = 200,
-		incomplete_delay = 400,
-		max_abbr_width = 100,
-		max_kind_width = 100,
-		max_menu_width = 100,
-		documentation = true,
-		allow_prefix_unmatch = false,
-		source = {
-			path = { kind = "   " },
-			buffer = { kind = "   " },
-			nvim_lsp = { kind = "   ", priority = 1000 },
-			vsnip = { kind = "   ", priority = 500 },
-		},
-	})
-end
-
 -- autopairs
 function completion.autopairs()
-	require("nvim-autopairs").setup()
 	local remap = vim.api.nvim_set_keymap
 	local npairs = require("nvim-autopairs")
 
+	npairs.setup({ map_bs = false })
+
+	vim.g.coq_settings = { keymap = { recommended = false }, display = { icons = { mode = "short" } } }
+	-- these mappings are coq recommended mappings unrelated to nvim-autopairs
+	remap("i", "<esc>", [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
+	remap("i", "<c-c>", [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
+	remap("i", "<tab>", [[pumvisible() ? "<c-n>" : "<tab>"]], { expr = true, noremap = true })
+	remap("i", "<s-tab>", [[pumvisible() ? "<c-p>" : "<bs>"]], { expr = true, noremap = true })
+
+	-- skip it, if you use another global object
 	_G.MUtils = {}
-	vim.g.completion_confirm_key = ""
-	MUtils.completion_confirm = function()
+
+	MUtils.CR = function()
 		if vim.fn.pumvisible() ~= 0 then
-			if vim.fn.complete_info()["selected"] ~= -1 then
-				return npairs.esc("<c-p><cr>")
+			if vim.fn.complete_info({ "selected" }).selected ~= -1 then
+				return npairs.esc("<c-y>")
 			else
-				return npairs.esc("<cr>")
+				-- you can change <c-g><c-g> to <c-e> if you don't use other i_CTRL-X modes
+				return npairs.esc("<c-g><c-g>") .. npairs.autopairs_cr()
 			end
 		else
 			return npairs.autopairs_cr()
 		end
 	end
+	remap("i", "<cr>", "v:lua.MUtils.CR()", { expr = true, noremap = true })
 
-	npairs.setup({
-		check_ts = true,
-		ts_config = { lua = { "string" }, javascript = { "template_string" } },
-	})
-
-	remap("i", "<CR>", "v:lua.MUtils.completion_confirm()", { expr = true, noremap = true })
+	MUtils.BS = function()
+		if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({ "mode" }).mode == "eval" then
+			return npairs.esc("<c-e>") .. npairs.autopairs_bs()
+		else
+			return npairs.autopairs_bs()
+		end
+	end
+	remap("i", "<bs>", "v:lua.MUtils.BS()", { expr = true, noremap = true })
 end
 
 -- Function signatures as you type
