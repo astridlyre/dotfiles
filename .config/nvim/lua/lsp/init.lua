@@ -264,11 +264,13 @@ lsp_config.configure = function()
 		"yamlls",
 		"vimls",
 		"html",
+		"jsonls",
 		"cssls",
 		"dockerls",
 		"cmake",
 		"bashls",
 		"clangd",
+		"sqls",
 	}
 	for _, ls in ipairs(default_servers) do
 		lspconfig[ls].setup(coq.lsp_ensure_capabilities({
