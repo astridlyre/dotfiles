@@ -1,12 +1,11 @@
 set termguicolors " has to be set before nvim-colorizer is loaded
-let g:coq_settings = { 'auto_start': 'shut-up' }
 
 " ========================= lua config =================================== "
 lua require('config')
 
 " ========================= general config =============================== "
 set breakindent                                               " wrap long lines to the width set by tw
-set completeopt=menuone,noselect                              " default complete opt
+set completeopt=menuone,noinsert                              " default complete opt
 set formatoptions=1jql                                        " text formatting options
 set grepformat=%f:%l:%c:%m                                    " grep format
 set grepprg=rg\ --hidden\ --vimgrep\ --smart-case\ --         " use rg for vimgrep
@@ -72,6 +71,16 @@ let g:moonlight_qf_l = 0
 let g:autoFormat = 1
 
 " ========================= autocommands ================================= "
+augroup AutoSelect
+	autocmd!
+	autocmd InsertEnter * set completeopt=menuone,noinsert
+augroup end
+
+augroup FileTypes
+	autocmd!
+	autocmd BufNewFile,BufRead *.ejs set filetype=html
+augroup end
+
 augroup HelpSplit     " open help in vertical split
 	autocmd!
 	autocmd FileType help wincmd L
@@ -175,12 +184,8 @@ let mapleader=' '
 " edit configs
 nnoremap <leader>ee :e ~/projects/dotfiles/.config/nvim/init.vim<cr>
 
-" install or update plugins <leader>p*
-nnoremap <leader>ui :PlugInstall<cr>
-nnoremap <leader>uu :PlugUpdate<cr>
-
 " misc helper things <leader>?
-nnoremap <leader>v <cmd>CHADopen<cr>
+nnoremap <leader>u :PackerUpdate<cr>
 nnoremap <leader>j :lnext<cr>zz
 nnoremap <leader>k :lprev<cr>zz
 nnoremap <leader>\ :qa!<cr>
@@ -258,6 +263,7 @@ inoremap . .<c-g>u
 inoremap ! !<c-g>u
 inoremap ? ?<c-g>u
 inoremap <silent><expr> <C-y> pumvisible() ? (complete_info().selected == -1 ? "\<C-n><C-y>" : "\<C-y>") : "\<C-y>"
+inoremap <silent><expr> <C-w> pumvisible() ? "\<C-e><C-w>" : "\<C-w>"
 
 " ========================= command mode mappings ======================== "
 cnoremap <C-b> <left>

@@ -50,7 +50,13 @@ return require("packer").startup(function(use)
 	use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" })
 
 	-- packer
-	use({ "ms-jpq/coq_nvim", branch = "coq" }) -- main one
+	use({
+		"ms-jpq/coq_nvim",
+		branch = "coq",
+		config = function()
+			require("ml-completion").coq()
+		end,
+	}) -- main one
 	use({ "ms-jpq/coq.artifacts", branch = "artifacts" }) -- 9000+ Snippets
 
 	use({

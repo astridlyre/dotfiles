@@ -53,7 +53,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 
 -- Diagnostic Handlers
 local diagnostics = {
-	virtual_text = { spacing = 0, prefix = "" },
+	virtual_text = { spacing = 0 },
 	signs = { enable = true, priority = 20 },
 	underline = true,
 	update_in_insert = false,
