@@ -1,5 +1,5 @@
 local efm = {}
-local enableTsServer = true
+local enableTsServer = false
 
 -- Vim linting
 local vim_vint = {
@@ -69,6 +69,13 @@ local css_fmt = { formatCommand = "prettier --parser css", formatStdin = true }
 local js_fmt = {
 	formatCommand = "prettier --parser typescript --arrow-parens avoid",
 	formatStdin = true,
+}
+
+local eslint = {
+	lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+	lintStdin = true,
+	lintFormats = { "%f:%l:%c: %m" },
+	lintIgnoreExitCode = true,
 }
 
 -- JSON Formatting

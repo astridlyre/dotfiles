@@ -5,7 +5,29 @@ function completion.coq()
 	vim.g.coq_settings = {
 		keymap = { recommended = false },
 		display = { icons = { mode = "short" }, ghost_text = { enabled = false } },
+		clients = {
+			buffers = {
+				same_filetype = true,
+				enabled = true,
+				weight_adjust = -1.9,
+			},
+			tree_sitter = {
+				enabled = true,
+				weight_adjust = -1.5,
+			},
+			lsp = {
+				enabled = true,
+				weight_adjust = 1.9,
+			},
+			snippets = {
+				enabled = true,
+				weight_adjust = 1.5,
+			},
+		},
 		auto_start = "shut-up",
+		limits = {
+			completion_auto_timeout = 0.2,
+		},
 	}
 
 	-- these mappings are coq recommended mappings unrelated to nvim-autopairs
@@ -44,14 +66,15 @@ end
 function completion.lsp_signature()
 	local cfg = {
 		bind = true,
-		doc_lines = 2,
+		doc_lines = 0,
 		floating_window = true,
+		floating_window_above_cur_line = true,
 		hint_enable = true,
 		hint_prefix = "❱ ",
 		hint_scheme = "String",
 		use_lspsaga = false,
 		hi_parameter = "Search",
-		max_height = 12,
+		max_height = 4,
 		max_width = 120,
 		handler_opts = { border = "single" },
 		extra_trigger_chars = {},

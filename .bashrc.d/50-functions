@@ -92,3 +92,9 @@ function n() {
 		rm -f "$NNN_TMPFILE" >/dev/null
 	fi
 }
+
+function oz() {
+	zathura "${@}" &>/dev/null &
+	disown
+	clear
+}

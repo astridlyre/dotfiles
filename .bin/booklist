@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+BOOKLIST_DIR=~/projects/tdd-react
+
+cd $BOOKLIST_DIR || exit 1
+tmux new-session -d -n Booklist "./frontend.sh"
+tmux split-window -v "./backend.sh"
+tmux -2 attach-session -d

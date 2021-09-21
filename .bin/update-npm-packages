@@ -16,6 +16,7 @@ DEFAULT_PACKAGES=("bash-language-server"
 	"fixjson"
 	"dockerfile-language-server-nodejs"
 	"rollup"
+	"eslint_d"
 	"@bitwarden/cli")
 
 npm i -g "${DEFAULT_PACKAGES[@]}"

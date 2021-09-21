@@ -76,9 +76,15 @@ augroup AutoSelect
 	autocmd InsertEnter * set completeopt=menuone,noinsert
 augroup end
 
+" augroup AutoStartCoq
+" 	autocmd!
+" 	autocmd VimEnter * execute "COQnow"
+" augroup end
+
 augroup FileTypes
 	autocmd!
 	autocmd BufNewFile,BufRead *.ejs set filetype=html
+	autocmd BufNewFile,BufRead *.handlebars set filetype=html
 augroup end
 
 augroup HelpSplit     " open help in vertical split
@@ -122,7 +128,7 @@ augroup end
 augroup FolderArg    " fzf if passed argument is a folder
 	autocmd VimEnter * if argc() !=0 && isdirectory(argv()[0]) | set nocursorline
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
-    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'lua require("ml-snap").files()' | endif
+    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute "lua require('telescope.builtin').find_files()" | endif
 augroup END
 
 augroup ReturnPos    " return to last edit position when opening files
@@ -221,11 +227,15 @@ nnoremap <leader>sw <cmd>StripWhitespace<cr>
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 
-" Find files using Telescope command-line sugar.
-nnoremap s <cmd>lua require('ml-snap').files()<cr>
-nnoremap <leader>gg <cmd>lua require('ml-snap').grep()<cr>
-nnoremap <leader>b <cmd>lua require('ml-snap').buffers()<cr>
-nnoremap <leader>o <cmd>lua require('ml-snap').oldfiles()<cr>
+" Using Lua functions
+nnoremap s <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>lg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>fr <cmd>lua require('telescope.builtin').lsp_references<cr>
+nnoremap <leader>fa <cmd>lua require('telescope.builtin').lsp_code_actions<cr>
+nnoremap <leader>fi <cmd>lua require('telescope.builtin').lsp_definitions<cr>
+nnoremap <leader>fd <cmd>lua require('telescope.builtin').lsp_implementations<cr>
 
 " fugitive mappings <leader>g[bd]
 nmap <leader>gb <cmd>Git blame<cr>

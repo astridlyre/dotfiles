@@ -1,7 +1,7 @@
 -- Lsp Configs
 local lspconfig = require("lspconfig")
 local lsp_config = {}
-local enableTsServer = true
+local enableTsServer = false
 local coq = require("coq")
 
 -- LSP Keymaps
@@ -90,7 +90,7 @@ local function denols()
 	lspconfig.denols.setup(coq.lsp_ensure_capabilities({
 		on_attach = on_attach(false),
 		capabilities = capabilities,
-		init_options = { enable = true, lint = true, unstable = false },
+		init_options = { enable = true, lint = true, unstable = true },
 		filetypes = filetypes,
 		handlers = handlers,
 	}))
@@ -108,6 +108,7 @@ local function efm()
 			codeAction = false,
 			completion = false,
 		},
+		debounce = 100,
 		root_dir = function()
 			return vim.fn.getcwd()
 		end,
@@ -193,6 +194,19 @@ local function tsserver()
 		on_attach = on_attach(true),
 		capabilities = capabilities,
 		filetypes = { "javascript", "javascript.jsx", "javascriptreact" },
+		handlers = handlers,
+		init_options = {
+			includeCompletionsForImportStatements = true,
+			includeAutomaticOptionalChainCompletions = true,
+			importModuleSpecifierEnding = "js",
+		},
+	}))
+end
+
+local function sqls()
+	lspconfig.sqls.setup(coq.lsp_ensure_capabilities({
+		on_attach = on_attach(false),
+		capabilities = capabilities,
 		handlers = handlers,
 	}))
 end
@@ -290,6 +304,7 @@ lsp_config.configure = function()
 			rust_analyzer,
 			sumneko_lua,
 			tsserver,
+			sqls,
 		}
 	else
 		custom_servers = {
@@ -299,6 +314,7 @@ lsp_config.configure = function()
 			gopls,
 			rust_analyzer,
 			sumneko_lua,
+			sqls,
 		}
 	end
 	for _, ls in ipairs(custom_servers) do

@@ -9,13 +9,23 @@ return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
 	use({
+		"ms-jpq/coq_nvim",
+		branch = "coq",
+		config = function()
+			require("ml-completion").coq()
+		end,
+	})
+	use({ "ms-jpq/coq.artifacts", branch = "artifacts" })
+
+	use({
 		"astridlyre/falcon",
 		config = function()
 			vim.cmd("colorscheme falcon")
 		end,
 	})
 	use({
-		"hoob3rt/lualine.nvim",
+		"shadmansaleh/lualine.nvim",
+		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		config = function()
 			require("ml-ui").lualine()
 		end,
@@ -26,7 +36,10 @@ return require("packer").startup(function(use)
 			require("ml-ui").colorizer()
 		end,
 	})
-	use({ "camspiers/snap", rocks = { "fzy" } })
+	use({
+		"nvim-telescope/telescope.nvim",
+		requires = { { "nvim-lua/plenary.nvim" }, { "kyazdani42/nvim-web-devicons", opt = true } },
+	})
 	use("junegunn/vim-easy-align")
 	use("b3nj5m1n/kommentary")
 	use("tpope/vim-fugitive")
@@ -48,16 +61,6 @@ return require("packer").startup(function(use)
 	})
 	use({ "RRethy/nvim-treesitter-textsubjects", after = "nvim-treesitter" })
 	use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" })
-
-	-- packer
-	use({
-		"ms-jpq/coq_nvim",
-		branch = "coq",
-		config = function()
-			require("ml-completion").coq()
-		end,
-	}) -- main one
-	use({ "ms-jpq/coq.artifacts", branch = "artifacts" }) -- 9000+ Snippets
 
 	use({
 		"neovim/nvim-lspconfig",
