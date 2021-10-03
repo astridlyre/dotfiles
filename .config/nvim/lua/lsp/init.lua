@@ -82,27 +82,6 @@ local function denols()
 	}))
 end
 
--- efm language server
-local function efm()
-	local languages = require("lsp.efm-ls").languages
-	local filetypes = require("lsp.efm-ls").filetypes
-	lspconfig.efm.setup({
-		init_options = {
-			documentFormatting = true,
-			hover = false,
-			documentSymbol = false,
-			codeAction = false,
-			completion = false,
-		},
-		debounce = 100,
-		root_dir = function()
-			return vim.fn.getcwd()
-		end,
-		filetypes = filetypes,
-		settings = { rootMarkers = { ".git/" }, languages = languages },
-	})
-end
-
 -- Go Language Server
 local function gopls()
 	lspconfig.gopls.setup(coq.lsp_ensure_capabilities({
@@ -206,6 +185,7 @@ lsp_config.configure = function()
 		"bashls",
 		"clangd",
 		"sqls",
+		"null-ls",
 	}
 	for _, ls in ipairs(default_servers) do
 		lspconfig[ls].setup(coq.lsp_ensure_capabilities({
@@ -220,7 +200,6 @@ lsp_config.configure = function()
 		custom_servers = {
 			clangd,
 			denols,
-			efm,
 			gopls,
 			rust_analyzer,
 			sumneko_lua,
@@ -231,7 +210,6 @@ lsp_config.configure = function()
 		custom_servers = {
 			clangd,
 			denols,
-			efm,
 			gopls,
 			rust_analyzer,
 			sumneko_lua,
@@ -306,6 +284,34 @@ lsp_config.configure = function()
 		vim.cmd([[edit]])
 	end
 	vim.cmd("command! -nargs=0 LspRestart call v:lua.reload_lsp()")
+end
+
+function lsp_config.null_ls()
+	local null_ls = require("null-ls")
+	local sources = {
+		null_ls.builtins.formatting.prettierd.with({
+			filetypes = { "html", "yaml", "markdown", "javascript", "javascriptreact", "css", "scss", "html" },
+		}),
+		null_ls.builtins.formatting.shfmt,
+		null_ls.builtins.formatting.black,
+		null_ls.builtins.formatting.fixjson,
+		null_ls.builtins.formatting.goimports,
+		null_ls.builtins.formatting.isort,
+		null_ls.builtins.formatting.sqlformat,
+		null_ls.builtins.formatting.rustfmt,
+		null_ls.builtins.formatting.stylua,
+		null_ls.builtins.diagnostics.shellcheck,
+		null_ls.builtins.diagnostics.eslint_d.with({
+			filetypes = { "javascript", "javascriptreact" },
+			extra_args = { "--config", vim.fn.expand("~/.eslintrc.json") },
+		}),
+		null_ls.builtins.diagnostics.flake8,
+		null_ls.builtins.diagnostics.markdownlint,
+		null_ls.builtins.diagnostics.vint,
+	}
+	null_ls.config({
+		sources = sources,
+	})
 end
 
 return lsp_config

@@ -68,7 +68,13 @@ return require("packer").startup(function(use)
 	})
 	use({ "RRethy/nvim-treesitter-textsubjects", after = "nvim-treesitter" })
 	use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" })
-
+	use({
+		"jose-elias-alvarez/null-ls.nvim",
+		config = function()
+			require("lsp").null_ls()
+		end,
+		requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+	})
 	use({
 		"neovim/nvim-lspconfig",
 		config = function()
