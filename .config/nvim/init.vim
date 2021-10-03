@@ -1,3 +1,47 @@
+let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
+let g:nvim_tree_gitignore = 1
+let g:nvim_tree_highlight_opened_files = 1
+let g:nvim_tree_add_trailing = 1
+let g:nvim_tree_window_picker_exclude = {
+    \   'filetype': [
+    \     'notify',
+    \     'packer',
+    \     'qf'
+    \   ],
+    \   'buftype': [
+    \     'terminal'
+    \   ]
+    \ }
+let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1 }
+let g:nvim_tree_icons = {
+    \ 'default': '',
+    \ 'symlink': '',
+    \ 'git': {
+    \   'unstaged': "✗",
+    \   'staged': "✓",
+    \   'unmerged': "",
+    \   'renamed': "➜",
+    \   'untracked': "★",
+    \   'deleted': "",
+    \   'ignored': "◌"
+    \   },
+    \ 'folder': {
+    \   'arrow_open': "",
+    \   'arrow_closed': "",
+    \   'default': "",
+    \   'open': "",
+    \   'empty': "",
+    \   'empty_open': "",
+    \   'symlink': "",
+    \   'symlink_open': "",
+    \   },
+    \   'lsp': {
+    \     'hint': "",
+    \     'info': "",
+    \     'warning': "",
+    \     'error': "",
+    \   }
+    \ }
 set termguicolors " has to be set before nvim-colorizer is loaded
 
 " ========================= lua config =================================== "
@@ -35,7 +79,7 @@ set textwidth=80                                              " auto wrap lines
 set timeoutlen=800                                            " time to wait between keypress
 set ttimeoutlen=10                                            " timeout for key sequence
 set undofile undodir=/tmp                                     " enable persistent undo
-set updatetime=100                                            " for cursorhold autocmd
+set updatetime=250                                            " for cursorhold autocmd
 set wildignorecase                                            " ignore case in commands
 set wildignore=.git,*.tags,tags,*.o,**/node_modules/**        " ignore paths
 set wildmode=longest:full,full                                " mode for matching
@@ -69,6 +113,8 @@ let g:python3_host_prog        = '/usr/bin/python3' " default python3
 let g:moonlight_qf_g = 0
 let g:moonlight_qf_l = 0
 let g:autoFormat = 1
+let g:falcon_bold = 1
+let g:falcon_italic = 1
 
 " ========================= autocommands ================================= "
 augroup AutoSelect
@@ -125,11 +171,11 @@ augroup HighlightYank " highlight yanked text
     autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
 augroup end
 
-augroup FolderArg    " fzf if passed argument is a folder
-	autocmd VimEnter * if argc() !=0 && isdirectory(argv()[0]) | set nocursorline
-    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
-    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute "lua require('telescope.builtin').find_files()" | endif
-augroup END
+" augroup FolderArg    " fzf if passed argument is a folder
+" 	autocmd VimEnter * if argc() !=0 && isdirectory(argv()[0]) | set nocursorline
+"     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
+"     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute "lua require('telescope.builtin').find_files()" | endif
+" augroup END
 
 augroup ReturnPos    " return to last edit position when opening files
 	autocmd!
@@ -227,7 +273,9 @@ nnoremap <leader>sw <cmd>StripWhitespace<cr>
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 
-" Using Lua functions
+nnoremap <C-n> <cmd>NvimTreeToggle<CR>
+nnoremap <leader><cr> <cmd>NvimTreeRefresh<CR>
+
 nnoremap s <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>lg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
@@ -236,6 +284,7 @@ nnoremap <leader>fr <cmd>lua require('telescope.builtin').lsp_references<cr>
 nnoremap <leader>fa <cmd>lua require('telescope.builtin').lsp_code_actions<cr>
 nnoremap <leader>fi <cmd>lua require('telescope.builtin').lsp_definitions<cr>
 nnoremap <leader>fd <cmd>lua require('telescope.builtin').lsp_implementations<cr>
+nnoremap <leader>d <cmd>Bdelete<cr>
 
 " fugitive mappings <leader>g[bd]
 nmap <leader>gb <cmd>Git blame<cr>

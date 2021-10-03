@@ -1,7 +1,7 @@
 -- Lsp Configs
 local lspconfig = require("lspconfig")
 local lsp_config = {}
-local enableTsServer = false
+local enableTsServer = true
 local coq = require("coq")
 
 -- LSP Keymaps
@@ -51,18 +51,6 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 	properties = { "documentation", "detail", "additionalTextEdits" },
 }
 
--- Diagnostic Handlers
-local diagnostics = {
-	virtual_text = { spacing = 0 },
-	signs = { enable = true, priority = 20 },
-	underline = true,
-	update_in_insert = false,
-}
-
-local handlers = {
-	["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, diagnostics),
-}
-
 -- clangd
 local function clangd()
 	lspconfig.clangd.setup(coq.lsp_ensure_capabilities({
@@ -75,7 +63,6 @@ local function clangd()
 		},
 		on_attach = on_attach(false),
 		capabilities = capabilities,
-		handlers = handlers,
 	}))
 end
 
@@ -92,7 +79,6 @@ local function denols()
 		capabilities = capabilities,
 		init_options = { enable = true, lint = true, unstable = true },
 		filetypes = filetypes,
-		handlers = handlers,
 	}))
 end
 
@@ -128,7 +114,6 @@ local function gopls()
 		init_options = { usePlaceholders = true, completeUnimported = true },
 		on_attach = on_attach(false),
 		capabilities = capabilities,
-		handlers = handlers,
 	}))
 end
 
@@ -137,7 +122,6 @@ local function rust_analyzer()
 	lspconfig.rust_analyzer.setup(coq.lsp_ensure_capabilities({
 		on_attach = on_attach(false),
 		capabilities = capabilities,
-		handlers = handlers,
 		settings = {
 			["rust-analyzer"] = {
 				checkOnSave = {
@@ -163,7 +147,6 @@ local function sumneko_lua()
 
 	lspconfig.sumneko_lua.setup(coq.lsp_ensure_capabilities({
 		on_attach = on_attach(true),
-		handlers = handlers,
 		cmd = {
 			sumneko_root_path .. sumneko_binary_path,
 			"-E",
@@ -194,7 +177,6 @@ local function tsserver()
 		on_attach = on_attach(true),
 		capabilities = capabilities,
 		filetypes = { "javascript", "javascript.jsx", "javascriptreact" },
-		handlers = handlers,
 		init_options = {
 			includeCompletionsForImportStatements = true,
 			includeAutomaticOptionalChainCompletions = true,
@@ -207,71 +189,10 @@ local function sqls()
 	lspconfig.sqls.setup(coq.lsp_ensure_capabilities({
 		on_attach = on_attach(false),
 		capabilities = capabilities,
-		handlers = handlers,
 	}))
 end
 
--- Diagnostic Signs
-local setup_diagnostic_defaults = function(default_diagnostics)
-	vim.fn.sign_define("LspDiagnosticsSignError", {
-		texthl = "LspDiagnosticsSignError",
-		text = "",
-		numhl = "LspDiagnosticsSignError",
-	})
-	vim.fn.sign_define("LspDiagnosticsSignWarning", {
-		texthl = "LspDiagnosticsSignWarning",
-		text = "",
-		numhl = "LspDiagnosticsSignWarning",
-	})
-	vim.fn.sign_define("LspDiagnosticsSignHint", {
-		texthl = "LspDiagnosticsSignHint",
-		text = "",
-		numhl = "LspDiagnosticsSignHint",
-	})
-	vim.fn.sign_define("LspDiagnosticsSignInformation", {
-		texthl = "LspDiagnosticsSignInformation",
-		text = "",
-		numhl = "LspDiagnosticsSignInformation",
-	})
-
-	-- symbols for autocomplete
-	vim.lsp.protocol.CompletionItemKind = {
-		"   ",
-		"   ",
-		"   ",
-		"   ",
-		" ﴲ  ",
-		"[] ",
-		"   ",
-		" ﰮ  ",
-		"   ",
-		" 襁 ",
-		"   ",
-		"   ",
-		" 練 ",
-		"   ",
-		"   ",
-		"   ",
-		"   ",
-		"   ",
-		"   ",
-		"   ",
-		" ﲀ  ",
-		" ﳤ  ",
-		"   ",
-		"   ",
-		"   ",
-	}
-
-	-- Set Default Prefix.
-	vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-		vim.lsp.diagnostic.on_publish_diagnostics,
-		default_diagnostics
-	)
-end
-
 lsp_config.configure = function()
-	setup_diagnostic_defaults(diagnostics)
 	-- Enable the following default language servers
 	local default_servers = {
 		"pyright",
@@ -320,6 +241,64 @@ lsp_config.configure = function()
 	for _, ls in ipairs(custom_servers) do
 		ls()
 	end
+
+	-- Diagnostic Signs
+	vim.fn.sign_define("DiagnosticSignError", {
+		texthl = "DiagnosticSignError",
+		text = "",
+		numhl = "DiagnosticSignError",
+	})
+	vim.fn.sign_define("DiagnosticSignWarn", {
+		texthl = "DiagnosticSignWarn",
+		text = "",
+		numhl = "DiagnosticSignWarn",
+	})
+	vim.fn.sign_define("DiagnosticSignHint", {
+		texthl = "DiagnosticSignHint",
+		text = "",
+		numhl = "DiagnosticSignHint",
+	})
+	vim.fn.sign_define("DiagnosticSignInfo", {
+		texthl = "DiagnosticSignInfo",
+		text = "",
+		numhl = "DiagnosticSignInfo",
+	})
+
+	-- symbols for autocomplete
+	vim.lsp.protocol.CompletionItemKind = {
+		"   ",
+		"   ",
+		"   ",
+		"   ",
+		" ﴲ  ",
+		"[] ",
+		"   ",
+		" ﰮ  ",
+		"   ",
+		" 襁 ",
+		"   ",
+		"   ",
+		" 練 ",
+		"   ",
+		"   ",
+		"   ",
+		"   ",
+		"   ",
+		"   ",
+		"   ",
+		" ﲀ  ",
+		" ﳤ  ",
+		"   ",
+		"   ",
+		"   ",
+	}
+
+	vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+		virtual_text = {
+			prefix = "",
+			source = "if_many", -- Or "if_many"
+		},
+	})
 
 	-- Add reload lsp function
 	function _G.reload_lsp()

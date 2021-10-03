@@ -1,5 +1,5 @@
 local efm = {}
-local enableTsServer = false
+local enableTsServer = true
 
 -- Vim linting
 local vim_vint = {
@@ -13,7 +13,7 @@ local markdown = {
 	lintCommand = "markdownlint -s",
 	lintStdin = true,
 	lintFormats = { "%f:%l %m", "%f:%l:%c %m", "%f: %l: %m" },
-	formatCommand = "prettier --parser markdown",
+	formatCommand = 'prettierd "${INPUT}"',
 	formatStdin = true,
 }
 
@@ -61,21 +61,21 @@ local python_flake = {
 }
 
 -- HTML Formatting
-local html_fmt = { formatCommand = "prettier --parser html", formatStdin = true }
-
--- CSS Formatting
-local css_fmt = { formatCommand = "prettier --parser css", formatStdin = true }
-
-local js_fmt = {
-	formatCommand = "prettier --parser typescript --arrow-parens avoid",
+local html_fmt = {
+	formatCommand = 'prettierd "${INPUT}"',
 	formatStdin = true,
 }
 
+-- CSS Formatting
+local css_fmt = { formatCommand = 'prettierd "${INPUT}"', formatStdin = true }
+
 local eslint = {
-	lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+	lintCommand = 'eslint_d --config /home/ml/.eslintrc.json -f unix --stdin --stdin-filename "${INPUT}"',
 	lintStdin = true,
 	lintFormats = { "%f:%l:%c: %m" },
 	lintIgnoreExitCode = true,
+	formatCommand = 'prettierd "${INPUT}"',
+	formatStdin = true,
 }
 
 -- JSON Formatting
@@ -116,7 +116,7 @@ if enableTsServer then
 		sh = { shell },
 		vim = { vim_vint },
 		yaml = { yaml_lint },
-		javascript = { js_fmt },
+		javascript = { eslint },
 	}
 else
 	efm.filetypes = {

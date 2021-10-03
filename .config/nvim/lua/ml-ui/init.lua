@@ -1,5 +1,23 @@
 local ui = {}
 
+function ui.tree()
+	require("nvim-tree").setup({
+		view = {
+			width = 30,
+			auto_resize = true,
+			mappings = {
+				custom_only = false,
+				list = {
+					{ key = "s", cb = ':lua require("telescope.builtin").find_files()<cr>' },
+				},
+			},
+		},
+		system_open = {
+			cmd = nil,
+		},
+	})
+end
+
 -- Lualine
 function ui.lualine()
 	local function theme()

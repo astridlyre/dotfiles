@@ -88,4 +88,4 @@ export FZF_CTRL_R_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd -H --maxdepth 5  $FZF_IGNORE_EXCLUDE --type d --follow --search-path '/etc' --search-path '/home/ml'"
 export FZF_ALT_C_OPTS='--preview "exa -a -T -L 1 --color=always {}" --no-height'
 
-export TDD_PROJECT_ROOT="$HOME/projects/tdd-project"
+export UV_THREADPOOL_SIZE=64

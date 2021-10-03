@@ -7,16 +7,23 @@ end
 
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
-
 	use({
 		"ms-jpq/coq_nvim",
 		branch = "coq",
 		config = function()
 			require("ml-completion").coq()
 		end,
+		run = ":COQdeps",
 	})
 	use({ "ms-jpq/coq.artifacts", branch = "artifacts" })
-
+	use({
+		"kyazdani42/nvim-tree.lua",
+		requires = "kyazdani42/nvim-web-devicons",
+		config = function()
+			require("ml-ui").tree()
+		end,
+	})
+	use("famiu/bufdelete.nvim")
 	use({
 		"astridlyre/falcon",
 		config = function()

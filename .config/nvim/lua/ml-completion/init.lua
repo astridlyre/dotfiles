@@ -9,19 +9,20 @@ function completion.coq()
 			buffers = {
 				same_filetype = true,
 				enabled = true,
-				weight_adjust = -1.9,
+				weight_adjust = -1.5,
 			},
 			tree_sitter = {
 				enabled = true,
-				weight_adjust = -1.5,
+				weight_adjust = 0.6,
 			},
 			lsp = {
 				enabled = true,
-				weight_adjust = 1.9,
+				weight_adjust = 1.5,
+				resolve_timeout = 0.1,
 			},
 			snippets = {
 				enabled = true,
-				weight_adjust = 1.5,
+				weight_adjust = 1.3,
 			},
 		},
 		auto_start = "shut-up",

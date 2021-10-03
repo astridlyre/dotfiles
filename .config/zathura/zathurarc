@@ -1,4 +1,4 @@
-set font "Iosevka normal 10"
+set font "JetBrains Mono Nerd Font normal 10"
 set highlight-color "#ffc552"
 set highlight-active-color "#ffc552"
 set highlight-transparency 1.0

@@ -7,7 +7,7 @@
     background-color:      #1b1b20;
     border-color:          #ffc552;
     text-color:           #b4b4b9;
-    font:            "Iosevka 12";
+    font:            "JetBrains Mono Nerd Font 12";
 }
 
 window {

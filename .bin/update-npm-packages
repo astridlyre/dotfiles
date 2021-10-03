@@ -15,8 +15,10 @@ DEFAULT_PACKAGES=("bash-language-server"
 	"markdownlint-cli"
 	"fixjson"
 	"dockerfile-language-server-nodejs"
+	"pm2"
 	"rollup"
 	"eslint_d"
+	"prettier_d_slim"
 	"@bitwarden/cli")
 
 npm i -g "${DEFAULT_PACKAGES[@]}"
