@@ -3,6 +3,17 @@ local completion = {}
 function completion.coq()
 	local remap = vim.api.nvim_set_keymap
 	vim.g.coq_settings = {
+		match = {
+			exact_matches = 3,
+			fuzzy_cutoff = 0.7,
+			look_ahead = 1,
+		},
+		weights = {
+			prefix_matches = 2.0,
+			edit_distance = 1.0,
+			recency = 0.75,
+			proximity = 1.0,
+		},
 		keymap = { recommended = false },
 		display = { icons = { mode = "short" }, ghost_text = { enabled = false } },
 		clients = {
@@ -17,12 +28,12 @@ function completion.coq()
 			},
 			lsp = {
 				enabled = true,
-				weight_adjust = 1.5,
+				weight_adjust = 2.0,
 				resolve_timeout = 0.1,
 			},
 			snippets = {
 				enabled = true,
-				weight_adjust = 1.3,
+				weight_adjust = 1.5,
 			},
 		},
 		auto_start = "shut-up",
