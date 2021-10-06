@@ -210,8 +210,8 @@ function! ResetHightlight() " temporary fix for when treesitter highlight goes w
 endfunction
 
 function! ToggleAutoFormat() " turn on / off formatting on save
-    if g:autoFormat == 1 | let g:autoFormat = 0 | echo "Autoformatting disabled"
-    else | let g:autoFormat = 1 | echo "Autoformatting enabled" | end
+    if g:autoFormat == 1 | let g:autoFormat = 0 | echo 'Autoformatting disabled'
+    else | let g:autoFormat = 1 | echo 'Autoformatting enabled' | end
 endfunction
 
 function! ToggleQFList(global) " toggle quickfix
@@ -246,12 +246,6 @@ nnoremap <leader>; :w<cr>
 nnoremap <silent><leader>af <cmd>call ToggleAutoFormat()<cr>
 nnoremap <silent><leader><esc> <cmd>call ResetHightlight()<cr>
 nnoremap <silent><leader>q <cmd>call ToggleQFList(0)<cr>
-nnoremap <silent><leader>r <cmd>make<cr>
-nnoremap <silent><leader>wg <cmd>!write-good %<cr>
-nnoremap <silent><leader>gt <cmd>!go test<cr>
-nnoremap <silent><leader>gr <cmd>!go run %<cr>
-nnoremap <silent><leader>r <cmd>lua require"ml-quickrun".run_command()<cr>
-nnoremap <silent><leader>t <cmd>lua require"ml-quickrun".run_command(true)<cr>
 nnoremap <silent><leader>p <C-^>
 nnoremap ' `
 nnoremap ` '
