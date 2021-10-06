@@ -18,7 +18,11 @@ DEFAULT_PACKAGES=("bash-language-server"
 	"pm2"
 	"rollup"
 	"eslint_d"
-	"prettier_d_slim"
+	"eslint-plugin-react"
+	"eslint-config-standard"
+	"eslint-config-standard-jsx"
+	"eslint-config-prettier"
+	"@fsouza/prettierd"
 	"@bitwarden/cli")
 
 npm i -g "${DEFAULT_PACKAGES[@]}"

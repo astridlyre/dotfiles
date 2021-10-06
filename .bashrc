@@ -18,7 +18,7 @@
 if [[ -d ~/.bashrc.d ]]; then
 	# Source files
 	for file in ~/.bashrc.d/*; do
-		[[ -f $file ]] && . "$file"
+		[[ -f ${file} ]] && . "${file}"
 	done
 	unset file
 fi

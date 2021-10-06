@@ -89,3 +89,4 @@ export FZF_ALT_C_COMMAND="fd -H --maxdepth 5  $FZF_IGNORE_EXCLUDE --type d --fol
 export FZF_ALT_C_OPTS='--preview "exa -a -T -L 1 --color=always {}" --no-height'
 
 export UV_THREADPOOL_SIZE=64
+export PRETTIERD_DEFAULT_CONFIG=/home/ml/.prettierrc.json
