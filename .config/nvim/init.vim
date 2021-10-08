@@ -276,8 +276,9 @@ nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 nnoremap <leader>fr <cmd>lua require('telescope.builtin').lsp_references<cr>
 nnoremap <leader>fa <cmd>lua require('telescope.builtin').lsp_code_actions<cr>
-nnoremap <leader>fi <cmd>lua require('telescope.builtin').lsp_definitions<cr>
-nnoremap <leader>fd <cmd>lua require('telescope.builtin').lsp_implementations<cr>
+nnoremap <leader>fd <cmd>lua require('telescope.builtin').lsp_definitions<cr>
+nnoremap <leader>fi <cmd>lua require('telescope.builtin').lsp_implementations<cr>
+nnoremap <leader>f; <cmd>lua require('telescope.builtin').lsp_range_code_actions<cr>
 nnoremap <leader>d <cmd>Bdelete<cr>
 
 " fugitive mappings <leader>g[bd]

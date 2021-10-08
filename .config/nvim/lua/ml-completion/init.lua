@@ -15,7 +15,16 @@ function completion.coq()
 			proximity = 1.0,
 		},
 		keymap = { recommended = false },
-		display = { icons = { mode = "short" }, ghost_text = { enabled = false } },
+		display = {
+			icons = { mode = "short" },
+			ghost_text = { enabled = false },
+			preview = { positions = {
+				north = 4,
+				south = 3,
+				east = 1,
+				west = 2,
+			} },
+		},
 		clients = {
 			buffers = {
 				same_filetype = true,
@@ -29,7 +38,7 @@ function completion.coq()
 			lsp = {
 				enabled = true,
 				weight_adjust = 2.0,
-				resolve_timeout = 0.1,
+				resolve_timeout = 0.08,
 			},
 			snippets = {
 				enabled = true,
