@@ -160,6 +160,7 @@ local function tsserver()
 			includeCompletionsForImportStatements = true,
 			includeAutomaticOptionalChainCompletions = true,
 			importModuleSpecifierEnding = "js",
+			includePackageJsonAutoImports = true,
 		},
 	}))
 end

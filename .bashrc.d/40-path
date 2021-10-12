@@ -3,19 +3,17 @@
 # function to prepend to PATH
 prepend_path() {
 	case "$PATH" in
-		*"$1"*) ;;
-		*)
-			PATH="$1:$PATH"
-			;;
+	*"$1"*) ;;
+	*)
+		PATH="$1:$PATH"
+		;;
 	esac
 }
 
 # ruby
 prepend_path "$HOME/.local/share/gem/ruby/2.7.0/bin"
 
-# fnm
-prepend_path "$HOME/.fnm"
-prepend_path "$HOME/.fnm/aliases/default/bin"
+prepend_path "$HOME/.npm-packages/bin"
 
 # rust
 prepend_path "$HOME/.cargo/bin"

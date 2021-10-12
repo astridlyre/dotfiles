@@ -68,7 +68,7 @@ export NNN_OPENER='nnn_opener'
 export NNN_TMPFILE="$HOME/.config}/nnn/.lastd"
 
 # fzf directories to ignore
-FZF_IGNORE_DIRS=(".git" "build" "node_modules" ".fzf" ".fnm" "vendor/bundle" ".cache" ".mypy_cache" ".icons" ".themes" "Videos" "Pictures")
+FZF_IGNORE_DIRS=(".git" "build" "node_modules" ".fzf" ".npm-packages" "vendor/bundle" ".cache" ".mypy_cache" ".icons" ".themes" "Videos" "Pictures")
 FZF_IGNORE_GLOB=""
 FZF_IGNORE_EXCLUDE=""
 for p in "${FZF_IGNORE_DIRS[@]}"; do
@@ -90,3 +90,5 @@ export FZF_ALT_C_OPTS='--preview "exa -a -T -L 1 --color=always {}" --no-height'
 
 export UV_THREADPOOL_SIZE=64
 export PRETTIERD_DEFAULT_CONFIG=/home/ml/.prettierrc.json
+export NPM_PACKAGES="${HOME}/.npm-packages"
+export MANPATH="${MANPATH-$(manpath)}:${NPM_PACKAGES}/share/man"
