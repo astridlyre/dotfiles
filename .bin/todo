@@ -25,7 +25,7 @@ usage() {
 print_todo() {
 	local counter
 	counter=1
-  clear
+	clear
 	printf "$BOLD_GREEN%s$RESET_TXT\n\n" "To do items:"
 	for item in "${TODOS_ARRAY[@]}"; do
 		printf "$BOLD_WHITE%s.\t%s$RESET_TXT\n" "$counter" "$item"
@@ -39,7 +39,7 @@ update_todo_file() {
 		for item in "${TODOS_ARRAY[@]}"; do
 			echo "$item"
 		done
-	} > "$TODOS_FILE"
+	} >"$TODOS_FILE"
 }
 
 # Adds todo items
@@ -54,9 +54,9 @@ add_todo() {
 del_todo() {
 	printf "\n$BOLD_RED%s$RESET_TXT" "Item to delete? (#): "
 	read -r item_to_delete
-  ((item_to_delete--))
-  unset "TODOS_ARRAY[$item_to_delete]"
-  update_todo_file
+	((item_to_delete--))
+	unset "TODOS_ARRAY[$item_to_delete]"
+	update_todo_file
 }
 
 # Check for existence of file, create if necessary
@@ -67,19 +67,16 @@ while read -r item; do
 	TODOS_ARRAY+=("$item")
 done <"$TODOS_FILE"
 
-# Print the todo list
-print_todo
-
 # Read what to do
 case "$1" in
 a | add)
 	add_todo
-  print_todo
+	print_todo
 	exit 0
 	;;
 d | del)
 	del_todo
-  print_todo
+	print_todo
 	exit 0
 	;;
 h | help)
@@ -87,6 +84,8 @@ h | help)
 	exit 1
 	;;
 *)
+	# Print the todo list
+	print_todo
 	exit 0
 	;;
 esac
