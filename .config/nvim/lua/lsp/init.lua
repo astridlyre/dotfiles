@@ -68,12 +68,7 @@ end
 
 -- Deno for TypeScript
 local function denols()
-	local filetypes
-	if enableTsServer then
-		filetypes = { "typescript", "typescriptreact", "typescript.tsx" }
-	else
-		filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact" }
-	end
+	local filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact" }
 	lspconfig.denols.setup(coq.lsp_ensure_capabilities({
 		on_attach = on_attach(false),
 		capabilities = capabilities,
@@ -155,7 +150,14 @@ local function tsserver()
 	lspconfig.tsserver.setup(coq.lsp_ensure_capabilities({
 		on_attach = on_attach(true),
 		capabilities = capabilities,
-		filetypes = { "javascript", "javascript.jsx", "javascriptreact" },
+		filetypes = {
+			"javascript",
+			"javascript.jsx",
+			"javascriptreact",
+			"typescript",
+			"typescriptreact",
+			"typescript.tsx",
+		},
 		init_options = {
 			includeCompletionsForImportStatements = true,
 			includeAutomaticOptionalChainCompletions = true,
@@ -200,7 +202,6 @@ lsp_config.configure = function()
 	if enableTsServer then
 		custom_servers = {
 			clangd,
-			denols,
 			gopls,
 			rust_analyzer,
 			sumneko_lua,

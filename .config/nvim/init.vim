@@ -1,4 +1,3 @@
-let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
 let g:nvim_tree_gitignore = 1
 let g:nvim_tree_highlight_opened_files = 1
 let g:nvim_tree_add_trailing = 1
