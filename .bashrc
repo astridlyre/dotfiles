@@ -23,6 +23,10 @@ if [[ -d ~/.bashrc.d ]]; then
 	unset file
 fi
 
+if [[ -d ~/.exercism/exercism_completion.bash ]]; then
+	. ~/.exercism/exercism_completion.bash
+fi
+
 # enable programmable completion features
 if ! shopt -oq posix; then
 	[[ -f /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion

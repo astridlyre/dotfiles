@@ -170,12 +170,6 @@ augroup HighlightYank " highlight yanked text
     autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
 augroup end
 
-" augroup FolderArg    " fzf if passed argument is a folder
-" 	autocmd VimEnter * if argc() !=0 && isdirectory(argv()[0]) | set nocursorline
-"     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
-"     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute "lua require('telescope.builtin').find_files()" | endif
-" augroup END
-
 augroup ReturnPos    " return to last edit position when opening files
 	autocmd!
 	autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -187,6 +181,11 @@ augroup AutoFormat   " autoformat on save
 		\ 'go', 'yaml', 'html', 'css', 'json', 'lua', 'c', 'typescript']
 	autocmd BufWritePre * if index(autoFormatable, &ft) >= 0 && g:autoFormat == 1
 		\ | exe 'lua vim.lsp.buf.formatting_sync(nil, 1000)' | endif
+augroup end
+
+augroup AutoFormatClj
+	autocmd!
+	autocmd BufWritePre * if &ft == 'clojure' | exe ':Cljfmt' | endif
 augroup end
 
 augroup GoEquals     " Go equals abbr
