@@ -67,7 +67,6 @@ set pumheight=16                                              " max 15 items at 
 set redrawtime=8000                                           " time to wait for redraws
 set shortmess=aoOTIcF                                         " status messages
 set showbreak=↳\ \                                            " show when lines wrap
-set showtabline=0                                             " never show tabline
 set sidescroll=5 scrolloff=3                                  " scroll off
 set signcolumn=yes                                            " always show signcolumn
 set spelllang=en_gb                                           " canadian spelling
@@ -185,7 +184,7 @@ augroup end
 
 augroup AutoFormatClj
 	autocmd!
-	autocmd BufWritePre * if &ft == 'clojure' | exe ':Cljfmt' | endif
+	autocmd BufWritePre * if &ft == 'clojure' | exe ':%! lein cljfmt fix' | endif
 augroup end
 
 augroup GoEquals     " Go equals abbr
@@ -277,7 +276,7 @@ nnoremap <leader>fa <cmd>lua require('telescope.builtin').lsp_code_actions<cr>
 nnoremap <leader>fd <cmd>lua require('telescope.builtin').lsp_definitions<cr>
 nnoremap <leader>fi <cmd>lua require('telescope.builtin').lsp_implementations<cr>
 nnoremap <leader>f; <cmd>lua require('telescope.builtin').lsp_range_code_actions<cr>
-nnoremap <leader>d <cmd>Bdelete<cr>
+nnoremap <leader>d <cmd>lua MiniBufremove.delete()<cr>
 
 " fugitive mappings <leader>g[bd]
 nmap <leader>gb <cmd>Git blame<cr>
