@@ -32,13 +32,15 @@ cat <<EOF >package.json
   "name": "$(basename "${PWD}")",
   "version": "1.0.0",
   "description": "",
-  "main": "build/bundle.js",
+  "main": "dist/index.js",
+  "source': "src/index.ts",
+  "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-	"start": "node index.js",
-	"clean": "rm -rf ./build/*",
-    "test": "mocha",
-	"dev": "rollup -c --watch"
+	"start": "parcel watch",
+	"clean": "rm -rf ./dist/*",
+    "test": "mocha --parallel",
+	"dev": "parcel build src/index.ts"
   },
   "keywords": [],
   "author": "Erin Burton",
@@ -48,54 +50,18 @@ cat <<EOF >package.json
 EOF
 
 printf "${BOLD_GREEN}%s${RESET_TXT}\n" "Installing packages"
+npm install --save @ebflat9/fp
 npm install --save-dev \
-	@ebflat9/fp \
-	@rollup/plugin-babel \
-	@rollup/plugin-node-resolve \
-	@rollup/plugin-commonjs \
-	@rollup/plugin-typescript \
-	@babel/core \
-	@babel/preset-typescript \
 	mocha \
-	eslint_d \
+	parcel \
+	eslint \
 	typescript \
 	@typescript-eslint/parser \
 	@typescript-eslint/eslint-plugin || error_exit "Unable to install packages"
 
-printf "${BOLD_GREEN}%s${RESET_TXT}\n" "Creating base rollup config"
-cat <<EOF >rollup.config.js || error_exit "Unable to create rollup.config.js"
-import resolve from '@rollup/plugin-node-resolve'
-import babel from '@rollup/plugin-babel'
-import typescript from '@rollup/plugin-typescript'
-import commonjs from '@rollup/plugin-commonjs'
-
-export default {
-	input: 'src/index.ts',
-	output: {
-		file: 'build/bundle.js',
-		format: 'esm'
-	},
-	inlineDynamicImports: true,
-	treeshake: true,
-	plugins: [typescript(), resolve(), commonjs(), babel({babelHelpers: 'bundled'})]
-}
-EOF
-
-mkdir src
-touch src/index.ts
-mkdir build
-
-cat <<EOF >babel.config.json || error_exit "Unable to create babel.config.json"
-{
-	"presets": ["@babel/preset-typescript"]
-}
-EOF
-
 cat <<EOF >tsconfig.json || error_exit "Unable to create tsconfig.json"
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "noFallthroughCasesInSwitch": true,
     "experimentalDecorators": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -103,8 +69,6 @@ cat <<EOF >tsconfig.json || error_exit "Unable to create tsconfig.json"
     "esModuleInterop": true,
     "noUnusedLocals": true,
     "noImplicitAny": true,
-    "declarationDir": "dist/types",
-    "declaration": true,
     "target": "esnext",
     "module": "esnext",
     "strict": true,

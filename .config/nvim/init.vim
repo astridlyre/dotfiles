@@ -1,3 +1,34 @@
+scriptencoding=utf8
+
+" ========================= plugin configuration ========================= "
+let g:loaded_gzip              = 1
+let g:loaded_tar               = 1
+let g:loaded_tarPlugin         = 1
+let g:loaded_zip               = 1
+let g:loaded_zipPlugin         = 1
+let g:loaded_getscript         = 1
+let g:loaded_getscriptPlugin   = 1
+let g:loaded_vimball           = 1
+let g:loaded_vimballPlugin     = 1
+let g:loaded_matchit           = 1
+let g:loaded_matchparen        = 1
+let g:loaded_2html_plugin      = 1
+let g:loaded_logiPat           = 1
+let g:loaded_rrhelper          = 1
+let g:loaded_netrw             = 1
+let g:loaded_netrwPlugin       = 1
+let g:loaded_netrwSettings     = 1
+let g:loaded_netrwFileHandlers = 1
+let g:omni_sql_no_default_maps = 1                  " disable sql omni completion
+let g:loaded_python_provider   = 0                  " disable python2
+let g:loaded_perl_provider     = 0                  " disable perl
+let g:loaded_ruby_provider     = 0                  " disable ruby
+let g:python3_host_prog        = '/usr/bin/python3' " default python3
+let g:moonlight_qf_g = 0
+let g:moonlight_qf_l = 0
+let g:autoFormat = 1
+let g:falcon_bold = 1
+let g:falcon_italic = 1
 let g:nvim_tree_gitignore = 1
 let g:nvim_tree_highlight_opened_files = 1
 let g:nvim_tree_add_trailing = 1
@@ -16,29 +47,29 @@ let g:nvim_tree_icons = {
     \ 'default': '',
     \ 'symlink': '',
     \ 'git': {
-    \   'unstaged': "✗",
-    \   'staged': "✓",
-    \   'unmerged': "",
-    \   'renamed': "➜",
-    \   'untracked': "★",
-    \   'deleted': "",
-    \   'ignored': "◌"
+    \   'unstaged': '✗',
+    \   'staged': '✓',
+    \   'unmerged': '',
+    \   'renamed': '➜',
+    \   'untracked': '★',
+    \   'deleted': '',
+    \   'ignored': '◌'
     \   },
     \ 'folder': {
-    \   'arrow_open': "",
-    \   'arrow_closed': "",
-    \   'default': "",
-    \   'open': "",
-    \   'empty': "",
-    \   'empty_open': "",
-    \   'symlink': "",
-    \   'symlink_open': "",
+    \   'arrow_open': '',
+    \   'arrow_closed': '',
+    \   'default': '',
+    \   'open': '',
+    \   'empty': '',
+    \   'empty_open': '',
+    \   'symlink': '',
+    \   'symlink_open': '',
     \   },
     \   'lsp': {
-    \     'hint': "",
-    \     'info': "",
-    \     'warning': "",
-    \     'error': "",
+    \     'hint': '',
+    \     'info': '',
+    \     'warning': '',
+    \     'error': '',
     \   }
     \ }
 set termguicolors " has to be set before nvim-colorizer is loaded
@@ -81,38 +112,6 @@ set updatetime=250                                            " for cursorhold a
 set wildignorecase                                            " ignore case in commands
 set wildignore=.git,*.tags,tags,*.o,**/node_modules/**        " ignore paths
 set wildmode=longest:full,full                                " mode for matching
-
-" ========================= plugin configuration ========================= "
-let g:loaded_gzip              = 1
-let g:loaded_tar               = 1
-let g:loaded_tarPlugin         = 1
-let g:loaded_zip               = 1
-let g:loaded_zipPlugin         = 1
-let g:loaded_getscript         = 1
-let g:loaded_getscriptPlugin   = 1
-let g:loaded_vimball           = 1
-let g:loaded_vimballPlugin     = 1
-let g:loaded_matchit           = 1
-let g:loaded_matchparen        = 1
-let g:loaded_2html_plugin      = 1
-let g:loaded_logiPat           = 1
-let g:loaded_rrhelper          = 1
-let g:loaded_netrw             = 1
-let g:loaded_netrwPlugin       = 1
-let g:loaded_netrwSettings     = 1
-let g:loaded_netrwFileHandlers = 1
-let g:omni_sql_no_default_maps = 1                  " disable sql omni completion
-let g:loaded_python_provider   = 0                  " disable python2
-let g:loaded_perl_provider     = 0                  " disable perl
-let g:loaded_ruby_provider     = 0                  " disable ruby
-let g:python3_host_prog        = '/usr/bin/python3' " default python3
-
-" for quickfix / location list toggle
-let g:moonlight_qf_g = 0
-let g:moonlight_qf_l = 0
-let g:autoFormat = 1
-let g:falcon_bold = 1
-let g:falcon_italic = 1
 
 " ========================= autocommands ================================= "
 augroup AutoSelect
@@ -177,14 +176,9 @@ augroup end
 augroup AutoFormat   " autoformat on save
 	autocmd!
 	let autoFormatable = ['markdown', 'sh', 'bash', 'python', 'javascript', 'rust',
-		\ 'go', 'yaml', 'html', 'css', 'json', 'lua', 'c', 'typescript']
+		\ 'go', 'yaml', 'html', 'css', 'json', 'lua', 'c', 'typescript', 'javascriptreact', 'typescriptreact']
 	autocmd BufWritePre * if index(autoFormatable, &ft) >= 0 && g:autoFormat == 1
 		\ | exe 'lua vim.lsp.buf.formatting_sync(nil, 1000)' | endif
-augroup end
-
-augroup AutoFormatClj
-	autocmd!
-	autocmd BufWritePre * if &ft == 'clojure' | exe ':%! lein cljfmt fix' | endif
 augroup end
 
 augroup GoEquals     " Go equals abbr

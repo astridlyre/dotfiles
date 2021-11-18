@@ -36,8 +36,8 @@ cat <<EOF >package.json
   "type": "module",
   "scripts": {
 	"start": "node index.js",
-    "test": "mocha",
-	"dev": "rollup -c --watch"
+    "test": "mocha --parallel",
+	"dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "Erin Burton",
@@ -47,46 +47,12 @@ cat <<EOF >package.json
 EOF
 
 printf "${BOLD_GREEN}%s${RESET_TXT}\n" "Installing packages"
+npm install @ebflat9/fp
 npm install --save-dev \
-	@ebflat9/fp \
-	@rollup/plugin-babel \
-	@rollup/plugin-node-resolve \
-	@rollup/plugin-commonjs \
-	@babel/core \
-	@babel/preset-typescript \
-	mocha \
-	eslint_d \
-	typescript \
-	@typescript-eslint/parser \
-	@typescript-eslint/eslint-plugin || error_exit "Unable to install packages"
+	eslint \
+	mocha \  || error_exit "Unable to install packages"
 
-printf "${BOLD_GREEN}%s${RESET_TXT}\n" "Creating base rollup config"
-cat <<EOF >rollup.config.js || error_exit "Unable to create rollup.config.js"
-import resolve from '@rollup/plugin-node-resolve'
-import babel from '@rollup/plugin-babel'
-import commonjs from '@rollup/plugin-commonjs'
-
-export default {
-	input: 'index.js',
-	output: {
-		file: 'build/bundle.js',
-		format: 'esm'
-	},
-	inlineDynamicImports: true,
-	treeshake: true,
-	plugins: [resolve(), commonjs(), babel({babelHelpers: 'bundled'})]
-}
-EOF
-
-mkdir src
-touch src/index.js
-mkdir build
-
-cat <<EOF >babel.config.json || error_exit "Unable to create babel.config.json"
-{
-	"presets": ["@babel/preset-typescript"]
-}
-EOF
+touch index.js
 
 printf "${BOLD_GREEN}%s${RESET_TXT}\n" "Creating base .eslintrc.json"
 cat <<EOF >.eslintrc.json || error_exit "Unable to create .eslintrc.json"
@@ -101,15 +67,10 @@ cat <<EOF >.eslintrc.json || error_exit "Unable to create .eslintrc.json"
     },
     "extends": [
 		"eslint:recommended",
-		"plugin:@typescript-eslint/recommended"
     ],
-	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"ecmaVersion": "latest"
 	},
-	"plugins": [
-		"@typescript-eslint"
-	],
     "rules": {
         "no-promise-executor-return": "warn",
         "require-atomic-updates": "error",

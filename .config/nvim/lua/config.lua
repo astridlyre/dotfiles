@@ -12,6 +12,7 @@ vim.api.nvim_exec(
 ]],
 	false
 )
+local remap = vim.api.nvim_set_keymap
 
 -- Load plugins
 local use = require("packer").use
@@ -39,7 +40,6 @@ require("packer").startup(function()
 		"nvim-telescope/telescope.nvim",
 		requires = { { "nvim-lua/plenary.nvim" }, { "kyazdani42/nvim-web-devicons", opt = true } },
 	})
-	use("junegunn/vim-easy-align")
 	use("b3nj5m1n/kommentary")
 	use("tpope/vim-fugitive")
 	use({
@@ -51,17 +51,40 @@ require("packer").startup(function()
 		run = ":TSUpdate",
 	})
 	use({
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		after = "nvim-treesitter",
+		"clojure-vim/acid.nvim",
+		run = ":UpdateRemotePlugins",
 	})
-	use({ "RRethy/nvim-treesitter-textsubjects", after = "nvim-treesitter" })
-	use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" })
+	use({ "nvim-treesitter/nvim-treesitter-textobjects" })
+	use({ "windwp/nvim-ts-autotag" })
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
 		requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 	})
 	use({ "neovim/nvim-lspconfig" })
-	use({ "ray-x/lsp_signature.nvim" })
+	use({
+		"ray-x/lsp_signature.nvim",
+		opt = true,
+		event = "InsertCharPre",
+		config = function()
+			-- LSP Signature
+			local cfg = {
+				bind = true,
+				doc_lines = 0,
+				floating_window = true,
+				floating_window_above_cur_line = true,
+				hint_enable = true,
+				hint_prefix = "❱ ",
+				hint_scheme = "String",
+				use_lspsaga = false,
+				hi_parameter = "Search",
+				max_height = 4,
+				max_width = 120,
+				handler_opts = { border = "single" },
+				extra_trigger_chars = {},
+			}
+			require("lsp_signature").on_attach(cfg)
+		end,
+	})
 	use({ "windwp/nvim-autopairs" })
 end)
 
@@ -118,8 +141,6 @@ require("gitsigns").setup({
 require("nvim-treesitter.configs").setup({
 	ensure_installed = "maintained",
 	highlight = { enable = true },
-	-- indent = {enable = true},
-	textsubjects = { enable = true, keymaps = { ["."] = "textsubjects-smart" } },
 	textobjects = {
 		select = {
 			enable = true,
@@ -166,8 +187,6 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
--- Coq configuration
-local remap = vim.api.nvim_set_keymap
 vim.g.coq_settings = {
 	match = {
 		exact_matches = 3,
@@ -216,7 +235,6 @@ vim.g.coq_settings = {
 		completion_auto_timeout = 0.2,
 	},
 }
-
 remap("i", "<esc>", [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
 remap("i", "<c-c>", [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
 
@@ -241,29 +259,22 @@ MUtils.BS = function()
 end
 remap("i", "<bs>", "v:lua.MUtils.BS()", { expr = true, noremap = true })
 
--- LSP Signature
-local cfg = {
-	bind = true,
-	doc_lines = 0,
-	floating_window = true,
-	floating_window_above_cur_line = true,
-	hint_enable = true,
-	hint_prefix = "❱ ",
-	hint_scheme = "String",
-	use_lspsaga = false,
-	hi_parameter = "Search",
-	max_height = 4,
-	max_width = 120,
-	handler_opts = { border = "single" },
-	extra_trigger_chars = {},
-}
-require("lsp_signature").on_attach(cfg)
-
 -- Null LS
 local null_ls = require("null-ls")
 local sources = {
 	null_ls.builtins.formatting.prettierd.with({
-		filetypes = { "html", "yaml", "markdown", "javascript", "javascriptreact", "css", "scss", "html" },
+		filetypes = {
+			"html",
+			"yaml",
+			"markdown",
+			"javascript",
+			"javascriptreact",
+			"css",
+			"scss",
+			"html",
+			"typescript",
+			"typescriptreact",
+		},
 	}),
 	null_ls.builtins.formatting.shfmt,
 	null_ls.builtins.formatting.black,
@@ -275,7 +286,7 @@ local sources = {
 	null_ls.builtins.formatting.stylua,
 	null_ls.builtins.diagnostics.shellcheck,
 	null_ls.builtins.diagnostics.eslint_d.with({
-		filetypes = { "javascript", "javascriptreact" },
+		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 		extra_args = { "--config", vim.fn.expand("~/.eslintrc.json") },
 	}),
 	null_ls.builtins.diagnostics.flake8,
@@ -380,7 +391,7 @@ end
 -- Rust Analyzer
 local function rust_analyzer()
 	lspconfig.rust_analyzer.setup(coq.lsp_ensure_capabilities({
-		on_attach = on_attach(false),
+		on_attach = on_attach(true),
 		capabilities = capabilities,
 		settings = {
 			["rust-analyzer"] = {
