@@ -124,12 +124,6 @@ augroup end
 " 	autocmd VimEnter * execute "COQnow"
 " augroup end
 
-augroup FileTypes
-	autocmd!
-	autocmd BufNewFile,BufRead *.ejs set filetype=html
-	autocmd BufNewFile,BufRead *.handlebars set filetype=html
-augroup end
-
 augroup HelpSplit     " open help in vertical split
 	autocmd!
 	autocmd FileType help wincmd L
@@ -181,11 +175,6 @@ augroup AutoFormat   " autoformat on save
 		\ | exe 'lua vim.lsp.buf.formatting_sync(nil, 1000)' | endif
 augroup end
 
-augroup GoEquals     " Go equals abbr
-	autocmd!
-	autocmd InsertEnter * if &ft == 'go' | iabbrev ;; := | endif
-augroup end
-
 iabbr ressm @media screen and (min-width: 601px) {
 iabbr resmd @media screen and (min-width: 901px) {
 iabbr reslg @media screen and (min-width: 1281px) {
@@ -217,7 +206,7 @@ endfunction
 
 " ========================= global mappings ============================== "
 " disable s and make y consistent
-nmap s <nop>
+" nmap s <nop>
 map Y y$
 
 " ========================= leader mappings ============================== "
@@ -261,7 +250,7 @@ vnoremap <leader>y "+y
 nnoremap <C-n> <cmd>NvimTreeToggle<CR>
 nnoremap <leader><cr> <cmd>NvimTreeRefresh<CR>
 
-nnoremap s <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader><space> <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>lg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>

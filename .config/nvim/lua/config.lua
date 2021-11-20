@@ -34,14 +34,53 @@ require("packer").startup(function()
 			vim.cmd("colorscheme falcon")
 		end,
 	})
+	use("ggandor/lightspeed.nvim")
 	use("echasnovski/mini.nvim")
-	use({ "norcalli/nvim-colorizer.lua" })
+	use({
+		"norcalli/nvim-colorizer.lua",
+		ft = {
+			"css",
+			"javascript",
+			"html",
+			"yaml",
+			"sass",
+			"markdown",
+			"lua",
+			"typescript",
+			"vim",
+			"sh",
+			"bash",
+			"scss",
+		},
+		config = function()
+			-- Colorizer
+			require("colorizer").setup({
+				"css",
+				"javascript",
+				"html",
+				"yaml",
+				"sass",
+				"markdown",
+				"lua",
+				"typescript",
+				"vim",
+				"sh",
+				"bash",
+				"scss",
+			})
+		end,
+	})
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = { { "nvim-lua/plenary.nvim" }, { "kyazdani42/nvim-web-devicons", opt = true } },
 	})
 	use("b3nj5m1n/kommentary")
 	use("tpope/vim-fugitive")
+	use("tpope/vim-repeat")
+	use({ "tpope/vim-dispatch", ft = { "clojure" } })
+	use({ "clojure-vim/vim-jack-in", ft = { "clojure" } })
+	use({ "Olical/conjure", ft = { "clojure" } })
+	use({ "radenling/vim-dispatch-neovim", ft = { "clojure" } })
 	use({
 		"lewis6991/gitsigns.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
@@ -49,10 +88,6 @@ require("packer").startup(function()
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
-	})
-	use({
-		"clojure-vim/acid.nvim",
-		run = ":UpdateRemotePlugins",
 	})
 	use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 	use({ "windwp/nvim-ts-autotag" })
@@ -108,22 +143,6 @@ require("nvim-tree").setup({
 	system_open = {
 		cmd = nil,
 	},
-})
-
--- Colorizer
-require("colorizer").setup({
-	"css",
-	"javascript",
-	"html",
-	"yaml",
-	"sass",
-	"markdown",
-	"lua",
-	"typescript",
-	"vim",
-	"sh",
-	"bash",
-	"scss",
 })
 
 -- Gitsigns
