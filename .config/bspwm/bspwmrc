@@ -104,6 +104,7 @@ bspc rule -a feh state=floating
 bspc rule -a mpv state=tiled
 bspc rule -a Xfce4-settings-manager state=tiled
 bspc rule -a Zathura state=tiled
+bspc rule -a Emacs state=tiled
 
 #open applications on specific workspaces
 bspc rule -a Gimp desktop='^5' state=floating

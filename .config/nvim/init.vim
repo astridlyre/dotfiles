@@ -206,8 +206,14 @@ endfunction
 
 " ========================= global mappings ============================== "
 " disable s and make y consistent
-" nmap s <nop>
-map Y y$
+nmap s <nop>
+nmap Y y$
+nnoremap ^ 0
+nnoremap 0 ^
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
 
 " ========================= leader mappings ============================== "
 " map leader to space
@@ -250,7 +256,7 @@ vnoremap <leader>y "+y
 nnoremap <C-n> <cmd>NvimTreeToggle<CR>
 nnoremap <leader><cr> <cmd>NvimTreeRefresh<CR>
 
-nnoremap <leader><space> <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap s <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>lg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>

@@ -29,12 +29,21 @@ require("packer").startup(function()
 		requires = "kyazdani42/nvim-web-devicons",
 	})
 	use({
+		"lukas-reineke/indent-blankline.nvim",
+		config = function()
+			require("indent_blankline").setup({
+				space_char_blankline = " ",
+				show_current_context = true,
+				show_current_context_start = true,
+			})
+		end,
+	})
+	use({
 		"astridlyre/falcon",
 		config = function()
 			vim.cmd("colorscheme falcon")
 		end,
 	})
-	use("ggandor/lightspeed.nvim")
 	use("echasnovski/mini.nvim")
 	use({
 		"norcalli/nvim-colorizer.lua",
@@ -76,7 +85,6 @@ require("packer").startup(function()
 	})
 	use("b3nj5m1n/kommentary")
 	use("tpope/vim-fugitive")
-	use("tpope/vim-repeat")
 	use({ "tpope/vim-dispatch", ft = { "clojure" } })
 	use({ "clojure-vim/vim-jack-in", ft = { "clojure" } })
 	use({ "Olical/conjure", ft = { "clojure" } })
@@ -160,6 +168,15 @@ require("gitsigns").setup({
 require("nvim-treesitter.configs").setup({
 	ensure_installed = "maintained",
 	highlight = { enable = true },
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = "<CR>",
+			scope_incremental = "<CR>",
+			node_incremental = "<TAB>",
+			node_decremental = "<S-TAB>",
+		},
+	},
 	textobjects = {
 		select = {
 			enable = true,

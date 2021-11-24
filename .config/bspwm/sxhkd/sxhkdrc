@@ -35,7 +35,7 @@ super + space
 
 # Write something in vim
 super + m
-  vpipe
+  emacs
 
 # nnn File Manager
 super + e
