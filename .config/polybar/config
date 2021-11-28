@@ -57,7 +57,7 @@ grey                = #525258
 monitor             = ${env:MONITOR}
 ;monitor-fallback   = HDMI1
 width               = 100%
-height              = 24
+height              = 20
 ;offset-x           = 1%
 ;offset-y           = 1%
 radius              = 0.0
@@ -92,7 +92,7 @@ module-margin-left  = 2
 module-margin-right = 2
 
 ;https://github.com/jaagr/polybar/wiki/Fonts
-font-0              = "JetBrains Mono Nerd Font:size=10;0"
+font-0              = "JetBrainsMono Nerd Font:size=9;0"
 font-1              = "Noto Color Emoji:size=10:scale=10;1"
 
 modules-left        = bspwm xwindow

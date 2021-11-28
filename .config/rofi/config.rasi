@@ -3,7 +3,7 @@ configuration {
 /*	width: 40; */
 /*  lines: 12; */
 /*  columns: 1; */
-	font: "JetBrains Mono Nerd Font 10";
+	font: "JetBrains Mono Nerd Font 8";
 /*	bw: 1;*/
 /*	location: 0;*/
 	padding: 0;
@@ -55,7 +55,6 @@ configuration {
 /*	window-format: "{w}    {c}   {t}";*/
 /*	click-to-exit: true;*/
 /*	show-match: true;*/
-	theme: "/home/ml/.config/rofi/dmenu.rasi";
 /*	color-normal: ;*/
 /*	color-urgent: ;*/
 /*	color-active: ;*/
@@ -150,3 +149,5 @@ configuration {
 /*	me-accept-entry: "MouseDPrimary";*/
 /*	me-accept-custom: "Control+MouseDPrimary";*/
 }
+
+@theme "/home/ml/.config/rofi/dmenu.rasi"

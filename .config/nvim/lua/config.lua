@@ -84,7 +84,6 @@ require("packer").startup(function()
 		requires = { { "nvim-lua/plenary.nvim" }, { "kyazdani42/nvim-web-devicons", opt = true } },
 	})
 	use("b3nj5m1n/kommentary")
-	use("tpope/vim-fugitive")
 	use({ "tpope/vim-dispatch", ft = { "clojure" } })
 	use({ "clojure-vim/vim-jack-in", ft = { "clojure" } })
 	use({ "Olical/conjure", ft = { "clojure" } })
