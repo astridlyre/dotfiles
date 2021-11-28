@@ -29,7 +29,6 @@ let g:moonlight_qf_l = 0
 let g:autoFormat = 1
 let g:falcon_bold = 1
 let g:falcon_italic = 1
-let g:nvim_tree_gitignore = 1
 let g:nvim_tree_highlight_opened_files = 1
 let g:nvim_tree_add_trailing = 1
 let g:nvim_tree_window_picker_exclude = {
@@ -83,7 +82,6 @@ set completeopt=menuone,noinsert                              " default complete
 set formatoptions=1jql                                        " text formatting options
 set grepformat=%f:%l:%c:%m                                    " grep format
 set grepprg=rg\ --hidden\ --vimgrep\ --smart-case\ --         " use rg for vimgrep
-set hidden                                                    " keep buffers around
 set history=1000                                              " history limit
 set ignorecase smartcase                                      " highlight text while searching
 set inccommand=nosplit                                        " visual feedback while substituting
@@ -207,7 +205,6 @@ endfunction
 " ========================= global mappings ============================== "
 " disable s and make y consistent
 nmap s <nop>
-nmap Y y$
 nnoremap ^ 0
 nnoremap 0 ^
 nnoremap j gj

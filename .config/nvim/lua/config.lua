@@ -360,7 +360,7 @@ local lsp_maps = function(bufnr)
 	nmap("<leader>le", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
 	nmap("<leader>ln", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
 	nmap("<leader>lp", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-	nmap("<leader>lq", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+	nmap("<leader>lq", "<cmd>lua vim.diagnostic.setqflist()<CR>", opts)
 	nmap("<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
@@ -542,27 +542,6 @@ for _, ls in ipairs({
 end
 
 -- Diagnostic Signs
-vim.fn.sign_define("LspDiagnosticsSignError", {
-	texthl = "LspDiagnosticsSignError",
-	text = "",
-	numhl = "LspDiagnosticsSignError",
-})
-vim.fn.sign_define("LspDiagnosticsSignWarning", {
-	texthl = "LspDiagnosticsSignWarning",
-	text = "",
-	numhl = "LspDiagnosticsSignWarning",
-})
-vim.fn.sign_define("LspDiagnosticsSignHint", {
-	texthl = "LspDiagnosticsSignHint",
-	text = "",
-	numhl = "LspDiagnosticsSignHint",
-})
-vim.fn.sign_define("LspDiagnosticsSignInformation", {
-	texthl = "LspDiagnosticsSignInformation",
-	text = "",
-	numhl = "LspDiagnosticsSignInformation",
-})
-
 vim.fn.sign_define("DiagnosticSignError", {
 	texthl = "DiagnosticSignError",
 	text = "",

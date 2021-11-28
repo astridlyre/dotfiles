@@ -85,7 +85,7 @@ super + shift + g
 super + shift + o
   firejail obs
 
-# Blender
+# Brave
 super + shift + b
   firejail --whitelist=~/.themes/* \
         --whitelist=~/.config/brave-home/* \
