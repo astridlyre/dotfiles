@@ -173,6 +173,11 @@ augroup AutoFormat   " autoformat on save
 		\ | exe 'lua vim.lsp.buf.formatting_sync(nil, 1000)' | endif
 augroup end
 
+augroup Racket
+	autocmd!
+	autocmd BufReadPost *.rkt,*.rktl set filestype=scheme
+augroup end
+
 iabbr ressm @media screen and (min-width: 601px) {
 iabbr resmd @media screen and (min-width: 901px) {
 iabbr reslg @media screen and (min-width: 1281px) {

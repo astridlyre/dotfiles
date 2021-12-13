@@ -294,44 +294,6 @@ MUtils.BS = function()
 end
 remap("i", "<bs>", "v:lua.MUtils.BS()", { expr = true, noremap = true })
 
--- Null LS
-local null_ls = require("null-ls")
-local sources = {
-	null_ls.builtins.formatting.prettierd.with({
-		filetypes = {
-			"html",
-			"yaml",
-			"markdown",
-			"javascript",
-			"javascriptreact",
-			"css",
-			"scss",
-			"html",
-			"typescript",
-			"typescriptreact",
-		},
-	}),
-	null_ls.builtins.formatting.shfmt,
-	null_ls.builtins.formatting.black,
-	null_ls.builtins.formatting.fixjson,
-	null_ls.builtins.formatting.goimports,
-	null_ls.builtins.formatting.isort,
-	null_ls.builtins.formatting.sqlformat,
-	null_ls.builtins.formatting.rustfmt,
-	null_ls.builtins.formatting.stylua,
-	null_ls.builtins.diagnostics.shellcheck,
-	null_ls.builtins.diagnostics.eslint_d.with({
-		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-		extra_args = { "--config", vim.fn.expand("~/.eslintrc.json") },
-	}),
-	null_ls.builtins.diagnostics.flake8,
-	null_ls.builtins.diagnostics.markdownlint,
-	null_ls.builtins.diagnostics.vint,
-}
-null_ls.config({
-	sources = sources,
-})
-
 -- Lsp Configs
 local lspconfig = require("lspconfig")
 local coq = require("coq")
@@ -361,6 +323,7 @@ local lsp_maps = function(bufnr)
 	nmap("<leader>lp", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
 	nmap("<leader>lq", "<cmd>lua vim.diagnostic.setqflist()<CR>", opts)
 	nmap("<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+	nmap("<leader>ld", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 end
 
 -- Generic On-Attach Function
@@ -506,20 +469,51 @@ local function sqls()
 	}))
 end
 
+-- JSON LSP
+local function jsonls()
+	lspconfig.jsonls.setup(coq.lsp_ensure_capabilities({
+		on_attach = on_attach(true),
+		capabilities = capabilities,
+		settings = {
+			schemas = {
+				{
+					fileMatch = { "package.json" },
+					url = "https://json.schemastore.org/package.json",
+				},
+				{
+					fileMatch = { "tsconfig*.json" },
+					url = "https://json.schemastore.org/tsconfig.json",
+				},
+				{
+					fileMatch = { ".prettierrc", ".prettierrc.json", "prettier.config.json" },
+					url = "https://json.schemastore.org/prettierrc.json",
+				},
+				{
+					fileMatch = { ".eslintrc", ".eslintrc.json" },
+					url = "https://json.schemastore.org/eslintrc.json",
+				},
+				{
+					fileMatch = { ".babelrc", ".babelrc.json", "babel.config.json" },
+					url = "https://json.schemastore.org/babelrc.json",
+				},
+			},
+		},
+	}))
+end
+
 -- Enable the following default language servers
 local default_servers = {
 	"pyright",
 	"yamlls",
 	"vimls",
 	"html",
-	"jsonls",
 	"cssls",
 	"dockerls",
 	"bashls",
 	"clangd",
 	"sqls",
 	"clojure_lsp",
-	"null-ls",
+	"racket_langserver",
 }
 for _, ls in ipairs(default_servers) do
 	lspconfig[ls].setup(coq.lsp_ensure_capabilities({
@@ -536,6 +530,7 @@ for _, ls in ipairs({
 	sumneko_lua,
 	sqls,
 	tsserver,
+	jsonls,
 }) do
 	ls()
 end
@@ -604,3 +599,43 @@ function _G.reload_lsp()
 	vim.cmd([[edit]])
 end
 vim.cmd("command! -nargs=0 LspRestart call v:lua.reload_lsp()")
+
+-- Null LS
+local null_ls = require("null-ls")
+local sources = {
+	null_ls.builtins.formatting.prettierd.with({
+		filetypes = {
+			"html",
+			"yaml",
+			"markdown",
+			"javascript",
+			"javascriptreact",
+			"css",
+			"scss",
+			"html",
+			"typescript",
+			"typescriptreact",
+		},
+	}),
+	null_ls.builtins.formatting.shfmt,
+	null_ls.builtins.formatting.black,
+	null_ls.builtins.formatting.fixjson,
+	null_ls.builtins.formatting.goimports,
+	null_ls.builtins.formatting.isort,
+	null_ls.builtins.formatting.sqlformat,
+	null_ls.builtins.formatting.rustfmt,
+	null_ls.builtins.formatting.stylua,
+	null_ls.builtins.diagnostics.shellcheck,
+	null_ls.builtins.diagnostics.eslint_d.with({
+		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+		extra_args = { "--config", vim.fn.expand("~/.eslintrc.json") },
+	}),
+	null_ls.builtins.diagnostics.flake8,
+	null_ls.builtins.diagnostics.markdownlint,
+	null_ls.builtins.diagnostics.vint,
+}
+null_ls.setup({
+	sources = sources,
+	on_attach = on_attach(true),
+	capabilities = capabilities,
+})
