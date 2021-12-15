@@ -29,48 +29,6 @@ let g:moonlight_qf_l = 0
 let g:autoFormat = 1
 let g:falcon_bold = 1
 let g:falcon_italic = 1
-let g:nvim_tree_highlight_opened_files = 1
-let g:nvim_tree_add_trailing = 1
-let g:nvim_tree_window_picker_exclude = {
-    \   'filetype': [
-    \     'notify',
-    \     'packer',
-    \     'qf'
-    \   ],
-    \   'buftype': [
-    \     'terminal'
-    \   ]
-    \ }
-let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1 }
-let g:nvim_tree_icons = {
-    \ 'default': '',
-    \ 'symlink': '',
-    \ 'git': {
-    \   'unstaged': '✗',
-    \   'staged': '✓',
-    \   'unmerged': '',
-    \   'renamed': '➜',
-    \   'untracked': '★',
-    \   'deleted': '',
-    \   'ignored': '◌'
-    \   },
-    \ 'folder': {
-    \   'arrow_open': '',
-    \   'arrow_closed': '',
-    \   'default': '',
-    \   'open': '',
-    \   'empty': '',
-    \   'empty_open': '',
-    \   'symlink': '',
-    \   'symlink_open': '',
-    \   },
-    \   'lsp': {
-    \     'hint': '',
-    \     'info': '',
-    \     'warning': '',
-    \     'error': '',
-    \   }
-    \ }
 set termguicolors " has to be set before nvim-colorizer is loaded
 
 " ========================= lua config =================================== "
@@ -116,11 +74,6 @@ augroup AutoSelect
 	autocmd!
 	autocmd InsertEnter * set completeopt=menuone,noinsert
 augroup end
-
-" augroup AutoStartCoq
-" 	autocmd!
-" 	autocmd VimEnter * execute "COQnow"
-" augroup end
 
 augroup HelpSplit     " open help in vertical split
 	autocmd!
@@ -176,6 +129,11 @@ augroup end
 augroup Racket
 	autocmd!
 	autocmd BufReadPost *.rkt,*.rktl set filestype=scheme
+augroup end
+
+augroup Javascript
+	autocmd!
+	autocmd BufEnter *.js,*.ts,*.jsx,*.tsx nnoremap <leader>t <cmd>TermExec cmd="p run test"<CR>
 augroup end
 
 iabbr ressm @media screen and (min-width: 601px) {
@@ -237,14 +195,14 @@ nnoremap <silent><leader>q <cmd>call ToggleQFList(0)<cr>
 nnoremap <silent><leader>p <C-^>
 nnoremap ' `
 nnoremap ` '
+nnoremap <silent><leader>sf <cmd>set nospell<CR>
+nnoremap <silent><leader>so <cmd>set nospell<CR>
 
 " new line in normal mode and back
 nnoremap <leader>[ myO<esc>`y
 nnoremap <leader>] myo<esc>`y
-
-" open terminal
-nnoremap <leader>' :10sp term://bash<cr>i
 tnoremap <C-d> <C-\><C-n>
+nnoremap <leader>\ <cmd>ToggleTermToggleAll<CR>
 
 " lil scripties <leader>s*
 vnoremap <leader>ss !sort -d -b -f<cr>

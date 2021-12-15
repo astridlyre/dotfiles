@@ -31,6 +31,11 @@ require("packer").startup(function()
 	use({
 		"lukas-reineke/indent-blankline.nvim",
 		config = function()
+			vim.g.indent_blankline_filetype_exclude = {
+				"help",
+				"packer",
+				"NvimTree",
+			}
 			require("indent_blankline").setup({
 				space_char_blankline = " ",
 				show_current_context = true,
@@ -44,7 +49,15 @@ require("packer").startup(function()
 			vim.cmd("colorscheme falcon")
 		end,
 	})
-	use("echasnovski/mini.nvim")
+	use({
+		"echasnovski/mini.nvim",
+		config = function()
+			require("mini.bufremove").setup({})
+			require("mini.cursorword").setup({})
+			require("mini.statusline").setup({})
+			require("mini.tabline").setup({})
+		end,
+	})
 	use({
 		"norcalli/nvim-colorizer.lua",
 		ft = {
@@ -82,7 +95,84 @@ require("packer").startup(function()
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = { { "nvim-lua/plenary.nvim" }, { "kyazdani42/nvim-web-devicons", opt = true } },
+		config = function()
+			local actions = require("telescope.actions")
+			local telescope = require("telescope")
+			telescope.setup({
+				defaults = {
+
+					prompt_prefix = " ",
+					selection_caret = " ",
+					path_display = { "smart" },
+
+					mappings = {
+						i = {
+							["<C-n>"] = actions.cycle_history_next,
+							["<C-p>"] = actions.cycle_history_prev,
+
+							["<C-j>"] = actions.move_selection_next,
+							["<C-k>"] = actions.move_selection_previous,
+
+							["<C-c>"] = actions.close,
+
+							["<Down>"] = actions.move_selection_next,
+							["<Up>"] = actions.move_selection_previous,
+
+							["<CR>"] = actions.select_default,
+							["<C-x>"] = actions.select_horizontal,
+							["<C-v>"] = actions.select_vertical,
+							["<C-t>"] = actions.select_tab,
+
+							["<C-u>"] = actions.preview_scrolling_up,
+							["<C-d>"] = actions.preview_scrolling_down,
+
+							["<PageUp>"] = actions.results_scrolling_up,
+							["<PageDown>"] = actions.results_scrolling_down,
+
+							["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+							["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+							["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+							["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+							["<C-l>"] = actions.complete_tag,
+							["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
+						},
+						n = {
+							["<esc>"] = actions.close,
+							["<CR>"] = actions.select_default,
+							["<C-x>"] = actions.select_horizontal,
+							["<C-v>"] = actions.select_vertical,
+							["<C-t>"] = actions.select_tab,
+
+							["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+							["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+							["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+							["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+
+							["j"] = actions.move_selection_next,
+							["k"] = actions.move_selection_previous,
+							["H"] = actions.move_to_top,
+							["M"] = actions.move_to_middle,
+							["L"] = actions.move_to_bottom,
+
+							["<Down>"] = actions.move_selection_next,
+							["<Up>"] = actions.move_selection_previous,
+							["gg"] = actions.move_to_top,
+							["G"] = actions.move_to_bottom,
+
+							["<C-u>"] = actions.preview_scrolling_up,
+							["<C-d>"] = actions.preview_scrolling_down,
+
+							["<PageUp>"] = actions.results_scrolling_up,
+							["<PageDown>"] = actions.results_scrolling_down,
+
+							["?"] = actions.which_key,
+						},
+					},
+				},
+			})
+		end,
 	})
+	use({ "akinsho/toggleterm.nvim" })
 	use("b3nj5m1n/kommentary")
 	use({ "tpope/vim-dispatch", ft = { "clojure" } })
 	use({ "clojure-vim/vim-jack-in", ft = { "clojure" } })
@@ -130,27 +220,146 @@ require("packer").startup(function()
 	use({ "windwp/nvim-autopairs" })
 end)
 
-require("mini.bufremove").setup({})
-require("mini.cursorword").setup({})
-require("mini.statusline").setup({})
-require("mini.tabline").setup({})
+-- nvim tree
+vim.g.nvim_tree_icons = {
+	default = "",
+	symlink = "",
+	git = {
+		unstaged = "",
+		staged = "S",
+		unmerged = "",
+		renamed = "➜",
+		deleted = "",
+		untracked = "U",
+		ignored = "◌",
+	},
+	folder = {
+		default = "",
+		open = "",
+		empty = "",
+		empty_open = "",
+		symlink = "",
+	},
+}
+local nvim_tree = require("nvim-tree")
+local nvim_tree_config = require("nvim-tree.config")
+local tree_cb = nvim_tree_config.nvim_tree_callback
 
--- File tree
-require("nvim-tree").setup({
+nvim_tree.setup({
+	disable_netrw = true,
+	hijack_netrw = true,
+	open_on_setup = false,
+	ignore_ft_on_setup = {
+		"startify",
+		"dashboard",
+		"alpha",
+	},
+	auto_close = true,
+	open_on_tab = false,
+	hijack_cursor = false,
+	update_cwd = true,
+	update_to_buf_dir = {
+		enable = true,
+		auto_open = true,
+	},
+	diagnostics = {
+		enable = true,
+		icons = {
+			hint = "",
+			info = "",
+			warning = "",
+			error = "",
+		},
+	},
+	update_focused_file = {
+		enable = true,
+		update_cwd = true,
+		ignore_list = {},
+	},
+	system_open = {
+		cmd = nil,
+		args = {},
+	},
+	filters = {
+		dotfiles = false,
+		custom = {},
+	},
+	git = {
+		enable = true,
+		ignore = true,
+		timeout = 500,
+	},
 	view = {
 		width = 30,
+		height = 30,
+		hide_root_folder = false,
+		side = "left",
 		auto_resize = true,
 		mappings = {
 			custom_only = false,
 			list = {
-				{ key = "s", cb = ':lua require("telescope.builtin").find_files()<cr>' },
+				{ key = { "l", "<CR>", "o" }, cb = tree_cb("edit") },
+				{ key = "h", cb = tree_cb("close_node") },
+				{ key = "v", cb = tree_cb("vsplit") },
 			},
 		},
+		number = false,
+		relativenumber = false,
 	},
-	system_open = {
-		cmd = nil,
+	trash = {
+		cmd = "trash",
+		require_confirm = true,
+	},
+	quit_on_open = 0,
+	git_hl = 1,
+	disable_window_picker = 0,
+	root_folder_modifier = ":t",
+	show_icons = {
+		git = 1,
+		folders = 1,
+		files = 1,
+		folder_arrows = 1,
+		tree_width = 30,
 	},
 })
+
+require("toggleterm").setup({
+	size = function(term)
+		if term.direction == "horizontal" then
+			return 15
+		elseif term.direction == "vertical" then
+			return vim.o.columns * 0.4
+		end
+	end,
+	open_mapping = [[<C-\>]],
+	hide_numbers = true,
+	shade_filetypes = {},
+	shade_terminals = true,
+	shading_factor = 1,
+	start_in_insert = true,
+	insert_mappings = true,
+	persist_size = true,
+	direction = "horizontal",
+	close_on_exit = true,
+	shell = vim.o.shell,
+	float_opts = {
+		border = "curved",
+		winblend = 3,
+		highlights = {
+			border = "Normal",
+			background = "Normal",
+		},
+	},
+})
+function _G.set_terminal_keymaps()
+	local opts = { noremap = true }
+	vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
+	vim.api.nvim_buf_set_keymap(0, "t", "<C-w>h", [[<C-\><C-n><C-W>h]], opts)
+	vim.api.nvim_buf_set_keymap(0, "t", "<C-w>j", [[<C-\><C-n><C-W>j]], opts)
+	vim.api.nvim_buf_set_keymap(0, "t", "<C-w>k", [[<C-\><C-n><C-W>k]], opts)
+	vim.api.nvim_buf_set_keymap(0, "t", "<C-w>l", [[<C-\><C-n><C-W>l]], opts)
+end
+vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 -- Gitsigns
 require("gitsigns").setup({
@@ -302,7 +511,7 @@ local coq = require("coq")
 local lsp_maps = function(bufnr)
 	-- Normal keymap function
 	local function nmap(keymap, action, opts)
-		return vim.api.nvim_set_keymap("n", keymap, action, opts)
+		return vim.api.nvim_buf_set_keymap(bufnr, "n", keymap, action, opts)
 	end
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 	local opts = { noremap = true, silent = true }
@@ -318,12 +527,13 @@ local lsp_maps = function(bufnr)
 	nmap("<leader>ld", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
 	nmap("<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 	nmap("<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	nmap("<leader>le", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
-	nmap("<leader>ln", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-	nmap("<leader>lp", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-	nmap("<leader>lq", "<cmd>lua vim.diagnostic.setqflist()<CR>", opts)
+	nmap("<leader>ll", "<cmd>lua vim.diagnostic.open_float(nil, { source = 'always', border = 'rounded' })<CR>", opts)
+	nmap("<leader>ln", "<cmd>lua vim.diagnostic.goto_next({ border = 'rounded' })<CR>", opts)
+	nmap("<leader>lp", "<cmd>lua vim.diagnostic.goto_prev({ border = 'rounded' })<CR>", opts)
+	nmap("gl", "<cmd>lua vim.diagnostic.setqflist()<CR>", opts)
 	nmap("<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 	nmap("<leader>ld", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+	nmap("<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 end
 
 -- Generic On-Attach Function
@@ -496,6 +706,10 @@ local function jsonls()
 					fileMatch = { ".babelrc", ".babelrc.json", "babel.config.json" },
 					url = "https://json.schemastore.org/babelrc.json",
 				},
+				{
+					fileMatch = { "packer.json" },
+					url = "https://json.schemastore.org/packer.json",
+				},
 			},
 		},
 	}))
@@ -535,28 +749,6 @@ for _, ls in ipairs({
 	ls()
 end
 
--- Diagnostic Signs
-vim.fn.sign_define("DiagnosticSignError", {
-	texthl = "DiagnosticSignError",
-	text = "",
-	numhl = "DiagnosticSignError",
-})
-vim.fn.sign_define("DiagnosticSignWarn", {
-	texthl = "DiagnosticSignWarn",
-	text = "",
-	numhl = "DiagnosticSignWarn",
-})
-vim.fn.sign_define("DiagnosticSignHint", {
-	texthl = "DiagnosticSignHint",
-	text = "",
-	numhl = "DiagnosticSignHint",
-})
-vim.fn.sign_define("DiagnosticSignInfo", {
-	texthl = "DiagnosticSignInfo",
-	text = "",
-	numhl = "DiagnosticSignInfo",
-})
-
 -- symbols for autocomplete
 vim.lsp.protocol.CompletionItemKind = {
 	"   ",
@@ -586,11 +778,41 @@ vim.lsp.protocol.CompletionItemKind = {
 	"   ",
 }
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-	virtual_text = {
-		prefix = "",
-		source = "if_many", -- Or "if_many"
+local signs = {
+	{ name = "DiagnosticSignError", text = "" },
+	{ name = "DiagnosticSignWarn", text = "" },
+	{ name = "DiagnosticSignHint", text = "" },
+	{ name = "DiagnosticSignInfo", text = "" },
+}
+
+for _, sign in ipairs(signs) do
+	vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
+end
+
+vim.diagnostic.config({
+	virtual_text = false,
+	signs = {
+		active = signs,
 	},
+	update_in_insert = true,
+	underline = true,
+	severity_sort = true,
+	float = {
+		focusable = false,
+		style = "minimal",
+		border = "rounded",
+		source = "always",
+		header = "",
+		prefix = "",
+	},
+})
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+	border = "rounded",
+})
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+	border = "rounded",
 })
 
 -- Add reload lsp function
@@ -602,40 +824,41 @@ vim.cmd("command! -nargs=0 LspRestart call v:lua.reload_lsp()")
 
 -- Null LS
 local null_ls = require("null-ls")
-local sources = {
-	null_ls.builtins.formatting.prettierd.with({
-		filetypes = {
-			"html",
-			"yaml",
-			"markdown",
-			"javascript",
-			"javascriptreact",
-			"css",
-			"scss",
-			"html",
-			"typescript",
-			"typescriptreact",
-		},
-	}),
-	null_ls.builtins.formatting.shfmt,
-	null_ls.builtins.formatting.black,
-	null_ls.builtins.formatting.fixjson,
-	null_ls.builtins.formatting.goimports,
-	null_ls.builtins.formatting.isort,
-	null_ls.builtins.formatting.sqlformat,
-	null_ls.builtins.formatting.rustfmt,
-	null_ls.builtins.formatting.stylua,
-	null_ls.builtins.diagnostics.shellcheck,
-	null_ls.builtins.diagnostics.eslint_d.with({
-		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-		extra_args = { "--config", vim.fn.expand("~/.eslintrc.json") },
-	}),
-	null_ls.builtins.diagnostics.flake8,
-	null_ls.builtins.diagnostics.markdownlint,
-	null_ls.builtins.diagnostics.vint,
-}
+local formatting = null_ls.builtins.formatting
+local diagnostics = null_ls.builtins.diagnostics
 null_ls.setup({
-	sources = sources,
+	sources = {
+		formatting.prettierd.with({
+			filetypes = {
+				"html",
+				"yaml",
+				"markdown",
+				"javascript",
+				"javascriptreact",
+				"css",
+				"scss",
+				"html",
+				"typescript",
+				"typescriptreact",
+			},
+		}),
+		formatting.shfmt,
+		formatting.black,
+		formatting.fixjson,
+		formatting.goimports,
+		formatting.isort,
+		formatting.sqlformat,
+		formatting.rustfmt,
+		formatting.stylua,
+		diagnostics.shellcheck,
+		diagnostics.eslint_d.with({
+			filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+			extra_args = { "--config", vim.fn.expand("~/.eslintrc.json") },
+		}),
+		diagnostics.flake8,
+		diagnostics.markdownlint,
+		diagnostics.vint,
+	},
 	on_attach = on_attach(true),
 	capabilities = capabilities,
 })

@@ -18,8 +18,6 @@ export MONITORS
 if xrandr | grep "$EXTERNAL connected"; then
 	MONITORS="$EXTERNAL $LAPTOP"
 	# If I haz two monitors
-	# xrandr --output $EXTERNAL --primary --mode 1920x1080 --pos 0x0 --rotate normal \
-	# 	--output $LAPTOP --mode 1920x1080 --pos 1920x0 --rotate normal
 	xrandr --output $EXTERNAL --primary --mode $EXTERNAL_SIZE --pos 0x0 --rotate normal \
 		--output $LAPTOP --mode $LAPTOP_SIZE --pos 3840x1080 --rotate normal
 	bspc monitor $EXTERNAL -d 1 2 3 4 5
