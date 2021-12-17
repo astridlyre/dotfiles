@@ -1,7 +1,8 @@
 #!/bin/bash
 
+npm install --global pnpm
+
 DEFAULT_PACKAGES=("bash-language-server"
-	"live-server"
 	"neovim"
 	"prettier"
 	"pyright"
@@ -9,6 +10,7 @@ DEFAULT_PACKAGES=("bash-language-server"
 	"typescript-language-server"
 	"vim-language-server"
 	"vscode-langservers-extracted"
+	"cssmodules-language-server"
 	"emmet-ls"
 	"yaml-language-server"
 	"markdownlint"
@@ -18,7 +20,6 @@ DEFAULT_PACKAGES=("bash-language-server"
 	"rollup"
 	"eslint_d"
 	"autocannon"
-	"@fsouza/prettierd"
-	"@bitwarden/cli")
+	"@fsouza/prettierd")
 
-npm i -g "${DEFAULT_PACKAGES[@]}"
+pnpm install --global "${DEFAULT_PACKAGES[@]}"

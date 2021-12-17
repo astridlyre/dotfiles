@@ -226,6 +226,9 @@ end ]]
 		"sqls",
 		"clojure_lsp",
 		"racket_langserver",
+		"cssmodules_ls",
+		"emmet_ls",
+		"solang",
 	}
 
 	for _, ls in ipairs(default_servers) do
