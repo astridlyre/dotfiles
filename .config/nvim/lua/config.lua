@@ -15,18 +15,14 @@ vim.api.nvim_exec(
 )
 
 -- Load plugins
+require("/user/plugins/coq")
+
 local use = require("packer").use
 require("packer").startup(function()
 	use("wbthomason/packer.nvim")
 	use("nvim-lua/plenary.nvim")
 
-	use({
-		"ms-jpq/coq_nvim",
-		branch = "coq",
-		run = ":COQdeps",
-	})
-	use({ "ms-jpq/coq.artifacts", branch = "artifacts" })
-
+	-- Tree file explorer
 	use({
 		"kyazdani42/nvim-tree.lua",
 		requires = "kyazdani42/nvim-web-devicons",
@@ -34,16 +30,16 @@ require("packer").startup(function()
 	})
 
 	use({ "lukas-reineke/indent-blankline.nvim", config = require("/user/plugins/indent-blankline") })
+	use({ "echasnovski/mini.nvim", config = require("/user/plugins/mini") })
+	use({ "norcalli/nvim-colorizer.lua", config = require("/user/plugins/colorizer") })
 
+	-- Colorscheme
 	use({
 		"astridlyre/falcon",
 		config = function()
 			vim.cmd("colorscheme falcon")
 		end,
 	})
-
-	use({ "echasnovski/mini.nvim", config = require("/user/plugins/mini") })
-	use({ "norcalli/nvim-colorizer.lua", config = require("/user/plugins/colorizer") })
 
 	use({
 		"nvim-telescope/telescope.nvim",
@@ -52,16 +48,24 @@ require("packer").startup(function()
 	})
 
 	use({ "akinsho/toggleterm.nvim", config = require("/user/plugins/toggleterm") })
-	use("b3nj5m1n/kommentary")
+	use({ "b3nj5m1n/kommentary", event = "BufEnter" })
 	use({ "lewis6991/gitsigns.nvim", config = require("/user/plugins/gitsigns") })
+
+	-- Treesitter
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", config = require("/user/plugins/treesitter") })
 	use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 	use({ "windwp/nvim-ts-autotag" })
 
+	-- Autocompletion
+	use({
+		"ms-jpq/coq_nvim",
+		branch = "coq",
+		run = ":COQdeps",
+	})
+	use({ "ms-jpq/coq.artifacts", branch = "artifacts" })
 	use({ "neovim/nvim-lspconfig", config = require("/user/plugins/lsp").setup() })
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
-		commit = "1ce59e3596ad6d4a33121aeb2e760c4a9772d63e",
 		config = require("/user/plugins/null-ls"),
 	})
 
