@@ -34,7 +34,7 @@ local on_attach = function(client, bufnr)
 	if client.config.flags then
 		client.config.flags.allow_incremental_sync = true
 	end
-	if client.name == "tsserver" then
+	if client.name == "tsserver" or client.name == "jsonls" then
 		client.resolved_capabilities.document_formatting = false
 	end
 	if client.resolved_capabilities.document_formatting then

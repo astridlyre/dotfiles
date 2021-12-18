@@ -85,12 +85,6 @@ augroup NoListQuick   " no quickfix in buffer list
 	autocmd FileType qf set nobuflisted
 augroup end
 
-augroup TerminalEnter " no line numbers or relative numbers in terminal window
-    autocmd!
-    autocmd TermOpen * setlocal nonumber
-    autocmd TermOpen * setlocal norelativenumber
-augroup end
-
 augroup CursorLine    " show cursorline only in focused window
 	autocmd!
 	autocmd WinEnter,BufEnter,InsertLeave * if ! &cursorline && win_gettype() != 'popup' && ! &pvw | setlocal cursorline | endif
