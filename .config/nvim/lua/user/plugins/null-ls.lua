@@ -10,6 +10,7 @@ return function()
 
 	null_ls.setup({
 		sources = {
+			formatting.joker,
 			formatting.prettierd,
 			formatting.shfmt,
 			formatting.black,
@@ -17,7 +18,7 @@ return function()
 			formatting.goimports,
 			formatting.isort,
 			formatting.sqlformat,
-			formatting.rustfmt,
+			-- formatting.rustfmt,
 			formatting.stylua,
 			diagnostics.shellcheck,
 			diagnostics.eslint_d.with({

@@ -58,7 +58,7 @@ set sidescroll=5 scrolloff=3                                  " scroll off
 set signcolumn=yes                                            " always show signcolumn
 set spelllang=en_gb                                           " canadian spelling
 set splitright splitbelow                                     " splits
-set synmaxcol=180                                             " no syntax on long lines
+set synmaxcol=120                                             " no syntax on long lines
 set tabstop=4 softtabstop=4 shiftwidth=4 shiftround           " tab width
 set textwidth=80                                              " auto wrap lines
 set timeoutlen=800                                            " time to wait between keypress
@@ -127,7 +127,25 @@ augroup end
 
 augroup Javascript
 	autocmd!
-	autocmd BufEnter *.js,*.ts,*.jsx,*.tsx nnoremap <leader>t <cmd>TermExec cmd="p run test"<CR>
+	autocmd BufEnter *.js,*.ts,*.jsx,*.tsx nnoremap <leader>r <cmd>1TermExec cmd="p run dev"<CR>
+	autocmd BufEnter *.js,*.ts,*.jsx,*.tsx nnoremap <leader>t <cmd>2TermExec cmd="p run test"<CR>
+augroup end
+
+augroup Rust
+	autocmd!
+	autocmd BufEnter *.rs nnoremap <leader>r <cmd>1TermExec cmd="cargo run"<CR>
+	autocmd BufEnter *.rs nnoremap <leader>t <cmd>2TermExec cmd="cargo test"<CR>
+augroup end
+
+augroup Clojure
+	autocmd!
+	autocmd BufEnter *.clj nnoremap <leader>r <cmd>1TermExec cmd="lein run"<CR>
+	autocmd BufEnter *.clj nnoremap <leader>t <cmd>2TermExec cmd="lein test"<CR>
+augroup end
+
+augroup SWCRC
+	autocmd!
+	autocmd! BufEnter .swcrc set filetype=json
 augroup end
 
 iabbr ressm @media screen and (min-width: 601px) {
@@ -197,6 +215,9 @@ nnoremap <leader>[ myO<esc>`y
 nnoremap <leader>] myo<esc>`y
 tnoremap <C-d> <C-\><C-n>
 nnoremap <leader>\ <cmd>ToggleTermToggleAll<CR>
+nnoremap <leader>1 <cmd>ToggleTerm1<CR>
+nnoremap <leader>2 <cmd>ToggleTerm2<CR>
+nnoremap <leader>3 <cmd>ToggleTerm3<CR>
 
 " lil scripties <leader>s*
 vnoremap <leader>ss !sort -d -b -f<cr>

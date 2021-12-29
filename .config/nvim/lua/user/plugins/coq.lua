@@ -3,14 +3,14 @@ local remap = vim.api.nvim_set_keymap
 vim.g.coq_settings = {
 	match = {
 		exact_matches = 3,
-		fuzzy_cutoff = 0.7,
+		fuzzy_cutoff = 0.8,
 		look_ahead = 1,
 	},
 	weights = {
 		prefix_matches = 2.0,
-		edit_distance = 1.0,
+		edit_distance = 1.5,
 		recency = 0.75,
-		proximity = 1.0,
+		proximity = 0.6,
 	},
 	keymap = { recommended = false },
 	display = {
@@ -45,7 +45,7 @@ vim.g.coq_settings = {
 	},
 	auto_start = "shut-up",
 	limits = {
-		completion_auto_timeout = 0.2,
+		completion_auto_timeout = 0.14,
 	},
 }
 remap("i", "<esc>", [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })

@@ -92,3 +92,4 @@ export UV_THREADPOOL_SIZE=64
 export PRETTIERD_DEFAULT_CONFIG=/home/ml/.prettierrc.json
 export NPM_PACKAGES="${HOME}/.npm-packages"
 export MANPATH="${MANPATH-$(manpath)}:${NPM_PACKAGES}/share/man"
+export CHROME_PATH=/usr/bin/brave

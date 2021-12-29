@@ -3,6 +3,7 @@
 npm install --global pnpm
 
 DEFAULT_PACKAGES=("bash-language-server"
+	"@bitwarden/cli"
 	"neovim"
 	"prettier"
 	"pyright"
@@ -17,7 +18,6 @@ DEFAULT_PACKAGES=("bash-language-server"
 	"markdownlint-cli"
 	"fixjson"
 	"dockerfile-language-server-nodejs"
-	"rollup"
 	"eslint_d"
 	"autocannon"
 	"@fsouza/prettierd")

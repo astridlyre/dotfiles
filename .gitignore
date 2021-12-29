@@ -5,3 +5,4 @@ tags.temp
 .bin/nvim
 .bin/ytfzf
 .mypy_cache
+.bin/exercism
