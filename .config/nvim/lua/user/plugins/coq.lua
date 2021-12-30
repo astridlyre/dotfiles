@@ -36,7 +36,7 @@ vim.g.coq_settings = {
 		lsp = {
 			enabled = true,
 			weight_adjust = 2.0,
-			resolve_timeout = 0.08,
+			resolve_timeout = 0.1,
 		},
 		snippets = {
 			enabled = true,
@@ -45,7 +45,7 @@ vim.g.coq_settings = {
 	},
 	auto_start = "shut-up",
 	limits = {
-		completion_auto_timeout = 0.14,
+		completion_auto_timeout = 0.2,
 	},
 }
 remap("i", "<esc>", [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })

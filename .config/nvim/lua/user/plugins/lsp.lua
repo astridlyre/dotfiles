@@ -165,6 +165,7 @@ end ]]
 				includeCompletionsForImportStatements = true,
 				includeAutomaticOptionalChainCompletions = true,
 				importModuleSpecifierEnding = "js",
+				importModuleSpecifierPreference = "project-relative",
 				includePackageJsonAutoImports = true,
 			},
 		}))
