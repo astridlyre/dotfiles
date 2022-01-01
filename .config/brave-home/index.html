@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>::</title>
     <style>
+      :root {
+        --primary: #7cc2c7;
+        --secondary: #fe9f7c;
+        --fg: #b5b4c9;
+        --gray: #252936;
+        --padding: 1.618rem;
+      }
       body {
         background-color: #191c25;
         padding: 0;
@@ -16,57 +23,61 @@
         flex-flow: column nowrap;
         justify-content: center;
         align-items: center;
-        font-family: 'JetBrains Mono Nerd Font';
+        font-family: 'JetBrainsMono Nerd Font';
+      }
+
+      h1 {
+        margin: 0;
+        margin-bottom: var(--padding);
+        text-align: center;
+        font-size: calc(var(--padding) * 3);
+        width: 100%;
+        color: var(--secondary);
       }
 
       ul {
         margin: auto;
+        padding: 0;
         list-style: none;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(1px, 1fr));
         grid-template-rows: auto;
-        gap: 2rem 2rem;
-      }
-
-      @media (min-width: 1080px) {
-        ul {
-          grid-template-columns: repeat(4, 1fr);
-        }
+        gap: var(--padding);
       }
 
       li {
-        padding: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        aspect-ratio: var(--padding) / 1;
       }
 
       a {
-        color: #b5b4c9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--fg);
         font-size: 1rem;
         text-decoration: none;
-        padding: 3rem;
-        display: block;
+        padding: calc(var(--padding) * 2);
         box-sizing: border-box;
         height: 100%;
         width: 100%;
-        border: 1px solid #252936;
+        border: 1px solid var(--gray);
         border-radius: 0;
       }
 
       a:focus,
       a:hover {
-        border: 1px solid #7cc2c7;
+        border: 1px solid var(--primary);
         border-radius: 0;
         outline: none;
       }
       span {
-        color: #fe9f7c;
+        color: var(--secondary);
       }
     </style>
   </head>
   <body>
     <nav>
+      <h1>h4x0r l1nkz</h1>
       <ul>
         <li>
           <a accesskey="r" href="https://app.kosmi.io/room/rrtmil"
@@ -74,47 +85,26 @@
           >
         </li>
         <li>
-          <a accesskey="p" href="https://composingprograms.com/"
-            >c<span>p</span>gs</a
+          <a accesskey="c" href="https://www.cbc.ca/news"><span>c</span>bc</a>
+        </li>
+        <li>
+          <a accesskey="b" href="https://www.breachmedia.ca"
+            ><span>b</span>reach</a
           >
         </li>
         <li>
-          <a accesskey="c" href="https://teachyourselfcs.com/"
-            ><span>c</span>omp</a
+          <a accesskey="j" href="https://www.jacobinmag.com"
+            ><span>j</span>acobin</a
           >
         </li>
         <li>
-          <a accesskey="s" href="https://www.secjuice.com/"
-            ><span>s</span>jce</a
-          >
-        </li>
-        <li>
-          <a accesskey="g" href="https://quii.gitbook.io/learn-go-with-tests/"
-            ><span>g</span>tst</a
-          >
-        </li>
-        <li>
-          <a
-            accesskey="m"
-            href="https://my.ine.com/CyberSecurity/courses/309de2a5/penetration-testing-prerequisites"
-            ><span>m</span>ine</a
-          >
+          <a accesskey="e" href="https://www.educative.io"><span>e</span>du</a>
         </li>
         <li>
           <a
             accesskey="u"
             href="https://www.udemy.com/home/my-courses/learning/"
             ><span>u</span>dmy</a
-          >
-        </li>
-        <li>
-          <a accesskey="t" href="https://ctfs.github.io/resources/"
-            >c<span>t</span>f1</a
-          >
-        </li>
-        <li>
-          <a accesskey="p" href="https://trailofbits.github.io/ctf/"
-            >c<span>p</span>f2</a
           >
         </li>
         <li>
