@@ -64,6 +64,7 @@ require("packer").startup(function()
 	})
 	use({ "ms-jpq/coq.artifacts", branch = "artifacts" })
 	use({ "neovim/nvim-lspconfig", config = require("/user/plugins/lsp").setup() })
+	use("b0o/schemastore.nvim")
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
 		config = require("/user/plugins/null-ls"),

@@ -50,5 +50,5 @@
   <property name="expire-timeout" type="int" value="5"/>
   <property name="initial-opacity" type="double" value="0.900000"/>
   <property name="primary-monitor" type="uint" value="0"/>
-  <property name="theme" type="string" value="Default"/>
+  <property name="theme" type="string" value="moonlight"/>
 </channel>

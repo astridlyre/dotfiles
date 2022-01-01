@@ -64,6 +64,7 @@ M.setup = function()
 			},
 			on_attach = on_attach,
 			capabilities = capabilities,
+			flags = { allow_incremental_sync = true },
 		}))
 	end
 
@@ -89,12 +90,14 @@ end ]]
 			init_options = { usePlaceholders = true, completeUnimported = true },
 			on_attach = on_attach,
 			capabilities = capabilities,
+			flags = { allow_incremental_sync = true },
 		}))
 	end
 
 	-- Rust Analyzer
 	local function rust_analyzer()
 		lspconfig.rust_analyzer.setup(coq.lsp_ensure_capabilities({
+			flags = { allow_incremental_sync = true },
 			on_attach = on_attach,
 			capabilities = capabilities,
 			settings = {
@@ -121,6 +124,7 @@ end ]]
 		local sumneko_binary_path = "/bin/Linux/lua-language-server"
 
 		lspconfig.sumneko_lua.setup(coq.lsp_ensure_capabilities({
+			flags = { allow_incremental_sync = true },
 			on_attach = on_attach,
 			cmd = {
 				sumneko_root_path .. sumneko_binary_path,
@@ -149,6 +153,7 @@ end ]]
 	-- TSserver for javascript (nodejs support)
 	local function tsserver()
 		lspconfig.tsserver.setup(coq.lsp_ensure_capabilities({
+			flags = { allow_incremental_sync = true },
 			on_attach = on_attach,
 			capabilities = capabilities,
 			filetypes = {
@@ -171,6 +176,7 @@ end ]]
 
 	local function sqls()
 		lspconfig.sqls.setup(coq.lsp_ensure_capabilities({
+			flags = { allow_incremental_sync = true },
 			on_attach = on_attach,
 			capabilities = capabilities,
 		}))
@@ -179,35 +185,26 @@ end ]]
 	-- JSON LSP
 	local function jsonls()
 		lspconfig.jsonls.setup(coq.lsp_ensure_capabilities({
+			flags = { allow_incremental_sync = true },
 			on_attach = on_attach,
 			capabilities = capabilities,
 			settings = {
-				schemas = {
-					{
-						fileMatch = { "package.json" },
-						url = "https://json.schemastore.org/package.json",
+				schemas = require("schemastore").json.schemas({
+					select = {
+						"package.json",
+						"tsconfig.json",
+						"prettierrc.json",
+						".eslintrc",
+						"babelrc.json",
+						"Packer",
+						"swcrc",
+						".adonisrc.json",
+						"Ansible Role",
+						"Ansible Playbook",
+						"Ansible Inventory",
+						"docker-compose.yml",
 					},
-					{
-						fileMatch = { "tsconfig*.json" },
-						url = "https://json.schemastore.org/tsconfig.json",
-					},
-					{
-						fileMatch = { ".prettierrc", ".prettierrc.json", "prettier.config.json" },
-						url = "https://json.schemastore.org/prettierrc.json",
-					},
-					{
-						fileMatch = { ".eslintrc", ".eslintrc.json" },
-						url = "https://json.schemastore.org/eslintrc.json",
-					},
-					{
-						fileMatch = { ".babelrc", ".babelrc.json", "babel.config.json" },
-						url = "https://json.schemastore.org/babelrc.json",
-					},
-					{
-						fileMatch = { "packer.json" },
-						url = "https://json.schemastore.org/packer.json",
-					},
-				},
+				}),
 			},
 		}))
 	end

@@ -4,6 +4,7 @@ return function()
 		"javascript",
 		"html",
 		"yaml",
+		"python",
 		"sass",
 		"markdown",
 		"lua",
@@ -14,4 +15,3 @@ return function()
 		"scss",
 	})
 end
-
