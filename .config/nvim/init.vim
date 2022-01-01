@@ -197,8 +197,6 @@ nnoremap <leader>ee :e ~/projects/dotfiles/.config/nvim/init.vim<cr>
 
 " misc helper things <leader>?
 nnoremap <leader>u :PackerUpdate<cr>
-nnoremap <leader>j :lnext<cr>zz
-nnoremap <leader>k :lprev<cr>zz
 nnoremap <leader>\ :qa!<cr>
 nnoremap <leader>si :so ~/.config/nvim/init.vim<cr>
 nnoremap <leader>; :w<cr>
@@ -263,8 +261,8 @@ nnoremap <M-k> mz:m-2<cr>`z
 nnoremap <Tab> <cmd>bnext<cr>
 nnoremap <S-Tab> <cmd>bprev<cr>
 nnoremap <silent> <C-q> <cmd>call ToggleQFList(1)<cr>
-nnoremap <C-j> <cmd>cnext<cr>zz
-nnoremap <C-k> <cmd>cprev<cr>zz
+nnoremap <leader>j <cmd>cnext<cr>zz
+nnoremap <leader>k <cmd>cprev<cr>zz
 
 " disable hl with 2 esc
 noremap <silent><esc><esc> <cmd>noh<cr><esc>
