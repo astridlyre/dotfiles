@@ -28,8 +28,8 @@ compositing-underline    = over
 compositing-border       = over
 
 ; Define fallback values used by all module formats
-format-foreground   = #b4b4b9
-format-background   = #1b1b20
+format-foreground   = #b5b4c9
+format-background   = #191c25
 format-underline    =
 format-overline     =
 format-spacing      =
@@ -39,12 +39,12 @@ format-offset       =
 
 [colors]
 ; Falcon ====================
-background          = #1b1b20
-foreground          = #b4b4b9
-red                 = #ff3600
+background          = #191c25
+foreground          = #b5b4c9
+red                 = #7dc2c7
 green               = #718e3f
-yellow              = #ffc552
-grey                = #525258
+yellow              = #c6aed7
+grey                = #5b5f71
 ; ===========================
 
 ################################################################################
@@ -66,7 +66,7 @@ bottom              = false
 separator           = ::
 
 background          = ${colors.background}
-foreground          = ${colors.yellow}
+foreground          = ${colors.grey}
 
 line-size           = 0
 line-color          = ${colors.red}
@@ -220,7 +220,7 @@ label-urgent                 = %icon%
 label-urgent-padding         = 3
 
 label-empty                  = %icon%
-label-empty-foreground       = ${colors.foreground}
+label-empty-foreground       = ${colors.grey}
 label-empty-padding          = 3
 label-empty-background       = ${colors.background}
 label-monocle                = "  "

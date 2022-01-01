@@ -9,8 +9,8 @@ declare -i INC=2       # Increment step
 declare -i LIMIT=100   # Volume Limit
 declare -i FIRST_RUN=0 # First time running the script?
 
-ICON_COLOR="#ff3600" # Icon color
-TEXT_COLOR="#b4b4b9" # Text color
+ICON_COLOR="#7dc2c7" # Icon color
+TEXT_COLOR="#b5b4c9" # Text color
 ACTIVE_SINK=""       # Active Sink
 CURRENT_VOLUME=""    # Current Volume
 
@@ -129,34 +129,34 @@ output() {
 # Script Control Flow
 get_active_sink
 case "$1" in
-	--up)
-		increase_volume
-		;;
-	--down)
-		decrease_volume
-		;;
-	--togmute)
-		if is_muted; then
-			unmute_volume
-		else
-			mute_volume
-		fi
-		;;
-	--mute)
-		mute_volume
-		;;
-	--unmute)
+--up)
+	increase_volume
+	;;
+--down)
+	decrease_volume
+	;;
+--togmute)
+	if is_muted; then
 		unmute_volume
-		;;
-	--listen)
-		# Listen for changes and immediately create new output for the bar
-		listen
-		;;
-	--help)
-		usage
-		;;
-	*)
-		# By default print output for bar
-		output
-		;;
+	else
+		mute_volume
+	fi
+	;;
+--mute)
+	mute_volume
+	;;
+--unmute)
+	unmute_volume
+	;;
+--listen)
+	# Listen for changes and immediately create new output for the bar
+	listen
+	;;
+--help)
+	usage
+	;;
+*)
+	# By default print output for bar
+	output
+	;;
 esac

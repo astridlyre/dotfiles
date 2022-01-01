@@ -93,35 +93,36 @@ key_bindings:
   - { key: F, mods: Control|Shift, mode: ~Search, action: SearchForward }
   - { key: B, mods: Control|Shift, mode: ~Search, action: SearchBackward }
 
+  # Colors (Substrata)
 colors:
   # Default colors
   primary:
-    background: '#1b1b20'
-    foreground: '#b4b4b9'
+    background: '#191c25'
+    foreground: '#b5b4c9'
 
-  # Colors the cursor will use if `custom_cursor_colors` is true
+  # Cursor colors
   cursor:
-    text: '#020221'
-    cursor: '#f8f8ff'
+    text: '#191c25'
+    cursor: '#b5b4c9'
 
   # Normal colors
   normal:
-    black: '#525258'
-    red: '#ff3600'
-    green: '#718e3f'
-    yellow: '#ffc552'
-    blue: '#635196'
-    magenta: '#ff761a'
-    cyan: '#34bfa4'
-    white: '#b4b4b9'
+    black: '#5b5f71'
+    red: '#cf8164'
+    green: '#76a065'
+    yellow: '#ab924c'
+    blue: '#8296b0'
+    magenta: '#a18daf'
+    cyan: '#659ea2'
+    white: '#b5b4c9'
 
   # Bright colors
   bright:
-    black: '#525258'
-    red: '#ff8e78'
-    green: '#b1bf75'
-    yellow: '#ffd392'
-    blue: '#99a4bc'
-    magenta: '#ffb07b'
-    cyan: '#8bccbf'
-    white: '#f8f8ff'
+    black: '#5b5f71'
+    red: '#fe9f7c'
+    green: '#92c47e'
+    yellow: '#d2b45f'
+    blue: '#a0b9d8'
+    magenta: '#c6aed7'
+    cyan: '#7dc2c7'
+    white: '#f0ecfe'

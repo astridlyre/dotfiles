@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ -n "${SSH_CLIENT}" || -n "${SSH_TTY}" ]]; then
+	SESSION_TYPE=remote/ssh
+fi
+
 # ensure prompt has colors
 export color_prompt=yes
 
@@ -8,7 +12,7 @@ get_exit_color() {
 	if (($? > 0)); then
 		EXIT_COLOR=31
 	else
-		EXIT_COLOR=33
+		EXIT_COLOR=35
 	fi
 }
 
@@ -21,17 +25,24 @@ check_man_width() {
 	fi
 }
 
-# Make nice exit codes
-if [[ $DISPLAY ]]; then
-	PROMPT_ICON='❱'
+if [[ "${SESSION_TYPE}" =~ remote/ssh ]]; then
+	# Prompt
+	PS1='\n\[\033[01;34m\]\w\[\033[00m\]\n\[\033[0;37m\]$\[\033[00m\] '
+	PS2="〉"
+	PS4="> "
 else
-	PROMPT_ICON='$'
-fi
+	# Make nice exit codes
+	if [[ $DISPLAY ]]; then
+		PROMPT_ICON='❱'
+	else
+		PROMPT_ICON='$'
+	fi
 
-# Prompt
-PS1='\n\[\e[0;30m\]\w\n\[\e[1;${EXIT_COLOR}m\]  \[\e[0;30m\]${PROMPT_ICON}\[\e[0m\] '
-PS2="〉"
-PS4="> "
+	# Prompt
+	PS1='\n\[\e[0;30m\]\w\n\[\e[1;${EXIT_COLOR}m\]  \[\e[0;30m\]${PROMPT_ICON}\[\e[0m\] '
+	PS2="〉"
+	PS4="> "
+fi
 
 # Prompt Command
 declare -a PROMPT_COMMAND

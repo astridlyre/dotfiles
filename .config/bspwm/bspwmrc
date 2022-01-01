@@ -64,7 +64,7 @@ run numlockx on
 run picom --experimental-backends --config "$HOME/.config/bspwm/picom.conf"
 
 # Background image
-run feh --bg-fill "$HOME/Pictures/ilovemykippums.jpg"
+run feh --bg-fill "$HOME/Pictures/Wallpapers/error.png"
 
 # Configure no border gaps
 bspc config border_width 1
@@ -88,10 +88,10 @@ bspc config remove_disabled_monitors true
 bspc config merge_overlapping_monitors true
 
 #BSPWM coloring
-bspc config normal_border_color "#525258"
-bspc config active_border_color "#525258"
-bspc config focused_border_color "#ffc552"
-bspc config presel_feedback_color "#525258"
+bspc config normal_border_color "#5b5f71"
+bspc config active_border_color "#5b5f71"
+bspc config focused_border_color "#7dc2c7"
+bspc config presel_feedback_color "#5b5f71"
 
 #Floating applications
 bspc rule -a iwctl state=floating

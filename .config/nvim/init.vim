@@ -152,6 +152,7 @@ iabbr ressm @media screen and (min-width: 601px) {
 iabbr resmd @media screen and (min-width: 901px) {
 iabbr reslg @media screen and (min-width: 1281px) {
 iabbr resxl @media screen and (min-width: 1921px) {
+iabbr imst import * as styles from './styles.module.css'
 
 " ========================= custom commands ============================== "
 " strip whitespace

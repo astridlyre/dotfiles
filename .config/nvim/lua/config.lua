@@ -35,9 +35,9 @@ require("packer").startup(function()
 
 	-- Colorscheme
 	use({
-		"astridlyre/falcon",
+		"astridlyre/substrata.nvim",
 		config = function()
-			vim.cmd("colorscheme falcon")
+			vim.cmd("colorscheme substrata")
 		end,
 	})
 
