@@ -27,8 +27,6 @@ let g:python3_host_prog        = '/usr/bin/python3' " default python3
 let g:moonlight_qf_g = 0
 let g:moonlight_qf_l = 0
 let g:autoFormat = 1
-let g:falcon_bold = 1
-let g:falcon_italic = 1
 set termguicolors " has to be set before nvim-colorizer is loaded
 
 " ========================= lua config =================================== "
@@ -230,7 +228,7 @@ vnoremap <leader>y "+y
 nnoremap <C-n> <cmd>NvimTreeToggle<CR>
 nnoremap <leader><cr> <cmd>NvimTreeRefresh<CR>
 
-nnoremap s <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap s <cmd>lua require('telescope.builtin').find_files({ hidden = true, follow = true })<cr>
 nnoremap <leader>lg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
