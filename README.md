@@ -3,11 +3,9 @@
 As in the Linux tradition, here are my dotfiles. I use BSPWM and a few Xfce
 programs for my desktop. I mostly work from the terminal.
 
-![Screen Shot One](https://raw.githubusercontent.com/astridlyre/dotfiles/master/screenshot_0.jpg)
+![Screen Shot One](https://raw.githubusercontent.com/astridlyre/dotfiles/master/ss1.jpg)
 
-![Screen Shot Two](https://raw.githubusercontent.com/astridlyre/dotfiles/master/screenshot_1.jpg)
-
-![Screen Shot Two](https://raw.githubusercontent.com/astridlyre/dotfiles/master/screenshot_2.jpg)
+![Screen Shot Two](https://raw.githubusercontent.com/astridlyre/dotfiles/master/ss2.jpg)
 
 ## Install Script
 
