@@ -27,6 +27,7 @@ let g:python3_host_prog        = '/usr/bin/python3' " default python3
 let g:moonlight_qf_g = 0
 let g:moonlight_qf_l = 0
 let g:autoFormat = 1
+let g:substrata_variant = "brighter"
 set termguicolors " has to be set before nvim-colorizer is loaded
 
 " ========================= lua config =================================== "
@@ -245,8 +246,8 @@ nmap <leader>gs <cmd>Git<cr>
 nmap <leader>gd <cmd>Gdiffsplit<cr>
 
 " vim-easy-align <leader>a
-xmap <leader>a <Plug>(EasyAlign)
-nmap <leader>a <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 " ========================= normal mappings ============================== "
 " Add big j/k jumps to jumplist

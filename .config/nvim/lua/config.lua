@@ -32,10 +32,12 @@ require("packer").startup(function()
 	use({ "lukas-reineke/indent-blankline.nvim", config = require("/user/plugins/indent-blankline") })
 	use({ "echasnovski/mini.nvim", config = require("/user/plugins/mini") })
 	use({ "norcalli/nvim-colorizer.lua", config = require("/user/plugins/colorizer") })
+	use({ "junegunn/vim-easy-align" })
 
 	-- Colorscheme
 	use({
 		"astridlyre/substrata.nvim",
+		branch = "variants",
 		config = function()
 			vim.cmd("colorscheme substrata")
 		end,

@@ -14,7 +14,7 @@ error_exit() {
 update_binary() {
 	echo "Updating neovim"
 
-	local scripts_path="$HOME/.bin"
+	local scripts_path="$HOME/.local/bin"
 	local app_image="$PWD/nvim.appimage"
 
 	if wget -nv "https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage"; then
