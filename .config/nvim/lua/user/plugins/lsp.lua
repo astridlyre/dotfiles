@@ -32,6 +32,23 @@ local lsp_maps = function(bufnr)
 	nmap("<space>fs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 end
 
+-- Configuration for LSP signature
+local lsp_signature_config = {
+	bind = true,
+	doc_lines = 0,
+	floating_window = true,
+	floating_window_above_cur_line = true,
+	hint_enable = false,
+	hint_prefix = "❱ ",
+	hint_scheme = "String",
+	use_lspsaga = false,
+	hi_parameter = "Search",
+	max_height = 4,
+	max_width = 120,
+	handler_opts = { border = "single" },
+	extra_trigger_chars = {},
+}
+
 -- Generic On-Attach Function
 local on_attach = function(client, bufnr)
 	lsp_maps(bufnr)
@@ -41,6 +58,8 @@ local on_attach = function(client, bufnr)
 			client.resolved_capabilities.document_formatting = false
 		end
 	end
+
+	require("lsp_signature").on_attach(lsp_signature_config, bufnr)
 end
 
 -- Snippet Support

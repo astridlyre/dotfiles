@@ -84,12 +84,7 @@ require("packer").startup(function()
 		config = require("user.plugins.null-ls"),
 	})
 
-	use({
-		"ray-x/lsp_signature.nvim",
-		opt = true,
-		event = "InsertCharPre",
-		config = require("user.plugins.lsp-signature"),
-	})
+	use({ "ray-x/lsp_signature.nvim" })
 
 	use({ "windwp/nvim-autopairs", event = "InsertCharPre", config = require("user.plugins.autopairs") })
 
