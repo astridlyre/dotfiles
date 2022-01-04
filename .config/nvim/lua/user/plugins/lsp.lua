@@ -21,7 +21,7 @@ local lsp_maps = function(bufnr)
 	nmap("<leader>ll", "<cmd>lua vim.diagnostic.open_float(nil, { source = 'always', border = 'rounded' })<CR>", opts)
 	nmap("<c-j>", "<cmd>lua vim.diagnostic.goto_next({ border = 'rounded' })<CR>", opts)
 	nmap("<c-k>", "<cmd>lua vim.diagnostic.goto_prev({ border = 'rounded' })<CR>", opts)
-	nmap("gl", "<cmd>lua vim.diagnostic.setqflist()<CR>", opts)
+	nmap("leader>lq", "<cmd>lua vim.diagnostic.setqflist()<CR>", opts)
 	nmap("<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 	nmap("<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 end
@@ -189,7 +189,7 @@ end ]]
 			on_attach = on_attach,
 			capabilities = capabilities,
 			settings = {
-				schemas = require("schemastore").json.schemas({
+					schemas = require("schemastore").json.schemas({
 					select = {
 						"package.json",
 						"tsconfig.json",

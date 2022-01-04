@@ -1,5 +1,5 @@
-local capabilities = require("/user/plugins/lsp").capabilities
-local on_attach = require("/user/plugins/lsp").on_attach
+local capabilities = require("user/plugins/lsp").capabilities
+local on_attach = require("user/plugins/lsp").on_attach
 
 return function()
 	-- Null LS
@@ -26,8 +26,11 @@ return function()
 				extra_args = { "--config", vim.fn.expand("~/.eslintrc.json") },
 			}),
 			diagnostics.flake8,
-			diagnostics.markdownlint,
 			diagnostics.vint,
+			diagnostics.vale.with({
+				filetypes = { "markdown", "tex", "text", "txt" },
+				extra_args = { "--config", vim.fn.expand("~/.vale.ini") },
+			}),
 			diagnostics.yamllint,
 			code_actions.eslint_d,
 		},
