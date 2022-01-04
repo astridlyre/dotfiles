@@ -201,7 +201,6 @@ nnoremap <leader>si :so ~/.config/nvim/init.vim<cr>
 nnoremap <leader>; :w<cr>
 nnoremap <silent><leader>af <cmd>call ToggleAutoFormat()<cr>
 nnoremap <silent><leader><esc> <cmd>call ResetHightlight()<cr>
-nnoremap <silent><leader>q <cmd>call ToggleQFList(0)<cr>
 nnoremap <silent><leader>p <C-^>
 nnoremap ' `
 nnoremap ` '

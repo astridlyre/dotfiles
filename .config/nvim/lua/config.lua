@@ -20,6 +20,7 @@ require("/user/plugins/coq")
 local use = require("packer").use
 require("packer").startup(function()
 	use("wbthomason/packer.nvim")
+
 	use("nvim-lua/plenary.nvim")
 
 	-- Tree file explorer
@@ -30,7 +31,9 @@ require("packer").startup(function()
 	})
 
 	use({ "lukas-reineke/indent-blankline.nvim", config = require("user/plugins/indent-blankline") })
+
 	use({ "echasnovski/mini.nvim", config = require("user/plugins/mini") })
+
 	use({ "norcalli/nvim-colorizer.lua", config = require("user/plugins/colorizer") })
 
 	-- Colorscheme
@@ -48,12 +51,16 @@ require("packer").startup(function()
 	})
 
 	use({ "akinsho/toggleterm.nvim", config = require("user/plugins/toggleterm") })
+
 	use({ "b3nj5m1n/kommentary", event = "BufEnter" })
+
 	use({ "lewis6991/gitsigns.nvim", config = require("user/plugins/gitsigns") })
 
 	-- Treesitter
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", config = require("user/plugins/treesitter") })
+
 	use({ "nvim-treesitter/nvim-treesitter-textobjects" })
+
 	use({ "windwp/nvim-ts-autotag" })
 
 	-- Autocompletion
@@ -63,11 +70,15 @@ require("packer").startup(function()
 		run = ":COQdeps",
 	})
 	use({ "ms-jpq/coq.artifacts", branch = "artifacts" })
+
 	use({
 		"neovim/nvim-lspconfig",
-		config = require("user/plugins/lsp").setup,
+		config = function()
+			require("user/plugins/lsp").setup()
+		end,
 	})
 	use("b0o/schemastore.nvim")
+
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
 		config = require("user/plugins/null-ls"),
@@ -79,6 +90,7 @@ require("packer").startup(function()
 		event = "InsertCharPre",
 		config = require("user/plugins/lsp-signature"),
 	})
+
 	use({ "windwp/nvim-autopairs", event = "InsertCharPre", config = require("user/plugins/autopairs") })
 
 	-- Clojure plugins

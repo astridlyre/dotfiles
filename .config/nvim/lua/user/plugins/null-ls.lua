@@ -1,5 +1,6 @@
 local capabilities = require("user/plugins/lsp").capabilities
 local on_attach = require("user/plugins/lsp").on_attach
+local flags = require("user/plugins/lsp").flags
 
 return function()
 	-- Null LS
@@ -36,5 +37,6 @@ return function()
 		},
 		on_attach = on_attach,
 		capabilities = capabilities,
+		flags = flags,
 	})
 end
