@@ -1,5 +1,8 @@
 local M = {}
 
+-- Servers to disable formatting by default (so they don't conflict with null-ls)
+local disable_formatting = { "tsserver", "jsonls" }
+
 local lsp_maps = function(bufnr)
 	-- Normal keymap function
 	local function nmap(keymap, action, opts)
@@ -19,24 +22,24 @@ local lsp_maps = function(bufnr)
 	nmap("<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
 	nmap("<space>wp", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
 	nmap("<space>ld", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-	nmap("<space>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	nmap("<space>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+	nmap("<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+	nmap("<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	nmap("<space>ll", '<cmd>lua vim.diagnostic.open_float(nil, { source = "always", border = "rounded" })<CR>', opts)
 	nmap("<c-j>", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
 	nmap("<c-k>", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
-	nmap("space>lq", "<cmd>lua vim.diagnostic.setqflist()<CR>", opts)
+	nmap("gq", "<cmd>lua vim.diagnostic.setqflist()<CR>", opts)
 	nmap("<space>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-	nmap("<space>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	nmap("<space>fs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 end
 
 -- Generic On-Attach Function
 local on_attach = function(client, bufnr)
 	lsp_maps(bufnr)
 
-	if client.name == "tsserver" then
-		client.resolved_capabilities.document_formatting = false
-	elseif client.name == "jsonls" then
-		client.resolved_capabilities.document_formatting = false
+	for _, ls in ipairs(disable_formatting) do
+		if client.name == ls then
+			client.resolved_capabilities.document_formatting = false
+		end
 	end
 end
 

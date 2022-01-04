@@ -14,8 +14,8 @@ vim.api.nvim_exec(
 	false
 )
 
--- Load plugins
-require("/user/plugins/coq")
+-- Load coq
+require("user.plugins.coq")
 
 local use = require("packer").use
 require("packer").startup(function()
@@ -27,14 +27,14 @@ require("packer").startup(function()
 	use({
 		"kyazdani42/nvim-tree.lua",
 		requires = "kyazdani42/nvim-web-devicons",
-		config = require("user/plugins/nvim-tree"),
+		config = require("user.plugins.nvim-tree"),
 	})
 
-	use({ "lukas-reineke/indent-blankline.nvim", config = require("user/plugins/indent-blankline") })
+	use({ "lukas-reineke/indent-blankline.nvim", config = require("user.plugins.indent-blankline") })
 
-	use({ "echasnovski/mini.nvim", config = require("user/plugins/mini") })
+	use({ "echasnovski/mini.nvim", config = require("user.plugins.mini") })
 
-	use({ "norcalli/nvim-colorizer.lua", config = require("user/plugins/colorizer") })
+	use({ "norcalli/nvim-colorizer.lua", config = require("user.plugins.colorizer") })
 
 	-- Colorscheme
 	use({
@@ -47,17 +47,17 @@ require("packer").startup(function()
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = { { "nvim-lua/plenary.nvim" }, { "kyazdani42/nvim-web-devicons", opt = true } },
-		config = require("user/plugins/telescope"),
+		config = require("user.plugins.telescope"),
 	})
 
-	use({ "akinsho/toggleterm.nvim", config = require("user/plugins/toggleterm") })
+	use({ "akinsho/toggleterm.nvim", config = require("user.plugins.toggleterm") })
 
 	use({ "b3nj5m1n/kommentary", event = "BufEnter" })
 
-	use({ "lewis6991/gitsigns.nvim", config = require("user/plugins/gitsigns") })
+	use({ "lewis6991/gitsigns.nvim", config = require("user.plugins.gitsigns") })
 
 	-- Treesitter
-	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", config = require("user/plugins/treesitter") })
+	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", config = require("user.plugins.treesitter") })
 
 	use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 
@@ -74,24 +74,24 @@ require("packer").startup(function()
 	use({
 		"neovim/nvim-lspconfig",
 		config = function()
-			require("user/plugins/lsp").setup()
+			require("user.plugins.lsp").setup()
 		end,
 	})
 	use("b0o/schemastore.nvim")
 
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
-		config = require("user/plugins/null-ls"),
+		config = require("user.plugins.null-ls"),
 	})
 
 	use({
 		"ray-x/lsp_signature.nvim",
 		opt = true,
 		event = "InsertCharPre",
-		config = require("user/plugins/lsp-signature"),
+		config = require("user.plugins.lsp-signature"),
 	})
 
-	use({ "windwp/nvim-autopairs", event = "InsertCharPre", config = require("user/plugins/autopairs") })
+	use({ "windwp/nvim-autopairs", event = "InsertCharPre", config = require("user.plugins.autopairs") })
 
 	-- Clojure plugins
 	--[[ use({ "tpope/vim-dispatch", ft = { "clojure" } })

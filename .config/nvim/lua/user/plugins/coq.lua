@@ -48,5 +48,6 @@ vim.g.coq_settings = {
 		completion_auto_timeout = 0.17,
 	},
 }
+
 remap("i", "<esc>", [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
 remap("i", "<c-c>", [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })

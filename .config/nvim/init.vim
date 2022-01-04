@@ -244,7 +244,7 @@ nmap <leader>gb <cmd>Git blame<cr>
 nmap <leader>gs <cmd>Git<cr>
 nmap <leader>gd <cmd>Gdiffsplit<cr>
 
-" vim-easy-align <leader>a
+" vim-easy-align
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
@@ -259,8 +259,8 @@ nnoremap <M-k> mz:m-2<cr>`z
 nnoremap <Tab> <cmd>bnext<cr>
 nnoremap <S-Tab> <cmd>bprev<cr>
 nnoremap <silent> <C-q> <cmd>call ToggleQFList(1)<cr>
-nnoremap <leader>j <cmd>cnext<cr>zz
-nnoremap <leader>k <cmd>cprev<cr>zz
+nnoremap gj <cmd>cnext<cr>zz
+nnoremap gk <cmd>cprev<cr>zz
 
 " disable hl with 2 esc
 noremap <silent><esc><esc> <cmd>noh<cr><esc>

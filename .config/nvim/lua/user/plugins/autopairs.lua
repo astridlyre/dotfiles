@@ -1,7 +1,7 @@
 return function()
 	local remap = vim.api.nvim_set_keymap
 	local npairs = require("nvim-autopairs")
-	npairs.setup({ map_bs = false, enable_check_bracket_line = false, ignored_next_char = "[%w%.]" })
+	npairs.setup({ map_bs = false, enable_check_bracket_line = false, ignored_next_char = "[%w%.]", map_cr = false })
 
 	_G.MUtils = {}
 	MUtils.CR = function()
