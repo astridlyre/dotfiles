@@ -28,6 +28,7 @@ let g:moonlight_qf_g = 0
 let g:moonlight_qf_l = 0
 let g:autoFormat = 1
 let g:substrata_variant = "brighter"
+let g:substrata_italic_booleans = "true"
 set termguicolors " has to be set before nvim-colorizer is loaded
 
 " ========================= lua config =================================== "
@@ -114,7 +115,7 @@ augroup end
 augroup AutoFormat   " autoformat on save
 	autocmd!
 	let autoFormatable = ['markdown', 'sh', 'bash', 'python', 'javascript', 'rust',
-		\ 'go', 'yaml', 'html', 'css', 'json', 'lua', 'c', 'typescript', 'javascriptreact', 'typescriptreact']
+		\ 'go', 'yaml', 'html', 'css', 'json', 'lua', 'c', 'typescript', 'javascriptreact', 'typescriptreact', "clojure"]
 	autocmd BufWritePre * if index(autoFormatable, &ft) >= 0 && g:autoFormat == 1
 		\ | exe 'lua vim.lsp.buf.formatting_sync(nil, 1000)' | endif
 augroup end
@@ -145,6 +146,12 @@ augroup end
 augroup SWCRC
 	autocmd!
 	autocmd! BufEnter .swcrc set filetype=json
+augroup end
+
+augroup ClojureScript
+	autocmd!
+	autocmd! BufEnter .cljs nnoremap <leader>r <cmd>1TermExec cmd="pnpx shadow-cljs watch todo"
+	autocmd! BufEnter .cljs nnoremap <leader>t <cmd>2TermExec cmd="pnpx shadow-cljs test todo"
 augroup end
 
 iabbr ressm @media screen and (min-width: 601px) {
@@ -238,6 +245,8 @@ nnoremap <leader>fd <cmd>lua require('telescope.builtin').lsp_definitions<cr>
 nnoremap <leader>fi <cmd>lua require('telescope.builtin').lsp_implementations<cr>
 nnoremap <leader>f; <cmd>lua require('telescope.builtin').lsp_range_code_actions<cr>
 nnoremap <leader>d <cmd>lua MiniBufremove.delete()<cr>
+
+nnoremap gq <cmd>lua vim.diagnostic.setqflist()<CR>
 
 " fugitive mappings <leader>g[bd]
 nmap <leader>gb <cmd>Git blame<cr>

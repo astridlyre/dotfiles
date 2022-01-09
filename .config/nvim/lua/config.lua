@@ -89,8 +89,8 @@ require("packer").startup(function()
 	use({ "windwp/nvim-autopairs", event = "InsertCharPre", config = require("user.plugins.autopairs") })
 
 	-- Clojure plugins
-	--[[ use({ "tpope/vim-dispatch", ft = { "clojure" } })
+	use({ "tpope/vim-dispatch", ft = { "clojure" } })
 	use({ "clojure-vim/vim-jack-in", ft = { "clojure" } })
 	use({ "Olical/conjure", ft = { "clojure" } })
-	use({ "radenling/vim-dispatch-neovim", ft = { "clojure" } }) ]]
+	use({ "radenling/vim-dispatch-neovim", ft = { "clojure" } })
 end)

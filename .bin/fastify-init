@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function run_init_script() {
-	git clone 'https://github.com/astridlyre/vite-ts-react-starter' "${TARGET_DIR}"
+	git clone 'https://github.com/astridlyre/fastify-typescript-starter' "${TARGET_DIR}"
 	cd "${TARGET_DIR}" || exit 1
 	rm -rf '.git'
 	git init

@@ -189,11 +189,9 @@ end ]]
 				"typescript.tsx",
 			},
 			init_options = {
-				includeCompletionsForImportStatements = true,
-				includeAutomaticOptionalChainCompletions = true,
-				importModuleSpecifierEnding = "js",
+				importModuleSpecifierEnding = "auto",
 				importModuleSpecifierPreference = "project-relative",
-				includePackageJsonAutoImports = true,
+				includePackageJsonAutoImports = "auto",
 			},
 		}))
 	end
@@ -223,9 +221,6 @@ end ]]
 						"Packer",
 						"swcrc",
 						".adonisrc.json",
-						"Ansible Role",
-						"Ansible Playbook",
-						"Ansible Inventory",
 						"docker-compose.yml",
 					},
 				}),
@@ -244,9 +239,10 @@ end ]]
 		"bashls",
 		"clojure_lsp",
 		"racket_langserver",
-		"cssmodules_ls",
+		-- "cssmodules_ls",
 		"emmet_ls",
 		"solang",
+		-- "tailwindcss",
 	}
 
 	for _, ls in ipairs(default_servers) do

@@ -26,12 +26,13 @@ return function()
 				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 				extra_args = { "--config", vim.fn.expand("~/.eslintrc.json") },
 			}),
+			diagnostics.proselint.with({ filetypes = { "markdown", "tex", "text" } }),
+			diagnostics.write_good.with({ filetypes = { "markdown", "tex", "text" } }),
+			diagnostics.misspell.with({
+				filetypes = { "markdown", "tex", "text" },
+			}),
 			diagnostics.flake8,
 			diagnostics.vint,
-			diagnostics.vale.with({
-				filetypes = { "markdown", "tex", "text", "txt" },
-				extra_args = { "--config", vim.fn.expand("~/.vale.ini") },
-			}),
 			diagnostics.yamllint,
 			code_actions.eslint_d,
 		},
