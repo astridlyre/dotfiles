@@ -34,7 +34,7 @@ return function()
 		autotag = { enable = true },
 		autopairs = { enable = true },
 		matchup = {
-			enable = true, -- mandatory, false will disable the whole extension
+			enable = true,
 		},
 		move = {
 			enable = true,

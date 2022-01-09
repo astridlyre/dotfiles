@@ -1,5 +1,4 @@
 scriptencoding=utf8
-
 " ========================= plugin configuration ========================= "
 let g:loaded_gzip              = 1
 let g:loaded_tar               = 1
@@ -17,8 +16,6 @@ let g:loaded_logiPat           = 1
 let g:loaded_rrhelper          = 1
 let g:loaded_netrw             = 1
 let g:loaded_netrwPlugin       = 1
-let g:loaded_netrwSettings     = 1
-let g:loaded_netrwFileHandlers = 1
 let g:omni_sql_no_default_maps = 1                  " disable sql omni completion
 let g:loaded_python_provider   = 0                  " disable python2
 let g:loaded_perl_provider     = 0                  " disable perl
@@ -29,11 +26,11 @@ let g:moonlight_qf_l = 0
 let g:autoFormat = 1
 let g:substrata_variant = "brighter"
 let g:substrata_italic_booleans = "true"
+let g:matchup_matchparen_offscreen = {'method': 'popup'}
 set termguicolors " has to be set before nvim-colorizer is loaded
 
 " ========================= lua config =================================== "
 lua require('config')
-
 " ========================= general config =============================== "
 set breakindent                                               " wrap long lines to the width set by tw
 set completeopt=menuone,noinsert                              " default complete opt
@@ -115,7 +112,7 @@ augroup end
 augroup AutoFormat   " autoformat on save
 	autocmd!
 	let autoFormatable = ['markdown', 'sh', 'bash', 'python', 'javascript', 'rust',
-		\ 'go', 'yaml', 'html', 'css', 'json', 'lua', 'c', 'typescript', 'javascriptreact', 'typescriptreact', "clojure"]
+		\ 'go', 'yaml', 'html', 'css', 'json', 'lua', 'c', 'typescript', 'javascriptreact', 'typescriptreact', "clojure", "fennel"]
 	autocmd BufWritePre * if index(autoFormatable, &ft) >= 0 && g:autoFormat == 1
 		\ | exe 'lua vim.lsp.buf.formatting_sync(nil, 1000)' | endif
 augroup end
@@ -139,13 +136,7 @@ augroup end
 
 augroup Clojure
 	autocmd!
-	autocmd BufEnter *.clj nnoremap <leader>r <cmd>1TermExec cmd="lein run"<CR>
-	autocmd BufEnter *.clj nnoremap <leader>t <cmd>2TermExec cmd="lein test"<CR>
-augroup end
-
-augroup SWCRC
-	autocmd!
-	autocmd! BufEnter .swcrc set filetype=json
+	autocmd BufEnter *.clj nnoremap <leader>r <cmd>1TermExec cmd='clj -m nrepl.cmdline --middleware "[cider.nrepl/cider-middleware]" --interactive'<CR>
 augroup end
 
 augroup ClojureScript
@@ -161,9 +152,7 @@ iabbr resxl @media screen and (min-width: 1921px) {
 iabbr imst import * as styles from './styles.module.css'
 
 " ========================= custom commands ============================== "
-" strip whitespace
 command! StripWhitespace :%s/\s\+$//e
-
 " ========================= custom functions ============================= "
 function! ResetHightlight() " temporary fix for when treesitter highlight goes wonky
     execute 'write | edit | TSBufEnable highlight'
@@ -185,18 +174,16 @@ function! ToggleQFList(global) " toggle quickfix
 endfunction
 
 " ========================= global mappings ============================== "
-" disable s and make y consistent
 nmap s <nop>
 nnoremap ^ 0
 nnoremap 0 ^
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
+nmap j gj
+nmap k gk
 
 " ========================= leader mappings ============================== "
 " map leader to space
 let mapleader=' '
+let maplocalleader=','
 
 " edit configs
 nnoremap <leader>ee :e ~/projects/dotfiles/.config/nvim/init.vim<cr>
@@ -204,24 +191,21 @@ nnoremap <leader>ee :e ~/projects/dotfiles/.config/nvim/init.vim<cr>
 " misc helper things <leader>?
 nnoremap <leader>u :PackerUpdate<cr>
 nnoremap <leader>\ :qa!<cr>
-nnoremap <leader>si :so ~/.config/nvim/init.vim<cr>
 nnoremap <leader>; :w<cr>
 nnoremap <silent><leader>af <cmd>call ToggleAutoFormat()<cr>
 nnoremap <silent><leader><esc> <cmd>call ResetHightlight()<cr>
-nnoremap <silent><leader>p <C-^>
 nnoremap ' `
 nnoremap ` '
-nnoremap <silent><leader>sf <cmd>set nospell<CR>
-nnoremap <silent><leader>so <cmd>set nospell<CR>
 
 " new line in normal mode and back
 nnoremap <leader>[ myO<esc>`y
 nnoremap <leader>] myo<esc>`y
-tnoremap <C-d> <C-\><C-n>
+tnoremap <C-q> <C-\><C-n>
 nnoremap <leader>\ <cmd>ToggleTermToggleAll<CR>
 nnoremap <leader>1 <cmd>ToggleTerm1<CR>
 nnoremap <leader>2 <cmd>ToggleTerm2<CR>
 nnoremap <leader>3 <cmd>ToggleTerm3<CR>
+nnoremap <leader>4 <cmd>ToggleTerm4<CR>
 
 " lil scripties <leader>s*
 vnoremap <leader>ss !sort -d -b -f<cr>
@@ -232,8 +216,7 @@ nnoremap <leader>sw <cmd>StripWhitespace<cr>
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 
-nnoremap <C-n> <cmd>NvimTreeToggle<CR>
-nnoremap <leader><cr> <cmd>NvimTreeRefresh<CR>
+nnoremap <c-n> <cmd>NvimTreeToggle<CR>
 
 nnoremap s <cmd>lua require('telescope.builtin').find_files({ hidden = true, follow = true })<cr>
 nnoremap <leader>lg <cmd>lua require('telescope.builtin').live_grep()<cr>
@@ -246,7 +229,7 @@ nnoremap <leader>fi <cmd>lua require('telescope.builtin').lsp_implementations<cr
 nnoremap <leader>f; <cmd>lua require('telescope.builtin').lsp_range_code_actions<cr>
 nnoremap <leader>d <cmd>lua MiniBufremove.delete()<cr>
 
-nnoremap gq <cmd>lua vim.diagnostic.setqflist()<CR>
+nnoremap gql <cmd>lua vim.diagnostic.setqflist()<CR>
 
 " fugitive mappings <leader>g[bd]
 nmap <leader>gb <cmd>Git blame<cr>
@@ -257,6 +240,8 @@ nmap <leader>gd <cmd>Gdiffsplit<cr>
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
+nnoremap <localleader>cc <cmd>ConjureConnect<CR>
+
 " ========================= normal mappings ============================== "
 " Add big j/k jumps to jumplist
 nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
@@ -265,14 +250,17 @@ nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
 " easier move line with alt+j / alt+k
 nnoremap <M-j> mz:m+<cr>`z
 nnoremap <M-k> mz:m-2<cr>`z
-nnoremap <Tab> <cmd>bnext<cr>
-nnoremap <S-Tab> <cmd>bprev<cr>
 nnoremap <silent> <C-q> <cmd>call ToggleQFList(1)<cr>
-nnoremap gj <cmd>cnext<cr>zz
-nnoremap gk <cmd>cprev<cr>zz
 
 " disable hl with 2 esc
 noremap <silent><esc><esc> <cmd>noh<cr><esc>
+
+nnoremap [b <cmd>bprev<cr>
+nnoremap ]b <cmd>bnext<cr>
+nnoremap [q <cmd>cnext<cr>
+nnoremap ]q <cmd>cprev<cr>
+nnoremap [<space> myO<esc>`y
+nnoremap ]<space> myo<esc>`y
 
 " ========================= insert mappings ============================== "
 inoremap <C-c> <esc>

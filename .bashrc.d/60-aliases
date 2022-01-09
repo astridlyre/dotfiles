@@ -24,7 +24,6 @@ alias vi="vim"
 alias dmesg='dmesg -H'
 alias i='info --vi-keys'
 alias p='pnpm'
-alias npm="pnpm"
 alias info='info --vi-keys'
 alias cman='lynx ~/Documents/gnu-c-manual.html'
 alias se='sudoedit'

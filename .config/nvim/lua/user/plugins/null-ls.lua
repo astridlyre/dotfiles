@@ -18,6 +18,7 @@ return function()
 			formatting.fixjson,
 			formatting.goimports,
 			formatting.isort,
+			formatting.fnlfmt,
 			formatting.sqlformat,
 			-- formatting.rustfmt,
 			formatting.stylua,

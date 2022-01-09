@@ -20,7 +20,6 @@ require("user.plugins.coq")
 local use = require("packer").use
 require("packer").startup(function()
 	use("wbthomason/packer.nvim")
-
 	use("nvim-lua/plenary.nvim")
 
 	-- Tree file explorer
@@ -31,9 +30,7 @@ require("packer").startup(function()
 	})
 
 	use({ "lukas-reineke/indent-blankline.nvim", config = require("user.plugins.indent-blankline") })
-
 	use({ "echasnovski/mini.nvim", config = require("user.plugins.mini") })
-
 	use({ "norcalli/nvim-colorizer.lua", config = require("user.plugins.colorizer") })
 
 	-- Colorscheme
@@ -51,17 +48,15 @@ require("packer").startup(function()
 	})
 
 	use({ "akinsho/toggleterm.nvim", config = require("user.plugins.toggleterm") })
-
 	use({ "b3nj5m1n/kommentary", event = "BufEnter" })
-
 	use({ "lewis6991/gitsigns.nvim", config = require("user.plugins.gitsigns") })
+	use({ "tpope/vim-repeat", event = "BufEnter" })
+	use({ "andymass/vim-matchup" })
 
 	-- Treesitter
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", config = require("user.plugins.treesitter") })
-
-	use({ "nvim-treesitter/nvim-treesitter-textobjects" })
-
-	use({ "windwp/nvim-ts-autotag" })
+	use({ "nvim-treesitter/nvim-treesitter-textobjects", event = "InsertCharPre" })
+	use({ "windwp/nvim-ts-autotag", event = "InsertCharPre" })
 
 	-- Autocompletion
 	use({
@@ -85,12 +80,11 @@ require("packer").startup(function()
 	})
 
 	use({ "ray-x/lsp_signature.nvim" })
-
 	use({ "windwp/nvim-autopairs", event = "InsertCharPre", config = require("user.plugins.autopairs") })
 
 	-- Clojure plugins
-	use({ "tpope/vim-dispatch", ft = { "clojure" } })
-	use({ "clojure-vim/vim-jack-in", ft = { "clojure" } })
-	use({ "Olical/conjure", ft = { "clojure" } })
-	use({ "radenling/vim-dispatch-neovim", ft = { "clojure" } })
+	use({ "tpope/vim-dispatch", ft = { "clojure", "clojurescript" } })
+	use({ "clojure-vim/vim-jack-in", ft = { "clojure", "clojurescript" } })
+	use({ "Olical/conjure", ft = { "clojure", "clojurescript" } })
+	use({ "radenling/vim-dispatch-neovim", ft = { "clojure", "clojurescript" } })
 end)

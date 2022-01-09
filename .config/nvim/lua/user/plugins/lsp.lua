@@ -1,7 +1,7 @@
 local M = {}
 
 -- Servers to disable formatting by default (so they don't conflict with null-ls)
-local disable_formatting = { "tsserver", "jsonls" }
+local disable_formatting = { "tsserver", "jsonls", "gopls" }
 
 local lsp_maps = function(bufnr)
 	-- Normal keymap function

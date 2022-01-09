@@ -1,10 +1,9 @@
 #!/bin/bash
 
-npm install --global pnpm
+npm install --global pnpm neovim
 
 DEFAULT_PACKAGES=("bash-language-server"
 	"@bitwarden/cli"
-	"neovim"
 	"prettier"
 	"pyright"
 	"typescript"
