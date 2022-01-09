@@ -65,6 +65,7 @@ set updatetime=250                                            " for cursorhold a
 set wildignorecase                                            " ignore case in commands
 set wildignore=.git,*.tags,tags,*.o,**/node_modules/**        " ignore paths
 set wildmode=longest:full,full                                " mode for matching
+set jumpoptions=stack
 
 " ========================= autocommands ================================= "
 augroup AutoSelect
@@ -215,6 +216,7 @@ nnoremap <leader>sw <cmd>StripWhitespace<cr>
 " easy system clipboard copy & paste
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
+vnoremap <c-c> <esc>
 
 nnoremap <c-n> <cmd>NvimTreeToggle<CR>
 
