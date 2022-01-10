@@ -9,7 +9,28 @@ if fn.empty(vim.fn.glob(install_path)) > 0 then
 	execute("packadd packer.nvim")
 end
 
-local packer = require("packer")
+-- Handle errors
+local require_plugin = function(p)
+	local ok, plugin = pcall(require, p)
+	if ok then
+		return plugin
+	else
+		print("Unable to load " .. p)
+		return nil
+	end
+end
+
+-- Packer Configuration
+local packer = require_plugin("packer")
+local packer_init = {
+	display = {
+		open_fn = function()
+			return require_plugin("packer.util").float({ border = "single" })
+		end,
+	},
+}
+
+packer.init(packer_init)
 
 -- Load global vim options
 require("moonlight.options").setup()

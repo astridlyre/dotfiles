@@ -177,6 +177,7 @@ nnoremap ^ 0
 nnoremap 0 ^
 nmap j gj
 nmap k gk
+nmap <c-c> <esc>
 
 " ========================= leader mappings ============================== "
 " map leader to space
@@ -248,7 +249,7 @@ nnoremap <M-k> mz:m-2<cr>`z
 nnoremap <silent> <C-q> <cmd>call ToggleQFList(1)<cr>
 
 " disable hl with 2 esc
-noremap <silent><c-c><c-c> <cmd>noh<cr><esc>
+noremap <silent> <leader>\ <cmd>noh<cr><esc>
 
 nnoremap [b <cmd>bprev<cr>
 nnoremap ]b <cmd>bnext<cr>
