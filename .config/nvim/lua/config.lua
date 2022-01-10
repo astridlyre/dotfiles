@@ -14,13 +14,17 @@ vim.api.nvim_exec(
 	false
 )
 
+-- Load impatiant
+require("impatient")
+
 -- Load coq
 require("user.plugins.coq")
 
 local use = require("packer").use
 require("packer").startup(function()
-	use("wbthomason/packer.nvim")
-	use("nvim-lua/plenary.nvim")
+	use({ "wbthomason/packer.nvim" })
+	use({ "lewis6991/impatient.nvim" })
+	use({ "nvim-lua/plenary.nvim" })
 
 	-- Tree file explorer
 	use({
@@ -83,8 +87,11 @@ require("packer").startup(function()
 	use({ "windwp/nvim-autopairs", event = "InsertCharPre", config = require("user.plugins.autopairs") })
 
 	-- Clojure plugins
-	use({ "tpope/vim-dispatch", ft = { "clojure", "clojurescript" } })
-	use({ "clojure-vim/vim-jack-in", ft = { "clojure", "clojurescript" } })
-	use({ "Olical/conjure", ft = { "clojure", "clojurescript" } })
-	use({ "radenling/vim-dispatch-neovim", ft = { "clojure", "clojurescript" } })
-end)
+	use({ "tpope/vim-dispatch", ft = { "clojure", "clojurescript", "fennel" } })
+	use({ "clojure-vim/vim-jack-in", ft = { "clojure", "clojurescript", "fennel" } })
+	use({ "Olical/conjure", ft = { "clojure", "clojurescript", "fennel" } })
+	use({ "radenling/vim-dispatch-neovim", ft = { "clojure", "clojurescript", "fennel" } })
+	-- use({ "Olical/aniseed" })
+end, { config = {
+	compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
+} })

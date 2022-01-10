@@ -162,6 +162,7 @@ end ]]
 						path = vim.split(package.path, ";"),
 					},
 					diagnostics = { globals = { "vim" } },
+					telemetry = { enable = false },
 					workspace = {
 						library = {
 							[vim.fn.expand("$VIMRUNTIME/lua")] = true,

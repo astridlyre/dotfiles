@@ -27,6 +27,9 @@ let g:autoFormat = 1
 let g:substrata_variant = "brighter"
 let g:substrata_italic_booleans = "true"
 let g:matchup_matchparen_offscreen = {'method': 'popup'}
+let g:conjure#eval#result_register = '*'
+let g:conjure#log#botright = v:true
+let g:conjure#mapping#doc_word  = 'gk'
 set termguicolors " has to be set before nvim-colorizer is loaded
 
 " ========================= lua config =================================== "
@@ -221,16 +224,17 @@ vnoremap <c-c> <esc>
 nnoremap <c-n> <cmd>NvimTreeToggle<CR>
 
 nnoremap s <cmd>lua require('telescope.builtin').find_files({ hidden = true, follow = true })<cr>
+nnoremap <leader>f- <cmd>lua require('telescope.builtin').file_browser()<cr>
 nnoremap <leader>lg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').oldfiles()<cr>
+nnoremap <leader>fq <cmd>lua require('telescope.buildin').quickfix()<cr>
 nnoremap <leader>fr <cmd>lua require('telescope.builtin').lsp_references<cr>
 nnoremap <leader>fa <cmd>lua require('telescope.builtin').lsp_code_actions<cr>
 nnoremap <leader>fd <cmd>lua require('telescope.builtin').lsp_definitions<cr>
 nnoremap <leader>fi <cmd>lua require('telescope.builtin').lsp_implementations<cr>
 nnoremap <leader>f; <cmd>lua require('telescope.builtin').lsp_range_code_actions<cr>
 nnoremap <leader>d <cmd>lua MiniBufremove.delete()<cr>
-
 nnoremap gql <cmd>lua vim.diagnostic.setqflist()<CR>
 
 " fugitive mappings <leader>g[bd]
