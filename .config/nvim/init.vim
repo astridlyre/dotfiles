@@ -16,11 +16,11 @@ let g:loaded_logiPat           = 1
 let g:loaded_rrhelper          = 1
 let g:loaded_netrw             = 1
 let g:loaded_netrwPlugin       = 1
-let g:omni_sql_no_default_maps = 1                  " disable sql omni completion
-let g:loaded_python_provider   = 0                  " disable python2
-let g:loaded_perl_provider     = 0                  " disable perl
-let g:loaded_ruby_provider     = 0                  " disable ruby
-let g:python3_host_prog        = '/usr/bin/python3' " default python3
+let g:omni_sql_no_default_maps = 1
+let g:loaded_python_provider   = 0
+let g:loaded_perl_provider     = 0
+let g:loaded_ruby_provider     = 0
+let g:python3_host_prog        = '/usr/bin/python3'
 let g:moonlight_qf_g = 0
 let g:moonlight_qf_l = 0
 let g:autoFormat = 1
@@ -30,11 +30,9 @@ let g:matchup_matchparen_offscreen = {'method': 'popup'}
 let g:conjure#eval#result_register = '*'
 let g:conjure#log#botright = v:true
 let g:conjure#mapping#doc_word  = 'gk'
-set termguicolors " has to be set before nvim-colorizer is loaded
 
-" ========================= lua config =================================== "
-lua require('config')
 " ========================= general config =============================== "
+set termguicolors " has to be set before nvim-colorizer is loaded
 set breakindent                                               " wrap long lines to the width set by tw
 set completeopt=menuone,noinsert                              " default complete opt
 set formatoptions=1jql                                        " text formatting options
@@ -68,7 +66,7 @@ set updatetime=250                                            " for cursorhold a
 set wildignorecase                                            " ignore case in commands
 set wildignore=.git,*.tags,tags,*.o,**/node_modules/**        " ignore paths
 set wildmode=longest:full,full                                " mode for matching
-set jumpoptions=stack
+set jumpoptions=stack                                         " jump stack like browser history
 
 " ========================= autocommands ================================= "
 augroup AutoSelect
@@ -97,7 +95,7 @@ augroup WinResize     " resize windows automatically
 	autocmd VimResized * tabdo wincmd =
 augroup end
 
-augroup SpellCheck    " enable spell only if file type is normal text
+augroup SpellCheck    " enable spell only if file type is normal txt
 	autocmd!
 	let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
 	autocmd BufEnter * if index(spellable, &ft) < 0 | set nospell | else | set spell | endif
@@ -149,14 +147,11 @@ augroup ClojureScript
 	autocmd! BufEnter .cljs nnoremap <leader>t <cmd>2TermExec cmd="pnpx shadow-cljs test todo"
 augroup end
 
-iabbr ressm @media screen and (min-width: 601px) {
-iabbr resmd @media screen and (min-width: 901px) {
-iabbr reslg @media screen and (min-width: 1281px) {
-iabbr resxl @media screen and (min-width: 1921px) {
-iabbr imst import * as styles from './styles.module.css'
+augroup PackerUpdate
+	autocmd!
+	autocmd BufWritePost init.lua exec 'PackerCompile'
+augroup end
 
-" ========================= custom commands ============================== "
-command! StripWhitespace :%s/\s\+$//e
 " ========================= custom functions ============================= "
 function! ResetHightlight() " temporary fix for when treesitter highlight goes wonky
     execute 'write | edit | TSBufEnable highlight'
@@ -178,7 +173,6 @@ function! ToggleQFList(global) " toggle quickfix
 endfunction
 
 " ========================= global mappings ============================== "
-nmap s <nop>
 nnoremap ^ 0
 nnoremap 0 ^
 nmap j gj
@@ -189,12 +183,8 @@ nmap k gk
 let mapleader=' '
 let maplocalleader=','
 
-" edit configs
-nnoremap <leader>ee :e ~/projects/dotfiles/.config/nvim/init.vim<cr>
-
 " misc helper things <leader>?
 nnoremap <leader>u :PackerUpdate<cr>
-nnoremap <leader>\ :qa!<cr>
 nnoremap <leader>; :w<cr>
 nnoremap <silent><leader>af <cmd>call ToggleAutoFormat()<cr>
 nnoremap <silent><leader><esc> <cmd>call ResetHightlight()<cr>
@@ -205,6 +195,8 @@ nnoremap ` '
 nnoremap <leader>[ myO<esc>`y
 nnoremap <leader>] myo<esc>`y
 tnoremap <C-q> <C-\><C-n>
+
+" ToggleTerm
 nnoremap <leader>\ <cmd>ToggleTermToggleAll<CR>
 nnoremap <leader>1 <cmd>ToggleTerm1<CR>
 nnoremap <leader>2 <cmd>ToggleTerm2<CR>
@@ -213,27 +205,27 @@ nnoremap <leader>4 <cmd>ToggleTerm4<CR>
 
 " lil scripties <leader>s*
 vnoremap <leader>ss !sort -d -b -f<cr>
-vnoremap <leader>sc !scriptbc<cr>
-nnoremap <leader>sw <cmd>StripWhitespace<cr>
 
 " easy system clipboard copy & paste
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 vnoremap <c-c> <esc>
 
+" NvimTree
 nnoremap <c-n> <cmd>NvimTreeToggle<CR>
 
-nnoremap s <cmd>lua require('telescope.builtin').find_files({ hidden = true, follow = true })<cr>
-nnoremap <leader>f- <cmd>lua require('telescope.builtin').file_browser()<cr>
-nnoremap <leader>lg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').oldfiles()<cr>
-nnoremap <leader>fq <cmd>lua require('telescope.buildin').quickfix()<cr>
-nnoremap <leader>fr <cmd>lua require('telescope.builtin').lsp_references<cr>
-nnoremap <leader>fa <cmd>lua require('telescope.builtin').lsp_code_actions<cr>
-nnoremap <leader>fd <cmd>lua require('telescope.builtin').lsp_definitions<cr>
-nnoremap <leader>fi <cmd>lua require('telescope.builtin').lsp_implementations<cr>
-nnoremap <leader>f; <cmd>lua require('telescope.builtin').lsp_range_code_actions<cr>
+" Telescope
+nnoremap <leader>ff <cmd>Telescope find_files hidden=true follow=true<cr>
+nnoremap <leader>f- <cmd>Telescope file_browser<cr>
+nnoremap <leader>lg <cmd>Telescope live_grep<cr>
+nnoremap <leader>b <cmd>Telescope find_buffers<cr>
+nnoremap <leader>fh <cmd>Telescope oldfiles<cr>
+nnoremap <leader>fq <cmd>Telescope quickfix<cr>
+nnoremap <leader>fr <cmd>Telescope lsp_references<cr>
+nnoremap <leader>fa <cmd>Telescope lsp_code_actions<cr>
+nnoremap <leader>fd <cmd>Telescope lsp_definitions<cr>
+nnoremap <leader>fi <cmd>Telescope lsp_implementations<cr>
+nnoremap <leader>f; <cmd>Telescope lsp_range_code_actions<cr>
 nnoremap <leader>d <cmd>lua MiniBufremove.delete()<cr>
 nnoremap gql <cmd>lua vim.diagnostic.setqflist()<CR>
 
@@ -242,10 +234,7 @@ nmap <leader>gb <cmd>Git blame<cr>
 nmap <leader>gs <cmd>Git<cr>
 nmap <leader>gd <cmd>Gdiffsplit<cr>
 
-" vim-easy-align
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
-
+" Conjure
 nnoremap <localleader>cc <cmd>ConjureConnect<CR>
 
 " ========================= normal mappings ============================== "
@@ -259,7 +248,7 @@ nnoremap <M-k> mz:m-2<cr>`z
 nnoremap <silent> <C-q> <cmd>call ToggleQFList(1)<cr>
 
 " disable hl with 2 esc
-noremap <silent><esc><esc> <cmd>noh<cr><esc>
+noremap <silent><c-c><c-c> <cmd>noh<cr><esc>
 
 nnoremap [b <cmd>bprev<cr>
 nnoremap ]b <cmd>bnext<cr>
@@ -286,3 +275,7 @@ cnoremap <C-f> <right>
 cnoremap <C-a> <home>
 cnoremap <C-e> <end>
 cnoremap <C-d> <del>
+
+" ========================= lua config =================================== "
+lua require("impatient")
+lua require('moonlight')
