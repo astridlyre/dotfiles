@@ -30,6 +30,7 @@ let g:matchup_matchparen_offscreen = {'method': 'popup'}
 let g:conjure#eval#result_register = '*'
 let g:conjure#log#botright = v:true
 let g:conjure#mapping#doc_word  = 'gk'
+" let g:conjure#filetype#fennel = "conjure.client.fennel.stdio"
 
 " ========================= general config =============================== "
 set termguicolors " has to be set before nvim-colorizer is loaded
@@ -59,7 +60,7 @@ set splitright splitbelow                                     " splits
 set synmaxcol=120                                             " no syntax on long lines
 set tabstop=4 softtabstop=4 shiftwidth=4 shiftround           " tab width
 set textwidth=80                                              " auto wrap lines
-set timeoutlen=800                                            " time to wait between keypress
+set timeoutlen=500                                            " time to wait between keypress
 set ttimeoutlen=10                                            " timeout for key sequence
 set undofile undodir=/tmp                                     " enable persistent undo
 set updatetime=250                                            " for cursorhold autocmd
@@ -121,7 +122,7 @@ augroup end
 
 augroup Racket
 	autocmd!
-	autocmd BufReadPost *.rkt,*.rktl set filestype=scheme
+	autocmd BufReadPost *.rkt,*.rktl set filetype=scheme
 augroup end
 
 augroup Javascript
@@ -178,6 +179,8 @@ nnoremap 0 ^
 nmap j gj
 nmap k gk
 nmap <c-c> <esc>
+nmap s <nop>
+nmap , <nop>
 
 " ========================= leader mappings ============================== "
 " map leader to space
@@ -216,10 +219,10 @@ vnoremap <c-c> <esc>
 nnoremap <c-n> <cmd>NvimTreeToggle<CR>
 
 " Telescope
-nnoremap <leader>ff <cmd>Telescope find_files hidden=true follow=true<cr>
+nnoremap s <cmd>Telescope find_files hidden=true follow=true<cr>
 nnoremap <leader>f- <cmd>Telescope file_browser<cr>
 nnoremap <leader>lg <cmd>Telescope live_grep<cr>
-nnoremap <leader>b <cmd>Telescope find_buffers<cr>
+nnoremap <leader>fb <cmd>Telescope find_buffers<cr>
 nnoremap <leader>fh <cmd>Telescope oldfiles<cr>
 nnoremap <leader>fq <cmd>Telescope quickfix<cr>
 nnoremap <leader>fr <cmd>Telescope lsp_references<cr>
@@ -228,7 +231,6 @@ nnoremap <leader>fd <cmd>Telescope lsp_definitions<cr>
 nnoremap <leader>fi <cmd>Telescope lsp_implementations<cr>
 nnoremap <leader>f; <cmd>Telescope lsp_range_code_actions<cr>
 nnoremap <leader>d <cmd>lua MiniBufremove.delete()<cr>
-nnoremap gql <cmd>lua vim.diagnostic.setqflist()<CR>
 
 " fugitive mappings <leader>g[bd]
 nmap <leader>gb <cmd>Git blame<cr>

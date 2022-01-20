@@ -61,8 +61,8 @@ return packer.startup({
 			run = ":TSUpdate",
 			config = require("moonlight.treesitter"),
 		})
-		use({ "nvim-treesitter/nvim-treesitter-textobjects", event = "InsertCharPre" })
-		use({ "windwp/nvim-ts-autotag", event = "InsertCharPre" })
+		use({ "nvim-treesitter/nvim-treesitter-textobjects" })
+		use({ "windwp/nvim-ts-autotag" })
 		use({ "andymass/vim-matchup" })
 
 		-- Language Server and Completion
@@ -73,20 +73,18 @@ return packer.startup({
 		})
 		use({ "ms-jpq/coq.artifacts", branch = "artifacts" })
 		use({ "b0o/schemastore.nvim" })
-		use({ "ray-x/lsp_signature.nvim" })
 		use({
 			"neovim/nvim-lspconfig",
 			config = function()
 				require("moonlight.lsp").setup()
 			end,
-			after = "lsp_signature.nvim",
 		})
 		use({
 			"jose-elias-alvarez/null-ls.nvim",
 			config = require("moonlight.null-ls"),
 			after = "nvim-lspconfig",
 		})
-		use({ "windwp/nvim-autopairs", event = "InsertCharPre", config = require("moonlight.autopairs") })
+		use({ "windwp/nvim-autopairs", event = "InsertEnter", config = require("moonlight.autopairs") })
 
 		-- Version Control
 		use({
@@ -112,20 +110,19 @@ return packer.startup({
 			config = require("moonlight.nvim-tree"),
 			cmd = "NvimTreeToggle",
 		})
-		use({
-			"ggandor/lightspeed.nvim",
-			event = "BufEnter",
-		})
 
 		-- Misc
 		use({ "b3nj5m1n/kommentary", event = "BufEnter" })
 		use({ "tpope/vim-repeat", event = "BufEnter" })
 
 		-- Clojure plugins
-		use({ "tpope/vim-dispatch", ft = { "clojure", "clojurescript", "fennel" } })
-		use({ "clojure-vim/vim-jack-in", ft = { "clojure", "clojurescript", "fennel" } })
-		use({ "Olical/conjure", ft = { "clojure", "clojurescript", "fennel" } })
-		use({ "radenling/vim-dispatch-neovim", ft = { "clojure", "clojurescript", "fennel" } })
+		use({ "tpope/vim-dispatch", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
+		use({ "clojure-vim/vim-jack-in", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
+		use({ "Olical/conjure", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
+		use({ "radenling/vim-dispatch-neovim", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
+		use({ "wlangstroth/vim-racket" })
+		use({ "Olical/aniseed", ft = { "fennel" } })
+		use({ "mfussenegger/nvim-jdtls", ft = { "java" } })
 	end,
 	{ config = {
 		compile_path = compile_path,

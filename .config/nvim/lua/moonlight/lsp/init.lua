@@ -3,13 +3,11 @@ local M = {}
 -- Servers to disable formatting by default (so they don't conflict with null-ls)
 local disable_formatting = { "tsserver", "jsonls", "gopls" }
 
-local lsp_maps = function(bufnr)
+local lsp_maps = function()
 	-- Normal keymap function
 	local function nmap(keymap, action, opts)
-		return vim.api.nvim_buf_set_keymap(bufnr, "n", keymap, action, opts)
+		return vim.api.nvim_set_keymap("n", keymap, action, opts)
 	end
-
-	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	local opts = { noremap = true, silent = true }
 
@@ -27,39 +25,18 @@ local lsp_maps = function(bufnr)
 	nmap("<space>ll", '<cmd>lua vim.diagnostic.open_float(nil, { source = "always", border = "rounded" })<CR>', opts)
 	nmap("<c-j>", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
 	nmap("<c-k>", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
-	nmap("gq", "<cmd>lua vim.diagnostic.setqflist()<CR>", opts)
-	nmap("<space>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-	nmap("<space>fs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	nmap("<space>qf", "<cmd>lua vim.diagnostic.setqflist()<CR>", opts)
+	nmap("<space>lf", "<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>", opts)
+	nmap("<c-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 end
 
--- Configuration for LSP signature
-local lsp_signature_config = {
-	bind = true,
-	doc_lines = 0,
-	floating_window = true,
-	floating_window_above_cur_line = true,
-	hint_enable = false,
-	hint_prefix = "❱ ",
-	hint_scheme = "String",
-	use_lspsaga = false,
-	hi_parameter = "Search",
-	max_height = 4,
-	max_width = 120,
-	handler_opts = { border = "single" },
-	extra_trigger_chars = {},
-}
-
 -- Generic On-Attach Function
-local on_attach = function(client, bufnr)
-	lsp_maps(bufnr)
-
+local on_attach = function(client)
 	for _, ls in ipairs(disable_formatting) do
 		if client.name == ls then
 			client.resolved_capabilities.document_formatting = false
 		end
 	end
-
-	require("lsp_signature").on_attach(lsp_signature_config, bufnr)
 end
 
 -- Snippet Support
@@ -75,6 +52,9 @@ local flags = { debounce_text_changes = 150, allow_incremental_sync = true }
 M.setup = function()
 	local lspconfig = require("lspconfig")
 	local coq = require("coq")
+
+	-- Doing the bindings globally now, because null-ls wasn't working
+	lsp_maps()
 
 	-- clangd
 	local function clangd()
@@ -240,7 +220,7 @@ end ]]
 		"bashls",
 		"clojure_lsp",
 		"racket_langserver",
-		-- "cssmodules_ls",
+		"cssmodules_ls",
 		"emmet_ls",
 		"solang",
 		-- "tailwindcss",

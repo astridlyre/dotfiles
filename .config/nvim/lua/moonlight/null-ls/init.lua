@@ -1,6 +1,11 @@
-local capabilities = require("moonlight.lsp").capabilities
-local on_attach = require("moonlight.lsp").on_attach
-local flags = require("moonlight.lsp").flags
+-- Snippet Support
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+	properties = { "documentation", "detail", "additionalTextEdits" },
+}
+
+local flags = { debounce_text_changes = 150, allow_incremental_sync = true }
 
 return function()
 	-- Null LS
@@ -20,7 +25,6 @@ return function()
 			formatting.isort,
 			formatting.fnlfmt,
 			formatting.sqlformat,
-			-- formatting.rustfmt,
 			formatting.stylua,
 			diagnostics.shellcheck,
 			diagnostics.eslint_d.with({
@@ -36,8 +40,8 @@ return function()
 			diagnostics.vint,
 			diagnostics.yamllint,
 			code_actions.eslint_d,
+			code_actions.proselint,
 		},
-		on_attach = on_attach,
 		capabilities = capabilities,
 		flags = flags,
 	})

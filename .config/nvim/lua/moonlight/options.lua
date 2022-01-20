@@ -30,12 +30,9 @@ M.setup = function()
 			buffers = {
 				same_filetype = true,
 				enabled = true,
-				weight_adjust = -1.5,
+				weight_adjust = -1.8,
 			},
-			tree_sitter = {
-				enabled = true,
-				weight_adjust = 0.6,
-			},
+			tree_sitter = { enabled = false },
 			lsp = {
 				enabled = true,
 				weight_adjust = 2.0,
@@ -45,6 +42,12 @@ M.setup = function()
 				enabled = true,
 				weight_adjust = 1.5,
 			},
+			paths = {
+				enabled = true,
+				weight_adjust = -1.5,
+			},
+			tags = { enabled = false },
+			tmux = { enabled = false },
 		},
 		auto_start = "shut-up",
 		limits = {
