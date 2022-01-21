@@ -65,13 +65,18 @@ return packer.startup({
 		use({ "windwp/nvim-ts-autotag" })
 		use({ "andymass/vim-matchup" })
 
-		-- Language Server and Completion
-		use({
-			"ms-jpq/coq_nvim",
-			branch = "coq",
-			run = ":COQdeps",
-		})
-		use({ "ms-jpq/coq.artifacts", branch = "artifacts" })
+		-- Completion
+		use({ "hrsh7th/nvim-cmp", config = require("moonlight.cmp") })
+		use({ "hrsh7th/cmp-nvim-lsp" })
+		use({ "hrsh7th/cmp-path" })
+		use({ "hrsh7th/cmp-buffer" })
+		use({ "L3MON4D3/LuaSnip" })
+		use({ "saadparwaiz1/cmp_luasnip" })
+		use({ "rafamadriz/friendly-snippets" })
+		use({ "onsails/lspkind-nvim" })
+		use({ "tami5/compe-conjure" })
+
+		-- Language Server
 		use({ "b0o/schemastore.nvim" })
 		use({
 			"neovim/nvim-lspconfig",
@@ -118,10 +123,10 @@ return packer.startup({
 		-- Clojure plugins
 		use({ "tpope/vim-dispatch", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
 		use({ "clojure-vim/vim-jack-in", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
-		use({ "Olical/conjure", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
+		use({ "Olical/conjure", branch = "develop", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
 		use({ "radenling/vim-dispatch-neovim", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
 		use({ "wlangstroth/vim-racket" })
-		use({ "Olical/aniseed", ft = { "fennel" } })
+		use({ "Olical/aniseed", branch = "develop", ft = { "fennel" } })
 		use({ "mfussenegger/nvim-jdtls", ft = { "java" } })
 	end,
 	{ config = {

@@ -35,7 +35,7 @@ let g:conjure#mapping#doc_word  = 'gk'
 " ========================= general config =============================== "
 set termguicolors " has to be set before nvim-colorizer is loaded
 set breakindent                                               " wrap long lines to the width set by tw
-set completeopt=menuone,noinsert                              " default complete opt
+set completeopt=menu,menuone,noinsert                         " default complete opt
 set formatoptions=1jql                                        " text formatting options
 set grepformat=%f:%l:%c:%m                                    " grep format
 set grepprg=rg\ --hidden\ --vimgrep\ --smart-case\ --         " use rg for vimgrep
@@ -70,11 +70,6 @@ set wildmode=longest:full,full                                " mode for matchin
 set jumpoptions=stack                                         " jump stack like browser history
 
 " ========================= autocommands ================================= "
-augroup AutoSelect
-	autocmd!
-	autocmd InsertEnter * set completeopt=menuone,noinsert
-augroup end
-
 augroup HelpSplit     " open help in vertical split
 	autocmd!
 	autocmd FileType help wincmd L
@@ -180,12 +175,11 @@ nmap j gj
 nmap k gk
 nmap <c-c> <esc>
 nmap s <nop>
-nmap , <nop>
 
 " ========================= leader mappings ============================== "
 " map leader to space
 let mapleader=' '
-let maplocalleader=','
+let maplocalleader='\'
 
 " misc helper things <leader>?
 nnoremap <leader>u :PackerUpdate<cr>
@@ -269,8 +263,6 @@ inoremap , ,<c-g>u
 inoremap . .<c-g>u
 inoremap ! !<c-g>u
 inoremap ? ?<c-g>u
-inoremap <silent><expr> <C-y> pumvisible() ? (complete_info().selected == -1 ? "\<C-n><C-y>" : "\<C-y>") : "\<C-y>"
-inoremap <silent><expr> <C-w> pumvisible() ? "\<C-e><C-w>" : "\<C-w>"
 
 " ========================= command mode mappings ======================== "
 cnoremap <C-b> <left>

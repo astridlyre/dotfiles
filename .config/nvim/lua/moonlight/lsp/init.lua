@@ -45,20 +45,19 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
 	properties = { "documentation", "detail", "additionalTextEdits" },
 }
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 local flags = { debounce_text_changes = 150, allow_incremental_sync = true }
 
 -- Lsp Configs
 M.setup = function()
 	local lspconfig = require("lspconfig")
-	local coq = require("coq")
-
 	-- Doing the bindings globally now, because null-ls wasn't working
 	lsp_maps()
 
 	-- clangd
 	local function clangd()
-		lspconfig.clangd.setup(coq.lsp_ensure_capabilities({
+		lspconfig.clangd.setup({
 			cmd = {
 				"clangd",
 				"--background-index",
@@ -69,13 +68,13 @@ M.setup = function()
 			on_attach = on_attach,
 			capabilities = capabilities,
 			flags = flags,
-		}))
+		})
 	end
 
 	-- Deno for TypeScript
 	--[[ local function denols()
 	local filetypes = { "typescript", "typescriptreact", "typescript.tsx" }
-	lspconfig.denols.setup(coq.lsp_ensure_capabilities({
+	lspconfig.denols.setup({
 		on_attach = on_attach,
 		capabilities = capabilities,
 		init_options = { enable = true, lint = true, unstable = true },
@@ -85,7 +84,7 @@ end ]]
 
 	-- Go Language Server
 	local function gopls()
-		lspconfig.gopls.setup(coq.lsp_ensure_capabilities({
+		lspconfig.gopls.setup({
 			cmd = { "gopls", "--remote=auto" },
 			settings = {
 				gopls = { analyses = { unusedparams = true }, staticcheck = true },
@@ -95,12 +94,12 @@ end ]]
 			on_attach = on_attach,
 			capabilities = capabilities,
 			flags = flags,
-		}))
+		})
 	end
 
 	-- Rust Analyzer
 	local function rust_analyzer()
-		lspconfig.rust_analyzer.setup(coq.lsp_ensure_capabilities({
+		lspconfig.rust_analyzer.setup({
 			flags = flags,
 			on_attach = on_attach,
 			capabilities = capabilities,
@@ -119,7 +118,7 @@ end ]]
 					},
 				},
 			},
-		}))
+		})
 	end
 
 	-- Sumneko Language Server
@@ -127,7 +126,7 @@ end ]]
 		local sumneko_root_path = vim.fn.getenv("HOME") .. "/.local/lua-language-server"
 		local sumneko_binary_path = "/bin/Linux/lua-language-server"
 
-		lspconfig.sumneko_lua.setup(coq.lsp_ensure_capabilities({
+		lspconfig.sumneko_lua.setup({
 			flags = flags,
 			on_attach = on_attach,
 			cmd = {
@@ -152,12 +151,12 @@ end ]]
 					},
 				},
 			},
-		}))
+		})
 	end
 
 	-- TSserver for javascript (nodejs support)
 	local function tsserver()
-		return lspconfig.tsserver.setup(coq.lsp_ensure_capabilities({
+		return lspconfig.tsserver.setup({
 			flags = flags,
 			on_attach = on_attach,
 			capabilities = capabilities,
@@ -174,20 +173,20 @@ end ]]
 				importModuleSpecifierPreference = "project-relative",
 				includePackageJsonAutoImports = "auto",
 			},
-		}))
+		})
 	end
 
 	local function sqls()
-		lspconfig.sqls.setup(coq.lsp_ensure_capabilities({
+		lspconfig.sqls.setup({
 			flags = flags,
 			on_attach = on_attach,
 			capabilities = capabilities,
-		}))
+		})
 	end
 
 	-- JSON LSP
 	local function jsonls()
-		lspconfig.jsonls.setup(coq.lsp_ensure_capabilities({
+		lspconfig.jsonls.setup({
 			flags = flags,
 			on_attach = on_attach,
 			capabilities = capabilities,
@@ -206,7 +205,7 @@ end ]]
 					},
 				}),
 			},
-		}))
+		})
 	end
 
 	-- Enable the following default language servers
@@ -227,11 +226,11 @@ end ]]
 	}
 
 	for _, ls in ipairs(default_servers) do
-		lspconfig[ls].setup(coq.lsp_ensure_capabilities({
+		lspconfig[ls].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
 			flags = flags,
-		}))
+		})
 	end
 
 	-- Custom server configurations
