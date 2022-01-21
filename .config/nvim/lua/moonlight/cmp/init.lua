@@ -37,7 +37,6 @@ return function()
 	cmp.setup({
 		throttle_time = 10,
 		debug = false,
-		preselect = "enable",
 		source_timeout = 200,
 		documentation = true,
 		snippet = {
@@ -56,6 +55,7 @@ return function()
 		},
 		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
+			{ name = "nvim_lua" },
 			{ name = "luasnip" },
 			{ name = "buffer" },
 			{ name = "conjure" },

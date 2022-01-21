@@ -7,21 +7,39 @@ Xft.hintstyle: hintfull
 Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
-*background:  #191c25
-*foreground:  #c5c4d4
-*color0:  #525566
-*color1:  #d59076
-*color2:  #83aa74
-*color3:  #b8a161
-*color4:  #889bb4
-*color5:  #a994b8
-*color6:  #77adb1
-*color7:  #bfbed0
-*color8:  #666b7f
-*color9:  #fead90
-*color10:  #9dca8c
-*color11:  #dbc380
-*color12:  #afc5de
-*color13:  #cdb6dd
-*color14:  #94cdd1
-*color15:  #f0ecfe
+
+! Catppuccin
+*background: #1E1E28
+*foreground: #DADAE8
+
+! Black + dark black
+*color0: #6E6C7E
+*color8: #6E6C7E
+
+! Red
+*color1: #E38C8F
+*color9: #E38C8F
+
+! Green
+*color2: #B1E3AD
+*color10: #B1E3AD
+
+! Yellow
+*color3: #EBDDAA
+*color11:  #EBDDAA
+
+! Blue
+*color4: #A4B9EF
+*color12: #A4B9EF
+
+! Magenta
+*color5: #C6AAE8
+*color13: #C6AAE8
+
+! Pink
+*color6: #E5B4E2
+*color14: #E5B4E2
+
+! Whites
+*color7: #DADAE8
+*color15: #DADAE8

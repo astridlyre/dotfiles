@@ -173,7 +173,7 @@ super + Tab
 
 # Increase/decrease window gap on focused desktop
 super + bracket{right,left}
-        bspc config -d focused window_gap $((`bspc config -d focused window_gap` {-,+} 24 ))
+        bspc config -d focused window_gap $((`bspc config -d focused window_gap` {-,+} 12 ))
 
 # set the window state
 super + t

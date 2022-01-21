@@ -93,36 +93,40 @@ key_bindings:
   - { key: F, mods: Control|Shift, mode: ~Search, action: SearchForward }
   - { key: B, mods: Control|Shift, mode: ~Search, action: SearchBackward }
 
-  # Colors (Substrata)
+  # Catppuccin!
 colors:
   # Default colors
   primary:
-    background: '#191c25'
-    foreground: '#c5c4d4'
+    background: '#1E1D2F'
+    foreground: '#D9E0EE'
 
-  # Cursor colors
+  # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '#191c25'
-    cursor: '#c5c4d4'
+    text: '#1E1D2F'
+    cursor: '#F5E0DC'
 
   # Normal colors
   normal:
-    black: '#525566'
-    red: '#d59076'
-    green: '#83aa74'
-    yellow: '#b8a161'
-    blue: '#889bb4'
-    magenta: '#a994b8'
-    cyan: '#77adb1'
-    white: '#bfbed0'
+    black: '#6E6C7E'
+    red: '#F28FAD'
+    green: '#ABE9B3'
+    yellow: '#FAE3B0'
+    blue: '#96CDFB'
+    magenta: '#F5C2E7'
+    cyan: '#89DCEB'
+    white: '#D9E0EE'
 
   # Bright colors
   bright:
-    black: '#666b7f'
-    red: '#fead90'
-    green: '#9dca8c'
-    yellow: '#dbc380'
-    blue: '#afc5de'
-    magenta: '#cdb6dd'
-    cyan: '#94cdd1'
-    white: '#f0ecfe'
+    black: '#988BA2'
+    red: '#F28FAD'
+    green: '#ABE9B3'
+    yellow: '#FAE3B0'
+    blue: '#96CDFB'
+    magenta: '#F5C2E7'
+    cyan: '#89DCEB'
+    white: '#D9E0EE'
+
+  indexed_colors:
+    - { index: 16, color: '#F8BD96' }
+    - { index: 17, color: '#F5E0DC' }

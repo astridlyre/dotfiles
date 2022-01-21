@@ -5,29 +5,42 @@ local disable_formatting = { "tsserver", "jsonls", "gopls" }
 
 local lsp_maps = function()
 	-- Normal keymap function
-	local function nmap(keymap, action, opts)
-		return vim.api.nvim_set_keymap("n", keymap, action, opts)
+	local function map(keymap, action)
+		return vim.keymap.set("n", keymap, action, { silent = true })
 	end
 
-	local opts = { noremap = true, silent = true }
+	map("gD", vim.lsp.buf.declaration)
+	map("gd", vim.lsp.buf.definition)
+	map("K", vim.lsp.buf.hover)
+	map("gi", vim.lsp.buf.implementation)
+	map("gr", vim.lsp.buf.references)
+	map("<space>wa", vim.lsp.buf.add_workspace_folder)
+	map("<space>wr", vim.lsp.buf.remove_workspace_folder)
+	map("<space>ld", vim.lsp.buf.type_definition)
+	map("<space>rn", vim.lsp.buf.rename)
+	map("<space>ca", vim.lsp.buf.code_action)
+	map("<space>qf", vim.diagnostic.setqflist)
+	map("<c-s>", vim.lsp.buf.signature_help)
 
-	nmap("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	nmap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	nmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	nmap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	nmap("gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	nmap("<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-	nmap("<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-	nmap("<space>wp", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-	nmap("<space>ld", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-	nmap("<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	nmap("<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	nmap("<space>ll", '<cmd>lua vim.diagnostic.open_float(nil, { source = "always", border = "rounded" })<CR>', opts)
-	nmap("<c-j>", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
-	nmap("<c-k>", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
-	nmap("<space>qf", "<cmd>lua vim.diagnostic.setqflist()<CR>", opts)
-	nmap("<space>lf", "<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>", opts)
-	nmap("<c-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	map("<space>wp", function()
+		return print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+	end)
+
+	map("<space>ll", function()
+		return vim.diagnostic.open_float(nil, { source = "always", border = "rounded" })
+	end)
+
+	map("<c-j>", function()
+		return vim.diagnostic.goto_next({ border = "rounded" })
+	end)
+
+	map("<c-k>", function()
+		return vim.diagnostic.goto_prev({ border = "rounded" })
+	end)
+
+	map("<space>lf", function()
+		return vim.lsp.buf.formatting_sync(nil, 1000)
+	end)
 end
 
 -- Generic On-Attach Function
@@ -39,20 +52,23 @@ local on_attach = function(client)
 	end
 end
 
--- Snippet Support
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-	properties = { "documentation", "detail", "additionalTextEdits" },
-}
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+-- Client Capabilities
+local function make_capabilities()
+	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities.textDocument.completion.completionItem.snippetSupport = true
+	capabilities.textDocument.completion.completionItem.resolveSupport = {
+		properties = { "documentation", "detail", "additionalTextEdits" },
+	}
+	capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+	return capabilities
+end
 
+local capabilities = make_capabilities()
 local flags = { debounce_text_changes = 150, allow_incremental_sync = true }
 
 -- Lsp Configs
 M.setup = function()
 	local lspconfig = require("lspconfig")
-	-- Doing the bindings globally now, because null-ls wasn't working
 	lsp_maps()
 
 	-- clangd
@@ -70,17 +86,6 @@ M.setup = function()
 			flags = flags,
 		})
 	end
-
-	-- Deno for TypeScript
-	--[[ local function denols()
-	local filetypes = { "typescript", "typescriptreact", "typescript.tsx" }
-	lspconfig.denols.setup({
-		on_attach = on_attach,
-		capabilities = capabilities,
-		init_options = { enable = true, lint = true, unstable = true },
-		filetypes = filetypes,
-	}))
-end ]]
 
 	-- Go Language Server
 	local function gopls()
@@ -222,7 +227,7 @@ end ]]
 		"cssmodules_ls",
 		"emmet_ls",
 		"solang",
-		-- "tailwindcss",
+		-- "tailwindcss", SO SLOW
 	}
 
 	for _, ls in ipairs(default_servers) do
@@ -245,35 +250,6 @@ end ]]
 	}) do
 		ls()
 	end
-
-	-- symbols for autocomplete
-	vim.lsp.protocol.CompletionItemKind = {
-		"   ",
-		"   ",
-		"   ",
-		"   ",
-		" ﴲ  ",
-		"[] ",
-		"   ",
-		" ﰮ  ",
-		"   ",
-		" 襁 ",
-		"   ",
-		"   ",
-		" 練 ",
-		"   ",
-		"   ",
-		"   ",
-		"   ",
-		"   ",
-		"   ",
-		"   ",
-		" ﲀ  ",
-		" ﳤ  ",
-		"   ",
-		"   ",
-		"   ",
-	}
 
 	local signs = {
 		{ name = "DiagnosticSignError", text = "" },

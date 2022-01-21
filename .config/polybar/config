@@ -28,8 +28,8 @@ compositing-underline    = over
 compositing-border       = over
 
 ; Define fallback values used by all module formats
-format-foreground   = #c5c4d4
-format-background   = #191c25
+format-foreground   = #d9e0ee
+format-background   = #1e1d2f
 format-underline    =
 format-overline     =
 format-spacing      =
@@ -39,12 +39,12 @@ format-offset       =
 
 [colors]
 ; Falcon ====================
-background          = #191c25
-foreground          = #c5c4d4
-red                 = #94cdd1
-green               = #9dca8c
-yellow              = #cdb6dd
-grey                = #525566
+background          = #1e1d2f
+foreground          = #d9e0ee
+red                 = #f5c2e7
+green               = #abe9b3
+yellow              = #abe9b3
+grey                = #6e6c7e
 ; ===========================
 
 ################################################################################

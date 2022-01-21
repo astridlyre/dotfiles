@@ -49,9 +49,16 @@ return packer.startup({
 			event = "BufRead",
 		})
 		use({
-			"astridlyre/substrata.nvim",
+			"astridlyre/nvim",
+			as = "catppuccin",
 			config = function()
-				vim.cmd("colorscheme substrata")
+				local catppuccin = require("catppuccin")
+				catppuccin.setup({
+					integrations = {
+						mini = true,
+					},
+				})
+				vim.cmd("colorscheme catppuccin")
 			end,
 		})
 
@@ -66,15 +73,21 @@ return packer.startup({
 		use({ "andymass/vim-matchup" })
 
 		-- Completion
-		use({ "hrsh7th/nvim-cmp", config = require("moonlight.cmp") })
-		use({ "hrsh7th/cmp-nvim-lsp" })
-		use({ "hrsh7th/cmp-path" })
-		use({ "hrsh7th/cmp-buffer" })
-		use({ "L3MON4D3/LuaSnip" })
-		use({ "saadparwaiz1/cmp_luasnip" })
-		use({ "rafamadriz/friendly-snippets" })
-		use({ "onsails/lspkind-nvim" })
-		use({ "tami5/compe-conjure" })
+		use({
+			"hrsh7th/nvim-cmp",
+			config = require("moonlight.cmp"),
+			requires = {
+				"hrsh7th/cmp-nvim-lsp",
+				"hrsh7th/cmp-nvim-lua",
+				"hrsh7th/cmp-path",
+				"hrsh7th/cmp-buffer",
+				"L3MON4D3/LuaSnip",
+				"saadparwaiz1/cmp_luasnip",
+				"rafamadriz/friendly-snippets",
+				"onsails/lspkind-nvim",
+				"tami5/compe-conjure",
+			},
+		})
 
 		-- Language Server
 		use({ "b0o/schemastore.nvim" })
