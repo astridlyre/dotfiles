@@ -64,7 +64,7 @@ run numlockx on
 run picom --experimental-backends --config "$HOME/.config/bspwm/picom.conf"
 
 # Background image
-run feh --bg-fill "$HOME/Pictures/Wallpapers/ilovemykippums.jpg"
+run feh --bg-fill "$HOME/Pictures/lovekippums.png"
 
 # Configure no border gaps
 bspc config border_width 1

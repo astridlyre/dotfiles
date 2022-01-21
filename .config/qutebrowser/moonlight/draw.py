@@ -1,25 +1,25 @@
 def blood(c, options={}):
     palette = {
-        "background": "#191c25",
-        "background-alt": "#222633",
-        "background-attention": "#94cdd1",
-        "border": "#303647",
-        "selection-background": "#94cdd1",
-        "selection-foreground": "#191c25",
-        "foreground": "#c5c4d4",
-        "foreground-alt": "#f0ecfe",
-        "foreground-attention": "#191c25",
-        "grey": "#5b5f71",
-        "comment": "#94cdd1",
-        "cyan": "#94cdd1",
-        "green": "#9dca8c",
-        "orange": "#fead90",
-        "purple": "#cdb6dd",
-        "red": "#fead90",
-        "yellow": "#dbc380",
+        "background": "#1e1d2f",
+        "background-alt": "#161320",
+        "background-attention": "#f5c2e7",
+        "border": "#302d41",
+        "selection-background": "#abe9b3",
+        "selection-foreground": "#161320",
+        "foreground": "#d9e0ee",
+        "foreground-alt": "#f5e0dc",
+        "foreground-attention": "#161320",
+        "grey": "#6e6c7e",
+        "comment": "#f5c2e7",
+        "pink": "#f5c2e7",
+        "green": "#abe9b3",
+        "orange": "#f8bd96",
+        "purple": "#ddb6f2",
+        "red": "#f28fad",
+        "yellow": "#fae3b0",
     }
 
-    spacing = options.get("spacing", {"vertical": 5, "horizontal": 5})
+    spacing = options.get("spacing", {"vertical": 0, "horizontal": 0})
 
     padding = options.get(
         "padding",
@@ -106,12 +106,12 @@ def blood(c, options={}):
     c.colors.statusbar.command.private.fg = palette["foreground-attention"]
     c.colors.statusbar.insert.bg = palette["red"]
     c.colors.statusbar.insert.fg = palette["foreground-attention"]
-    c.colors.statusbar.normal.bg = palette["selection-background"]
-    c.colors.statusbar.normal.fg = palette["selection-foreground"]
+    c.colors.statusbar.normal.bg = palette["pink"]
+    c.colors.statusbar.normal.fg = palette["background"]
     c.colors.statusbar.passthrough.bg = palette["orange"]
     c.colors.statusbar.passthrough.fg = palette["foreground-attention"]
-    c.colors.statusbar.private.bg = palette["selection-background"]
-    c.colors.statusbar.private.fg = palette["selection-foreground"]
+    c.colors.statusbar.private.bg = palette["pink"]
+    c.colors.statusbar.private.fg = palette["background"]
     c.colors.statusbar.progress.bg = palette["background"]
     c.colors.statusbar.url.error.fg = palette["red"]
     c.colors.statusbar.url.fg = palette["foreground-attention"]
@@ -122,7 +122,7 @@ def blood(c, options={}):
     c.statusbar.padding = padding
 
     # Background color of the tab bar.
-    c.colors.tabs.bar.bg = palette["selection-background"]
+    c.colors.tabs.bar.bg = palette["pink"]
     c.colors.tabs.even.bg = palette["background"]
     c.colors.tabs.even.fg = palette["foreground"]
     c.colors.tabs.indicator.error = palette["red"]
@@ -131,10 +131,10 @@ def blood(c, options={}):
     c.colors.tabs.indicator.system = "none"
     c.colors.tabs.odd.bg = palette["background"]
     c.colors.tabs.odd.fg = palette["foreground"]
-    c.colors.tabs.selected.even.bg = palette["selection-background"]
-    c.colors.tabs.selected.even.fg = palette["selection-foreground"]
-    c.colors.tabs.selected.odd.bg = palette["selection-background"]
-    c.colors.tabs.selected.odd.fg = palette["selection-foreground"]
+    c.colors.tabs.selected.even.bg = palette["pink"]
+    c.colors.tabs.selected.even.fg = palette["background"]
+    c.colors.tabs.selected.odd.bg = palette["pink"]
+    c.colors.tabs.selected.odd.fg = palette["background"]
     c.colors.tabs.pinned.even.fg = palette["purple"]
     c.colors.tabs.pinned.even.bg = palette["background"]
     c.colors.tabs.pinned.odd.fg = palette["purple"]
@@ -146,5 +146,5 @@ def blood(c, options={}):
 
     # Tab padding
     c.tabs.padding = padding
-    c.tabs.indicator.width = 1
-    c.tabs.favicons.scale = 1
+    c.tabs.indicator.width = 0
+    c.tabs.favicons.scale = 0

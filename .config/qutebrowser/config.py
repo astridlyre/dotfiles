@@ -7,7 +7,7 @@ c.qt.args = ["enable-gpu-rasterization", "ignore-gpu-blocklist", "enable-acceler
 
 moonlight.draw.blood(c, {
     'spacing': {
-        'vertical': 2,
-        'horizontal': 4
+        'vertical': 0,
+        'horizontal': 2
     }
 })
