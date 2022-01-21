@@ -1,15 +1,20 @@
 return function()
 	local cmp = require("cmp")
 	local lspkind = require("lspkind")
+	local luasnip = require("luasnip")
+	local snippet_loader = require("luasnip.loaders.from_vscode")
+	local utils = require("moonlight.utils")
+	local imap = utils.imap
+
+	-- load snippets
+	snippet_loader.load()
+
 	local source_mapping = {
 		buffer = "[Buffer]",
 		nvim_lsp = "[LSP]",
 		nvim_lua = "[Lua]",
 		path = "[Path]",
 	}
-
-	local luasnip = require("luasnip")
-	require("luasnip.loaders.from_vscode").load()
 
 	local t = function(str)
 		return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -31,8 +36,8 @@ return function()
 		end
 	end
 
-	vim.keymap.set("i", "<C-j>", snippet_next)
-	vim.keymap.set("i", "<C-k>", snippet_prev)
+	imap("<C-j>", snippet_next)
+	imap("<C-k>", snippet_prev)
 
 	cmp.setup({
 		throttle_time = 10,
@@ -52,12 +57,14 @@ return function()
 				i = cmp.mapping.abort(),
 				c = cmp.mapping.close(),
 			}),
+			["<c-y>"] = cmp.mapping.confirm({ select = true }),
 		},
 		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
 			{ name = "nvim_lua" },
 			{ name = "luasnip" },
 			{ name = "buffer" },
+			{ name = "path" },
 			{ name = "conjure" },
 		}),
 		formatting = {

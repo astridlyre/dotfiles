@@ -1,63 +1,180 @@
 local M = {}
 
-M.setup = function()
-	local remap = vim.api.nvim_set_keymap
+local utils = require("moonlight.utils")
 
-	vim.g.coq_settings = {
-		match = {
-			exact_matches = 3,
-			fuzzy_cutoff = 0.8,
-			look_ahead = 1,
-		},
-		weights = {
-			prefix_matches = 2.0,
-			edit_distance = 1.5,
-			recency = 0.75,
-			proximity = 0.6,
-		},
-		keymap = { recommended = false },
-		display = {
-			icons = { mode = "short" },
-			ghost_text = { enabled = false },
-			preview = { positions = {
-				north = 4,
-				south = 3,
-				east = 1,
-				west = 2,
-			} },
-		},
-		clients = {
-			buffers = {
-				same_filetype = true,
-				enabled = true,
-				weight_adjust = -1.8,
-			},
-			tree_sitter = { enabled = false },
-			lsp = {
-				enabled = true,
-				weight_adjust = 2.0,
-				resolve_timeout = 0.09,
-			},
-			snippets = {
-				enabled = true,
-				weight_adjust = 1.5,
-			},
-			paths = {
-				enabled = true,
-				weight_adjust = -1.5,
-			},
-			tags = { enabled = false },
-			tmux = { enabled = false },
-		},
-		auto_start = "shut-up",
-		limits = {
-			completion_auto_timeout = 0.17,
-		},
-	}
+local nmap = utils.nmap
+local tmap = utils.tmap
+local vmap = utils.vmap
+local cmap = utils.cmap
+local lmap = utils.lmap
+local imap = utils.imap
 
-	-- COQ Remaps
-	remap("i", "<esc>", [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
-	remap("i", "<c-c>", [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
+local function set_globals()
+	local g = vim.g
+
+	g.loaded_2html_plugin = 1
+	g.loaded_getscript = 1
+	g.loaded_getscriptPlugin = 1
+	g.loaded_gzip = 1
+	g.loaded_logiPat = 1
+	g.loaded_matchit = 1
+	g.loaded_matchparen = 1
+	g.loaded_netrw = 1
+	g.loaded_netrwPlugin = 1
+	g.loaded_perl_provider = 0
+	g.loaded_python_provider = 0
+	g.loaded_rrhelper = 1
+	g.loaded_ruby_provider = 0
+	g.loaded_tar = 1
+	g.loaded_tarPlugin = 1
+	g.loaded_vimball = 1
+	g.loaded_vimballPlugin = 1
+	g.loaded_zip = 1
+	g.loaded_zipPlugin = 1
+	g.omni_sql_no_default_maps = 1
+	g.python3_host_prog = "/usr/bin/python3"
+	g.matchup_matchparen_offscreen = { method = "popup" }
+	g["conjure#eval#result_register"] = "*"
+	g["conjure#log#botright"] = true
+	g["conjure#mapping#doc_word"] = "gk"
+end
+
+local function set_options()
+	local o = vim.o
+
+	o.backup = false
+	o.breakindent = true
+	o.completeopt = "menu,menuone,noinsert"
+	o.formatoptions = "1jql"
+	o.grepformat = "%f:%l:%c:%m"
+	o.grepprg = "rg\\ --hidden\\ --vimgrep\\ --smart-case\\ --"
+	o.history = 1000
+	o.ignorecase = true
+	o.inccommand = "nosplit"
+	o.jumpoptions = "stack"
+	o.lazyredraw = true
+	o.listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←"
+	o.list = true
+	o.maxmempattern = 100000
+	o.mouse = "a"
+	o.number = true
+	o.pumheight = 16
+	o.redrawtime = 8000
+	o.relativenumber = true
+	o.scrolloff = 3
+	o.shiftround = true
+	o.shiftwidth = 4
+	o.shortmess = "aoOTIcF"
+	o.showbreak = "↳ "
+	o.showmode = false
+	o.sidescroll = 5
+	o.signcolumn = "yes"
+	o.smartcase = true
+	o.softtabstop = 4
+	o.spelllang = "en_gb"
+	o.splitbelow = true
+	o.splitright = true
+	o.synmaxcol = 120
+	o.tabstop = 4
+	o.termguicolors = true
+	o.textwidth = 80
+	o.timeoutlen = 500
+	o.ttimeoutlen = 10
+	o.undodir = "/tmp"
+	o.undofile = true
+	o.updatetime = 250
+	o.wildignorecase = true
+	o.wildignore = ".git,*.tags,tags,*.o,**/node_modules/**"
+	o.wildmode = "longest:full,full"
+	o.writebackup = false
+end
+
+local function set_keymaps()
+	vim.g.mapleader = " "
+	vim.g.maplocalleader = "\\"
+
+	-- leader mappings
+	lmap("u", ":PackerUpdate<cr>")
+	lmap(";", ":w<cr>")
+	lmap("[", "myO<esc>`y")
+	lmap("]", "myo<esc>`y")
+	lmap("\\", "<cmd>ToggleTermToggleAll<cr>")
+	lmap("1", "<cmd>ToggleTerm1<cr>")
+	lmap("2", "<cmd>ToggleTerm2<cr>")
+	lmap("3", "<cmd>ToggleTerm3<cr>")
+	lmap("4", "<cmd>ToggleTerm4<cr>")
+	lmap("y", '"+y')
+
+	-- normal mode
+	nmap("^", "0")
+	nmap("0", "^")
+	nmap("<c-c>", "<esc>")
+	nmap("s", "<nop>")
+	nmap("'", "`")
+	nmap("`", "'")
+	nmap("<c-n>", "<cmd>NvimTreeToggle<cr>")
+	nmap("k", '(v:count > 5 ? "m\'" . v:count : "") . "gk"', { expr = true })
+	nmap("j", '(v:count > 5 ? "m\'" . v:count : "") . "gj"', { expr = true })
+	nmap("<m-j>", "mz:m+<cr>`z")
+	nmap("<m-k>", "mz:m-2<cr>`z")
+	nmap("\\", "<cmd>noh<cr><esc>")
+	nmap("[b", "<cmd>bprev<cr>")
+	nmap("]b", "<cmd>bnext<cr>")
+	nmap("[q", "<cmd>cprev<cr>")
+	nmap("]q", "<cmd>cnext<cr>")
+	nmap("[<space>", "myO<esc>`y")
+	nmap("]<space>", "myo<esc>`y")
+	nmap("<localleader>cc", "<cmd>ClojureConnect<cr>")
+
+	-- telescope
+	nmap("s", "<cmd>Telescope find_files hidden=true follow=true<cr>")
+	lmap("f-", "<cmd>Telescope file_browser<cr>")
+	lmap("lg", "<cmd>Telescope live_grep<cr>")
+	lmap("fb", "<cmd>Telescope buffers<cr>")
+	lmap("fh", "<cmd>Telescope oldfiles<cr>")
+	lmap("fq", "<cmd>Telescope quickfix<cr>")
+	lmap("fr", "<cmd>Telescope lsp_references<cr>")
+	lmap("fa", "<cmd>Telescope lsp_code_actions<cr>")
+	lmap("fd", "<cmd>Telescope lsp_definitions<cr>")
+	lmap("fi", "<cmd>Telescope lsp_implementations<cr>")
+	lmap("f;", "<cmd>Telescope lsp_range_code_actions<cr>")
+	lmap("d", "<cmd>lua MiniBufremove.delete()<cr>")
+
+	-- fugitive
+	lmap("gb", "<cmd>Git blame<cr>")
+	lmap("gs", "<cmd>Git<cr>")
+	lmap("gd", "<cmd>Gdiffsplit<cr>")
+
+	-- insert mode
+	imap("<c-c>", "<esc>")
+	imap("<c-d>", "<del>")
+	imap("<c-b>", "<left>")
+	imap("<c-f>", "<right>")
+	imap(",", ",<c-g>u")
+	imap(".", ".<c-g>u")
+	imap("!", "!<c-u>u")
+	imap("?", "?<c-g>u")
+
+	-- visual mode
+	vmap("<leader>ss", "!sort -d -b -f <cr>")
+	vmap("<leader>y", '"+y')
+	vmap("<c-c>", "<esc>")
+
+	-- terminal mode
+	tmap("<c-q>", "<c-\\><c-n>")
+
+	-- command mode
+	cmap("<c-b>", "<left>")
+	cmap("<c-f>", "<right>")
+	cmap("<c-a>", "<home>")
+	cmap("<c-e>", "<end>")
+	cmap("<c-d>", "<del>")
+end
+
+function M.setup()
+	set_globals()
+	set_options()
+	set_keymaps()
 end
 
 return M

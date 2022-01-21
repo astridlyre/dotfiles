@@ -1,11 +1,7 @@
 -- Snippet Support
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-	properties = { "documentation", "detail", "additionalTextEdits" },
-}
-
-local flags = { debounce_text_changes = 150, allow_incremental_sync = true }
+local lsp = require("moonlight.lsp")
+local capabilities = lsp.make_capabilities()
+local flags = lsp.flags
 
 return function()
 	-- Null LS
@@ -44,5 +40,15 @@ return function()
 		},
 		capabilities = capabilities,
 		flags = flags,
+		on_attach = function(client)
+			if client.resolved_capabilities.document_formatting then
+				vim.cmd([[
+            augroup LspFormatting
+                autocmd! * <buffer>
+                autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+            augroup END
+            ]])
+			end
+		end,
 	})
 end

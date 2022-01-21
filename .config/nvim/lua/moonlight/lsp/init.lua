@@ -1,44 +1,45 @@
 local M = {}
 
+local utils = require("moonlight.utils")
+local nmap = utils.nmap
+local imap = utils.imap
+
 -- Servers to disable formatting by default (so they don't conflict with null-ls)
-local disable_formatting = { "tsserver", "jsonls", "gopls" }
+local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls" }
 
 local lsp_maps = function()
 	-- Normal keymap function
-	local function map(keymap, action)
-		return vim.keymap.set("n", keymap, action, { silent = true })
-	end
+	nmap("gD", vim.lsp.buf.declaration)
+	nmap("gd", vim.lsp.buf.definition)
+	nmap("K", vim.lsp.buf.hover)
+	nmap("gi", vim.lsp.buf.implementation)
+	nmap("gr", vim.lsp.buf.references)
+	nmap("<space>wa", vim.lsp.buf.add_workspace_folder)
+	nmap("<space>wr", vim.lsp.buf.remove_workspace_folder)
+	nmap("<space>ld", vim.lsp.buf.type_definition)
+	nmap("<space>rn", vim.lsp.buf.rename)
+	nmap("<space>ca", vim.lsp.buf.code_action)
+	nmap("<space>qf", vim.diagnostic.setqflist)
+	nmap("<c-s>", vim.lsp.buf.signature_help)
+	imap("<c-s>", vim.lsp.buf.signature_help)
 
-	map("gD", vim.lsp.buf.declaration)
-	map("gd", vim.lsp.buf.definition)
-	map("K", vim.lsp.buf.hover)
-	map("gi", vim.lsp.buf.implementation)
-	map("gr", vim.lsp.buf.references)
-	map("<space>wa", vim.lsp.buf.add_workspace_folder)
-	map("<space>wr", vim.lsp.buf.remove_workspace_folder)
-	map("<space>ld", vim.lsp.buf.type_definition)
-	map("<space>rn", vim.lsp.buf.rename)
-	map("<space>ca", vim.lsp.buf.code_action)
-	map("<space>qf", vim.diagnostic.setqflist)
-	map("<c-s>", vim.lsp.buf.signature_help)
-
-	map("<space>wp", function()
+	nmap("<space>wp", function()
 		return print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end)
 
-	map("<space>ll", function()
+	nmap("<space>ll", function()
 		return vim.diagnostic.open_float(nil, { source = "always", border = "rounded" })
 	end)
 
-	map("<c-j>", function()
+	nmap("<c-j>", function()
 		return vim.diagnostic.goto_next({ border = "rounded" })
 	end)
 
-	map("<c-k>", function()
+	nmap("<c-k>", function()
 		return vim.diagnostic.goto_prev({ border = "rounded" })
 	end)
 
-	map("<space>lf", function()
+	nmap("<space>lf", function()
 		return vim.lsp.buf.formatting_sync(nil, 1000)
 	end)
 end
@@ -49,6 +50,15 @@ local on_attach = function(client)
 		if client.name == ls then
 			client.resolved_capabilities.document_formatting = false
 		end
+	end
+
+	if client.resolved_capabilities.document_formatting then
+		vim.cmd([[
+            augroup LspFormatting
+                autocmd! * <buffer>
+                autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+            augroup END
+            ]])
 	end
 end
 
@@ -134,6 +144,7 @@ M.setup = function()
 		lspconfig.sumneko_lua.setup({
 			flags = flags,
 			on_attach = on_attach,
+			capabilities = capabilities,
 			cmd = {
 				sumneko_root_path .. sumneko_binary_path,
 				"-E",
@@ -296,8 +307,7 @@ M.setup = function()
 	vim.cmd("command! -nargs=0 LspRestart call v:lua.reload_lsp()")
 end
 
-M.on_attach = on_attach
-M.capabilities = capabilities
+M.make_capabilities = make_capabilities
 M.flags = flags
 
 return M

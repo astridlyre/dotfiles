@@ -1,39 +1,10 @@
-local execute = vim.api.nvim_command
-local fn = vim.fn
+-- Personal Configuration
+local p = require("moonlight.packer")
+local packer = p.setup()
 
-local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-local compile_path = fn.stdpath("config") .. "/lua/packer_compiled.lua"
-
-if fn.empty(vim.fn.glob(install_path)) > 0 then
-	fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
-	execute("packadd packer.nvim")
-end
-
--- Handle errors
-local require_plugin = function(p)
-	local ok, plugin = pcall(require, p)
-	if ok then
-		return plugin
-	else
-		print("Unable to load " .. p)
-		return nil
-	end
-end
-
--- Packer Configuration
-local packer = require_plugin("packer")
-local packer_init = {
-	display = {
-		open_fn = function()
-			return require_plugin("packer.util").float({ border = "single" })
-		end,
-	},
-}
-
-packer.init(packer_init)
-
--- Load global vim options
 require("moonlight.options").setup()
+require("moonlight.functions").setup()
+require("moonlight.autocmds").setup()
 
 return packer.startup({
 	function(use)
@@ -142,7 +113,5 @@ return packer.startup({
 		use({ "Olical/aniseed", branch = "develop", ft = { "fennel" } })
 		use({ "mfussenegger/nvim-jdtls", ft = { "java" } })
 	end,
-	{ config = {
-		compile_path = compile_path,
-	} },
+	config = { compile_path = p.compile_path },
 })
