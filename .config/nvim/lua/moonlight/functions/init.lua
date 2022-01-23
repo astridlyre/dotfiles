@@ -7,13 +7,16 @@ local nmap = utils.nmap
 function M.setup()
 	local runners = {
 		javascript = { run = "pnpm run dev", test = "pnpm run test" },
+		javascriptreact = { run = "pnpm run dev", test = "pnpm run test" },
 		typescript = { run = "pnpm run dev", test = "pnpm run test" },
+		typescriptreact = { run = "pnpm run dev", test = "pnpm run test" },
 		rust = { run = "cargo run", test = "cargo test" },
 		clojure = {
 			run = 'clj -m nrepl.cmdline --middleware "[cider.nrepl/cider-middleware]" --interactive',
 			test = "",
 		},
 		clojurescript = { run = "pnpx shadow-cljs watch app", test = "pnpx shadow-cljs test app" },
+		racket = { test = "raco test *test.rkt" },
 	}
 
 	local function run_task(term, variant)

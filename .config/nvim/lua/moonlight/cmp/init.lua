@@ -46,7 +46,7 @@ return function()
 		documentation = true,
 		snippet = {
 			expand = function(args)
-				require("luasnip").lsp_expand(args.body)
+				luasnip.lsp_expand(args.body)
 			end,
 		},
 		mapping = {
@@ -61,11 +61,11 @@ return function()
 		},
 		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
-			{ name = "nvim_lua" },
 			{ name = "luasnip" },
-			{ name = "buffer" },
-			{ name = "path" },
+			{ name = "nvim_lua" },
 			{ name = "conjure" },
+			{ name = "path" },
+			{ name = "buffer" },
 		}),
 		formatting = {
 			format = lspkind.cmp_format({

@@ -152,7 +152,7 @@ local function set_keymaps()
 	imap("<c-f>", "<right>")
 	imap(",", ",<c-g>u")
 	imap(".", ".<c-g>u")
-	imap("!", "!<c-u>u")
+	imap("!", "!<c-g>u")
 	imap("?", "?<c-g>u")
 
 	-- visual mode

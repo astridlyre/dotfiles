@@ -5,7 +5,7 @@ local nmap = utils.nmap
 local imap = utils.imap
 
 -- Servers to disable formatting by default (so they don't conflict with null-ls)
-local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls" }
+local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls", "racket_langserver" }
 
 local lsp_maps = function()
 	-- Normal keymap function
@@ -224,6 +224,15 @@ M.setup = function()
 		})
 	end
 
+	local function racketls()
+		lspconfig.racket_langserver.setup({
+			flags = flags,
+			on_attach = on_attach,
+			capabilities = capabilities,
+			filetypes = { "racket" },
+		})
+	end
+
 	-- Enable the following default language servers
 	local default_servers = {
 		"pyright",
@@ -234,7 +243,6 @@ M.setup = function()
 		"dockerls",
 		"bashls",
 		"clojure_lsp",
-		"racket_langserver",
 		"cssmodules_ls",
 		"emmet_ls",
 		"solang",
@@ -258,6 +266,7 @@ M.setup = function()
 		sqls,
 		tsserver,
 		jsonls,
+		racketls,
 	}) do
 		ls()
 	end
