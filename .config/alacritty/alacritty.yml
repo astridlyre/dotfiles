@@ -1,86 +1,33 @@
-# Configuration for Alacritty, the GPU enhanced terminal emulator.
 window:
-  # Window padding (changes require restart)
-  #
-  # Blank space added around the window in pixels. This padding is scaled
-  # by DPI and the specified value is always added at both opposing sides.
+  opacity: 1
   padding:
     x: 0
     y: 0
-
   dynamic_padding: true
   decorations: none
   dynamic_title: true
 
 scrolling:
-  # Maximum number of lines in the scrollback buffer.
-  # Specifying '0' will disable scrolling.
   history: 5000
 
-  # Scrolling distance multiplier.
-  #multiplier: 3
-
-# Font configuration
 font:
-  # Normal (roman) font face
   normal:
-    # Font family
-    #
-    # Default:
-    #   - (macOS) Menlo
-    #   - (Linux/BSD) monospace
-    #   - (Windows) Consolas
     family: JetBrainsMono Nerd Font
-
-    # The `style` can be specified to pick a specific face.
     style: Regular
 
-  # Bold font face
   bold:
-    # Font family
-    #
-    # If the bold family is not specified, it will fall back to the
-    # value specified for the normal font.
     family: JetBrainsMono Nerd Font
-
-    # The `style` can be specified to pick a specific face.
     style: Bold
 
-  # Italic font face
   italic:
-    # Font family
-    #
-    # If the italic family is not specified, it will fall back to the
-    # value specified for the normal font.
     family: JetBrainsMono Nerd Font
-
-    # The `style` can be specified to pick a specific face.
     style: Italic
 
-  # Bold italic font face
   bold_italic:
-    # Font family
-    #
-    # If the bold italic family is not specified, it will fall back to the
-    # value specified for the normal font.
     family: JetBrainsMono Nerd Font
-
-    # The `style` can be specified to pick a specific face.
     style: Bold Italic
 
-  # Point size
   size: 10
-
-  # Offset is the extra space around each character. `offset.y` can be thought
-  # of as modifying the line spacing, and `offset.x` as modifying the letter
-  # spacing.
-  # offset:
-  #   x: 0
-  #   y: 2
-
-# Background opacity
-# The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 1
 
 key_bindings:
   - { key: Y, mods: Alt, action: ScrollPageUp }

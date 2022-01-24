@@ -69,7 +69,7 @@ return packer.startup({
 			end,
 		})
 		use({
-			"jose-elias-alvarez/null-ls.nvim",
+			"astridlyre/null-ls.nvim",
 			config = require("moonlight.null-ls"),
 			after = "nvim-lspconfig",
 		})

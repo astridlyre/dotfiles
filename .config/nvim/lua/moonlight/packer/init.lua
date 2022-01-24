@@ -24,10 +24,11 @@ function M.setup()
 
 	-- Packer Configuration
 	local packer = require_plugin("packer")
+	local util = require_plugin("packer.util")
 	local packer_init = {
 		display = {
 			open_fn = function()
-				return require_plugin("packer.util").float({ border = "single" })
+				return util.float({ border = "rounded" })
 			end,
 		},
 	}
