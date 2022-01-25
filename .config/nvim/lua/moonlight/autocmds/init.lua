@@ -1,53 +1,59 @@
 local M = {}
 
 function M.setup()
-	-- Autocommands
+	-- lambda abbreviation for racket
 	vim.cmd([[
-augroup HelpSplit     " open help in vertical split
+augroup Racket
 	autocmd!
-	autocmd FileType help wincmd L
+	autocmd FileType racket iabbr ld λ
 augroup end
-]])
+	]])
 
+	-- don't list quickfix in buffers
 	vim.cmd([[
-augroup NoListQuick   " no quickfix in buffer list
+augroup NoListQuick
 	autocmd!
 	autocmd FileType qf set nobuflisted
 augroup end
 ]])
 
+	-- show cursorline only in active buffer
 	vim.cmd([[
-augroup CursorLine    " show cursorline only in focused window
+augroup CursorLine
 	autocmd!
 	autocmd WinEnter,BufEnter,InsertLeave * if ! &cursorline && win_gettype() != 'popup' && ! &pvw | setlocal cursorline | endif
 	autocmd WinLeave,BufLeave,InsertEnter * if &cursorline && win_gettype() != 'popup' && ! &pvw | setlocal nocursorline | endif
 augroup end
 ]])
 
+	-- resize windows automatically
 	vim.cmd([[
-augroup WinResize     " resize windows automatically
+augroup WinResize
 	autocmd!
 	autocmd VimResized * tabdo wincmd =
 augroup end
 ]])
 
+	-- enable spell if file type is text-related
 	vim.cmd([[
-augroup SpellCheck    " enable spell only if file type is normal txt
+augroup SpellCheck
 	autocmd!
 	let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
 	autocmd BufEnter * if index(spellable, &ft) < 0 | set nospell | else | set spell | endif
 augroup end
 ]])
 
+	-- highlight yanked text
 	vim.cmd([[
-augroup HighlightYank " highlight yanked text
+augroup HighlightYank
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
 augroup end
 ]])
 
+	-- return to last position when opening files
 	vim.cmd([[
-augroup ReturnPos    " return to last edit position when opening files
+augroup ReturnPos
 	autocmd!
 	autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup end

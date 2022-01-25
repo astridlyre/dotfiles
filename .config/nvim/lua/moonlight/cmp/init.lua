@@ -9,13 +9,7 @@ return function()
 	-- load snippets
 	snippet_loader.load()
 
-	local source_mapping = {
-		buffer = "[Buffer]",
-		nvim_lsp = "[LSP]",
-		nvim_lua = "[Lua]",
-		path = "[Path]",
-	}
-
+	-- snippet jumping
 	local t = function(str)
 		return vim.api.nvim_replace_termcodes(str, true, true, true)
 	end
@@ -36,19 +30,46 @@ return function()
 		end
 	end
 
+	local function expand(args)
+		luasnip.lsp_expand(args.body)
+	end
+
 	imap("<C-j>", snippet_next)
 	imap("<C-k>", snippet_prev)
 
+	-- source configs
+	local source_mapping = {
+		buffer = "[Buffer]",
+		nvim_lsp = "[LSP]",
+		nvim_lua = "[Lua]",
+		path = "[Path]",
+	}
+
+	local sources = cmp.config.sources({
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
+		{ name = "nvim_lua" },
+		{ name = "conjure" },
+		{ name = "path" },
+		{ name = "buffer" },
+	})
+
+	local format = lspkind.cmp_format({
+		with_text = false,
+		maxwidth = 50,
+		before = function(entry, vim_item)
+			vim_item.menu = source_mapping[entry.source.name]
+			return vim_item
+		end,
+	})
+
+	-- setup cmp
 	cmp.setup({
 		throttle_time = 10,
 		debug = false,
-		source_timeout = 200,
+		source_timeout = 250,
 		documentation = true,
-		snippet = {
-			expand = function(args)
-				luasnip.lsp_expand(args.body)
-			end,
-		},
+		snippet = { expand = expand },
 		mapping = {
 			["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 			["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
@@ -59,23 +80,7 @@ return function()
 			}),
 			["<c-y>"] = cmp.mapping.confirm({ select = true }),
 		},
-		sources = cmp.config.sources({
-			{ name = "nvim_lsp" },
-			{ name = "luasnip" },
-			{ name = "nvim_lua" },
-			{ name = "conjure" },
-			{ name = "path" },
-			{ name = "buffer" },
-		}),
-		formatting = {
-			format = lspkind.cmp_format({
-				with_text = false,
-				maxwidth = 50,
-				before = function(entry, vim_item)
-					vim_item.menu = source_mapping[entry.source.name]
-					return vim_item
-				end,
-			}),
-		},
+		sources = sources,
+		formatting = { format = format },
 	})
 end

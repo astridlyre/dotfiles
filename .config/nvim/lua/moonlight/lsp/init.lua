@@ -8,7 +8,6 @@ local imap = utils.imap
 local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls", "racket_langserver" }
 
 local lsp_maps = function()
-	-- Normal keymap function
 	nmap("gD", vim.lsp.buf.declaration)
 	nmap("gd", vim.lsp.buf.definition)
 	nmap("K", vim.lsp.buf.hover)
