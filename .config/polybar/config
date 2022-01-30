@@ -57,7 +57,7 @@ grey                = #6e6c7e
 monitor             = ${env:MONITOR}
 ;monitor-fallback   = HDMI1
 width               = 100%
-height              = 20
+height              = 18
 ;offset-x           = 1%
 ;offset-y           = 1%
 radius              = 0.0
@@ -92,7 +92,7 @@ module-margin-left  = 2
 module-margin-right = 2
 
 ;https://github.com/jaagr/polybar/wiki/Fonts
-font-0              = "JetBrainsMono Nerd Font:size=9;0"
+font-0              = "JetBrainsMono Nerd Font:size=8"
 font-1              = "Noto Color Emoji:size=10:scale=10;1"
 
 modules-left        = bspwm xwindow
@@ -123,7 +123,7 @@ scroll-down         = bspwm-deskprev
 monitor             = ${env:MONITOR}
 ;monitor-fallback   = HDMI1
 width               = 100%
-height              = 24
+height              = 18
 ;offset-x           = 1%
 ;offset-y           = 1%
 radius              = 0.0
@@ -158,7 +158,7 @@ module-margin-left  = 2
 module-margin-right = 2
 
 ;https://github.com/jaagr/polybar/wiki/Fonts
-font-0              = "JetBrains Mono Nerd Font:size=10;0"
+font-0              = "JetBrainsMono Nerd Font:size=8"
 font-1              = "Noto Color Emoji:size=10:scale=10;1"
 
 modules-left        = bspwm xwindow
@@ -191,15 +191,15 @@ enable-scroll   = false
 reverse-scroll  = false
 pin-workspaces  = true
 
-ws-icon-0       = 1;
-ws-icon-1       = 2;
-ws-icon-2       = 3;
-ws-icon-3       = 4;
-ws-icon-4       = 5;
-ws-icon-5       = 6;
-ws-icon-6       = 7;
-ws-icon-7       = 8;
-ws-icon-default = " "
+ws-icon-0       = 1;1
+ws-icon-1       = 2;2
+ws-icon-2       = 3;3
+ws-icon-3       = 4;4
+ws-icon-4       = 5;5
+ws-icon-5       = 6;6
+ws-icon-6       = 7;7
+ws-icon-7       = 8;8
+ws-icon-default = "x"
 
 
 ;format = <label-state>  <label-mode>
@@ -208,20 +208,20 @@ format = <label-state>
 label-focused                = %icon%
 label-focused-background     = ${colors.background}
 label-focused-underline      = ${colors.yellow}
-label-focused-padding        = 3
+label-focused-padding        = 2
 label-focused-foreground     = ${colors.yellow}
 
 label-occupied               = %icon%
-label-occupied-padding       = 3
+label-occupied-padding       = 2
 label-occupied-background    = ${colors.background}
 label-occupied-foreground    = ${colors.red}
 
 label-urgent                 = %icon%
-label-urgent-padding         = 3
+label-urgent-padding         = 2
 
 label-empty                  = %icon%
 label-empty-foreground       = ${colors.grey}
-label-empty-padding          = 3
+label-empty-padding          = 2
 label-empty-background       = ${colors.background}
 label-monocle                = "  "
 label-monocle-foreground     = ${colors.foreground}

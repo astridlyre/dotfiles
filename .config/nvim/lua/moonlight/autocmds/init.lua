@@ -1,6 +1,12 @@
 local M = {}
 
 function M.setup()
+	vim.cmd([[
+augroup GoLang
+	autocmd!
+	autocmd FileType go iabbr ;; :=
+augroup end
+	]])
 	-- lambda abbreviation for racket
 	vim.cmd([[
 augroup Racket

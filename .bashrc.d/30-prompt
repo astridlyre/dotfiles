@@ -28,19 +28,12 @@ check_man_width() {
 if [[ "${SESSION_TYPE}" =~ remote/ssh ]]; then
 	# Prompt
 	PS1='\n\[\033[01;34m\]\w\[\033[00m\]\n\[\033[0;37m\]$\[\033[00m\] '
-	PS2="〉"
+	PS2="+ "
 	PS4="> "
 else
-	# Make nice exit codes
-	if [[ $DISPLAY ]]; then
-		PROMPT_ICON='❱'
-	else
-		PROMPT_ICON='$'
-	fi
-
 	# Prompt
-	PS1='\n\[\e[0;30m\]\w\n\[\e[1;${EXIT_COLOR}m\]  \[\e[0;30m\]${PROMPT_ICON}\[\e[0m\] '
-	PS2="〉"
+	PS1='\n\[\e[0;30m\]\w\n\[\e[1;${EXIT_COLOR}m\]$ \[\e[0m\]'
+	PS2="+ "
 	PS4="> "
 fi
 

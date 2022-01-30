@@ -4,19 +4,19 @@ NVIM=$HOME/.config/nvim/init.vim
 BSPWM=$HOME/.config/bspwm/bspwmrc
 SXHKD=$HOME/.config/bspwm/sxhkd/sxhkdrc
 BASH=$HOME/.bashrc
-ALACRITTY=$HOME/.config/alacritty/alacritty.yml
+KITTY=$HOME/.config/kitty/kitty.conf
 POLYBAR=$HOME/.config/polybar/config
 
 openConfig() {
-	exec alacritty --title "$2 - config editor" -e bash -c "vim $1"
+	exec kitty --title "$2 - config editor" -e bash -c "vim $1"
 }
 
 case $1 in
-	nvim) openConfig "$NVIM" "$1" ;;
-	bspwm) openConfig "$BSPWM" "$1" ;;
-	sxhkd) openConfig "$SXHKD" "$1" ;;
-	bash) openConfig "$BASH" "$1" ;;
-	alacritty) openConfig "$ALACRITTY" "$1" ;;
-	polybar) openConfig "$POLYBAR" "$1" ;;
-	*) ;;
+nvim) openConfig "$NVIM" "$1" ;;
+bspwm) openConfig "$BSPWM" "$1" ;;
+sxhkd) openConfig "$SXHKD" "$1" ;;
+bash) openConfig "$BASH" "$1" ;;
+kitty) openConfig "$KITTY" "$1" ;;
+polybar) openConfig "$POLYBAR" "$1" ;;
+*) ;;
 esac

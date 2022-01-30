@@ -32,6 +32,7 @@ font:
 key_bindings:
   - { key: Y, mods: Alt, action: ScrollPageUp }
   - { key: E, mods: Alt, action: ScrollPageDown }
+  - { key: Return, mods: Control|Shift, action: SpawnNewInstance }
 
   # Vi Mode
   - { key: Space, mods: Shift|Control, mode: ~Search, action: None }

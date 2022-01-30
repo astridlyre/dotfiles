@@ -91,3 +91,5 @@ export NPM_PACKAGES="${HOME}/.npm-packages"
 export MANPATH="${MANPATH-$(manpath)}:${NPM_PACKAGES}/share/man"
 export CHROME_PATH=/usr/bin/brave
 export DICPATH=/usr/share/hunspell/
+export JAVA_HOME=/usr/lib/jvm/java-17-graalvm
+export PGDATA=/var/lib/postgres/data

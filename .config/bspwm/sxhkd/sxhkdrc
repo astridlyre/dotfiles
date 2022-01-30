@@ -24,14 +24,14 @@ super + v
 
 # Alacritty
 super + Return
-    alacritty --title 'hax terminal'
+    kitty --title 'hax terminal'
 
 super + p
-	alacritty --title 'vim scratch' --class l33th4x0rz,l33th4x0rz -e vpipe
+	kitty --title 'vim scratch' --class l33th4x0rz --name l33th4x0rz -e vpipe
 
 # Hacker floating term
 super + space
-  alacritty --title 'm00nl1ght l33t h4x0rz' --class l33th4x0rz,l33th4x0rz
+  kitty --title 'm00nl1ght l33t h4x0rz' --class l33th4x0rz --name l33th4x0rz
 
 # Write something in vim
 super + m
@@ -39,7 +39,7 @@ super + m
 
 # nnn File Manager
 super + e
-    alacritty --title 'hax browser' --class nnn,nnn -e nnn -c
+    kitty --title 'hax browser' --class nnn --name nnn -e nnn -c
 
 # Zathura
 super + z
@@ -284,7 +284,7 @@ alt + space
 #################################################################
 
 # edit config files
-alt + shift + {v,b,s,t,a,p}
-  ~/.config/bspwm/scripts/edit_configs {nvim, bspwm, sxhkd, bash, alacritty, polybar}
+alt + shift + {v,b,s,t,k,p}
+  ~/.config/bspwm/scripts/edit_configs {nvim, bspwm, sxhkd, bash, kitty, polybar}
 super + space
 

@@ -5,7 +5,7 @@ local nmap = utils.nmap
 local imap = utils.imap
 
 -- Servers to disable formatting by default (so they don't conflict with null-ls)
-local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls", "racket_langserver" }
+local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls", "racket_langserver", "sqls" }
 
 local lsp_maps = function()
 	nmap("gD", vim.lsp.buf.declaration)

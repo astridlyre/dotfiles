@@ -40,4 +40,3 @@ set colored-stats On
 set completion-ignore-case On
 set completion-map-case On
 Control-o: f
-Control-,: ">/dev/null"

@@ -1,2 +1,2 @@
 #!/bin/sh
-exec alacritty --title iwctl --class iwctl,iwctl -e iwctl
+exec kitty --title iwctl --class iwctl --name iwctl -e iwctl

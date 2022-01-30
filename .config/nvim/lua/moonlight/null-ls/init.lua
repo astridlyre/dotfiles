@@ -24,6 +24,7 @@ return function()
 			formatting.sqlformat,
 			formatting.stylua,
 			diagnostics.shellcheck,
+			diagnostics.staticcheck,
 			diagnostics.eslint_d.with({
 				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 				extra_args = { "--config", vim.fn.expand("~/.eslintrc.json") },
