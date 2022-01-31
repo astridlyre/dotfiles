@@ -54,6 +54,8 @@ settings:
     - '{file}'
   fonts.default_family:
     global: JetBrains Mono Nerd Font
+  fonts.default_size:
+    global: 9pt
   hints.radius:
     global: 0
   keyhint.radius:

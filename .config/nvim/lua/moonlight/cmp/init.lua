@@ -39,10 +39,10 @@ return function()
 
 	-- source configs
 	local source_mapping = {
-		buffer = "[Buffer]",
-		nvim_lsp = "[LSP]",
-		nvim_lua = "[Lua]",
-		path = "[Path]",
+		buffer = "[buf]",
+		nvim_lsp = "[lsp]",
+		nvim_lua = "[lua]",
+		path = "[path]",
 	}
 
 	local sources = cmp.config.sources({
