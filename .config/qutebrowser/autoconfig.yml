@@ -21,12 +21,18 @@ settings:
         ',ss': fake-key -g ':open https://duckduckgo.com/?q='
         ',sy': fake-key -g ':open https://www.youtube.com/results?search_query='
         ',u': edit-url
+  colors.completion.item.selected.match.fg:
+    global: '#c7d6d0'
   colors.statusbar.command.fg:
     global: '#ffc552'
   colors.statusbar.url.fg:
     global: '#ffc552'
   colors.statusbar.url.hover.fg:
-    global: '#34bfa4'
+    global: '#c7d6d0'
+  colors.statusbar.url.success.http.fg:
+    global: '#c7d6d0'
+  colors.statusbar.url.success.https.fg:
+    global: '#c7d6d0'
   colors.webpage.bg:
     global: white
   colors.webpage.darkmode.enabled:

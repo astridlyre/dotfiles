@@ -20,16 +20,10 @@ return packer.startup({
 			event = "BufRead",
 		})
 		use({
-			"astridlyre/nvim",
-			as = "catppuccin",
+			"mcchrish/zenbones.nvim",
+			requires = "rktjmp/lush.nvim",
 			config = function()
-				local catppuccin = require("catppuccin")
-				catppuccin.setup({
-					integrations = {
-						mini = true,
-					},
-				})
-				vim.cmd("colorscheme catppuccin")
+				vim.cmd("colorscheme neobones")
 			end,
 		})
 

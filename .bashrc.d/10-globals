@@ -75,10 +75,10 @@ done
 
 # fzf
 export FZF_DEFAULT_COMMAND="rg --files --hidden $FZF_IGNORE_GLOB"
-export FZF_DEFAULT_OPTS='--color=fg:#c5c4d4,hl:#fead90
---color=fg+:#c5c4d4,hl+:#94cdd1
---color=info:#afc5de,prompt:#94cdd1
---color=marker:#94cdd1,spinner:#525566'
+export FZF_DEFAULT_OPTS='--color=fg:#c7d6d0,hl:#66a5ad
+--color=fg+:#c7d6d0,hl+:#98a39e
+--color=info:#98a39e,prompt:#98a39e
+--color=marker:#98a39e,spinner:#98a39e'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS=' --preview "batfile {}" --no-height'
 export FZF_CTRL_R_COMMAND="$FZF_DEFAULT_COMMAND"

@@ -2,9 +2,9 @@
 static char * hide_prelight_xpm[] = {
 "24 26 4 1",
 " 	c None",
-".	c #1a1826",
-"+	c #abe9b3 s active_color_1",
-"@	c #f5c2e7",
+".	c #0f191f",
+"+	c #66A5AD s active_color_1",
+"@	c #66A5AD",
 "@@@@@@@@@@@@@@@@@@@@@@@@",
 "........................",
 "........................",

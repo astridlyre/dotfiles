@@ -1,43 +1,43 @@
 set font "JetBrains Mono Nerd Font normal 9"
 set highlight-transparency 1.0
 
-set default-fg 			    "#d9e0ee"
-set default-bg 			    "#1e1d2f"
+set default-fg 			    "#c7d6d0"
+set default-bg 			    "#0f191f"
 
-set completion-bg		    "#302d41"
-set completion-fg		    "#d9e0ee"
+set completion-bg		    "#172730"
+set completion-fg		    "#c7d6d0"
 set completion-highlight-bg	"#575268"
-set completion-highlight-fg	"#d9e0ee"
-set completion-group-bg		"#302d41"
+set completion-highlight-fg	"#c7d6d0"
+set completion-group-bg		"#263945"
 set completion-group-fg		"#96cdfb"
 
-set statusbar-fg		    "#d9e0ee"
-set statusbar-bg		    "#302d41"
+set statusbar-fg		    "#c7d6d0"
+set statusbar-bg		    "#172730"
 
-set notification-bg		    "#302d41"
-set notification-fg		    "#d9e0ee"
-set notification-error-bg	"#302d41"
+set notification-bg		    "#263945"
+set notification-fg		    "#c7d6d0"
+set notification-error-bg	"#263945"
 set notification-error-fg	"#f28fad"
-set notification-warning-bg	"#302d41"
+set notification-warning-bg	"#263945"
 set notification-warning-fg	"#fae3b0"
 
-set inputbar-fg			    "#d9e0ee"
-set inputbar-bg 		    "#302d41"
+set inputbar-fg			    "#c7d6d0"
+set inputbar-bg 		    "#263945"
 
-set recolor-lightcolor		"#1e1d2f"
-set recolor-darkcolor		"#d9e0ee"
+set recolor-lightcolor		"#0f191f"
+set recolor-darkcolor		"#c7d6d0"
 
-set index-fg			    "#d9e0ee"
-set index-bg			    "#1e1d2f"
-set index-active-fg		    "#d9e0ee"
-set index-active-bg		    "#302d41"
+set index-fg			    "#c7d6d0"
+set index-bg			    "#0f191f"
+set index-active-fg		    "#c7d6d0"
+set index-active-bg		    "#263945"
 
-set render-loading-bg		"#1e1d2f"
-set render-loading-fg		"#d9e0ee"
+set render-loading-bg		"#0f191f"
+set render-loading-fg		"#c7d6d0"
 
-set highlight-color		    "#575268"
-set highlight-fg            "#f5c2e7"
-set highlight-active-color	"#f5c2e7"
+set highlight-color		    "#263945"
+set highlight-fg            "#b279a7"
+set highlight-active-color	"#b279a7"
 
 set sandbox none
 set statusbar-h-padding 0

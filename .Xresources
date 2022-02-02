@@ -8,38 +8,22 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-! Catppuccin
-*background: #1E1E28
-*foreground: #DADAE8
-
-! Black + dark black
-*color0: #6E6C7E
-*color8: #6E6C7E
-
-! Red
-*color1: #E38C8F
-*color9: #E38C8F
-
-! Green
-*color2: #B1E3AD
-*color10: #B1E3AD
-
-! Yellow
-*color3: #EBDDAA
-*color11:  #EBDDAA
-
-! Blue
-*color4: #A4B9EF
-*color12: #A4B9EF
-
-! Magenta
-*color5: #C6AAE8
-*color13: #C6AAE8
-
-! Pink
-*color6: #E5B4E2
-*color14: #E5B4E2
-
-! Whites
-*color7: #DADAE8
-*color15: #DADAE8
+*background:  #0f191f
+*cursorColor:  #8190d4
+*foreground:  #c7d6d0
+*color0:  #263945
+*color1:  #DE6E7C
+*color2:  #90FF6B
+*color3:  #B77E64
+*color4:  #8190D4
+*color5:  #B279A7
+*color6:  #66A5AD
+*color7:  #C6D5CF
+*color8:  #263945
+*color9:  #E8838F
+*color10:  #A0FF85
+*color11:  #D68C67
+*color12:  #92A0E2
+*color13:  #CF86C1
+*color14:  #65B8C1
+*color15:  #98A39E

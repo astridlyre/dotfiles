@@ -28,8 +28,8 @@ compositing-underline    = over
 compositing-border       = over
 
 ; Define fallback values used by all module formats
-format-foreground   = #d9e0ee
-format-background   = #1e1d2f
+format-foreground   = #c7d6d0
+format-background   = #0f191f
 format-underline    =
 format-overline     =
 format-spacing      =
@@ -38,13 +38,13 @@ format-margin       =
 format-offset       =
 
 [colors]
-; Falcon ====================
-background          = #1e1d2f
-foreground          = #d9e0ee
-red                 = #f5c2e7
-green               = #abe9b3
-yellow              = #abe9b3
-grey                = #6e6c7e
+; ===========================
+background          = #0f191f
+foreground          = #c7d6d0
+red                 = #b279a7
+green               = #66a5ad
+yellow              = #90ff6b
+grey                = #263945
 ; ===========================
 
 ################################################################################
@@ -207,14 +207,14 @@ format = <label-state>
 
 label-focused                = %icon%
 label-focused-background     = ${colors.background}
-label-focused-underline      = ${colors.yellow}
+label-focused-underline      = ${colors.red}
 label-focused-padding        = 2
-label-focused-foreground     = ${colors.yellow}
+label-focused-foreground     = ${colors.red}
 
 label-occupied               = %icon%
 label-occupied-padding       = 2
 label-occupied-background    = ${colors.background}
-label-occupied-foreground    = ${colors.red}
+label-occupied-foreground    = ${colors.green}
 
 label-urgent                 = %icon%
 label-urgent-padding         = 2
@@ -291,18 +291,18 @@ label-charging                = %percentage%%
 label-charging-foreground     = ${colors.foreground}
 format-charging-foreground    = ${colors.foreground}
 format-charging-background    = ${colors.background}
-format-charging-underline     = ${colors.red}
+format-charging-underline     = ${colors.green}
 
 format-discharging            = <ramp-capacity> <label-discharging>
 label-discharging             = %percentage%%
 label-discharging-foreground  = ${colors.foreground}
-format-discharging-underline  = ${colors.red}
+format-discharging-underline  = ${colors.green}
 format-discharging-foreground = ${colors.foreground}
 format-discharging-background = ${colors.background}
 
 format-full-prefix            = "  "
-format-full-prefix-foreground = ${colors.red}
-format-full-underline         = ${colors.red}
+format-full-prefix-foreground = ${colors.green}
+format-full-underline         = ${colors.green}
 format-full-foreground        = ${colors.foreground}
 format-full-background        = ${colors.background}
 
@@ -311,14 +311,14 @@ ramp-capacity-1               = "  "
 ramp-capacity-2               = "  "
 ramp-capacity-3               = "  "
 ramp-capacity-4               = "  "
-ramp-capacity-foreground      = ${colors.red}
+ramp-capacity-foreground      = ${colors.green}
 
 animation-charging-0          = "  "
 animation-charging-1          = "  "
 animation-charging-2          = "  "
 animation-charging-3          = "  "
 animation-charging-4          = "  "
-animation-charging-foreground = ${colors.red}
+animation-charging-foreground = ${colors.green}
 animation-charging-framerate  = 750
 
 ################################################################################
@@ -387,8 +387,8 @@ interval                 = 2
 format-foreground        = ${colors.foreground}
 format-background        = ${colors.background}
 format-prefix            = "  "
-format-prefix-foreground = ${colors.red}
-format-underline         = ${colors.red}
+format-prefix-foreground = ${colors.green}
+format-underline         = ${colors.green}
 
 label-font               = 0
 
@@ -421,8 +421,8 @@ date                     = " %d-%m-%Y"
 time                     = %H:%M
 time-alt                 = %H:%M
 format-prefix            = " "
-format-prefix-foreground = ${colors.red}
-format-underline         = ${colors.red}
+format-prefix-foreground = ${colors.green}
+format-underline         = ${colors.green}
 format-foreground        = ${colors.foreground}
 format-background        = ${colors.background}
 label                    = %date% %time%
@@ -518,7 +518,7 @@ spacing                     = 4
 format-mounted              = <label-mounted>
 format-mounted-foreground   = ${colors.foreground}
 format-mounted-background   = ${colors.background}
-format-mounted-underline    = ${colors.red}
+format-mounted-underline    = ${colors.green}
 
 
 ; Available tokens:
@@ -579,8 +579,8 @@ label = %output%
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 format-prefix = " "
-format-prefix-foreground = ${colors.red}
-format-underline = ${colors.red}
+format-prefix-foreground = ${colors.green}
+format-underline = ${colors.green}
 
 ################################################################################
 
@@ -631,8 +631,8 @@ label                    = %percentage_used:2%%
 
 format                   = Mem <label>
 format-prefix            = "  "
-format-prefix-foreground = ${colors.red}
-format-underline         = ${colors.red}
+format-prefix-foreground = ${colors.green}
+format-underline         = ${colors.green}
 format-foreground        = ${colors.foreground}
 format-background        = ${colors.background}
 
@@ -760,8 +760,8 @@ click-right              = exec pavucontrol
 click-left               = ~/.bin/pavolume.sh --togmute
 scroll-up                = ~/.bin/pavolume.sh --up
 scroll-down              = ~/.bin/pavolume.sh --down
-format-underline         = ${colors.red}
-format-prefix-foreground = ${colors.red}
+format-underline         = ${colors.green}
+format-prefix-foreground = ${colors.green}
 format-foreground        = ${colors.foreground}
 format-background        = ${colors.background}
 
@@ -961,9 +961,9 @@ format-connected                      = <label-connected>
 format-connected-foreground           = ${colors.foreground}
 format-connected-background           = ${colors.background}
 format-connected-prefix               = "  "
-format-connected-prefix-foreground    = ${colors.red}
+format-connected-prefix-foreground    = ${colors.green}
 format-connected-prefix-background    = ${colors.background}
-format-connected-underline            = ${colors.red}
+format-connected-underline            = ${colors.green}
 
 label-disconnected                    = %ifname% idle
 label-disconnected-foreground         = ${colors.foreground}
@@ -984,7 +984,7 @@ ramp-signal-4                         = ▅
 ramp-signal-5                         = ▆
 ramp-signal-6                         = ▇
 ramp-signal-7                         = █
-ramp-signal-foreground                = ${colors.red}
+ramp-signal-foreground                = ${colors.green}
 
 ################################################################################
 
@@ -1020,7 +1020,7 @@ label             = %title%
 label-maxlen      = 75
 label-padding     = 2
 
-format-foreground = ${colors.red}
+format-foreground = ${colors.green}
 format-background = ${colors.background}
 
 ###############################################################################

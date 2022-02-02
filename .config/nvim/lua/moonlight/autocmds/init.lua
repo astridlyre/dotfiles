@@ -2,6 +2,16 @@ local M = {}
 
 function M.setup()
 	vim.cmd([[
+iabbr improt import
+iabbr funciton function
+	]])
+	vim.cmd([[
+augroup KittyConfig
+	autocmd!
+	autocmd BufEnter kitty.conf set filetype=kitty
+augroup end
+	]])
+	vim.cmd([[
 augroup GoLang
 	autocmd!
 	autocmd FileType go iabbr ;; :=

@@ -13,5 +13,6 @@ return function()
 		"sh",
 		"bash",
 		"scss",
+		"kitty",
 	})
 end
