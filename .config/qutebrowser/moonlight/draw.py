@@ -2,7 +2,7 @@ def blood(c, options={}):
     palette = {
         "background": "#0f191f",
         "background-alt": "#172730",
-        "background-attention": "#b279a7",
+        "background-attention": "#90ff6b",
         "border": "#263945",
         "selection-background": "#66a5ad",
         "selection-foreground": "#0f191f",
@@ -100,10 +100,10 @@ def blood(c, options={}):
     c.colors.statusbar.caret.fg = palette["foreground"]
     c.colors.statusbar.caret.selection.bg = palette["selection-background"]
     c.colors.statusbar.caret.selection.fg = palette["selection-foreground"]
-    c.colors.statusbar.command.bg = palette["green"]
-    c.colors.statusbar.command.fg = palette["foreground-attention"]
-    c.colors.statusbar.command.private.bg = palette["green"]
-    c.colors.statusbar.command.private.fg = palette["foreground-attention"]
+    c.colors.statusbar.command.bg = palette["background-alt"]
+    c.colors.statusbar.command.fg = palette["foreground"]
+    c.colors.statusbar.command.private.bg = palette["background-alt"]
+    c.colors.statusbar.command.private.fg = palette["foreground"]
     c.colors.statusbar.insert.bg = palette["red"]
     c.colors.statusbar.insert.fg = palette["foreground-attention"]
     c.colors.statusbar.normal.bg = palette["background-alt"]
@@ -114,11 +114,11 @@ def blood(c, options={}):
     c.colors.statusbar.private.fg = palette["background"]
     c.colors.statusbar.progress.bg = palette["background"]
     c.colors.statusbar.url.error.fg = palette["red"]
-    c.colors.statusbar.url.fg = palette["foreground-attention"]
-    c.colors.statusbar.url.hover.fg = palette["foreground-attention"]
-    c.colors.statusbar.url.success.http.fg = palette["foreground-attention"]
-    c.colors.statusbar.url.success.https.fg = palette["foreground-attention"]
-    c.colors.statusbar.url.warn.fg = palette["foreground-attention"]
+    c.colors.statusbar.url.fg = palette["foreground"]
+    c.colors.statusbar.url.hover.fg = palette["foreground"]
+    c.colors.statusbar.url.success.http.fg = palette["foreground"]
+    c.colors.statusbar.url.success.https.fg = palette["foreground"]
+    c.colors.statusbar.url.warn.fg = palette["foreground"]
     c.statusbar.padding = padding
 
     # Background color of the tab bar.

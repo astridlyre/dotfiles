@@ -6,8 +6,8 @@ set default-bg 			    "#0f191f"
 
 set completion-bg		    "#172730"
 set completion-fg		    "#c7d6d0"
-set completion-highlight-bg	"#575268"
-set completion-highlight-fg	"#c7d6d0"
+set completion-highlight-bg	"#90ff6b"
+set completion-highlight-fg	"#000000"
 set completion-group-bg		"#263945"
 set completion-group-fg		"#96cdfb"
 

@@ -41,9 +41,9 @@ format-offset       =
 ; ===========================
 background          = #0f191f
 foreground          = #c7d6d0
-red                 = #b279a7
-green               = #66a5ad
-yellow              = #90ff6b
+purple              = #b279a7
+blue                = #66a5ad
+green               = #90ff6b
 grey                = #263945
 ; ===========================
 
@@ -69,7 +69,7 @@ background          = ${colors.background}
 foreground          = ${colors.grey}
 
 line-size           = 0
-line-color          = ${colors.red}
+line-color          = ${colors.purple}
 
 wm-restack          = bspwm
 override-redirect   = true
@@ -83,7 +83,7 @@ border-size         = 0
 ;border-right-size  = 25
 ;border-top-size    = 0
 ;border-bottom-size = 25
-border-color        = ${colors.red}
+border-color        = ${colors.purple}
 
 padding-left        = 0
 padding-right       = 2
@@ -135,7 +135,7 @@ background          = ${colors.background}
 foreground          = ${colors.yellow}
 
 line-size           = 0
-line-color          = ${colors.red}
+line-color          = ${colors.purple}
 
 wm-restack          = bspwm
 override-redirect   = true
@@ -149,7 +149,7 @@ border-size         = 0
 ;border-right-size  = 25
 ;border-top-size    = 0
 ;border-bottom-size = 25
-border-color        = ${colors.red}
+border-color        = ${colors.purple}
 
 padding-left        = 0
 padding-right       = 2
@@ -207,14 +207,14 @@ format = <label-state>
 
 label-focused                = %icon%
 label-focused-background     = ${colors.background}
-label-focused-underline      = ${colors.red}
+label-focused-underline      = ${colors.green}
 label-focused-padding        = 2
-label-focused-foreground     = ${colors.red}
+label-focused-foreground     = ${colors.green}
 
 label-occupied               = %icon%
 label-occupied-padding       = 2
 label-occupied-background    = ${colors.background}
-label-occupied-foreground    = ${colors.green}
+label-occupied-foreground    = ${colors.blue}
 
 label-urgent                 = %icon%
 label-urgent-padding         = 2

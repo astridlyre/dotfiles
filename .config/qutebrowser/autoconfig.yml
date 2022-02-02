@@ -24,9 +24,9 @@ settings:
   colors.completion.item.selected.match.fg:
     global: '#c7d6d0'
   colors.statusbar.command.fg:
-    global: '#ffc552'
+    global: '#90ff6b'
   colors.statusbar.url.fg:
-    global: '#ffc552'
+    global: '#90ff6b'
   colors.statusbar.url.hover.fg:
     global: '#c7d6d0'
   colors.statusbar.url.success.http.fg:
@@ -56,8 +56,8 @@ settings:
     https://mail.protonmail.com#mailto=%25s: true
   editor.command:
     global:
-    - open_vim
-    - '{file}'
+      - open_vim
+      - '{file}'
   fonts.default_family:
     global: JetBrains Mono Nerd Font
   fonts.default_size:
