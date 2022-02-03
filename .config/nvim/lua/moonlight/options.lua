@@ -47,7 +47,7 @@ local function set_options()
 	o.completeopt = "menu,menuone,noinsert"
 	o.formatoptions = "1jql"
 	o.grepformat = "%f:%l:%c:%m"
-	o.grepprg = "rg\\ --hidden\\ --vimgrep\\ --smart-case\\ --"
+	o.grepprg = "rg --hidden --vimgrep --smart-case --"
 	o.history = 1000
 	o.ignorecase = true
 	o.inccommand = "nosplit"
