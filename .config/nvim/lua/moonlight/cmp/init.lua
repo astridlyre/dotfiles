@@ -55,7 +55,7 @@ return function()
 	})
 
 	local format = lspkind.cmp_format({
-		with_text = false,
+		mode = "symbol",
 		maxwidth = 50,
 		before = function(entry, vim_item)
 			vim_item.menu = source_mapping[entry.source.name]

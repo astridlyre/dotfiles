@@ -99,11 +99,13 @@ M.setup = function()
 	-- Go Language Server
 	local function gopls()
 		lspconfig.gopls.setup({
-			cmd = { "gopls", "--remote=auto" },
 			settings = {
-				gopls = { analyses = { unusedparams = true }, staticcheck = true },
+				gopls = {
+					analyses = { unusedparams = true, shadow = true },
+					staticcheck = true,
+					experimentalPostfixCompletions = true,
+				},
 			},
-			root_dir = lspconfig.util.root_pattern(".git", "go.mod", "."),
 			init_options = { usePlaceholders = true, completeUnimported = true },
 			on_attach = on_attach,
 			capabilities = capabilities,

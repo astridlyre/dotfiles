@@ -36,6 +36,14 @@ return packer.startup({
 		use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 		use({ "windwp/nvim-ts-autotag" })
 		use({ "andymass/vim-matchup" })
+		use({
+			"ThePrimeagen/refactoring.nvim",
+			config = require("moonlight.refactoring"),
+			requires = {
+				{ "nvim-lua/plenary.nvim" },
+				{ "nvim-treesitter/nvim-treesitter" },
+			},
+		})
 
 		-- Completion
 		use({
@@ -105,7 +113,6 @@ return packer.startup({
 		use({ "radenling/vim-dispatch-neovim", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
 		use({ "wlangstroth/vim-racket" })
 		use({ "Olical/aniseed", branch = "develop", ft = { "fennel" } })
-		use({ "mfussenegger/nvim-jdtls", ft = { "java" } })
 	end,
 	config = { compile_path = p.compile_path },
 })

@@ -159,6 +159,7 @@ local function set_keymaps()
 	vmap("<leader>ss", "!sort -d -b -f <cr>")
 	vmap("<leader>y", '"+y')
 	vmap("<c-c>", "<esc>")
+	vmap("<c-space>", "c-^>")
 
 	-- terminal mode
 	tmap("<c-q>", "<c-\\><c-n>")
