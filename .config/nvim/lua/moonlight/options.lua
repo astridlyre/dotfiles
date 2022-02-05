@@ -125,6 +125,7 @@ local function set_keymaps()
 	nmap("[<space>", "myO<esc>`y")
 	nmap("]<space>", "myo<esc>`y")
 	nmap("<localleader>cc", "<cmd>ClojureConnect<cr>")
+	nmap("<c-p>", "<c-^>")
 
 	-- telescope
 	nmap("s", "<cmd>Telescope find_files hidden=true follow=true<cr>")
@@ -159,7 +160,6 @@ local function set_keymaps()
 	vmap("<leader>ss", "!sort -d -b -f <cr>")
 	vmap("<leader>y", '"+y')
 	vmap("<c-c>", "<esc>")
-	vmap("<c-space>", "c-^>")
 
 	-- terminal mode
 	tmap("<c-q>", "<c-\\><c-n>")

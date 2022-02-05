@@ -158,7 +158,7 @@ module-margin-left  = 2
 module-margin-right = 2
 
 ;https://github.com/jaagr/polybar/wiki/Fonts
-font-0              = "JetBrainsMono Nerd Font:size=8"
+font-0              = "JetBrainsMono:size=8"
 font-1              = "Noto Color Emoji:size=10:scale=10;1"
 
 modules-left        = bspwm xwindow
