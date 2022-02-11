@@ -7,8 +7,16 @@ fi
 # ensure prompt has colors
 export color_prompt=yes
 
+# get git branch
+function get_git_branch() {
+	SHELL_GIT_BRANCH="$(git branch --show-current 2>/dev/null)"
+	if [[ "${SHELL_GIT_BRANCH}" != "" ]]; then
+		SHELL_GIT_BRANCH=" ${SHELL_GIT_BRANCH}"
+	fi
+}
+
 # Get color sequence for exit code
-get_exit_color() {
+function get_exit_color() {
 	if (($? > 0)); then
 		EXIT_COLOR=31
 	else
@@ -17,7 +25,7 @@ get_exit_color() {
 }
 
 # Format man page width
-check_man_width() {
+function check_man_width() {
 	if ((COLUMNS > 110)); then
 		MANWIDTH=110
 	else
@@ -32,13 +40,13 @@ if [[ "${SESSION_TYPE}" =~ remote/ssh ]]; then
 	PS4="> "
 else
 	# Prompt
-	PS1='\n\[\e[0;36m\]\w\n\[\e[1;${EXIT_COLOR}m\]$ \[\e[0m\]'
+	PS1='\n\[\e[0;36m\]\w \[\e[0;35m\]${SHELL_GIT_BRANCH}\n\[\e[1;${EXIT_COLOR}m\]$ \[\e[0m\]'
 	PS2="+ "
 	PS4="> "
 fi
 
 # Prompt Command
 declare -a PROMPT_COMMAND
-PROMPT_COMMAND=(check_man_width get_exit_color)
+PROMPT_COMMAND=(check_man_width get_exit_color get_git_branch)
 export PROMPT_COMMAND
 export MANWIDTH
