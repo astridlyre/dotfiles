@@ -6,5 +6,11 @@ return function()
 			selection_caret = "→ ",
 			path_display = { "smart" },
 		},
+		pickers = {
+			find_files = {
+				find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
+			},
+		},
 	})
+	telescope.load_extension("fzf")
 end

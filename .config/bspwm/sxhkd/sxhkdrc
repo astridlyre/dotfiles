@@ -12,11 +12,7 @@ super + w
 
 # qutebrowser
 super + b
-    firejail --whitelist=~/projects/dotfiles/* \
-                --whitelist=~/.config/rofi/* \
-                --whitelist=~/.fnm/aliases/default/* \
-                --whitelist=~/.config/Bitwarden\ CLI/* \
-				qutebrowser
+	qutebrowser
 
 # Pavucontrol
 super + v
@@ -38,12 +34,15 @@ super + m
   emacs
 
 # nnn File Manager
-super + e
+super + f
     kitty --title 'hax browser' --class nnn --name nnn -e nnn -c
+
+super + e
+	element-desktop
 
 # Zathura
 super + z
-    firejail zathura
+    zathura
 
 # Xkill
 super + shift + BackSpace
@@ -83,13 +82,11 @@ super + shift + g
 
 # OBS
 super + shift + o
-  firejail obs
+  obs
 
 # Brave
 super + shift + b
-  firejail --whitelist=~/.themes/* \
-        --whitelist=~/.config/brave-home/* \
-        --whitelist=~/.icons/* brave --use-gl=desktop
+        brave --use-gl=desktop
 
 #################################################################
 #     SCREENSHOTS
