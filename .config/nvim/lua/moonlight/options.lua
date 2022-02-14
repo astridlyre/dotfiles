@@ -129,7 +129,6 @@ local function set_keymaps()
 
 	-- telescope
 	nmap("s", "<cmd>Telescope find_files hidden=true follow=true<cr>")
-	lmap("f-", "<cmd>Telescope file_browser<cr>")
 	lmap("lg", "<cmd>Telescope live_grep<cr>")
 	lmap("fb", "<cmd>Telescope buffers<cr>")
 	lmap("fh", "<cmd>Telescope oldfiles<cr>")
@@ -139,6 +138,8 @@ local function set_keymaps()
 	lmap("fd", "<cmd>Telescope lsp_definitions<cr>")
 	lmap("fi", "<cmd>Telescope lsp_implementations<cr>")
 	lmap("f;", "<cmd>Telescope lsp_range_code_actions<cr>")
+	lmap("fs", "<cmd>Telescope grep_string<cr>")
+	lmap("fn", "<cmd>Telescope search_history<cr>")
 	lmap("d", "<cmd>lua MiniBufremove.delete()<cr>")
 
 	-- fugitive

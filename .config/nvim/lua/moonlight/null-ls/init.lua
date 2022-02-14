@@ -27,7 +27,6 @@ return function()
 			diagnostics.staticcheck,
 			diagnostics.eslint_d.with({
 				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-				extra_args = { "--config", vim.fn.expand("~/.eslintrc.json") },
 			}),
 			diagnostics.proselint.with({ filetypes = { "markdown", "tex", "text" } }),
 			diagnostics.write_good.with({ filetypes = { "markdown", "tex", "text" } }),

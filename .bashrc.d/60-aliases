@@ -30,6 +30,7 @@ alias se='sudoedit'
 alias stanoff="xset -dpms"
 alias stanon="xset +dpms"
 alias sus="xset dpms force suspend"
+alias adopt="bspc wm -o"
 
 # Include hidden files by default
 alias fd="fd -H"

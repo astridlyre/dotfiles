@@ -10,18 +10,27 @@ run() {
 # Monitor Config
 LAPTOP="eDP-1-1"
 LAPTOP_SIZE=1920x1080
+EXTERNAL2="HDMI-0"
+EXTERNAL_SIZE2=3840x2160
 EXTERNAL="DP-0"
 EXTERNAL_SIZE=1920x1080
 
 # Run a different xrandr depending on connected monitors
 export MONITORS
-if xrandr | grep "$EXTERNAL connected"; then
+if xrandr | grep "$EXTERNAL connected"; then # 1920 portable monitor
 	MONITORS="$LAPTOP $EXTERNAL"
 	# If I haz two monitors
 	xrandr --output $EXTERNAL --mode $EXTERNAL_SIZE --pos 1920x0 --rotate normal \
 		--output $LAPTOP --primary --mode $LAPTOP_SIZE --pos 0x0 --rotate normal
 	bspc monitor $LAPTOP -d 1 2 3 4 5
 	bspc monitor $EXTERNAL -d 6
+elif xrandr | grep "${EXTERNAL2} connected"; then # HDMI 4k monitor
+	MONITORS="$LAPTOP $EXTERNAL2"
+	# If I haz two monitors
+	xrandr --output $EXTERNAL2 --primary --mode $EXTERNAL_SIZE2 --pos 0x0 --rotate normal \
+		--output $LAPTOP --mode $LAPTOP_SIZE --pos 3840x1080 --rotate normal
+	bspc monitor $EXTERNAL2 -d 1 2 3 4 5
+	bspc monitor $LAPTOP -d 6
 else
 	# If I haz still two monitors but should have one
 	OTHER_MONS="$(bspc query -M --names | grep -v $LAPTOP)"
