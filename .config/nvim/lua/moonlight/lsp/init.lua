@@ -6,6 +6,7 @@ local imap = utils.imap
 
 -- Servers to disable formatting by default (so they don't conflict with null-ls)
 local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls", "racket_langserver", "sqls" }
+local enable_formatting_on_save = true
 
 local lsp_maps = function()
 	nmap("gD", vim.lsp.buf.declaration)
@@ -19,6 +20,7 @@ local lsp_maps = function()
 	nmap("<space>rn", vim.lsp.buf.rename)
 	nmap("<space>ca", vim.lsp.buf.code_action)
 	nmap("<space>qf", vim.diagnostic.setqflist)
+	nmap("<space>lf", vim.lsp.buf.formatting_sync)
 	nmap("<c-s>", vim.lsp.buf.signature_help)
 	imap("<c-s>", vim.lsp.buf.signature_help)
 
@@ -50,8 +52,7 @@ local on_attach = function(client)
 			client.resolved_capabilities.document_formatting = false
 		end
 	end
-
-	if client.resolved_capabilities.document_formatting then
+	if client.resolved_capabilities.document_formatting and enable_formatting_on_save then
 		vim.cmd([[
             augroup LspFormatting
                 autocmd! * <buffer>
