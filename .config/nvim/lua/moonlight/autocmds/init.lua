@@ -4,6 +4,7 @@ function M.setup()
 	vim.cmd([[
 iabbr improt import
 iabbr funciton function
+iabbr exprot export
 	]])
 	vim.cmd([[
 augroup KittyConfig

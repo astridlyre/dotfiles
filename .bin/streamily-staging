@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-ssh ubuntu@streamily-staging "cd streamily-staging-1 ; sudo su ; bash"
+ssh ubuntu@streamily-staging

@@ -21,6 +21,7 @@ local lsp_maps = function()
 	nmap("<space>ca", vim.lsp.buf.code_action)
 	nmap("<space>qf", vim.diagnostic.setqflist)
 	nmap("<space>lf", vim.lsp.buf.formatting_sync)
+	nmap("<space>ff", vim.lsp.buf.formatting_sync)
 	nmap("<c-s>", vim.lsp.buf.signature_help)
 	imap("<c-s>", vim.lsp.buf.signature_help)
 
@@ -56,7 +57,7 @@ local on_attach = function(client)
 		vim.cmd([[
             augroup LspFormatting
                 autocmd! * <buffer>
-                autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+                autocmd BufWritePre <buffer> lua require('moonlight.autoformat').format()
             augroup END
             ]])
 	end

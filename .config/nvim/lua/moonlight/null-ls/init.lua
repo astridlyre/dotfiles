@@ -3,7 +3,6 @@ return function()
 	local lsp = require("moonlight.lsp")
 	local capabilities = lsp.make_capabilities()
 	local flags = lsp.flags
-	local enable_formatting_on_save = true
 
 	-- Null LS
 	local null_ls = require("null-ls")
@@ -43,15 +42,13 @@ return function()
 		capabilities = capabilities,
 		flags = flags,
 		on_attach = function(client)
-			if enable_formatting_on_save then
-				if client.resolved_capabilities.document_formatting then
-					vim.cmd([[
+			if client.resolved_capabilities.document_formatting then
+				vim.cmd([[
             augroup LspFormatting
                 autocmd! * <buffer>
-				autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+				autocmd BufWritePre <buffer> lua require('moonlight.autoformat').format()
             augroup END
             ]])
-				end
 			end
 		end,
 	})

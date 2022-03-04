@@ -104,6 +104,7 @@ local function set_keymaps()
 	lmap("3", "<cmd>ToggleTerm3<cr>")
 	lmap("4", "<cmd>ToggleTerm4<cr>")
 	lmap("y", '"+y')
+	lmap("ft", require('moonlight.autoformat').toggle_formatting)
 
 	-- normal mode
 	nmap("^", "0")
