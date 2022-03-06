@@ -5,7 +5,7 @@ local nmap = utils.nmap
 local imap = utils.imap
 
 -- Servers to disable formatting by default (so they don't conflict with null-ls)
-local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls", "racket_langserver", "sqls" }
+local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls", "racket_langserver", "sqls", "eslint" }
 local enable_formatting_on_save = true
 
 local lsp_maps = function()
@@ -191,6 +191,9 @@ M.setup = function()
 				importModuleSpecifierEnding = "auto",
 				importModuleSpecifierPreference = "project-relative",
 				includePackageJsonAutoImports = "auto",
+				includeCompletionsForModuleExports = false,
+				includeCompletionsForImportStatements = false,
+				maxTsServerMemory = 12288,
 			},
 		})
 	end
@@ -249,7 +252,7 @@ M.setup = function()
 		"cssmodules_ls",
 		"emmet_ls",
 		"solang",
-		-- "tailwindcss", SO SLOW
+		"eslint",
 	}
 
 	for _, ls in ipairs(default_servers) do

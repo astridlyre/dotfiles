@@ -25,9 +25,9 @@ return function()
 			formatting.stylua,
 			diagnostics.shellcheck,
 			diagnostics.staticcheck,
-			diagnostics.eslint_d.with({
+			--[[ diagnostics.eslint_d.with({
 				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-			}),
+			}), ]]
 			diagnostics.proselint.with({ filetypes = { "markdown", "tex", "text" } }),
 			diagnostics.write_good.with({ filetypes = { "markdown", "tex", "text" } }),
 			diagnostics.misspell.with({
@@ -36,7 +36,7 @@ return function()
 			diagnostics.flake8,
 			diagnostics.vint,
 			diagnostics.yamllint,
-			code_actions.eslint_d,
+			-- code_actions.eslint_d,
 			code_actions.proselint,
 		},
 		capabilities = capabilities,
