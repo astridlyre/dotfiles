@@ -2,12 +2,11 @@ return function()
 	local cmp = require("cmp")
 	local lspkind = require("lspkind")
 	local luasnip = require("luasnip")
-	local snippet_loader = require("luasnip.loaders.from_vscode")
 	local utils = require("moonlight.utils")
 	local imap = utils.imap
 
 	-- load snippets
-	snippet_loader.load()
+	require("luasnip.loaders.from_vscode").lazy_load()
 
 	-- snippet jumping
 	local t = function(str)
@@ -46,8 +45,8 @@ return function()
 	}
 
 	local sources = cmp.config.sources({
-		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
+		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
 		{ name = "conjure" },
 		{ name = "path" },

@@ -1,5 +1,7 @@
 return function()
 	require("mini.bufremove").setup({})
-	require("mini.statusline").setup({})
+	require("mini.statusline").setup({
+		set_vim_settings = false,
+	})
 	require("mini.tabline").setup({})
 end

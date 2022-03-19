@@ -76,16 +76,23 @@ function M.setup()
 	lmap("r", run_task(1, "run"))
 	lmap("t", run_task(2, "test"))
 
-	local showing_qf = false
+	-- toggle quickfix
+	vim.g.qfix_win = nil
 	local function toggle_qf_list()
-		if showing_qf then
-			showing_qf = false
+		if vim.g.qfix_win ~= nil then
 			vim.cmd("cclose")
+			vim.g.qfix_win = nil
 		else
-			showing_qf = true
 			vim.cmd("copen")
 		end
 	end
+
+	vim.cmd([[
+augroup QFixToggle
+	autocmd!
+	autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
+augroup END
+	]])
 
 	nmap("<c-q>", toggle_qf_list)
 end

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+SERVER=$1
+
+ssh ubuntu@streamily-prod-"${SERVER}"

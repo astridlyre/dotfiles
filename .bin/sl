@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+kitty --directory ~/projects/streamily &
+kitty --directory ~/projects/streamily-pulls docker-compose up &

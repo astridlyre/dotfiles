@@ -42,6 +42,7 @@ end
 local function set_options()
 	local o = vim.o
 
+	o.laststatus = 3
 	o.backup = false
 	o.breakindent = true
 	o.completeopt = "menu,menuone,noinsert"
@@ -104,7 +105,12 @@ local function set_keymaps()
 	lmap("3", "<cmd>ToggleTerm3<cr>")
 	lmap("4", "<cmd>ToggleTerm4<cr>")
 	lmap("y", '"+y')
-	lmap("ft", require('moonlight.autoformat').toggle_formatting)
+	lmap("ft", require("moonlight.autoformat").toggle_formatting)
+
+	lmap("se", "<cmd>SqlsExecuteQuery<cr>")
+	lmap("sc", "<cmd>SqlsSwitchConnection<cr>")
+	lmap("sd", "<cmd>SqlsSwitchDatabase<cr>")
+	lmap("sv", "<cmd>SqlsExecuteQueryVertical<cr>")
 
 	-- normal mode
 	nmap("^", "0")
@@ -121,26 +127,26 @@ local function set_keymaps()
 	nmap("\\", "<cmd>noh<cr><esc>")
 	nmap("[b", "<cmd>bprev<cr>")
 	nmap("]b", "<cmd>bnext<cr>")
-	nmap("[q", "<cmd>cprev<cr>")
-	nmap("]q", "<cmd>cnext<cr>")
+	nmap("[q", "<cmd>cprev<cr>zz")
+	nmap("]q", "<cmd>cnext<cr>zz")
 	nmap("[<space>", "myO<esc>`y")
 	nmap("]<space>", "myo<esc>`y")
 	nmap("<localleader>cc", "<cmd>ClojureConnect<cr>")
 	nmap("<c-p>", "<c-^>")
 
 	-- telescope
-	nmap("s", "<cmd>Telescope find_files hidden=true follow=true<cr>")
-	lmap("lg", "<cmd>Telescope live_grep<cr>")
-	lmap("fb", "<cmd>Telescope buffers<cr>")
-	lmap("fh", "<cmd>Telescope oldfiles<cr>")
-	lmap("fq", "<cmd>Telescope quickfix<cr>")
-	lmap("fr", "<cmd>Telescope lsp_references<cr>")
-	lmap("fa", "<cmd>Telescope lsp_code_actions<cr>")
-	lmap("fd", "<cmd>Telescope lsp_definitions<cr>")
-	lmap("fi", "<cmd>Telescope lsp_implementations<cr>")
-	lmap("f;", "<cmd>Telescope lsp_range_code_actions<cr>")
-	lmap("fs", "<cmd>Telescope grep_string<cr>")
-	lmap("fn", "<cmd>Telescope search_history<cr>")
+	nmap("s", "<cmd>Telescope find_files hidden=true follow=true theme=dropdown<cr>")
+	lmap("lg", "<cmd>Telescope live_grep theme=ivy<cr>")
+	lmap("fb", "<cmd>Telescope buffers theme=dropdown<cr>")
+	lmap("fh", "<cmd>Telescope oldfiles theme=dropdown<cr>")
+	lmap("fq", "<cmd>Telescope quickfix theme=dropdown<cr>")
+	lmap("fr", "<cmd>Telescope lsp_references theme=dropdown<cr>")
+	lmap("ca", "<cmd>Telescope lsp_code_actions theme=cursor<cr>")
+	lmap("fd", "<cmd>Telescope lsp_definitions theme=dropdown<cr>")
+	lmap("fi", "<cmd>Telescope lsp_implementations theme=dropdown<cr>")
+	lmap("f;", "<cmd>Telescope lsp_range_code_actions theme=cursor<cr>")
+	lmap("fs", "<cmd>Telescope grep_string theme=ivy<cr>")
+	lmap("fn", "<cmd>Telescope search_history theme=ivy<cr>")
 	lmap("d", "<cmd>lua MiniBufremove.delete()<cr>")
 
 	-- fugitive

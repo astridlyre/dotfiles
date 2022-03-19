@@ -36,14 +36,6 @@ return packer.startup({
 		use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 		use({ "windwp/nvim-ts-autotag" })
 		use({ "andymass/vim-matchup" })
-		use({
-			"ThePrimeagen/refactoring.nvim",
-			config = require("moonlight.refactoring"),
-			requires = {
-				{ "nvim-lua/plenary.nvim" },
-				{ "nvim-treesitter/nvim-treesitter" },
-			},
-		})
 
 		-- Completion
 		use({
@@ -56,7 +48,7 @@ return packer.startup({
 				"hrsh7th/cmp-buffer",
 				"L3MON4D3/LuaSnip",
 				"saadparwaiz1/cmp_luasnip",
-				"rafamadriz/friendly-snippets",
+				"astridlyre/friendly-snippets",
 				"onsails/lspkind-nvim",
 				"tami5/compe-conjure",
 			},
@@ -76,6 +68,15 @@ return packer.startup({
 			after = "nvim-lspconfig",
 		})
 		use({ "windwp/nvim-autopairs", event = "InsertEnter", config = require("moonlight.autopairs") })
+		use({ "nanotee/sqls.nvim" })
+		use({
+			"ThePrimeagen/refactoring.nvim",
+			requires = {
+				{ "nvim-lua/plenary.nvim" },
+				{ "nvim-treesitter/nvim-treesitter" },
+			},
+			config = require("moonlight.refactoring"),
+		})
 
 		-- Version Control
 		use({

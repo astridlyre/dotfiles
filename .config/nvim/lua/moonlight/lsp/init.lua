@@ -5,7 +5,7 @@ local nmap = utils.nmap
 local imap = utils.imap
 
 -- Servers to disable formatting by default (so they don't conflict with null-ls)
-local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls", "racket_langserver", "sqls", "eslint" }
+local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls", "racket_langserver", "eslint", "sqls" }
 local enable_formatting_on_save = true
 
 local lsp_maps = function()
@@ -18,7 +18,6 @@ local lsp_maps = function()
 	nmap("<space>wr", vim.lsp.buf.remove_workspace_folder)
 	nmap("<space>ld", vim.lsp.buf.type_definition)
 	nmap("<space>rn", vim.lsp.buf.rename)
-	nmap("<space>ca", vim.lsp.buf.code_action)
 	nmap("<space>qf", vim.diagnostic.setqflist)
 	nmap("<space>lf", vim.lsp.buf.formatting_sync)
 	nmap("<space>ff", vim.lsp.buf.formatting_sync)
@@ -47,7 +46,7 @@ local lsp_maps = function()
 end
 
 -- Generic On-Attach Function
-local on_attach = function(client)
+local on_attach = function(client, bufnr)
 	for _, ls in ipairs(disable_formatting) do
 		if client.name == ls then
 			client.resolved_capabilities.document_formatting = false
@@ -75,7 +74,7 @@ local function make_capabilities()
 end
 
 local capabilities = make_capabilities()
-local flags = { debounce_text_changes = 150, allow_incremental_sync = true }
+local flags = { debounce_text_changes = 250, allow_incremental_sync = true }
 
 -- Lsp Configs
 M.setup = function()
@@ -195,13 +194,20 @@ M.setup = function()
 				includeCompletionsForImportStatements = false,
 				maxTsServerMemory = 12288,
 			},
+			settings = {
+				diagnosticsDelay = "200ms",
+				experimentalWatchedFileDelay = "1000ms",
+			},
 		})
 	end
 
 	local function sqls()
 		lspconfig.sqls.setup({
 			flags = flags,
-			on_attach = on_attach,
+			on_attach = function(client, bufnr)
+				require("sqls").on_attach(client, bufnr)
+				return on_attach(client, bufnr)
+			end,
 			capabilities = capabilities,
 		})
 	end
