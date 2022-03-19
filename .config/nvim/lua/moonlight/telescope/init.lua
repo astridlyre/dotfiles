@@ -2,7 +2,7 @@ return function()
 	local telescope = require("telescope")
 	telescope.setup({
 		defaults = {
-			prompt_prefix = " ",
+			prompt_prefix = "❯ ",
 			selection_caret = "→ ",
 			path_display = { "smart" },
 			preview = {
@@ -15,7 +15,35 @@ return function()
 		},
 		pickers = {
 			find_files = {
-				find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
+				find_command = {
+					"rg",
+					"--files",
+					"--hidden",
+					"--glob",
+					"!**/node_modules/**",
+					"--glob",
+					"!**/build/**",
+					"--glob",
+					"!**/.git/**",
+					"--glob",
+					"!**/.npm-packages/**",
+					"--glob",
+					"!**/.cache/**",
+					"--glob",
+					"!**/.mypy_cache/**",
+					"--glob",
+					"!**/.icons/**",
+					"--glob",
+					"!**/.themes/**",
+					"--glob",
+					"!**/dist/**",
+					"--glob",
+					"!**/.parcel-cache/**",
+					"--glob",
+					"!*.min.js",
+					"--max-filesize",
+					"1M",
+				},
 			},
 		},
 	})
