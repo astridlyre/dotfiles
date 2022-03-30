@@ -14,11 +14,11 @@ function M.toggle_formatting()
 	M.autoformat_enabled = not M.autoformat_enabled
 	local status
 	if M.autoformat_enabled then
-		status = 'enabled'
+		status = "enabled"
 	else
-		status = 'disabled'
+		status = "disabled"
 	end
-	print('Autoformatting ' .. status)
+	print("Autoformatting " .. status)
 end
 
 return M

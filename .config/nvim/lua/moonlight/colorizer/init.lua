@@ -14,5 +14,7 @@ return function()
 		"bash",
 		"scss",
 		"kitty",
+		"javascriptreact",
+		"typescriptreact",
 	})
 end

@@ -59,9 +59,9 @@ settings:
       - open_vim
       - '{file}'
   fonts.default_family:
-    global: JetBrains Mono Nerd Font
+    global: Iosevka Term
   fonts.default_size:
-    global: 9pt
+    global: 10pt
   hints.radius:
     global: 0
   keyhint.radius:

@@ -1,4 +1,4 @@
-set font "JetBrains Mono Nerd Font normal 9"
+set font "Iosevka Term normal 10"
 set highlight-transparency 1.0
 
 set default-fg 			    "#c7d6d0"

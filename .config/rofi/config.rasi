@@ -3,7 +3,7 @@ configuration {
 /*	width: 40; */
 /*  lines: 12; */
 /*  columns: 1; */
-	font: "JetBrains Mono Nerd Font 8";
+	font: "Iosevka Term 9";
 /*	bw: 1;*/
 /*	location: 0;*/
 	padding: 0;

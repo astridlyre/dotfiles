@@ -69,7 +69,7 @@ local function set_options()
 	o.showbreak = "↳ "
 	o.showmode = false
 	o.sidescroll = 5
-	o.signcolumn = "yes"
+	o.signcolumn = "yes:1"
 	o.smartcase = true
 	o.softtabstop = 4
 	o.spelllang = "en_gb"

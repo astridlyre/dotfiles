@@ -33,6 +33,7 @@ return function()
 		luasnip.lsp_expand(args.body)
 	end
 
+	imap("<C-e>", "<C-k>")
 	imap("<C-j>", snippet_next)
 	imap("<C-k>", snippet_prev)
 
