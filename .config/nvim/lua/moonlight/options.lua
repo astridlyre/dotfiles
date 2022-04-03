@@ -119,7 +119,8 @@ local function set_keymaps()
 	nmap("s", "<nop>")
 	nmap("'", "`")
 	nmap("`", "'")
-	nmap("<c-n>", "<cmd>NvimTreeToggle<cr>")
+	nmap("<c-n>", "<cmd>Neotree reveal toggle<cr>")
+	nmap("gs", "<cmd>Neotree git_status<cr>")
 	nmap("k", '(v:count > 5 ? "m\'" . v:count : "") . "gk"', { expr = true })
 	nmap("j", '(v:count > 5 ? "m\'" . v:count : "") . "gj"', { expr = true })
 	nmap("<m-j>", "mz:m+<cr>`z")
@@ -148,11 +149,6 @@ local function set_keymaps()
 	lmap("fs", "<cmd>Telescope grep_string theme=ivy<cr>")
 	lmap("fn", "<cmd>Telescope search_history theme=ivy<cr>")
 	lmap("d", "<cmd>lua MiniBufremove.delete()<cr>")
-
-	-- fugitive
-	lmap("gb", "<cmd>Git blame<cr>")
-	lmap("gs", "<cmd>Git<cr>")
-	lmap("gd", "<cmd>Gdiffsplit<cr>")
 
 	-- insert mode
 	imap("<c-c>", "<esc>")
