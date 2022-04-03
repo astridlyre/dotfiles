@@ -138,7 +138,7 @@ local function set_keymaps()
 	-- telescope
 	nmap("s", "<cmd>Telescope find_files hidden=true follow=true theme=dropdown<cr>")
 	lmap("lg", "<cmd>Telescope live_grep theme=ivy<cr>")
-	lmap("fb", "<cmd>Telescope buffers theme=dropdown<cr>")
+	lmap("ff", "<cmd>Telescope buffers theme=dropdown<cr>")
 	lmap("fh", "<cmd>Telescope oldfiles theme=dropdown<cr>")
 	lmap("fq", "<cmd>Telescope quickfix theme=dropdown<cr>")
 	lmap("fr", "<cmd>Telescope lsp_references theme=dropdown<cr>")

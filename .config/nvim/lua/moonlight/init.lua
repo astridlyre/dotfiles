@@ -15,11 +15,6 @@ return packer.startup({
 		use({ "norcalli/nvim-colorizer.lua", config = require("moonlight.colorizer"), event = "BufRead" })
 		use({ "echasnovski/mini.nvim", config = require("moonlight.mini"), event = "BufWinEnter" })
 		use({
-			"lukas-reineke/indent-blankline.nvim",
-			config = require("moonlight.indent-blankline"),
-			event = "BufRead",
-		})
-		use({
 			"mcchrish/zenbones.nvim",
 			requires = "rktjmp/lush.nvim",
 			config = function()
