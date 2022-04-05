@@ -41,8 +41,18 @@ settings:
     global: dark
   content.blocking.method:
     global: both
+  content.canvas_reading:
+    global: false
   content.desktop_capture:
     https://app.kosmi.io: true
+  content.headers.accept_language:
+    global: en-US,en;q=0.9
+  content.headers.custom:
+    global:
+      accept: text/html,application/xhtml+xml,application/xml,application/json;q=0.9,*/*;q=0.8
+  content.headers.user_agent:
+    global: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)
+      Chrome/97.0.4692.99 Safari/537.36
   content.media.audio_capture:
     https://app.kosmi.io: true
   content.notifications.enabled:
@@ -56,8 +66,8 @@ settings:
     https://mail.protonmail.com#mailto=%25s: true
   editor.command:
     global:
-      - open_vim
-      - '{file}'
+    - open_vim
+    - '{file}'
   fonts.default_family:
     global: Iosevka Term
   fonts.default_size:
@@ -68,6 +78,9 @@ settings:
     global: 0
   prompt.radius:
     global: 0
+  spellcheck.languages:
+    global:
+    - en-CA
   url.default_page:
     global: file:///home/ml/projects/dotfiles/.config/brave-home/index.html
   url.searchengines:

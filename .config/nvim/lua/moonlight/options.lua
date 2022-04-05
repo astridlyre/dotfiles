@@ -61,7 +61,6 @@ local function set_options()
 	o.number = true
 	o.pumheight = 16
 	o.redrawtime = 8000
-	o.relativenumber = true
 	o.scrolloff = 3
 	o.shiftround = true
 	o.shiftwidth = 4
@@ -116,7 +115,6 @@ local function set_keymaps()
 	nmap("^", "0")
 	nmap("0", "^")
 	nmap("<c-c>", "<esc>")
-	nmap("s", "<nop>")
 	nmap("'", "`")
 	nmap("`", "'")
 	nmap("<c-n>", "<cmd>Neotree reveal toggle<cr>")
@@ -136,9 +134,9 @@ local function set_keymaps()
 	nmap("<c-p>", "<c-^>")
 
 	-- telescope
-	nmap("s", "<cmd>Telescope find_files hidden=true follow=true theme=dropdown<cr>")
+	nmap("fa", "<cmd>Telescope find_files hidden=true follow=true theme=dropdown<cr>")
 	lmap("lg", "<cmd>Telescope live_grep theme=ivy<cr>")
-	lmap("ff", "<cmd>Telescope buffers theme=dropdown<cr>")
+	lmap("fb", "<cmd>Telescope buffers theme=dropdown<cr>")
 	lmap("fh", "<cmd>Telescope oldfiles theme=dropdown<cr>")
 	lmap("fq", "<cmd>Telescope quickfix theme=dropdown<cr>")
 	lmap("fr", "<cmd>Telescope lsp_references theme=dropdown<cr>")

@@ -103,6 +103,7 @@ return packer.startup({
 			config = require("moonlight.nvim-tree"),
 			cmd = "Neotree",
 		})
+		use({ "ggandor/leap.nvim", config = require("moonlight.leap") })
 
 		-- Misc
 		use({ "b3nj5m1n/kommentary", event = "BufEnter" })

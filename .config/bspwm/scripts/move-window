@@ -3,7 +3,7 @@
 # Move floating windows around
 
 # Defaults
-jump=40
+jump=80
 
 # Get current setup information
 getInfo() {

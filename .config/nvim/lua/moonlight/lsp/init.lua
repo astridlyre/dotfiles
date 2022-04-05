@@ -20,7 +20,6 @@ local lsp_maps = function()
 	nmap("<space>rn", vim.lsp.buf.rename)
 	nmap("<space>qf", vim.diagnostic.setqflist)
 	nmap("<space>lf", vim.lsp.buf.formatting_sync)
-	nmap("<space>ff", vim.lsp.buf.formatting_sync)
 	nmap("<c-s>", vim.lsp.buf.signature_help)
 	imap("<c-s>", vim.lsp.buf.signature_help)
 

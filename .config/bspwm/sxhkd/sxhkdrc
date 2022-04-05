@@ -12,7 +12,7 @@ super + w
 
 # qutebrowser
 super + b
-	qutebrowser
+	firefox-developer-edition
 
 # Pavucontrol
 super + v
@@ -246,7 +246,15 @@ super + shift + f
 
 # Resizing windows
 super + ctrl + {h,j,k,l}
-  ~/.config/bspwm/scripts/node_resize {west,south,north,east} 40
+  ~/.config/bspwm/scripts/node_resize {west,south,north,east} 80
+
+# Expand floating windows
+alt + shift + {Up,Right}
+  ~/.config/bspwm/scripts/float_resize expand {north, east} 80
+
+# Contact floating windows
+alt + shift + {Down,Left}
+  ~/.config/bspwm/scripts/float_resize contract {west, south} 80
 
 # Spiral mode
 super + ctrl + t
