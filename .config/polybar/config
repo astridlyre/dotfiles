@@ -292,7 +292,7 @@ animation-charging-framerate  = 750
 ################################################################################
 [module/docker]
 type = custom/script
-exec = docker ps -q | wc -l
+exec = docker ps -aq | wc -l
 interval = 2
 format-prefix            = "  "
 format-prefix-foreground = ${colors.green}

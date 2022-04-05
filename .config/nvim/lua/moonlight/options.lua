@@ -59,6 +59,7 @@ local function set_options()
 	o.maxmempattern = 100000
 	o.mouse = "a"
 	o.number = true
+	o.relativenumber = true
 	o.pumheight = 16
 	o.redrawtime = 8000
 	o.scrolloff = 3

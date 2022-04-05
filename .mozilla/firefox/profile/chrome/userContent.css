@@ -1,0 +1,48 @@
+/* 
+┌─┐┬┌┬┐┌─┐┬  ┌─┐
+└─┐││││├─┘│  ├┤ 
+└─┘┴┴ ┴┴  ┴─┘└─┘
+┌─┐┌─┐─┐ ┬      
+├┤ │ │┌┴┬┘      
+└  └─┘┴ └─
+by Miguel Avila
+*/
+
+:root {
+  scrollbar-width: thin !important;
+  scrollbar-color: #0f191f #3a3e3d;
+}
+
+@-moz-document url(about:privatebrowsing) {
+  :root {
+    scrollbar-width: none !important;
+  }
+}
+
+@-moz-document url-prefix(about:blank), url-prefix(about:newtab), url-prefix(about:config), url-prefix(about:preferences) {
+  html:not(#ublock0-epicker),
+  html:not(#ublock0-epicker) body,
+  #newtab-customize-overlay {
+    background: #0c1419 !important;
+    color: #c6d5cf !important;
+  }
+}
+
+@-moz-document url(about:newtab), url(about:home), url(about:config), url(about:preferences) {
+  body {
+    background-color: #0c1419 !important;
+    color: #c6d5cf !important;
+  }
+}
+
+body.dark.serif,
+body.dark.sans-serif {
+  font-family: Iosevka !important;
+  background-color: #0c1419 !important;
+  color: #c6d5cf !important;
+}
+
+html.browser_firefox app-root,
+html#uBO-popup-panel {
+  font-family: Iosevka !important;
+}
