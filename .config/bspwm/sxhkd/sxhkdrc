@@ -86,7 +86,10 @@ super + shift + o
 
 # Brave
 super + shift + b
-        brave --use-gl=desktop
+        brave --use-gl=desktop \
+			--enable-features=VaapiVideoDecoder \
+			--disable-gpu-driver-bug-workarounds \
+			--enable-features=VaapiVideoEncoder,VaapiVideoDecoder,CanvasOopRasterization
 
 #################################################################
 #     SCREENSHOTS

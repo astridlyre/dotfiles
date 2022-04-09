@@ -1,10 +1,19 @@
 return function()
 	-- Unless you are still migrating, remove the deprecated commands from v1.x
 	vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+	vim.cmd([[
+highlight! link NeoTreeDirectoryIcon NvimTreeFolderIcon
+highlight! link NeoTreeDirectoryName NvimTreeFolderName
+highlight! link NeoTreeSymbolicLinkTarget NvimTreeSymlink
+highlight! link NeoTreeRootName NvimTreeRootFolder
+highlight! link NeoTreeDirectoryName NvimTreeOpenedFolderName
+highlight! link NeoTreeFileNameOpened NvimTreeOpenedFile
+]])
 
 	require("neo-tree").setup({
 		close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
 		popup_border_style = "rounded",
+		resize_timer_interval = -1,
 		enable_git_status = true,
 		enable_diagnostics = true,
 		default_component_configs = {
@@ -29,7 +38,7 @@ return function()
 				default = "*",
 			},
 			modified = {
-				symbol = "[+]",
+				symbol = "⏺",
 				highlight = "NeoTreeModified",
 			},
 			name = {
@@ -67,9 +76,6 @@ return function()
 				["."] = "set_root",
 				["H"] = "toggle_hidden",
 				["R"] = "refresh",
-				["/"] = "fuzzy_finder",
-				["f"] = "filter_on_submit",
-				["<c-x>"] = "clear_filter",
 				["a"] = "add",
 				["A"] = "add_directory",
 				["d"] = "delete",
@@ -97,14 +103,6 @@ return function()
 			follow_current_file = true, -- This will find and focus the file in the active buffer every
 			hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
 			use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
-		},
-		buffers = {
-			show_unloaded = true,
-			window = {
-				mappings = {
-					["bd"] = "buffer_delete",
-				},
-			},
 		},
 		git_status = {
 			window = {
