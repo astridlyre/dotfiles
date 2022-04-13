@@ -68,9 +68,8 @@ return function()
 		throttle_time = 10,
 		debug = false,
 		source_timeout = 250,
-		documentation = true,
 		snippet = { expand = expand },
-		mapping = {
+		mapping = cmp.mapping.preset.insert({
 			["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 			["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 			["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
@@ -79,8 +78,12 @@ return function()
 				c = cmp.mapping.close(),
 			}),
 			["<c-y>"] = cmp.mapping.confirm({ select = true }),
-		},
+		}),
 		sources = sources,
 		formatting = { format = format },
+		window = {
+			completion = cmp.config.window.bordered(),
+			documentation = cmp.config.window.bordered(),
+		},
 	})
 end
