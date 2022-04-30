@@ -254,8 +254,8 @@ M.setup = function()
 		"dockerls",
 		"bashls",
 		"clojure_lsp",
-		"cssmodules_ls",
-		"emmet_ls",
+		--"cssmodules_ls",
+		--"emmet_ls",
 		"solang",
 		"eslint",
 	}
