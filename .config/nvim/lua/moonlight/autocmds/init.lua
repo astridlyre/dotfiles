@@ -76,13 +76,6 @@ augroup ReturnPos
 	autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup end
 ]])
-
-	vim.cmd([[
-augroup PackerUpdate
-	autocmd!
-	autocmd BufWritePost init.lua exec 'PackerCompile'
-augroup end
-]])
 end
 
 return M

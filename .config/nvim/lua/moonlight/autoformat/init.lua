@@ -2,9 +2,9 @@ local M = {}
 
 M.autoformat_enabled = true
 
-function M.format()
+function M.format(bufnr)
 	if M.autoformat_enabled then
-		return vim.lsp.buf.formatting_sync()
+		return require("moonlight.lsp").lsp_format(bufnr)
 	else
 		return
 	end

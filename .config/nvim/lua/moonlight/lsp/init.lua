@@ -8,20 +8,35 @@ local imap = utils.imap
 local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls", "racket_langserver", "eslint" }
 local enable_formatting_on_save = true
 
-local lsp_maps = function()
-	nmap("gD", vim.lsp.buf.declaration)
-	nmap("gd", vim.lsp.buf.definition)
-	nmap("K", vim.lsp.buf.hover)
-	nmap("gi", vim.lsp.buf.implementation)
-	nmap("gr", vim.lsp.buf.references)
-	nmap("<space>wa", vim.lsp.buf.add_workspace_folder)
-	nmap("<space>wr", vim.lsp.buf.remove_workspace_folder)
-	nmap("<space>ld", vim.lsp.buf.type_definition)
-	nmap("<space>rn", vim.lsp.buf.rename)
+local lsp_formatting = function(bufnr)
+	vim.lsp.buf.format({
+		filter = function(clients)
+			return vim.tbl_filter(function(client)
+				if vim.tbl_contains(disable_formatting, client.name) then
+					return false
+				end
+				return true
+			end, clients)
+		end,
+		bufnr = bufnr,
+	})
+end
+
+local lsp_maps = function(client, bufnr)
+	local opts = { buffer = bufnr }
+	nmap("gD", vim.lsp.buf.declaration, opts)
+	nmap("gd", vim.lsp.buf.definition, opts)
+	nmap("K", vim.lsp.buf.hover, opts)
+	nmap("gi", vim.lsp.buf.implementation, opts)
+	nmap("gr", vim.lsp.buf.references, opts)
+	nmap("<space>wa", vim.lsp.buf.add_workspace_folder, opts)
+	nmap("<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
+	nmap("<space>ld", vim.lsp.buf.type_definition, opts)
+	nmap("<space>rn", vim.lsp.buf.rename, opts)
 	nmap("<space>qf", vim.diagnostic.setqflist)
 	nmap("<space>lf", vim.lsp.buf.formatting_sync)
-	nmap("<c-s>", vim.lsp.buf.signature_help)
-	imap("<c-s>", vim.lsp.buf.signature_help)
+	nmap("<c-s>", vim.lsp.buf.signature_help, opts)
+	imap("<c-s>", vim.lsp.buf.signature_help, opts)
 
 	nmap("<space>wp", function()
 		return print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
@@ -40,22 +55,22 @@ local lsp_maps = function()
 	end)
 
 	nmap("<space>lf", function()
-		return vim.lsp.buf.formatting_sync(nil, 1000)
+		return lsp_formatting(bufnr)
 	end)
 end
 
 -- Generic On-Attach Function
 local on_attach = function(client, bufnr)
-	for _, ls in ipairs(disable_formatting) do
-		if client.name == ls then
-			client.resolved_capabilities.document_formatting = false
-		end
-	end
-	if client.resolved_capabilities.document_formatting and enable_formatting_on_save then
+	lsp_maps(client, bufnr)
+	if
+		enable_formatting_on_save
+		and client.server_capabilities.documentFormattingProvider
+		and not vim.tbl_contains(disable_formatting, client.name)
+	then
 		vim.cmd([[
             augroup LspFormatting
                 autocmd! * <buffer>
-                autocmd BufWritePre <buffer> lua require('moonlight.autoformat').format()
+                autocmd BufWritePre <buffer> lua require('moonlight.autoformat').format(]] .. bufnr .. [[)
             augroup END
             ]])
 	end
@@ -329,5 +344,6 @@ end
 
 M.make_capabilities = make_capabilities
 M.flags = flags
+M.lsp_format = lsp_formatting
 
 return M
