@@ -94,3 +94,8 @@ export DICPATH=/usr/share/hunspell/
 export JAVA_HOME=/usr/lib/jvm/java-17-graalvm
 export PGDATA=/var/lib/postgres/data
 export DOCKER_BUILDKIT=1
+
+# pnpm
+export PNPM_HOME="/home/ml/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end

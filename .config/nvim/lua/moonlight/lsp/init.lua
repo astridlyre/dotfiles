@@ -1,6 +1,7 @@
 local M = {}
 
 local utils = require("moonlight.utils")
+local util = require("vim.lsp.util")
 local nmap = utils.nmap
 local imap = utils.imap
 
@@ -10,19 +11,17 @@ local enable_formatting_on_save = true
 
 local lsp_formatting = function(bufnr)
 	vim.lsp.buf.format({
-		filter = function(clients)
-			return vim.tbl_filter(function(client)
-				if vim.tbl_contains(disable_formatting, client.name) then
-					return false
-				end
-				return true
-			end, clients)
+		filter = function(client)
+			if vim.tbl_contains(disable_formatting, client.name) then
+				return false
+			end
+			return true
 		end,
 		bufnr = bufnr,
 	})
 end
 
-local lsp_maps = function(client, bufnr)
+local lsp_maps = function(_, bufnr)
 	local opts = { buffer = bufnr }
 	nmap("gD", vim.lsp.buf.declaration, opts)
 	nmap("gd", vim.lsp.buf.definition, opts)
@@ -55,7 +54,7 @@ local lsp_maps = function(client, bufnr)
 	end)
 
 	nmap("<space>lf", function()
-		return lsp_formatting(bufnr)
+		return lsp_formatting()
 	end)
 end
 
