@@ -1,0 +1,16 @@
+[user]
+	email = placeholder
+	name = placeholder
+[init]
+	defaultBranch = main
+[credential]
+	helper = cache
+[pull]
+	rebase = false
+[alias]
+	co = checkout
+	br = branch
+	cm = commit
+	st = status
+	unstage = 'reset HEAD --'
+	last = 'log -1 HEAD'
