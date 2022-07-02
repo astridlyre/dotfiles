@@ -7,12 +7,14 @@ iabbr funciton function
 iabbr exprot export
 iabbr expotr export
 	]])
+
 	vim.cmd([[
 augroup KittyConfig
 	autocmd!
 	autocmd BufEnter kitty.conf set filetype=kitty
 augroup end
 	]])
+
 	vim.cmd([[
 augroup GoLang
 	autocmd!
@@ -70,12 +72,6 @@ augroup end
 ]])
 
 	-- return to last position when opening files
-	vim.cmd([[
-augroup ReturnPos
-	autocmd!
-	autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-augroup end
-]])
 end
 
 return M

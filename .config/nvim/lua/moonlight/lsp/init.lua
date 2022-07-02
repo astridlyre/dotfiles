@@ -1,7 +1,6 @@
 local M = {}
 
 local utils = require("moonlight.utils")
-local util = require("vim.lsp.util")
 local nmap = utils.nmap
 local imap = utils.imap
 
