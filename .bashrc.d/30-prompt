@@ -15,12 +15,15 @@ function get_git_branch() {
 	fi
 }
 
+__INTERNAL_FIRST_RUN=0
+
 # Get color sequence for exit code
 function get_exit_color() {
-	if (($? > 0)); then
+	if (($? > 0 && __INTERNAL_FIRST_RUN > 0)); then
 		EXIT_COLOR=31
 	else
 		EXIT_COLOR=32
+		__INTERNAL_FIRST_RUN=1
 	fi
 }
 

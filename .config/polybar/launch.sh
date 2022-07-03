@@ -9,5 +9,5 @@ while pgrep -x polybar >/dev/null; do sleep 1; done
 
 # Load polybar for each monitor
 for m in $MONITORS; do
-	MONITOR="$m" polybar --reload mainbar-bspwm -c ~/.config/polybar/config &
+	MONITOR="$m" polybar --reload mainbar-bspwm -c ~/.config/polybar/config.ini &
 done
