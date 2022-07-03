@@ -152,32 +152,17 @@ M.setup = function()
 
 	-- Sumneko Language Server
 	local function sumneko_lua()
-		local sumneko_root_path = vim.fn.getenv("HOME") .. "/.local/lua-language-server"
-		local sumneko_binary_path = "/bin/Linux/lua-language-server"
-
-		lspconfig.sumneko_lua.setup({
+		return lspconfig.sumneko_lua.setup({
 			flags = flags,
 			on_attach = on_attach,
 			capabilities = capabilities,
-			cmd = {
-				sumneko_root_path .. sumneko_binary_path,
-				"-E",
-				sumneko_root_path .. "/main.lua",
-			},
 			settings = {
 				Lua = {
-					runtime = {
-						version = "LuaJIT",
-						path = vim.split(package.path, ";"),
-					},
+					runtime = { version = "LuaJIT" },
 					diagnostics = { globals = { "vim" } },
 					telemetry = { enable = false },
 					workspace = {
-						library = {
-							[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-							[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-						},
-						maxPreload = 10000,
+						library = vim.api.nvim_get_runtime_file("", true),
 					},
 				},
 			},
@@ -337,6 +322,7 @@ M.setup = function()
 		vim.lsp.stop_client(vim.lsp.get_active_clients())
 		vim.cmd([[edit]])
 	end
+
 	vim.cmd("command! -nargs=0 LspRestart call v:lua.reload_lsp()")
 end
 

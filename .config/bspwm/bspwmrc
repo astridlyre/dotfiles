@@ -8,7 +8,7 @@ run() {
 }
 
 # Monitor Config
-LAPTOP="eDP-1"
+LAPTOP="eDP-1-1"
 LAPTOP_SIZE=1920x1080
 EXTERNAL2="HDMI-0"
 EXTERNAL_SIZE2=3840x2160
@@ -55,6 +55,12 @@ run "$HOME/.config/polybar/launch.sh"
 
 # Start hotkey daemon
 run sxhkd -c ~/.config/bspwm/sxhkd/sxhkdrc
+
+# notification daemon
+run /usr/lib/xfce4/notifyd/xfce4-notifyd
+
+# compositor
+run picom --experimental-backends --config "$HOME/.config/bspwm/picom.conf"
 
 # Start unclutter to hide cursor
 run unclutter --timeout 1

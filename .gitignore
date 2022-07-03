@@ -1,4 +1,12 @@
 .bin/flat9
+.bin/black
+.bin/blackd
+.bin/flake8
+.bin/isort
+.bin/isort-identify-imports
+.bin/proselint
+.bin/pycodestyle
+.bin/pyflakes
 tags
 tags.lock
 tags.temp
