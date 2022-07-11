@@ -75,6 +75,7 @@ local function set_options()
 	o.spelllang = "en_gb"
 	o.splitbelow = true
 	o.splitright = true
+	o.scrollsplit = false
 	o.synmaxcol = 120
 	o.tabstop = 4
 	o.termguicolors = true
@@ -103,6 +104,7 @@ local function set_keymaps()
 	lmap("2", "<cmd>ToggleTerm2<cr>")
 	lmap("3", "<cmd>ToggleTerm3<cr>")
 	lmap("4", "<cmd>ToggleTerm4<cr>")
+	lmap("'", "<cmd>ToggleTerm<cr>")
 	lmap("y", '"+y')
 	lmap("ft", require("moonlight.autoformat").toggle_formatting)
 

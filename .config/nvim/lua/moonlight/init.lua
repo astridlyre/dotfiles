@@ -45,7 +45,7 @@ return packer.startup({
 				"saadparwaiz1/cmp_luasnip",
 				"astridlyre/friendly-snippets",
 				"onsails/lspkind-nvim",
-				"tami5/compe-conjure",
+				--"tami5/compe-conjure",
 			},
 		})
 
@@ -63,7 +63,7 @@ return packer.startup({
 			after = "nvim-lspconfig",
 		})
 		use({ "windwp/nvim-autopairs", event = "InsertEnter", config = require("moonlight.autopairs") })
-		use({ "nanotee/sqls.nvim" })
+		--use({ "nanotee/sqls.nvim" })
 		use({
 			"ThePrimeagen/refactoring.nvim",
 			requires = {

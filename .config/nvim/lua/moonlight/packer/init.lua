@@ -28,12 +28,17 @@ function M.setup()
 	local packer_init = {
 		display = {
 			open_fn = function()
-				return util.float({ border = "rounded" })
+				if util ~= nil then
+					return util.float({ border = "rounded" })
+				end
 			end,
 		},
 	}
 
-	packer.init(packer_init)
+	if packer ~= nil then
+		packer.init(packer_init)
+	end
+
 	return packer
 end
 
