@@ -36,7 +36,7 @@ grey                = #263945
 monitor             = ${env:MONITOR}
 ;monitor-fallback   = HDMI1
 width               = 100%
-height              = 20
+height              = 38
 radius              = 0.0
 fixed-center        = true
 bottom              = false
@@ -62,13 +62,13 @@ padding-right       = 2
 module-margin-left  = 2
 module-margin-right = 2
 
-font-0              = "Iosevka Term:size=10"
-font-1              = "JetBrainsMono Nerd Font:size=9"
-font-2              = "Noto Color Emoji:size=10:scale=10;1"
+font-0              = "Iosevka Term:size=18"
+font-1              = "JetBrainsMono Nerd Font:size=14"
+font-2              = "Noto Color Emoji:size=10:scale=14;1"
 
 modules-left        = bspwm xwindow
 modules-center      = date
-modules-right       = docker pavolume battery wireless-network
+modules-right       = pavolume battery wireless-network
 
 tray-detached       = false
 tray-offset-x       = 0

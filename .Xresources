@@ -1,6 +1,6 @@
-Xcursor.size: 16
+Xcursor.size: 32
 Xcursor.theme: Bibata-Modern-Classic
-Xft.dpi: 96
+Xft.dpi: 192
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintfull

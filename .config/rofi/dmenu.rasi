@@ -7,7 +7,7 @@
     background-color:      #111c22;
     border-color:          #66a5ad;
     text-color:           #c7d6d0;
-    font:            "Iosevka Term 11";
+    font:            "Iosevka Term 20";
 }
 
 window {

@@ -15,9 +15,14 @@ function get_git_branch() {
 	fi
 }
 
+export __IS_FIRST_BASH_LOAD=1
+
 # Get color sequence for exit code
 function get_exit_color() {
-	if (($? > 0)); then
+	if ((__IS_FIRST_BASH_LOAD = 1)); then
+		EXIT_COLOR=32
+		__IS_FIRST_BASH_LOAD=0
+	elif (($? > 0)); then
 		EXIT_COLOR=31
 	else
 		EXIT_COLOR=32
