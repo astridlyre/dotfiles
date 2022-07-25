@@ -198,7 +198,7 @@ M.setup = function()
 		})
 	end
 
-	local function sqls()
+	--[[ local function sqls()
 		lspconfig.sqls.setup({
 			flags = flags,
 			on_attach = function(client, bufnr)
@@ -207,7 +207,7 @@ M.setup = function()
 			end,
 			capabilities = capabilities,
 		})
-	end
+	end ]]
 
 	-- JSON LSP
 	local function jsonls()
@@ -272,7 +272,7 @@ M.setup = function()
 		gopls,
 		rust_analyzer,
 		sumneko_lua,
-		sqls,
+		-- sqls,
 		tsserver,
 		jsonls,
 		racketls,
