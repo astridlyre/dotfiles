@@ -34,7 +34,7 @@ fi
 # Lower brightness
 if [ "$1" = "down" ]; then
 	NEW=$((CURRENT - STEP))
-	if [ "$CURRENT" -lt 0 ]; then
+	if [ "$NEW" -lt 0 ]; then
 		setBrightness 0
 	else
 		setBrightness $NEW
