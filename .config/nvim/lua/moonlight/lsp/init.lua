@@ -60,8 +60,7 @@ end
 -- Generic On-Attach Function
 local on_attach = function(client, bufnr)
 	lsp_maps(client, bufnr)
-	if
-		enable_formatting_on_save
+	if enable_formatting_on_save
 		and client.server_capabilities.documentFormattingProvider
 		and not vim.tbl_contains(disable_formatting, client.name)
 	then
@@ -152,8 +151,8 @@ M.setup = function()
 
 	-- Sumneko Language Server
 	local function sumneko_lua()
-		local sumneko_root_path = vim.fn.getenv("HOME") .. "/.local/lua-language-server"
-		local sumneko_binary_path = "/bin/Linux/lua-language-server"
+		local sumneko_root_path = "/usr/lib/lua-language-server"
+		local sumneko_binary_path = "/bin/lua-language-server"
 
 		lspconfig.sumneko_lua.setup({
 			flags = flags,
@@ -337,6 +336,7 @@ M.setup = function()
 		vim.lsp.stop_client(vim.lsp.get_active_clients())
 		vim.cmd([[edit]])
 	end
+
 	vim.cmd("command! -nargs=0 LspRestart call v:lua.reload_lsp()")
 end
 
