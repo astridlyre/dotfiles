@@ -60,7 +60,8 @@ end
 -- Generic On-Attach Function
 local on_attach = function(client, bufnr)
 	lsp_maps(client, bufnr)
-	if enable_formatting_on_save
+	if
+		enable_formatting_on_save
 		and client.server_capabilities.documentFormattingProvider
 		and not vim.tbl_contains(disable_formatting, client.name)
 	then
@@ -317,7 +318,7 @@ M.setup = function()
 			focusable = false,
 			style = "minimal",
 			border = "rounded",
-			source = "always",
+			source = "if_many",
 			header = "",
 			prefix = "",
 		},

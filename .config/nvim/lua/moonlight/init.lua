@@ -45,7 +45,7 @@ return packer.startup({
 				"saadparwaiz1/cmp_luasnip",
 				"astridlyre/friendly-snippets",
 				"onsails/lspkind-nvim",
-				"tami5/compe-conjure",
+				--"tami5/compe-conjure",
 			},
 		})
 
