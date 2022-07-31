@@ -41,15 +41,15 @@ local lsp_maps = function(_, bufnr)
 	end)
 
 	nmap("<space>ll", function()
-		return vim.diagnostic.open_float(nil, { source = "always", border = "rounded" })
+		return vim.diagnostic.open_float(nil, { source = "always", border = "solid" })
 	end)
 
 	nmap("<c-j>", function()
-		return vim.diagnostic.goto_next({ border = "rounded" })
+		return vim.diagnostic.goto_next({ border = "solid" })
 	end)
 
 	nmap("<c-k>", function()
-		return vim.diagnostic.goto_prev({ border = "rounded" })
+		return vim.diagnostic.goto_prev({ border = "solid" })
 	end)
 
 	nmap("<space>lf", function()
@@ -78,6 +78,10 @@ end
 local function make_capabilities()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities.textDocument.completion.completionItem.snippetSupport = true
+	capabilities.textDocument.completion.completionItem.preselectSupport = true
+	capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+	capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+	capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
 	capabilities.textDocument.completion.completionItem.resolveSupport = {
 		properties = { "documentation", "detail", "additionalTextEdits" },
 	}
@@ -86,7 +90,7 @@ local function make_capabilities()
 end
 
 local capabilities = make_capabilities()
-local flags = { debounce_text_changes = 250, allow_incremental_sync = true }
+local flags = { debounce_text_changes = 150, allow_incremental_sync = true }
 
 -- Lsp Configs
 M.setup = function()
@@ -300,9 +304,10 @@ M.setup = function()
 		underline = true,
 		severity_sort = true,
 		float = {
+			show_header = false,
 			focusable = false,
 			style = "minimal",
-			border = "rounded",
+			border = "solid",
 			source = "always",
 			header = "",
 			prefix = "",
@@ -310,11 +315,11 @@ M.setup = function()
 	})
 
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-		border = "rounded",
+		border = "solid",
 	})
 
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-		border = "rounded",
+		border = "solid",
 	})
 
 	-- Add reload lsp function

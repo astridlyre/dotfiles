@@ -1,6 +1,41 @@
 -- Personal Configuration
-local p = require("moonlight.packer")
-local packer = p.setup()
+local execute = vim.api.nvim_command
+local fn = vim.fn
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local compile_path = fn.stdpath("config") .. "/lua/packer_compiled.lua"
+
+if fn.empty(vim.fn.glob(install_path)) > 0 then
+	fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
+	execute("packadd packer.nvim")
+end
+
+-- Handle errors
+local require_plugin = function(p)
+	local ok, plugin = pcall(require, p)
+	if ok then
+		return plugin
+	else
+		print("Unable to load " .. p)
+		return nil
+	end
+end
+
+-- Packer Configuration
+local packer = require_plugin("packer")
+local util = require_plugin("packer.util")
+local packer_init = {
+	display = {
+		open_fn = function()
+			if util ~= nil then
+				return util.float({ border = "rounded" })
+			end
+		end,
+	},
+}
+
+if packer ~= nil then
+	packer.init(packer_init)
+end
 
 require("moonlight.options").setup()
 require("moonlight.functions").setup()
@@ -15,10 +50,10 @@ return packer.startup({
 		use({ "norcalli/nvim-colorizer.lua", config = require("moonlight.colorizer"), event = "BufRead" })
 		use({ "echasnovski/mini.nvim", config = require("moonlight.mini"), event = "BufWinEnter" })
 		use({
-			"mcchrish/zenbones.nvim",
-			requires = "rktjmp/lush.nvim",
+			"shaunsingh/oxocarbon.nvim",
+			run = "./install.sh",
 			config = function()
-				vim.cmd("colorscheme neobones")
+				vim.cmd("colorscheme oxocarbon")
 			end,
 		})
 
@@ -103,6 +138,7 @@ return packer.startup({
 			config = require("moonlight.nvim-tree"),
 			cmd = "Neotree",
 		})
+		use({ "ggandor/leap.nvim", config = require("moonlight.leap"), event = "BufEnter" })
 
 		-- Misc
 		use({ "b3nj5m1n/kommentary", event = "BufEnter" })
@@ -116,5 +152,5 @@ return packer.startup({
 		use({ "wlangstroth/vim-racket" })
 		use({ "Olical/aniseed", branch = "develop", ft = { "fennel" } }) ]]
 	end,
-	config = { compile_path = p.compile_path },
+	config = { compile_path = compile_path },
 })

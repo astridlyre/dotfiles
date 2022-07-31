@@ -84,7 +84,7 @@ local function set_options()
 	o.ttimeoutlen = 10
 	o.undodir = "/tmp"
 	o.undofile = true
-	o.updatetime = 250
+	o.updatetime = 200
 	o.wildignorecase = true
 	o.wildignore = ".git,*.tags,tags,*.o,**/node_modules/**"
 	o.wildmode = "longest:full,full"
@@ -119,7 +119,6 @@ local function set_keymaps()
 	nmap("<c-c>", "<esc>")
 	nmap("'", "`")
 	nmap("`", "'")
-	nmap("s", "<noop>")
 	nmap("<c-n>", "<cmd>Neotree reveal toggle<cr>")
 	nmap("gs", "<cmd>Neotree git_status<cr>")
 	nmap("k", '(v:count > 5 ? "m\'" . v:count : "") . "gk"', { expr = true })
@@ -137,19 +136,20 @@ local function set_keymaps()
 	nmap("<c-p>", "<c-^>")
 
 	-- telescope
-	nmap("s", "<cmd>Telescope find_files hidden=true follow=true theme=dropdown<cr>")
-	lmap("lg", "<cmd>Telescope live_grep theme=ivy<cr>")
-	lmap("fb", "<cmd>Telescope buffers theme=dropdown<cr>")
-	lmap("b", "<cmd>Telescope buffers theme=dropdown<cr>")
-	lmap("fh", "<cmd>Telescope oldfiles theme=dropdown<cr>")
-	lmap("fq", "<cmd>Telescope quickfix theme=dropdown<cr>")
-	lmap("ff", "<cmd>Telescope lsp_references theme=dropdown<cr>")
-	lmap("ca", "<cmd>Telescope lsp_code_actions theme=cursor<cr>")
-	lmap("fd", "<cmd>Telescope lsp_definitions theme=dropdown<cr>")
-	lmap("fi", "<cmd>Telescope lsp_implementations theme=dropdown<cr>")
-	lmap("f;", "<cmd>Telescope lsp_range_code_actions theme=cursor<cr>")
-	lmap("fs", "<cmd>Telescope grep_string theme=ivy<cr>")
-	lmap("fn", "<cmd>Telescope search_history theme=ivy<cr>")
+	lmap("<space>", "<cmd>Telescope find_files hidden=true follow=true<cr>")
+	lmap("ff", "<cmd>Telescope find_files hidden=true follow=true<cr>")
+	lmap("lg", "<cmd>Telescope live_grep<cr>")
+	lmap("fb", "<cmd>Telescope buffers<cr>")
+	lmap("b", "<cmd>Telescope buffers<cr>")
+	lmap("fh", "<cmd>Telescope oldfiles<cr>")
+	lmap("fq", "<cmd>Telescope quickfix<cr>")
+	lmap("fr", "<cmd>Telescope lsp_references<cr>")
+	lmap("ca", "<cmd>Telescope lsp_code_actionsr>")
+	lmap("fd", "<cmd>Telescope lsp_definitions<cr>")
+	lmap("fi", "<cmd>Telescope lsp_implementations<cr>")
+	lmap("f;", "<cmd>Telescope lsp_range_code_actionsr>")
+	lmap("fs", "<cmd>Telescope grep_string<cr>")
+	lmap("fn", "<cmd>Telescope search_history<cr>")
 	lmap("d", "<cmd>lua MiniBufremove.delete()<cr>")
 	lmap("m", "mA")
 
