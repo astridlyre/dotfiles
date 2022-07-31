@@ -237,14 +237,14 @@ M.setup = function()
 		})
 	end
 
-	local function racketls()
+	--[[ local function racketls()
 		lspconfig.racket_langserver.setup({
 			flags = flags,
 			on_attach = on_attach,
 			capabilities = capabilities,
 			filetypes = { "racket" },
 		})
-	end
+	end ]]
 
 	-- Enable the following default language servers
 	local default_servers = {
@@ -279,7 +279,7 @@ M.setup = function()
 		-- sqls,
 		tsserver,
 		jsonls,
-		racketls,
+		--racketls,
 	}) do
 		ls()
 	end
@@ -308,7 +308,7 @@ M.setup = function()
 			focusable = false,
 			style = "minimal",
 			border = "solid",
-			source = "always",
+			source = "if_many",
 			header = "",
 			prefix = "",
 		},
