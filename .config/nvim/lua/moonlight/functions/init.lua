@@ -1,5 +1,3 @@
-local M = {}
-
 local utils = require("moonlight.utils")
 local lmap = utils.lmap
 local nmap = utils.nmap
@@ -46,55 +44,51 @@ local rust = function(_)
 	}
 end
 
-function M.setup()
-	local runners = {
-		javascript = javascript,
-		javascriptreact = javascript,
-		typescript = javascript,
-		typescriptreact = javascript,
-		rust = rust,
-		clojure = clojure,
-		clojurescript = clojurescript,
-		racket = racket,
-		go = go_lang,
-	}
+local runners = {
+	javascript = javascript,
+	javascriptreact = javascript,
+	typescript = javascript,
+	typescriptreact = javascript,
+	rust = rust,
+	clojure = clojure,
+	clojurescript = clojurescript,
+	racket = racket,
+	go = go_lang,
+}
 
-	local function run_task(term, variant)
-		return function()
-			local file_type = vim.bo.filetype
-			local runner = runners[file_type](vim.api.nvim_buf_get_name(0))
+local function run_task(term, variant)
+	return function()
+		local file_type = vim.bo.filetype
+		local runner = runners[file_type](vim.api.nvim_buf_get_name(0))
 
-			if not runner then
-				return
-			end
-
-			return vim.cmd(term .. "TermExec cmd='" .. runner[variant] .. "'")
+		if not runner then
+			return
 		end
+
+		return vim.cmd(term .. "TermExec cmd='" .. runner[variant] .. "'")
 	end
+end
 
-	-- Task Runners
-	lmap("r", run_task(1, "run"))
-	lmap("t", run_task(2, "test"))
+-- Task Runners
+lmap("r", run_task(1, "run"))
+lmap("t", run_task(2, "test"))
 
-	-- toggle quickfix
-	vim.g.qfix_win = nil
-	local function toggle_qf_list()
-		if vim.g.qfix_win ~= nil then
-			vim.cmd("cclose")
-			vim.g.qfix_win = nil
-		else
-			vim.cmd("copen")
-		end
+-- toggle quickfix
+vim.g.qfix_win = nil
+local function toggle_qf_list()
+	if vim.g.qfix_win ~= nil then
+		vim.cmd("cclose")
+		vim.g.qfix_win = nil
+	else
+		vim.cmd("copen")
 	end
+end
 
-	vim.cmd([[
+vim.cmd([[
 augroup QFixToggle
 	autocmd!
 	autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
 augroup END
 	]])
 
-	nmap("<c-q>", toggle_qf_list)
-end
-
-return M
+nmap("<c-q>", toggle_qf_list)
