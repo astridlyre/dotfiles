@@ -21,7 +21,6 @@ return function()
 			formatting.goimports,
 			formatting.isort,
 			formatting.fnlfmt,
-			-- formatting.sqlformat.with({ extra_args = { "-r", "-k", "lower", "-i", "lower" } }),
 			formatting.stylua,
 			diagnostics.shellcheck,
 			diagnostics.staticcheck,

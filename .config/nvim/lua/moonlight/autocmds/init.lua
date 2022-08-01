@@ -1,44 +1,41 @@
-local M = {}
-
-function M.setup()
-	vim.cmd([[
+vim.cmd([[
 iabbr improt import
 iabbr funciton function
 iabbr exprot export
 iabbr expotr export
 	]])
 
-	vim.cmd([[
+vim.cmd([[
 augroup KittyConfig
 	autocmd!
 	autocmd BufEnter kitty.conf set filetype=kitty
 augroup end
 	]])
 
-	vim.cmd([[
+vim.cmd([[
 augroup GoLang
 	autocmd!
 	autocmd FileType go iabbr ;; :=
 augroup end
 	]])
-	-- lambda abbreviation for racket
-	vim.cmd([[
+-- lambda abbreviation for racket
+vim.cmd([[
 augroup Racket
 	autocmd!
 	autocmd FileType racket iabbr ld λ
 augroup end
 	]])
 
-	-- don't list quickfix in buffers
-	vim.cmd([[
+-- don't list quickfix in buffers
+vim.cmd([[
 augroup NoListQuick
 	autocmd!
 	autocmd FileType qf set nobuflisted
 augroup end
 ]])
 
-	-- show cursorline only in active buffer
-	vim.cmd([[
+-- show cursorline only in active buffer
+vim.cmd([[
 augroup CursorLine
 	autocmd!
 	autocmd WinEnter,BufEnter,InsertLeave * if ! &cursorline && win_gettype() != 'popup' && ! &pvw | setlocal cursorline | endif
@@ -46,16 +43,16 @@ augroup CursorLine
 augroup end
 ]])
 
-	-- resize windows automatically
-	vim.cmd([[
+-- resize windows automatically
+vim.cmd([[
 augroup WinResize
 	autocmd!
 	autocmd VimResized * tabdo wincmd =
 augroup end
 ]])
 
-	-- enable spell if file type is text-related
-	vim.cmd([[
+-- enable spell if file type is text-related
+vim.cmd([[
 augroup SpellCheck
 	autocmd!
 	let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
@@ -63,15 +60,18 @@ augroup SpellCheck
 augroup end
 ]])
 
-	-- highlight yanked text
-	vim.cmd([[
+-- highlight yanked text
+vim.cmd([[
 augroup HighlightYank
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
 augroup end
 ]])
 
-	-- return to last position when opening files
-end
-
-return M
+-- return to last position when opening files
+vim.cmd([[
+augroup ReturnToLastPos
+    autocmd!
+	autocmd BufReadPost * if line("'\"") > 0 && line ("'\"") <= line("$") | exe "normal! g'\"" | endif
+augroup end
+]])

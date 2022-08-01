@@ -37,9 +37,9 @@ if packer ~= nil then
 	packer.init(packer_init)
 end
 
-require("moonlight.options").setup()
-require("moonlight.functions").setup()
-require("moonlight.autocmds").setup()
+require("moonlight.options")
+require("moonlight.functions")
+require("moonlight.autocmds")
 
 return packer.startup({
 	function(use)
@@ -135,7 +135,7 @@ return packer.startup({
 				"kyazdani42/nvim-web-devicons",
 				"MunifTanjim/nui.nvim",
 			},
-			config = require("moonlight.nvim-tree"),
+			config = require("moonlight.neo-tree"),
 			cmd = "Neotree",
 		})
 		use({ "ggandor/leap.nvim", config = require("moonlight.leap"), event = "BufEnter" })

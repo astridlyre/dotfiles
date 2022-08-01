@@ -1,5 +1,4 @@
 return function()
-	-- Unless you are still migrating, remove the deprecated commands from v1.x
 	vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 	vim.cmd([[
 highlight! link NeoTreeDirectoryIcon NvimTreeFolderIcon
@@ -12,10 +11,10 @@ highlight! link NeoTreeFileNameOpened NvimTreeOpenedFile
 
 	require("neo-tree").setup({
 		close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
-		popup_border_style = "rounded",
+		popup_border_style = "solid",
 		resize_timer_interval = -1,
 		enable_git_status = true,
-		enable_diagnostics = true,
+		enable_diagnostics = false,
 		default_component_configs = {
 			indent = {
 				indent_size = 2,
