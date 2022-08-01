@@ -58,8 +58,8 @@ local options = {
 	list = true,
 	maxmempattern = 100000,
 	mouse = "a",
-	number = true,
-	relativenumber = true,
+	--[[ number = true,
+	relativenumber = true, ]]
 	pumheight = 16,
 	redrawtime = 8000,
 	scrolloff = 3,
@@ -97,8 +97,6 @@ end
 -- leader mappings
 lmap("u", ":PackerUpdate<cr>")
 lmap(";", ":w<cr>")
-lmap("[", "myO<esc>`y")
-lmap("]", "myo<esc>`y")
 lmap("1", "<cmd>ToggleTerm1<cr>")
 lmap("2", "<cmd>ToggleTerm2<cr>")
 lmap("3", "<cmd>ToggleTerm3<cr>")
@@ -106,11 +104,6 @@ lmap("4", "<cmd>ToggleTerm4<cr>")
 lmap("'", "<cmd>ToggleTerm<cr>")
 lmap("y", '"+y')
 lmap("ft", require("moonlight.autoformat").toggle_formatting)
-
-lmap("se", "<cmd>SqlsExecuteQuery<cr>")
-lmap("sc", "<cmd>SqlsSwitchConnection<cr>")
-lmap("sd", "<cmd>SqlsSwitchDatabase<cr>")
-lmap("sv", "<cmd>SqlsExecuteQueryVertical<cr>")
 
 -- normal mode
 nmap("^", "0")
@@ -129,8 +122,6 @@ nmap("[b", "<cmd>bprev<cr>")
 nmap("]b", "<cmd>bnext<cr>")
 nmap("[q", "<cmd>cprev<cr>zz")
 nmap("]q", "<cmd>cnext<cr>zz")
-nmap("[<space>", "myO<esc>`y")
-nmap("]<space>", "myo<esc>`y")
 nmap("<localleader>cc", "<cmd>ClojureConnect<cr>")
 nmap("<c-p>", "<c-^>")
 
