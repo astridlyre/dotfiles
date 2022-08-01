@@ -78,7 +78,7 @@ end
 local function make_capabilities()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities.textDocument.completion.completionItem.snippetSupport = true
-	capabilities.textDocument.completion.completionItem.preselectSupport = true
+	-- capabilities.textDocument.completion.completionItem.preselectSupport = true
 	capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
 	capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
 	capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
@@ -156,21 +156,50 @@ M.setup = function()
 
 	-- Sumneko Language Server
 	local function sumneko_lua()
-		local sumneko_root_path = "/usr/lib/lua-language-server"
-		local sumneko_binary_path = "/bin/lua-language-server"
+		local library = {}
+		local path = vim.split(package.path, ";")
+
+		table.insert(path, "lua/?.lua")
+		table.insert(path, "lua/?/init.lua")
+
+		local function add(lib)
+			for _, p in pairs(vim.fn.expand(lib, false, true)) do
+				p = vim.loop.fs_realpath(p)
+				library[p] = true
+			end
+		end
+
+		add("$VIMRUNTIME")
+		add("~/.config/nvim")
+		add("~/.local/share/nvim/site/pack/packer/opt/*")
+		add("~/.local/share/nvim/site/pack/packer/start/*")
 
 		lspconfig.sumneko_lua.setup({
 			flags = flags,
 			on_attach = on_attach,
 			capabilities = capabilities,
+			on_new_config = function(config, root)
+				local libs = vim.tbl_deep_extend("force", {}, library)
+				libs[root] = nil
+				config.settings.Lua.workspace.library = libs
+				return config
+			end,
 			settings = {
 				Lua = {
-					runtime = { version = "LuaJIT" },
-					diagnostics = { globals = { "vim" } },
-					telemetry = { enable = false },
-					workspace = {
-						library = vim.api.nvim_get_runtime_file("", true),
+					runtime = {
+						version = "LuaJIT",
+						path = path,
 					},
+					completion = { callSnippet = "Both" },
+					diagnostics = {
+						globals = { "vim" },
+					},
+					workspace = {
+						library = library,
+						maxPreload = 2000,
+						preloadFileSize = 50000,
+					},
+					telemetry = { enable = false },
 				},
 			},
 		})
