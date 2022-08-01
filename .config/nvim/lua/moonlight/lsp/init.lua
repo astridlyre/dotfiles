@@ -159,25 +159,13 @@ M.setup = function()
 			flags = flags,
 			on_attach = on_attach,
 			capabilities = capabilities,
-			cmd = {
-				sumneko_root_path .. sumneko_binary_path,
-				"-E",
-				sumneko_root_path .. "/main.lua",
-			},
 			settings = {
 				Lua = {
-					runtime = {
-						version = "LuaJIT",
-						path = vim.split(package.path, ";"),
-					},
+					runtime = { version = "LuaJIT" },
 					diagnostics = { globals = { "vim" } },
 					telemetry = { enable = false },
 					workspace = {
-						library = {
-							[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-							[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-						},
-						maxPreload = 10000,
+						library = vim.api.nvim_get_runtime_file("", true),
 					},
 				},
 			},
@@ -213,7 +201,7 @@ M.setup = function()
 		})
 	end
 
-	local function sqls()
+	--[[ local function sqls()
 		lspconfig.sqls.setup({
 			flags = flags,
 			on_attach = function(client, bufnr)
@@ -222,7 +210,7 @@ M.setup = function()
 			end,
 			capabilities = capabilities,
 		})
-	end
+	end ]]
 
 	-- JSON LSP
 	local function jsonls()
@@ -248,14 +236,14 @@ M.setup = function()
 		})
 	end
 
-	local function racketls()
+	--[[ local function racketls()
 		lspconfig.racket_langserver.setup({
 			flags = flags,
 			on_attach = on_attach,
 			capabilities = capabilities,
 			filetypes = { "racket" },
 		})
-	end
+	end ]]
 
 	-- Enable the following default language servers
 	local default_servers = {
@@ -287,10 +275,10 @@ M.setup = function()
 		gopls,
 		rust_analyzer,
 		sumneko_lua,
-		sqls,
+		-- sqls,
 		tsserver,
 		jsonls,
-		racketls,
+		--racketls,
 	}) do
 		ls()
 	end

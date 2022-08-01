@@ -58,6 +58,12 @@ run "$HOME/.config/polybar/launch.sh"
 # Start hotkey daemon
 run sxhkd -c ~/.config/bspwm/sxhkd/sxhkdrc
 
+# notification daemon
+run /usr/lib/xfce4/notifyd/xfce4-notifyd
+
+# compositor
+run picom --experimental-backends --config "$HOME/.config/bspwm/picom.conf"
+
 # Start unclutter to hide cursor
 run unclutter --timeout 1
 
