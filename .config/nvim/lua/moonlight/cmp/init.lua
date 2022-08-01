@@ -63,12 +63,15 @@ return function()
 		end,
 	})
 
+	local compare = require("cmp.config.compare")
+
 	-- setup cmp
 	cmp.setup({
 		throttle_time = 10,
 		debug = false,
 		source_timeout = 250,
 		snippet = { expand = expand },
+		experimental = { ghost_text = true },
 		mapping = cmp.mapping.preset.insert({
 			["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 			["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
@@ -81,9 +84,20 @@ return function()
 		}),
 		sources = sources,
 		formatting = { format = format },
+		sorting = {
+			comparators = {
+				compare.offset,
+				compare.exact,
+				compare.score,
+				compare.kind,
+				compare.sort_text,
+				compare.length,
+				compare.order,
+			},
+		},
 		window = {
-			completion = cmp.config.window.bordered(),
-			documentation = cmp.config.window.bordered(),
+			completion = { border = "solid" },
+			documentation = { border = "solid" },
 		},
 	})
 end

@@ -3,8 +3,18 @@ return function()
 	telescope.setup({
 		defaults = {
 			prompt_prefix = "❯ ",
-			selection_caret = "→ ",
+			selection_caret = "  ",
 			path_display = { "smart" },
+			sorting_strategy = "ascending",
+			layout_strategy = "flex",
+			layout_config = {
+				horizontal = { prompt_position = "top", preview_width = 0.55 },
+				vertical = { mirror = false },
+				width = 0.87,
+				height = 0.8,
+				preview_cutoff = 120,
+			},
+			dynamic_preview_title = true,
 			preview = {
 				filesize_hook = function(filepath, bufnr, opts)
 					local max_bytes = 10000

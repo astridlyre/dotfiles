@@ -1,43 +1,43 @@
-set font "Iosevka Term normal 10"
+set font "JetBrainsMono Nerd Font normal 10"
 set highlight-transparency 1.0
 
-set default-fg 			    "#c7d6d0"
-set default-bg 			    "#0f191f"
+set default-fg 			    "#dde1e6"
+set default-bg 			    "#161616"
 
-set completion-bg		    "#172730"
-set completion-fg		    "#c7d6d0"
-set completion-highlight-bg	"#90ff6b"
-set completion-highlight-fg	"#000000"
-set completion-group-bg		"#263945"
-set completion-group-fg		"#96cdfb"
+set completion-bg		    "#262626"
+set completion-fg		    "#ffffff"
+set completion-highlight-bg	"#ee5396"
+set completion-highlight-fg	"#161616"
+set completion-group-bg		"#262626"
+set completion-group-fg		"#33b1ff"
 
-set statusbar-fg		    "#c7d6d0"
-set statusbar-bg		    "#172730"
+set statusbar-fg		    "#dde1e6"
+set statusbar-bg		    "#161616"
 
-set notification-bg		    "#263945"
-set notification-fg		    "#c7d6d0"
-set notification-error-bg	"#263945"
-set notification-error-fg	"#f28fad"
-set notification-warning-bg	"#263945"
-set notification-warning-fg	"#fae3b0"
+set notification-bg		    "#262626"
+set notification-fg		    "#f2f4f8"
+set notification-error-bg	"#262626"
+set notification-error-fg	"#ff7eb6"
+set notification-warning-bg	"#262626"
+set notification-warning-fg	"#ffab91"
 
-set inputbar-fg			    "#c7d6d0"
-set inputbar-bg 		    "#263945"
+set inputbar-fg			    "#dde1e6"
+set inputbar-bg 		    "#161616"
 
-set recolor-lightcolor		"#0f191f"
-set recolor-darkcolor		"#c7d6d0"
+set recolor-lightcolor		"#161616"
+set recolor-darkcolor		"#dde1e6"
 
-set index-fg			    "#c7d6d0"
-set index-bg			    "#0f191f"
-set index-active-fg		    "#c7d6d0"
-set index-active-bg		    "#263945"
+set index-fg			    "#dde1e6"
+set index-bg			    "#161616"
+set index-active-fg		    "#dde1e6"
+set index-active-bg		    "#161616"
 
-set render-loading-bg		"#0f191f"
-set render-loading-fg		"#c7d6d0"
+set render-loading-bg		"#161616"
+set render-loading-fg		"#dde1e6"
 
-set highlight-color		    "#263945"
-set highlight-fg            "#b279a7"
-set highlight-active-color	"#b279a7"
+set highlight-color		    "#262626"
+set highlight-fg            "#ee5396"
+set highlight-active-color	"#ee5396"
 
 set sandbox none
 set statusbar-h-padding 0
