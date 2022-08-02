@@ -78,7 +78,6 @@ end
 local function make_capabilities()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities.textDocument.completion.completionItem.snippetSupport = true
-	-- capabilities.textDocument.completion.completionItem.preselectSupport = true
 	capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
 	capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
 	capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
@@ -228,8 +227,8 @@ M.setup = function()
 				maxTsServerMemory = 12288,
 			},
 			settings = {
-				diagnosticsDelay = "200ms",
-				experimentalWatchedFileDelay = "1000ms",
+				diagnosticsDelay = "150ms",
+				experimentalWatchedFileDelay = "850ms",
 			},
 		})
 	end
@@ -332,7 +331,7 @@ M.setup = function()
 		signs = {
 			active = signs,
 		},
-		update_in_insert = true,
+		update_in_insert = false,
 		underline = true,
 		severity_sort = true,
 		float = {
@@ -353,6 +352,8 @@ M.setup = function()
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
 		border = "solid",
 	})
+
+	vim.lsp.set_log_level("OFF")
 
 	-- Add reload lsp function
 	function _G.reload_lsp()
