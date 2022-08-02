@@ -8,7 +8,6 @@ return function()
 	local null_ls = require("null-ls")
 	local formatting = null_ls.builtins.formatting
 	local diagnostics = null_ls.builtins.diagnostics
-	local code_actions = null_ls.builtins.code_actions
 
 	null_ls.setup({
 		sources = {
@@ -21,19 +20,13 @@ return function()
 			formatting.goimports,
 			formatting.isort,
 			formatting.fnlfmt,
-			-- formatting.sqlformat.with({ extra_args = { "-r", "-k", "lower", "-i", "lower" } }),
 			formatting.stylua,
 			diagnostics.shellcheck,
 			diagnostics.staticcheck,
-			diagnostics.proselint.with({ filetypes = { "markdown", "tex", "text" } }),
 			diagnostics.write_good.with({ filetypes = { "markdown", "tex", "text" } }),
-			diagnostics.misspell.with({
-				filetypes = { "markdown", "tex", "text" },
-			}),
 			diagnostics.flake8,
 			diagnostics.vint,
 			diagnostics.yamllint,
-			code_actions.proselint,
 		},
 		capabilities = capabilities,
 		flags = flags,

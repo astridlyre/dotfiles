@@ -58,8 +58,13 @@ local runners = {
 
 local function run_task(term, variant)
 	return function()
-		local file_type = vim.bo.filetype
-		local runner = runners[file_type](vim.api.nvim_buf_get_name(0))
+		local runner_map = runners[vim.bo.filetype]
+
+		if not runner_map then
+			return
+		end
+
+		local runner = runner_map(vim.api.nvim_buf_get_name(0))
 
 		if not runner then
 			return

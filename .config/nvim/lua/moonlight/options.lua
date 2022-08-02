@@ -7,7 +7,13 @@ local cmap = utils.cmap
 local lmap = utils.lmap
 local imap = utils.imap
 
-local global_options = {
+local function assign_options(option_table, target)
+	for key, value in pairs(option_table) do
+		target[key] = value
+	end
+end
+
+assign_options({
 	loaded_2html_plugin = 1,
 	loaded_getscript = 1,
 	loaded_getscriptPlugin = 1,
@@ -35,13 +41,9 @@ local global_options = {
 	["conjure#mapping#doc_word"] = "gk",
 	mapleader = " ",
 	maplocalleader = "\\",
-}
+}, vim.g)
 
-for k, v in pairs(global_options) do
-	vim.g[k] = v
-end
-
-local options = {
+assign_options({
 	laststatus = 3,
 	backup = false,
 	breakindent = true,
@@ -88,11 +90,7 @@ local options = {
 	wildignore = ".git,*.tags,tags,*.o,**/node_modules/**",
 	wildmode = "longest:full,full",
 	writebackup = false,
-}
-
-for k, v in pairs(options) do
-	vim.opt[k] = v
-end
+}, vim.opt)
 
 -- leader mappings
 lmap("u", ":PackerUpdate<cr>")
