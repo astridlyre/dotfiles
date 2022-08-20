@@ -4,10 +4,10 @@
  * Copyright: Dave Davenport
  */
 * {
-    background-color:      #161616;
-    border-color:          #37474f;
-    text-color:           #dde1e6;
-    font:            "JetBrainsMono Nerd Font 18";
+    background-color:      #111c22;
+    border-color:          #66a5ad;
+    text-color:            #c7d6d0;
+    font:                  "JetBrainsMono Nerd Font 18";
 }
 
 window {
@@ -45,6 +45,6 @@ element {
     padding: 0px 2px;
 }
 element selected {
-    background-color: #dde1e6;
-    text-color: #161616;
+    background-color: #66a5ad;
+    text-color: #0f191f;
 }

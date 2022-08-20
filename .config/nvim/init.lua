@@ -1,4 +1,4 @@
 -- Load cached
---require("impatient")
+require("impatient")
 require("packer_compiled")
 require("moonlight")
