@@ -13,7 +13,7 @@ return function()
 		close_on_exit = true,
 		shell = vim.o.shell,
 		float_opts = {
-			border = "curved",
+			border = "solid",
 			winblend = 3,
 			highlights = {
 				border = "Normal",
@@ -33,5 +33,6 @@ return function()
 		map("<C-w>k", [[<C-\><C-n><C-W>k]])
 		map("<C-w>l", [[<C-\><C-n><C-W>l]])
 	end
+
 	vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 end

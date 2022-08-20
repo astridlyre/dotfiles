@@ -23,6 +23,11 @@ end
 -- Packer Configuration
 local packer = require_plugin("packer")
 local util = require_plugin("packer.util")
+
+if packer == nil or util == nil then
+	return
+end
+
 local packer_init = {
 	display = {
 		open_fn = function()
@@ -33,17 +38,14 @@ local packer_init = {
 	},
 }
 
-if packer ~= nil then
-	packer.init(packer_init)
-end
+packer.init(packer_init)
 
-require("moonlight.options").setup()
-require("moonlight.functions").setup()
-require("moonlight.autocmds").setup()
+require("moonlight.options")
+require("moonlight.functions")
+require("moonlight.autocmds")
 
 return packer.startup({
 	function(use)
-		use({ "lewis6991/impatient.nvim" })
 		use({ "wbthomason/packer.nvim" })
 
 		-- UI Plugins
@@ -98,7 +100,6 @@ return packer.startup({
 			after = "nvim-lspconfig",
 		})
 		use({ "windwp/nvim-autopairs", event = "InsertEnter", config = require("moonlight.autopairs") })
-		--use({ "nanotee/sqls.nvim" })
 		use({
 			"ThePrimeagen/refactoring.nvim",
 			requires = {
@@ -135,7 +136,7 @@ return packer.startup({
 				"kyazdani42/nvim-web-devicons",
 				"MunifTanjim/nui.nvim",
 			},
-			config = require("moonlight.nvim-tree"),
+			config = require("moonlight.neo-tree"),
 			cmd = "Neotree",
 		})
 		use({ "ggandor/leap.nvim", config = require("moonlight.leap"), event = "BufEnter" })

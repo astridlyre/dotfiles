@@ -67,7 +67,6 @@ return function()
 
 	-- setup cmp
 	cmp.setup({
-		throttle_time = 10,
 		debug = false,
 		source_timeout = 250,
 		snippet = { expand = expand },
