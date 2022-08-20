@@ -99,14 +99,16 @@ bspc config remove_disabled_monitors true
 bspc config merge_overlapping_monitors true
 
 #BSPWM coloring
-bspc config normal_border_color "#262626"
-bspc config active_border_color "#262626"
-bspc config focused_border_color "#ee5396"
-bspc config presel_feedback_color "#262626"
+bspc config normal_border_color "#263945"
+bspc config active_border_color "#263945"
+bspc config focused_border_color "#66A5AD"
+bspc config presel_feedback_color "#263945"
+
+bspc rule -a '*' rectangle="960x600+0+0" center=true
 
 #Floating applications
-bspc rule -a iwctl state=floating rectangle=800x600+560+240
-bspc rule -a l33th4x0rz state=floating rectangle=800x600+560+240
+bspc rule -a iwctl state=floating
+bspc rule -a l33th4x0rz state=floating
 bspc rule -a feh state=floating
 
 #Tiled applications
@@ -119,4 +121,4 @@ bspc rule -a Emacs state=tiled
 bspc rule -a Gimp desktop='^5' state=floating
 bspc rule -a OBS desktop='^6' state=tiled
 
-hsetroot -solid "#121212"
+hsetroot -solid "#0C1419"
