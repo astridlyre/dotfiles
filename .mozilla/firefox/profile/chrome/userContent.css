@@ -37,12 +37,12 @@ by Miguel Avila
 
 body.dark.serif,
 body.dark.sans-serif {
-  font-family: Iosevka !important;
+  font-family: "JetBrainsMono Nerd Font" !important;
   background-color: #0c1419 !important;
   color: #c6d5cf !important;
 }
 
 html.browser_firefox app-root,
 html#uBO-popup-panel {
-  font-family: Iosevka !important;
+  font-family: "JetBrainsMono Nerd Font" !important;
 }
