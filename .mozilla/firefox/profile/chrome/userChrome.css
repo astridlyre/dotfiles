@@ -30,12 +30,12 @@
 }
 
 html.browser_firefox app-root {
-  font-family: Iosevka !important;
+  font-family: "JetBrainsMono Nerd Font" !important;
 }
 
 html.browser_firefox app-root,
 html#uBO-popup-panel {
-  font-family: Iosevka !important;
+  font-family: "JetBrainsMono Nerd Font" !important;
 }
 
 /* 
@@ -48,12 +48,12 @@ html#uBO-popup-panel {
   > #tabbrowser-arrowscrollbox
   > .tabbrowser-tab
   > .tab-stack
-  > .tab-background[multiselected='true'],
+  > .tab-background[multiselected="true"],
 #tabbrowser-tabs:not([movingtab])
   > #tabbrowser-arrowscrollbox
   > .tabbrowser-tab
   > .tab-stack
-  > .tab-background[selected='true'] {
+  > .tab-background[selected="true"] {
   background-image: none !important;
   background-color: var(--toolbar-bgcolor) !important;
 }
@@ -69,7 +69,7 @@ html#uBO-popup-panel {
   background-color: var(--sfwindow) !important;
 }
 
-#eme-notification-icon[firstplay='true'] {
+#eme-notification-icon[firstplay="true"] {
   animation: none !important;
 }
 
