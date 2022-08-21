@@ -44,7 +44,6 @@ assign_options({
 }, vim.g)
 
 assign_options({
-	laststatus = 3,
 	backup = false,
 	breakindent = true,
 	completeopt = "menu,menuone,noinsert",
@@ -55,15 +54,16 @@ assign_options({
 	ignorecase = true,
 	inccommand = "nosplit",
 	jumpoptions = "stack",
+	laststatus = 3,
 	lazyredraw = true,
 	listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←",
 	list = true,
 	maxmempattern = 100000,
 	mouse = "a",
 	number = true,
-	relativenumber = true,
 	pumheight = 16,
 	redrawtime = 8000,
+	relativenumber = true,
 	scrolloff = 3,
 	shiftround = true,
 	shiftwidth = 4,
@@ -132,7 +132,7 @@ lmap("b", "<cmd>Telescope buffers<cr>")
 lmap("fh", "<cmd>Telescope oldfiles<cr>")
 lmap("fq", "<cmd>Telescope quickfix<cr>")
 lmap("fr", "<cmd>Telescope lsp_references<cr>")
-lmap("ca", "<cmd>Telescope lsp_code_actionsr>")
+lmap("ca", "<cmd>Telescope lsp_code_actions<cr>")
 lmap("fd", "<cmd>Telescope lsp_definitions<cr>")
 lmap("fi", "<cmd>Telescope lsp_implementations<cr>")
 lmap("f;", "<cmd>Telescope lsp_range_code_actionsr>")

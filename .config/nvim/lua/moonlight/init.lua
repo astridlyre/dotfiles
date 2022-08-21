@@ -52,10 +52,10 @@ return packer.startup({
 		use({ "norcalli/nvim-colorizer.lua", config = require("moonlight.colorizer"), event = "BufRead" })
 		use({ "echasnovski/mini.nvim", config = require("moonlight.mini"), event = "BufWinEnter" })
 		use({
-			"shaunsingh/oxocarbon.nvim",
-			run = "./install.sh",
+			"mcchrish/zenbones.nvim",
+			requires = "rktjmp/lush.nvim",
 			config = function()
-				vim.cmd("colorscheme oxocarbon")
+				vim.cmd("colorscheme neobones")
 			end,
 		})
 

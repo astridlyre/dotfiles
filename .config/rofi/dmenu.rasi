@@ -7,7 +7,7 @@
     background-color:      #111c22;
     border-color:          #66a5ad;
     text-color:            #c7d6d0;
-    font:                  "JetBrainsMono Nerd Font 18";
+    font:                  "JetBrainsMono Nerd Font 9";
 }
 
 window {

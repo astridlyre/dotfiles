@@ -51,7 +51,7 @@ function get_original_resolution() {
 }
 
 function set_scale_dimensions() {
-	if ((WIDTH > HEIGHT)); then
+	if ((WIDTH < HEIGHT)); then
 		SCALE_WIDTH=320
 		SCALE_HEIGHT=-1
 	else
