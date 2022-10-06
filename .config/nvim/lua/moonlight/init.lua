@@ -47,6 +47,7 @@ require("moonlight.autocmds")
 return packer.startup({
 	function(use)
 		use({ "wbthomason/packer.nvim" })
+		use({ "lewis6991/impatient.nvim" })
 
 		-- UI Plugins
 		use({ "norcalli/nvim-colorizer.lua", config = require("moonlight.colorizer"), event = "BufRead" })
@@ -68,6 +69,7 @@ return packer.startup({
 		use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 		use({ "windwp/nvim-ts-autotag" })
 		use({ "andymass/vim-matchup" })
+		use({ "L3MON4D3/LuaSnip", run = "make install_jsregexp" })
 
 		-- Completion
 		use({

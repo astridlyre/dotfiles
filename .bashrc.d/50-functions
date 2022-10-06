@@ -114,3 +114,7 @@ function oz() {
 	disown
 	clear
 }
+
+function gam() {
+	"${HOME}/.local/bin/gam/gam" "$@"
+}

@@ -2,6 +2,7 @@
 .bin/black
 .bin/blackd
 .bin/flake8
+.bin/gam
 .bin/isort
 .bin/isort-identify-imports
 .bin/proselint

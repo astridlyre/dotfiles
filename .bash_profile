@@ -9,3 +9,5 @@
 # start X server
 [[ -z $DISPLAY ]] && [[ $XDG_VTNR -eq 1 ]] &&
 	exec startx -- -nolisten tcp -keeptty &>"$HOME/.cache/xorg.log"
+
+function gam() { "/home/ml/bin/gam/gam" "$@" ; }
