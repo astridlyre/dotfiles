@@ -148,12 +148,12 @@ return packer.startup({
 		use({ "tpope/vim-repeat", event = "BufEnter" })
 
 		-- Clojure plugins
-		--[[ use({ "tpope/vim-dispatch", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
-		use({ "clojure-vim/vim-jack-in", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
+		-- use({ "tpope/vim-dispatch", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
+		-- use({ "clojure-vim/vim-jack-in", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
 		use({ "Olical/conjure", branch = "develop", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
-		use({ "radenling/vim-dispatch-neovim", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
-		use({ "wlangstroth/vim-racket" })
-		use({ "Olical/aniseed", branch = "develop", ft = { "fennel" } }) ]]
+		-- use({ "radenling/vim-dispatch-neovim", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
+		-- use({ "wlangstroth/vim-racket" })
+		-- use({ "Olical/aniseed", branch = "develop", ft = { "fennel" } })
 	end,
 	config = { compile_path = compile_path },
 })

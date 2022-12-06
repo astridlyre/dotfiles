@@ -11,16 +11,15 @@ return function()
 
 	null_ls.setup({
 		sources = {
-			formatting.raco_fmt,
-			formatting.joker,
+			formatting.joker.with({ filetypes = { "clojure", "clj" } }),
 			formatting.prettierd,
 			formatting.shfmt,
 			formatting.black,
 			formatting.fixjson,
 			formatting.goimports,
 			formatting.isort,
-			formatting.fnlfmt,
 			formatting.stylua,
+			diagnostics.clj_kondo,
 			diagnostics.shellcheck,
 			diagnostics.staticcheck,
 			diagnostics.write_good.with({ filetypes = { "markdown", "tex", "text" } }),

@@ -84,7 +84,7 @@ local function make_capabilities()
 	capabilities.textDocument.completion.completionItem.resolveSupport = {
 		properties = { "documentation", "detail", "additionalTextEdits" },
 	}
-	capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+	capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 	return capabilities
 end
 
@@ -289,7 +289,7 @@ M.setup = function()
 		"clojure_lsp",
 		--"cssmodules_ls",
 		--"emmet_ls",
-		"solang",
+		--"solang",
 		"eslint",
 	}
 
