@@ -197,6 +197,7 @@ M.setup = function()
 						library = library,
 						maxPreload = 2000,
 						preloadFileSize = 50000,
+						checkThirdParty = false,
 					},
 					telemetry = { enable = false },
 				},

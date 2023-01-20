@@ -80,7 +80,7 @@ run numlockx on
 # Configure no border gaps
 bspc config border_width 1
 bspc config window_gap 0
-bspc config top_padding 20
+bspc config top_padding 22
 bspc config bottom_padding 0
 bspc config left_padding 0
 bspc config right_padding 0
@@ -99,10 +99,10 @@ bspc config remove_disabled_monitors true
 bspc config merge_overlapping_monitors true
 
 #BSPWM coloring
-bspc config normal_border_color "#263945"
-bspc config active_border_color "#263945"
-bspc config focused_border_color "#66A5AD"
-bspc config presel_feedback_color "#263945"
+bspc config normal_border_color "#3C3C51"
+bspc config active_border_color "#3C3C51"
+bspc config focused_border_color "#DDD8BB"
+bspc config presel_feedback_color "#3C3C51"
 
 bspc rule -a '*' rectangle="960x600+0+0" center=true
 
@@ -121,4 +121,4 @@ bspc rule -a Emacs state=tiled
 bspc rule -a Gimp desktop='^5' state=floating
 bspc rule -a OBS desktop='^6' state=tiled
 
-hsetroot -solid "#0C1419"
+feh --bg-scale "${HOME}/Pictures/wallpaper.jpg"

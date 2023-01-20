@@ -12,7 +12,7 @@ super + w
 
 # qutebrowser
 super + b
-	firefox-developer-edition
+	LIBVA_DRIVER_NAME=nvidia MOZ_DISABLE_RDD_SANDBOX=1 firefox-developer-edition
 
 # Pavucontrol
 super + v

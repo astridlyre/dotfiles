@@ -1,20 +1,16 @@
-/**
- * ROFI Color theme
- * User: Qball
- * Copyright: Dave Davenport
- */
 * {
-    background-color:      #111c22;
-    border-color:          #66a5ad;
-    text-color:            #c7d6d0;
-    font:                  "JetBrainsMono Nerd Font 9";
+    background-color:      #1f1f28;
+    border-color:          #ddd8bb;
+    text-color:            #ddd8bb;
+    font:                  "IBM Plex Mono 10";
 }
 
 window {
-    anchor:     center;
+    anchor:     south;
     location:   center;
-    border:     1px solid;
-    padding:    2px;
+    border:     2px solid;
+	border-radius: 5px;
+    padding:    5px;
     width:      42%;
     children:   [ horibox ];
 }
@@ -22,10 +18,13 @@ window {
 horibox {
     orientation: vertical;
     children:   [ prompt, entry, listview ];
+
+    background-color:      #1f1f28;
 }
 
 prompt {
     padding:    2px;
+	text-color: #a98fd2;
 }
 
 listview {
@@ -43,9 +42,13 @@ entry {
 
 element {
     padding: 0px 2px;
+    expand: false;
 }
 element selected {
-    background-color: #66a5ad;
-    text-color: #0f191f;
+    background-color: #a98fd2;
+    text-color: #11111c;
 }
-
+element-text, element-icon {
+	background-color: inherit;
+	text-color: inherit;
+}

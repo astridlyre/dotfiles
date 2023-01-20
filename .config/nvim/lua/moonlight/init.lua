@@ -56,7 +56,7 @@ return packer.startup({
 			"mcchrish/zenbones.nvim",
 			requires = "rktjmp/lush.nvim",
 			config = function()
-				vim.cmd("colorscheme neobones")
+				vim.cmd("colorscheme kanagawabones")
 			end,
 		})
 
@@ -78,7 +78,6 @@ return packer.startup({
 			requires = {
 				"hrsh7th/cmp-nvim-lsp",
 				"hrsh7th/cmp-nvim-lua",
-				"hrsh7th/cmp-path",
 				"hrsh7th/cmp-buffer",
 				"L3MON4D3/LuaSnip",
 				"saadparwaiz1/cmp_luasnip",
@@ -102,14 +101,14 @@ return packer.startup({
 			after = "nvim-lspconfig",
 		})
 		use({ "windwp/nvim-autopairs", event = "InsertEnter", config = require("moonlight.autopairs") })
-		use({
+		--[[ use({
 			"ThePrimeagen/refactoring.nvim",
 			requires = {
 				{ "nvim-lua/plenary.nvim" },
 				{ "nvim-treesitter/nvim-treesitter" },
 			},
 			config = require("moonlight.refactoring"),
-		})
+		}) ]]
 
 		-- Version Control
 		use({
@@ -150,7 +149,7 @@ return packer.startup({
 		-- Clojure plugins
 		-- use({ "tpope/vim-dispatch", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
 		-- use({ "clojure-vim/vim-jack-in", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
-		use({ "Olical/conjure", branch = "develop", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
+		-- use({ "Olical/conjure", branch = "develop", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
 		-- use({ "radenling/vim-dispatch-neovim", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
 		-- use({ "wlangstroth/vim-racket" })
 		-- use({ "Olical/aniseed", branch = "develop", ft = { "fennel" } })

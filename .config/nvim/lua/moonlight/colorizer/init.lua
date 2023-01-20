@@ -16,5 +16,6 @@ return function()
 		"kitty",
 		"javascriptreact",
 		"typescriptreact",
+		"dosini",
 	})
 end
