@@ -4,11 +4,11 @@ NVIM=$HOME/.config/nvim/init.vim
 BSPWM=$HOME/.config/bspwm/bspwmrc
 SXHKD=$HOME/.config/bspwm/sxhkd/sxhkdrc
 BASH=$HOME/.bashrc
-KITTY=$HOME/.config/kitty/kitty.conf
+WEZTERM=$HOME/.config/wezterm/wezterm.lua
 POLYBAR=$HOME/.config/polybar/config.ini
 
 openConfig() {
-	exec kitty --title "$2 - config editor" -e bash -c "vim $1"
+	exec wezterm start nvim "$1"
 }
 
 case $1 in
@@ -16,7 +16,7 @@ nvim) openConfig "$NVIM" "$1" ;;
 bspwm) openConfig "$BSPWM" "$1" ;;
 sxhkd) openConfig "$SXHKD" "$1" ;;
 bash) openConfig "$BASH" "$1" ;;
-kitty) openConfig "$KITTY" "$1" ;;
+wezterm) openConfig "$WEZTERM" "$1" ;;
 polybar) openConfig "$POLYBAR" "$1" ;;
 *) ;;
 esac

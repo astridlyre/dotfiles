@@ -80,7 +80,7 @@ run numlockx on
 # Configure no border gaps
 bspc config border_width 1
 bspc config window_gap 0
-bspc config top_padding 22
+bspc config top_padding 18
 bspc config bottom_padding 0
 bspc config left_padding 0
 bspc config right_padding 0
@@ -110,6 +110,8 @@ bspc rule -a '*' rectangle="960x600+0+0" center=true
 bspc rule -a iwctl state=floating
 bspc rule -a l33th4x0rz state=floating
 bspc rule -a feh state=floating
+bspc rule -a Blueberry.py state=floating
+bspc rule -a Pavucontrol state=floating
 
 #Tiled applications
 bspc rule -a mpv state=tiled
@@ -118,7 +120,7 @@ bspc rule -a Zathura state=tiled
 bspc rule -a Emacs state=tiled
 
 #open applications on specific workspaces
-bspc rule -a Gimp desktop='^5' state=floating
+bspc rule -a Gimp desktop='^5' state=tiled
 bspc rule -a OBS desktop='^6' state=tiled
 
 feh --bg-scale "${HOME}/Pictures/wallpaper.jpg"

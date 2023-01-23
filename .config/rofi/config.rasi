@@ -3,7 +3,7 @@ configuration {
 /*	width: 40; */
 /*  lines: 12; */
 /*  columns: 1; */
-	font: "IBM Plex Mono 9";
+	font: "Pragmata Pro Liga 9";
 /*	bw: 1;*/
 /*	location: 0;*/
 	padding: 0;

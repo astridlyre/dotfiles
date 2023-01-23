@@ -20,22 +20,16 @@ super + v
 
 # Alacritty
 super + Return
-    kitty --title 'hax terminal'
+     wezterm
 
-super + p
-	kitty --title 'vim scratch' --class l33th4x0rz --name l33th4x0rz -e vpipe
 
-# Hacker floating term
-super + space
-  kitty --title 'm00nl1ght l33t h4x0rz' --class l33th4x0rz --name l33th4x0rz
-
-# Write something in vim
+# DB
 super + m
-  emacs
+  beekeeper
 
 # nnn File Manager
 super + f
-    kitty --title 'hax browser' --class nnn --name nnn -e nnn -c
+    wezterm start nnn
 
 super + e
 	element-desktop
@@ -180,7 +174,10 @@ super + bracket{right,left}
 
 # set the window state
 super + t
-        bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+        bspc node -t floating
+
+super + shift + t
+        bspc node -t tiled
 
 #################################################################
 # SUPER + ALT KEYS
@@ -295,7 +292,7 @@ alt + space
 #################################################################
 
 # edit config files
-alt + shift + {v,b,s,t,k,p}
-  ~/.config/bspwm/scripts/edit_configs {nvim, bspwm, sxhkd, bash, kitty, polybar}
+alt + shift + {v,b,s,t,w,p}
+  ~/.config/bspwm/scripts/edit_configs {nvim, bspwm, sxhkd, bash, wezterm, polybar}
 super + space
 

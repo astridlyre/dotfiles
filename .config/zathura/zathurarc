@@ -1,4 +1,4 @@
-set font "IBM Plex Mono normal 11"
+set font "PragmataPro Mono Liga normal 11"
 set highlight-transparency 1.0
 
 set default-fg 			    "#ddd8bb"

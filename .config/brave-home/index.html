@@ -24,7 +24,7 @@
         flex-flow: column nowrap;
         justify-content: center;
         align-items: center;
-        font-family: "IBM Plex Mono";
+        font-family: "Pragmata Pro Mono";
       }
 
       h1 {
@@ -61,14 +61,14 @@
         box-sizing: border-box;
         height: 100%;
         width: 100%;
-        border: 1px solid var(--gray);
-        border-radius: 0;
+        border: 2px solid var(--gray);
+        border-radius: 5px;
       }
 
       a:focus,
       a:hover {
-        border: 1px solid var(--primary);
-        border-radius: 0;
+        border: 2px solid var(--primary);
+        border-radius: 5px;
         outline: none;
       }
       span {
@@ -81,9 +81,7 @@
       <h1>h4x0r l1nkz</h1>
       <ul>
         <li>
-          <a accesskey="r" href="https://app.kosmi.io/room/rrtmil"
-            ><span>r</span>oom</a
-          >
+          <a accesskey="w" href="#" id="work"><span>w</span>ork</a>
         </li>
         <li>
           <a accesskey="c" href="https://www.cbc.ca/news"><span>c</span>bc</a>
@@ -124,4 +122,16 @@
       </ul>
     </nav>
   </body>
+  <script defer>
+    const workButton = document.getElementById("work");
+
+    workButton.onclick = () => {
+      window.open(
+        "https://app.slack.com/client/T0119HNSZDX/C018JH4UVEW",
+        "_blank",
+      );
+      window.open("https://app.clickup.com/", "_blank");
+      window.open("https://calendar.google.com/calendar/u/2/r", "_blank");
+    };
+  </script>
 </html>

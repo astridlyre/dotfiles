@@ -2,4 +2,4 @@
 
 SERVER=$1
 
-ssh -i "${HOME}"/.ssh/id_streamily_root.pem ubuntu@streamily-prod-"${SERVER}"
+TERM=xterm-256color ssh -i "${HOME}"/.ssh/id_streamily_root.pem ubuntu@streamily-prod-"${SERVER}"

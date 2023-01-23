@@ -33,6 +33,7 @@ local lsp_maps = function(_, bufnr)
 	nmap("<space>rn", vim.lsp.buf.rename, opts)
 	nmap("<space>qf", vim.diagnostic.setqflist)
 	nmap("<space>lf", vim.lsp.buf.formatting_sync)
+	nmap("<space>ca", vim.lsp.buf.code_action)
 	nmap("<c-s>", vim.lsp.buf.signature_help, opts)
 	imap("<c-s>", vim.lsp.buf.signature_help, opts)
 
@@ -220,11 +221,12 @@ M.setup = function()
 				"typescript.tsx",
 			},
 			init_options = {
-				importModuleSpecifierEnding = "auto",
-				importModuleSpecifierPreference = "project-relative",
-				includePackageJsonAutoImports = "auto",
-				includeCompletionsForModuleExports = false,
-				includeCompletionsForImportStatements = false,
+				hostInfo = "neovim",
+				preferences = {
+					importModuleSpecifierPreference = "project-relative",
+					includeCompletionsForModuleExports = false,
+					includeCompletionsForImportStatements = false,
+				},
 				maxTsServerMemory = 12288,
 			},
 			settings = {

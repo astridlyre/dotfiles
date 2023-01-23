@@ -64,17 +64,6 @@ function s() {
 	cd "$prev" || exit 1
 }
 
-function z() {
-	local file old
-	old="$FZF_DEFAULT_COMMAND"
-	FZF_DEFAULT_COMMAND="rg --files $HOME/Documents/codingbooks"
-	file="$(fzf --no-height --reverse --ansi)"
-	[[ "$file" ]] && zathura "$file" &>/dev/null &
-	disown
-	clear
-	FZF_DEFAULT_COMMAND="$old"
-}
-
 function r() {
 	local file old
 	old="$FZF_DEFAULT_COMMAND"

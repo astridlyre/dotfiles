@@ -2,7 +2,7 @@
     background-color:      #1f1f28;
     border-color:          #ddd8bb;
     text-color:            #ddd8bb;
-    font:                  "IBM Plex Mono 10";
+    font:                  "Native 10";
 }
 
 window {

@@ -41,8 +41,7 @@ return function()
 	local source_mapping = {
 		nvim_lsp = "[lsp]",
 		nvim_lua = "[lua]",
-		--path = "[path]",
-		--buffer = "[buf]",
+		buffer = "[buf]",
 	}
 
 	local sources = cmp.config.sources({
@@ -51,7 +50,7 @@ return function()
 		{ name = "nvim_lua" },
 		--{ name = "conjure" },
 		--{ name = "path" },
-		--{ name = "buffer" },
+		{ name = "buffer" },
 	})
 
 	local format = lspkind.cmp_format({

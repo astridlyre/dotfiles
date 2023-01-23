@@ -101,14 +101,6 @@ return packer.startup({
 			after = "nvim-lspconfig",
 		})
 		use({ "windwp/nvim-autopairs", event = "InsertEnter", config = require("moonlight.autopairs") })
-		--[[ use({
-			"ThePrimeagen/refactoring.nvim",
-			requires = {
-				{ "nvim-lua/plenary.nvim" },
-				{ "nvim-treesitter/nvim-treesitter" },
-			},
-			config = require("moonlight.refactoring"),
-		}) ]]
 
 		-- Version Control
 		use({
@@ -118,13 +110,14 @@ return packer.startup({
 			event = "BufRead",
 		})
 
-		-- Terminal
-		use({ "akinsho/toggleterm.nvim", config = require("moonlight.toggleterm") })
-
 		-- Navigation
 		use({
 			"nvim-telescope/telescope.nvim",
-			requires = { "nvim-lua/plenary.nvim", "kyazdani42/nvim-web-devicons" },
+			requires = {
+				"nvim-lua/plenary.nvim",
+				"kyazdani42/nvim-web-devicons",
+				"nvim-telescope/telescope-ui-select.nvim",
+			},
 			config = require("moonlight.telescope"),
 			cmd = "Telescope",
 		})
