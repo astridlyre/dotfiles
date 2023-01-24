@@ -10,7 +10,7 @@ by Miguel Avila
 
 :root {
   scrollbar-width: thin !important;
-  scrollbar-color: #0f191f #3a3e3d;
+  scrollbar-color: #16161c #3c3c51;
 }
 
 @-moz-document url(about:privatebrowsing) {
@@ -23,26 +23,26 @@ by Miguel Avila
   html:not(#ublock0-epicker),
   html:not(#ublock0-epicker) body,
   #newtab-customize-overlay {
-    background: #0c1419 !important;
-    color: #c6d5cf !important;
+    background: #16161c !important;
+    color: #ddd8bb !important;
   }
 }
 
 @-moz-document url(about:newtab), url(about:home), url(about:config), url(about:preferences) {
   body {
-    background-color: #0c1419 !important;
-    color: #c6d5cf !important;
+    background-color: #16161c !important;
+    color: #ddd8bb !important;
   }
 }
 
 body.dark.serif,
 body.dark.sans-serif {
-  font-family: "JetBrainsMono Nerd Font" !important;
-  background-color: #0c1419 !important;
-  color: #c6d5cf !important;
+  font-family: "Pragmata Pro Liga" !important;
+  background-color: #1f1f28 !important;
+  color: #ddd8bb !important;
 }
 
 html.browser_firefox app-root,
 html#uBO-popup-panel {
-  font-family: "JetBrainsMono Nerd Font" !important;
+  font-family: "Pragmata Pro Liga" !important;
 }

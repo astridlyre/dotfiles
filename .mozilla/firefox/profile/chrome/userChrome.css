@@ -15,27 +15,28 @@
 */
 
 :root {
-  --sfwindow: #0c1419;
-  --sfsecondary: #172730;
-  --sf-accent-color: #66a5ad;
+  --sfwindow: #16161c;
+  --sfsecondary: #1f1f28;
+  --sf-accent-color: #a98fd2;
   --toolbar-bgcolor: var(--sfsecondary) !important;
   --tabs-border-color: var(--sfsecondary) !important;
   --lwt-sidebar-background-color: var(--sfwindow) !important;
   --lwt-toolbar-field-focus: var(--sfsecondary) !important;
+  --tab-min-height: 24px !important;
 }
 
 .browserContainer {
-  color: #c6d5cf !important;
-  background-color: #0c1419 !important;
+  color: #ddd8bb !important;
+  background-color: #1f1f28 !important;
 }
 
 html.browser_firefox app-root {
-  font-family: "JetBrainsMono Nerd Font" !important;
+  font-family: "Pragmata Pro Liga" !important;
 }
 
 html.browser_firefox app-root,
 html#uBO-popup-panel {
-  font-family: "JetBrainsMono Nerd Font" !important;
+  font-family: "Pragmata Pro Liga" !important;
 }
 
 /* 
@@ -116,7 +117,7 @@ toolbarbutton.bookmark-item:not(.subviewbutton) {
 }
 
 .urlbarView-url {
-  color: #c6d5cf !important;
+  color: #ddd8bb !important;
 }
 
 /* Disable elements  */

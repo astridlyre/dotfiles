@@ -157,7 +157,7 @@ M.setup = function()
 	-- Sumneko Language Server
 	local function sumneko_lua()
 		local library = {}
-		local path = vim.split(package.path, ";")
+		local path = vim.split(package.path, ";", {})
 
 		table.insert(path, "lua/?.lua")
 		table.insert(path, "lua/?/init.lua")
@@ -224,8 +224,8 @@ M.setup = function()
 				hostInfo = "neovim",
 				preferences = {
 					importModuleSpecifierPreference = "project-relative",
-					includeCompletionsForModuleExports = false,
-					includeCompletionsForImportStatements = false,
+					includeCompletionsForModuleExports = false, -- enable this if working on smaller projects
+					includeCompletionsForImportStatements = false, -- enable this if working on smaller projects
 				},
 				maxTsServerMemory = 12288,
 			},
@@ -360,7 +360,7 @@ M.setup = function()
 
 	-- Add reload lsp function
 	function _G.reload_lsp()
-		vim.lsp.stop_client(vim.lsp.get_active_clients())
+		vim.lsp.stop_client(vim.lsp.get_active_clients(), false)
 		vim.cmd([[edit]])
 	end
 
