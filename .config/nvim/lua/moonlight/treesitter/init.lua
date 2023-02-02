@@ -4,10 +4,10 @@ return function()
 		highlight = { enable = true },
 		indent = { enable = true },
 		incremental_selection = {
-			enable = true,
+			enable = false,
 			keymaps = {
 				init_selection = "<CR>",
-				scope_incremental = "<CR>",
+				scope_incremental = "<S-CR>",
 				node_incremental = "<TAB>",
 				node_decremental = "<S-TAB>",
 			},

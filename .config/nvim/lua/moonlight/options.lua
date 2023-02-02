@@ -117,6 +117,9 @@ nmap("[q", "<cmd>cprev<cr>zz")
 nmap("]q", "<cmd>cnext<cr>zz")
 nmap("<localleader>cc", "<cmd>ClojureConnect<cr>")
 nmap("<c-p>", "<c-^>")
+nmap("<c-\\>", function()
+	utils.safe_require("FTerm").toggle()
+end)
 
 -- telescope
 lmap("<space>", "<cmd>Telescope find_files hidden=true follow=true<cr>")
@@ -150,7 +153,9 @@ vmap("<leader>y", '"+y')
 vmap("<c-c>", "<esc>")
 
 -- terminal mode
-tmap("<c-q>", "<c-\\><c-n>")
+tmap("<c-\\>", function()
+	utils.safe_require("FTerm").close({ bang = true })
+end)
 
 -- command mode
 cmap("<c-b>", "<left>")

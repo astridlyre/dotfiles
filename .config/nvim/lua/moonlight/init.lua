@@ -9,20 +9,11 @@ if fn.empty(vim.fn.glob(install_path)) > 0 then
 	execute("packadd packer.nvim")
 end
 
--- Handle errors
-local require_plugin = function(p)
-	local ok, plugin = pcall(require, p)
-	if ok then
-		return plugin
-	else
-		print("Unable to load " .. p)
-		return nil
-	end
-end
+local ml_utils = require("moonlight.utils")
 
 -- Packer Configuration
-local packer = require_plugin("packer")
-local util = require_plugin("packer.util")
+local packer = ml_utils.safe_require("packer")
+local util = ml_utils.safe_require("packer.util")
 
 if packer == nil or util == nil then
 	return
@@ -138,6 +129,7 @@ return packer.startup({
 		-- Misc
 		use({ "b3nj5m1n/kommentary", event = "BufEnter" })
 		use({ "tpope/vim-repeat", event = "BufEnter" })
+		use({ "numToStr/FTerm.nvim" })
 
 		-- Clojure plugins
 		-- use({ "tpope/vim-dispatch", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })

@@ -20,6 +20,34 @@ local lsp_formatting = function(bufnr)
 	})
 end
 
+local function get_diagnostic_at_cursor()
+	local cur_buf = vim.api.nvim_get_current_buf()
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	local entrys = vim.diagnostic.get(cur_buf, { lnum = line - 1 })
+	local res = {}
+	for _, v in pairs(entrys) do
+		if v.col <= col and v.end_col >= col then
+			table.insert(res, {
+				code = v.code,
+				message = v.message,
+				range = {
+					["start"] = {
+						character = v.col,
+						line = v.lnum,
+					},
+					["end"] = {
+						character = v.end_col,
+						line = v.end_lnum,
+					},
+				},
+				severity = v.severity,
+				source = v.source or nil,
+			})
+		end
+	end
+	return res
+end
+
 local lsp_maps = function(_, bufnr)
 	local opts = { buffer = bufnr }
 	nmap("gD", vim.lsp.buf.declaration, opts)
@@ -33,9 +61,16 @@ local lsp_maps = function(_, bufnr)
 	nmap("<space>rn", vim.lsp.buf.rename, opts)
 	nmap("<space>qf", vim.diagnostic.setqflist)
 	nmap("<space>lf", vim.lsp.buf.formatting_sync)
-	nmap("<space>ca", vim.lsp.buf.code_action)
 	nmap("<c-s>", vim.lsp.buf.signature_help, opts)
 	imap("<c-s>", vim.lsp.buf.signature_help, opts)
+
+	nmap("<space>ca", function()
+		return vim.lsp.buf.code_action({
+			context = {
+				diagnostics = get_diagnostic_at_cursor(),
+			},
+		})
+	end)
 
 	nmap("<space>wp", function()
 		return print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
@@ -227,7 +262,7 @@ M.setup = function()
 					includeCompletionsForModuleExports = false, -- enable this if working on smaller projects
 					includeCompletionsForImportStatements = false, -- enable this if working on smaller projects
 				},
-				maxTsServerMemory = 12288,
+				maxTsServerMemory = 16384,
 			},
 			settings = {
 				diagnosticsDelay = "150ms",
