@@ -22,6 +22,8 @@ super + v
 super + Return
      wezterm
 
+super + space
+     wezterm start --class floating-term
 
 # DB
 super + m

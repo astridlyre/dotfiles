@@ -112,6 +112,7 @@ bspc rule -a l33th4x0rz state=floating
 bspc rule -a feh state=floating
 bspc rule -a Blueberry.py state=floating
 bspc rule -a Pavucontrol state=floating
+bspc rule -a floating-term state=floating rectangle="1000x400+460+50" center=false
 
 #Tiled applications
 bspc rule -a mpv state=tiled

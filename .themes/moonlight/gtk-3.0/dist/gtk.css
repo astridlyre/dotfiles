@@ -142,7 +142,7 @@ GtkLabel:insensitive {
 NemoPathbarButton, column-header, .osd.button, .osd .button,
 #XfceNotifyWindow.button,
 #XfceNotifyWindow .button, .app-notification .button, .app-notification.frame .button, GtkModelButton.button, GtkModelButton.button:backdrop, GtkPopover .button, .error .button, .question .button, .warning .button, .info .button, .selection-mode.header-bar .button, .selection-mode.header-bar .button.suggested-action, .selection-mode.toolbar .button, .selection-mode.toolbar .button.suggested-action, .destructive-action.button, .suggested-action.button, .header-bar .button, .toolbar .button, .button.default, .button {
-  padding: 2px 4px;
+  padding: 1px 3px;
   border-width: 1px;
   border-style: solid;
   border-radius: 2px;
@@ -435,7 +435,7 @@ NemoPathbarButton, column-header, .osd.button, .osd .button,
       box-shadow: inset 1px 0 rgba(54, 50, 27, 0.06), inset 0 1px rgba(54, 50, 27, 0.07), inset -1px 0 rgba(54, 50, 27, 0.06); }
   .spinbutton .button, .spinbutton .selection-mode.header-bar .button.suggested-action, .selection-mode.header-bar .spinbutton .button.suggested-action, .spinbutton .selection-mode.toolbar .button.suggested-action, .selection-mode.toolbar .spinbutton .button.suggested-action {
     color: mix(#ddd8bb,#16161c,0.4);
-    padding: 2px 4px;
+    padding: 1px 2px;
     border: 0;
     border-radius: 0;
     border-style: none;
@@ -496,7 +496,7 @@ NemoPathbarButton, column-header, .osd.button, .osd .button,
 ! ComboBoxes *
 *******************/
 GtkComboBox > .button, .selection-mode.header-bar GtkComboBox > .button.suggested-action, .selection-mode.toolbar GtkComboBox > .button.suggested-action {
-  padding: 0px 3px;
+  padding: -1px 2px;
   -GtkComboBox-arrow-scaling: .5;
   -GtkComboBox-shadow-type: none; }
 
@@ -508,7 +508,7 @@ GtkComboBox .separator {
   border-style: none; }
 
 .linked > GtkComboBox menu menuitem {
-  padding: 2px 4px; }
+  padding: 1px 3px; }
 
 /*********
  ! Entry *
@@ -535,7 +535,7 @@ GtkComboBox .separator {
     border-radius: 2px; }
 
 GtkPopover .entry, .menuitem .entry, .entry {
-  padding: 1px 2px;
+  padding: 0px 1px;
   border-width: 1px;
   border-style: solid;
   border-radius: 2px;
@@ -555,7 +555,7 @@ GtkPopover .entry, .menuitem .entry, .entry {
     border-radius: 2px;
     color: #16161c; }
   .image.left.entry {
-    padding-right: 2px; }
+    padding-right: 1px; }
 
 .entry {
   background-color: #16161c;
@@ -596,7 +596,7 @@ GtkPopover .entry, .menuitem .entry, .entry {
   background-color: #1f1f28;
   background-image: none;
   border-color: #191920;
-  padding: 4px;
+  padding: 2px;
   color: #ddd8bb;
   padding: 2px;
   border-style: none; }
@@ -614,10 +614,10 @@ GtkPopover .entry, .menuitem .entry, .entry {
     color: mix(#ddd8bb,#1f1f28,0.5); }
   .toolbar .title {
     font: bold;
-    padding: 0 4px; }
+    padding: 0 2px; }
   .toolbar .subtitle {
     font: smaller;
-    padding: 0 4px; }
+    padding: 0 2px; }
   .toolbar .button, .toolbar .selection-mode.header-bar .button.suggested-action, .selection-mode.header-bar .toolbar .button.suggested-action, .selection-mode.toolbar .button.suggested-action {
     background-color: #1f1f28;
     background-image: none;
@@ -730,11 +730,11 @@ GtkPopover .entry, .menuitem .entry, .entry {
     .toolbar .button.linked:active:only-child, .toolbar .button.linked:active:only-child:focus, .toolbar .button.linked:active:only-child:hover, .toolbar .button.linked:active:only-child:hover:focus, .toolbar .button.linked:checked:only-child, .toolbar .button.linked:checked:only-child:focus, .toolbar .button.linked:checked:only-child:hover, .toolbar .button.linked:checked:only-child:hover:focus, .toolbar .linked .button:active:only-child, .toolbar .linked .button:active:only-child:focus, .toolbar .linked .button:active:only-child:hover, .toolbar .linked .button:active:only-child:hover:focus, .toolbar .linked .button:checked:only-child, .toolbar .linked .button:checked:only-child:focus, .toolbar .linked .button:checked:only-child:hover, .toolbar .linked .button:checked:only-child:hover:focus {
       box-shadow: inset 1px 0 rgba(54, 50, 27, 0.06), inset 0 1px rgba(54, 50, 27, 0.07), inset -1px 0 rgba(54, 50, 27, 0.06); }
   .toolbar GtkComboBox, .toolbar .button, .toolbar .selection-mode.header-bar .button.suggested-action, .selection-mode.header-bar .toolbar .button.suggested-action, .selection-mode.toolbar .button.suggested-action {
-    padding: 1px; }
+    padding: 0px; }
     .toolbar GtkComboBox.text-button, .toolbar .button.text-button, .toolbar .selection-mode.header-bar .text-button.button.suggested-action, .selection-mode.header-bar .toolbar .text-button.button.suggested-action, .selection-mode.toolbar .text-button.button.suggested-action {
-      padding: 2px; }
+      padding: 1px; }
     .toolbar GtkComboBox.image-button, .toolbar .button.image-button, .toolbar .selection-mode.header-bar .image-button.button.suggested-action, .selection-mode.header-bar .toolbar .image-button.button.suggested-action, .selection-mode.toolbar .image-button.button.suggested-action {
-      padding: 3px 1px 3px 2px; }
+      padding: 2px 0px 2px 1px; }
   .toolbar GtkSeparatorToolItem, .toolbar .separator, .toolbar .separator:insensitive {
     color: #1c1c24;
     border-color: currentColor;
@@ -759,7 +759,7 @@ GtkPopover .entry, .menuitem .entry, .entry {
   background-color: #16161c;
   background-image: none;
   border-color: #121216;
-  padding: 4px;
+  padding: 2px;
   color: #ddd8bb;
   border-width: 0 0 1px;
   border-style: solid; }
@@ -777,10 +777,10 @@ GtkPopover .entry, .menuitem .entry, .entry {
     color: mix(#ddd8bb,#16161c,0.5); }
   .header-bar .title {
     font: bold;
-    padding: 0 4px; }
+    padding: 0 2px; }
   .header-bar .subtitle {
     font: smaller;
-    padding: 0 4px; }
+    padding: 0 2px; }
   .header-bar .button, .selection-mode.header-bar .button.suggested-action, .header-bar .selection-mode.toolbar .button.suggested-action, .selection-mode.toolbar .header-bar .button.suggested-action {
     background-color: #1f1f28;
     background-image: none;
@@ -893,11 +893,11 @@ GtkPopover .entry, .menuitem .entry, .entry {
     .header-bar .button.linked:active:only-child, .header-bar .button.linked:active:only-child:focus, .header-bar .button.linked:active:only-child:hover, .header-bar .button.linked:active:only-child:hover:focus, .header-bar .button.linked:checked:only-child, .header-bar .button.linked:checked:only-child:focus, .header-bar .button.linked:checked:only-child:hover, .header-bar .button.linked:checked:only-child:hover:focus, .header-bar .linked .button:active:only-child, .header-bar .linked .button:active:only-child:focus, .header-bar .linked .button:active:only-child:hover, .header-bar .linked .button:active:only-child:hover:focus, .header-bar .linked .button:checked:only-child, .header-bar .linked .button:checked:only-child:focus, .header-bar .linked .button:checked:only-child:hover, .header-bar .linked .button:checked:only-child:hover:focus {
       box-shadow: inset 1px 0 rgba(54, 50, 27, 0.06), inset 0 1px rgba(54, 50, 27, 0.07), inset -1px 0 rgba(54, 50, 27, 0.06); }
   .header-bar GtkComboBox, .header-bar .button, .selection-mode.header-bar .button.suggested-action, .header-bar .selection-mode.toolbar .button.suggested-action, .selection-mode.toolbar .header-bar .button.suggested-action {
-    padding: 1px; }
+    padding: 0px; }
     .header-bar GtkComboBox.text-button, .header-bar .button.text-button, .selection-mode.header-bar .text-button.button.suggested-action, .header-bar .selection-mode.toolbar .text-button.button.suggested-action, .selection-mode.toolbar .header-bar .text-button.button.suggested-action {
-      padding: 2px; }
+      padding: 1px; }
     .header-bar GtkComboBox.image-button, .header-bar .button.image-button, .selection-mode.header-bar .image-button.button.suggested-action, .header-bar .selection-mode.toolbar .image-button.button.suggested-action, .selection-mode.toolbar .header-bar .image-button.button.suggested-action {
-      padding: 3px 1px 3px 2px; }
+      padding: 2px 0px 2px 1px; }
   .header-bar GtkSeparatorToolItem, .header-bar .separator, .header-bar .separator:insensitive {
     color: #141419;
     border-color: currentColor;
@@ -925,7 +925,7 @@ GtkPopover .entry, .menuitem .entry, .entry {
   .titlebar .title {
     font: bold; }
   .titlebar .titlebutton {
-    padding: 2px;
+    padding: 1px;
     border: 0;
     background-image: none;
     background-color: transparent;
@@ -952,21 +952,21 @@ GtkPopover .entry, .menuitem .entry, .entry {
 .action-bar {
   background-color: #1f1f28;
   background-image: none;
-  padding: 2px;
+  padding: 1px;
   border-width: 1px 0 0;
   border-style: solid;
   border-color: #191920;
   color: #ddd8bb; }
   .action-bar .button.text-button, .action-bar .selection-mode.header-bar .text-button.button.suggested-action, .selection-mode.header-bar .action-bar .text-button.button.suggested-action, .action-bar .selection-mode.toolbar .text-button.button.suggested-action, .selection-mode.toolbar .action-bar .text-button.button.suggested-action {
-    padding: 1px; }
+    padding: 0px; }
   .action-bar .button.image-button, .action-bar .selection-mode.header-bar .image-button.button.suggested-action, .selection-mode.header-bar .action-bar .image-button.button.suggested-action, .action-bar .selection-mode.toolbar .image-button.button.suggested-action, .selection-mode.toolbar .action-bar .image-button.button.suggested-action {
-    padding: 3px; }
+    padding: 2px; }
   .action-bar .title {
     font: bold;
-    padding: 0 4px; }
+    padding: 0 2px; }
   .action-bar .subtitle {
     font: smaller;
-    padding: 0 4px; }
+    padding: 0 2px; }
 
 /***************
  ! Search bars *
@@ -979,7 +979,7 @@ GtkPopover .entry, .menuitem .entry, .entry {
   border-color: #191920;
   color: #ddd8bb; }
   .search-bar .button.close-button, .search-bar .selection-mode.header-bar .close-button.button.suggested-action, .selection-mode.header-bar .search-bar .close-button.button.suggested-action, .search-bar .selection-mode.toolbar .close-button.button.suggested-action, .selection-mode.toolbar .search-bar .close-button.button.suggested-action {
-    padding: 2px; }
+    padding: 1px; }
 
 /******************
  ! Action buttons *
@@ -1179,7 +1179,7 @@ GtkPopover .entry, .menuitem .entry, .entry {
   background-color: #9ec967;
   background-image: none;
   border-color: #81b340;
-  padding: 4px;
+  padding: 2px;
   color: #16161c; }
   .selection-mode.header-bar:focus, .selection-mode.header-bar:hover, .selection-mode.toolbar:focus, .selection-mode.toolbar:hover {
     border-color: mix(#9ec967,#9ec967,0.3); }
@@ -1195,10 +1195,10 @@ GtkPopover .entry, .menuitem .entry, .entry {
     color: mix(#16161c,#9ec967,0.5); }
   .selection-mode.header-bar .title, .selection-mode.toolbar .title {
     font: bold;
-    padding: 0 4px; }
+    padding: 0 2px; }
   .selection-mode.header-bar .subtitle, .selection-mode.toolbar .subtitle {
     font: smaller;
-    padding: 0 4px; }
+    padding: 0 2px; }
   .selection-mode.header-bar .button, .selection-mode.header-bar .button.suggested-action, .selection-mode.toolbar .button, .selection-mode.toolbar .button.suggested-action {
     background-color: #1f1f28;
     background-image: none;
@@ -1311,11 +1311,11 @@ GtkPopover .entry, .menuitem .entry, .entry {
     .selection-mode.header-bar .button.linked:active:only-child, .selection-mode.header-bar .linked.button.suggested-action:active:only-child, .selection-mode.header-bar .selection-mode.toolbar .linked.button.suggested-action:active:only-child, .selection-mode.toolbar .selection-mode.header-bar .linked.button.suggested-action:active:only-child, .selection-mode.header-bar .button.linked:active:only-child:focus, .selection-mode.header-bar .linked.button.suggested-action:active:only-child:focus, .selection-mode.header-bar .selection-mode.toolbar .linked.button.suggested-action:active:only-child:focus, .selection-mode.toolbar .selection-mode.header-bar .linked.button.suggested-action:active:only-child:focus, .selection-mode.header-bar .button.linked:active:only-child:hover, .selection-mode.header-bar .linked.button.suggested-action:active:only-child:hover, .selection-mode.header-bar .selection-mode.toolbar .linked.button.suggested-action:active:only-child:hover, .selection-mode.toolbar .selection-mode.header-bar .linked.button.suggested-action:active:only-child:hover, .selection-mode.header-bar .button.linked:active:only-child:hover:focus, .selection-mode.header-bar .linked.button.suggested-action:active:only-child:hover:focus, .selection-mode.header-bar .selection-mode.toolbar .linked.button.suggested-action:active:only-child:hover:focus, .selection-mode.toolbar .selection-mode.header-bar .linked.button.suggested-action:active:only-child:hover:focus, .selection-mode.header-bar .button.linked:checked:only-child, .selection-mode.header-bar .linked.button.suggested-action:checked:only-child, .selection-mode.header-bar .selection-mode.toolbar .linked.button.suggested-action:checked:only-child, .selection-mode.toolbar .selection-mode.header-bar .linked.button.suggested-action:checked:only-child, .selection-mode.header-bar .button.linked:checked:only-child:focus, .selection-mode.header-bar .linked.button.suggested-action:checked:only-child:focus, .selection-mode.header-bar .selection-mode.toolbar .linked.button.suggested-action:checked:only-child:focus, .selection-mode.toolbar .selection-mode.header-bar .linked.button.suggested-action:checked:only-child:focus, .selection-mode.header-bar .button.linked:checked:only-child:hover, .selection-mode.header-bar .linked.button.suggested-action:checked:only-child:hover, .selection-mode.header-bar .selection-mode.toolbar .linked.button.suggested-action:checked:only-child:hover, .selection-mode.toolbar .selection-mode.header-bar .linked.button.suggested-action:checked:only-child:hover, .selection-mode.header-bar .button.linked:checked:only-child:hover:focus, .selection-mode.header-bar .linked.button.suggested-action:checked:only-child:hover:focus, .selection-mode.header-bar .selection-mode.toolbar .linked.button.suggested-action:checked:only-child:hover:focus, .selection-mode.toolbar .selection-mode.header-bar .linked.button.suggested-action:checked:only-child:hover:focus, .selection-mode.header-bar .linked .button:active:only-child, .selection-mode.header-bar .linked .button.suggested-action:active:only-child, .selection-mode.header-bar .linked .selection-mode.toolbar .button.suggested-action:active:only-child, .selection-mode.toolbar .selection-mode.header-bar .linked .button.suggested-action:active:only-child, .selection-mode.header-bar .linked .button:active:only-child:focus, .selection-mode.header-bar .linked .button.suggested-action:active:only-child:focus, .selection-mode.header-bar .linked .selection-mode.toolbar .button.suggested-action:active:only-child:focus, .selection-mode.toolbar .selection-mode.header-bar .linked .button.suggested-action:active:only-child:focus, .selection-mode.header-bar .linked .button:active:only-child:hover, .selection-mode.header-bar .linked .button.suggested-action:active:only-child:hover, .selection-mode.header-bar .linked .selection-mode.toolbar .button.suggested-action:active:only-child:hover, .selection-mode.toolbar .selection-mode.header-bar .linked .button.suggested-action:active:only-child:hover, .selection-mode.header-bar .linked .button:active:only-child:hover:focus, .selection-mode.header-bar .linked .button.suggested-action:active:only-child:hover:focus, .selection-mode.header-bar .linked .selection-mode.toolbar .button.suggested-action:active:only-child:hover:focus, .selection-mode.toolbar .selection-mode.header-bar .linked .button.suggested-action:active:only-child:hover:focus, .selection-mode.header-bar .linked .button:checked:only-child, .selection-mode.header-bar .linked .button.suggested-action:checked:only-child, .selection-mode.header-bar .linked .selection-mode.toolbar .button.suggested-action:checked:only-child, .selection-mode.toolbar .selection-mode.header-bar .linked .button.suggested-action:checked:only-child, .selection-mode.header-bar .linked .button:checked:only-child:focus, .selection-mode.header-bar .linked .button.suggested-action:checked:only-child:focus, .selection-mode.header-bar .linked .selection-mode.toolbar .button.suggested-action:checked:only-child:focus, .selection-mode.toolbar .selection-mode.header-bar .linked .button.suggested-action:checked:only-child:focus, .selection-mode.header-bar .linked .button:checked:only-child:hover, .selection-mode.header-bar .linked .button.suggested-action:checked:only-child:hover, .selection-mode.header-bar .linked .selection-mode.toolbar .button.suggested-action:checked:only-child:hover, .selection-mode.toolbar .selection-mode.header-bar .linked .button.suggested-action:checked:only-child:hover, .selection-mode.header-bar .linked .button:checked:only-child:hover:focus, .selection-mode.header-bar .linked .button.suggested-action:checked:only-child:hover:focus, .selection-mode.header-bar .linked .selection-mode.toolbar .button.suggested-action:checked:only-child:hover:focus, .selection-mode.toolbar .selection-mode.header-bar .linked .button.suggested-action:checked:only-child:hover:focus, .selection-mode.toolbar .button.linked:active:only-child, .selection-mode.toolbar .selection-mode.header-bar .linked.button.suggested-action:active:only-child, .selection-mode.header-bar .selection-mode.toolbar .linked.button.suggested-action:active:only-child, .selection-mode.toolbar .linked.button.suggested-action:active:only-child, .selection-mode.toolbar .button.linked:active:only-child:focus, .selection-mode.toolbar .selection-mode.header-bar .linked.button.suggested-action:active:only-child:focus, .selection-mode.header-bar .selection-mode.toolbar .linked.button.suggested-action:active:only-child:focus, .selection-mode.toolbar .linked.button.suggested-action:active:only-child:focus, .selection-mode.toolbar .button.linked:active:only-child:hover, .selection-mode.toolbar .selection-mode.header-bar .linked.button.suggested-action:active:only-child:hover, .selection-mode.header-bar .selection-mode.toolbar .linked.button.suggested-action:active:only-child:hover, .selection-mode.toolbar .linked.button.suggested-action:active:only-child:hover, .selection-mode.toolbar .button.linked:active:only-child:hover:focus, .selection-mode.toolbar .selection-mode.header-bar .linked.button.suggested-action:active:only-child:hover:focus, .selection-mode.header-bar .selection-mode.toolbar .linked.button.suggested-action:active:only-child:hover:focus, .selection-mode.toolbar .linked.button.suggested-action:active:only-child:hover:focus, .selection-mode.toolbar .button.linked:checked:only-child, .selection-mode.toolbar .selection-mode.header-bar .linked.button.suggested-action:checked:only-child, .selection-mode.header-bar .selection-mode.toolbar .linked.button.suggested-action:checked:only-child, .selection-mode.toolbar .linked.button.suggested-action:checked:only-child, .selection-mode.toolbar .button.linked:checked:only-child:focus, .selection-mode.toolbar .selection-mode.header-bar .linked.button.suggested-action:checked:only-child:focus, .selection-mode.header-bar .selection-mode.toolbar .linked.button.suggested-action:checked:only-child:focus, .selection-mode.toolbar .linked.button.suggested-action:checked:only-child:focus, .selection-mode.toolbar .button.linked:checked:only-child:hover, .selection-mode.toolbar .selection-mode.header-bar .linked.button.suggested-action:checked:only-child:hover, .selection-mode.header-bar .selection-mode.toolbar .linked.button.suggested-action:checked:only-child:hover, .selection-mode.toolbar .linked.button.suggested-action:checked:only-child:hover, .selection-mode.toolbar .button.linked:checked:only-child:hover:focus, .selection-mode.toolbar .selection-mode.header-bar .linked.button.suggested-action:checked:only-child:hover:focus, .selection-mode.header-bar .selection-mode.toolbar .linked.button.suggested-action:checked:only-child:hover:focus, .selection-mode.toolbar .linked.button.suggested-action:checked:only-child:hover:focus, .selection-mode.toolbar .linked .button:active:only-child, .selection-mode.toolbar .linked .selection-mode.header-bar .button.suggested-action:active:only-child, .selection-mode.header-bar .selection-mode.toolbar .linked .button.suggested-action:active:only-child, .selection-mode.toolbar .linked .button.suggested-action:active:only-child, .selection-mode.toolbar .linked .button:active:only-child:focus, .selection-mode.toolbar .linked .selection-mode.header-bar .button.suggested-action:active:only-child:focus, .selection-mode.header-bar .selection-mode.toolbar .linked .button.suggested-action:active:only-child:focus, .selection-mode.toolbar .linked .button.suggested-action:active:only-child:focus, .selection-mode.toolbar .linked .button:active:only-child:hover, .selection-mode.toolbar .linked .selection-mode.header-bar .button.suggested-action:active:only-child:hover, .selection-mode.header-bar .selection-mode.toolbar .linked .button.suggested-action:active:only-child:hover, .selection-mode.toolbar .linked .button.suggested-action:active:only-child:hover, .selection-mode.toolbar .linked .button:active:only-child:hover:focus, .selection-mode.toolbar .linked .selection-mode.header-bar .button.suggested-action:active:only-child:hover:focus, .selection-mode.header-bar .selection-mode.toolbar .linked .button.suggested-action:active:only-child:hover:focus, .selection-mode.toolbar .linked .button.suggested-action:active:only-child:hover:focus, .selection-mode.toolbar .linked .button:checked:only-child, .selection-mode.toolbar .linked .selection-mode.header-bar .button.suggested-action:checked:only-child, .selection-mode.header-bar .selection-mode.toolbar .linked .button.suggested-action:checked:only-child, .selection-mode.toolbar .linked .button.suggested-action:checked:only-child, .selection-mode.toolbar .linked .button:checked:only-child:focus, .selection-mode.toolbar .linked .selection-mode.header-bar .button.suggested-action:checked:only-child:focus, .selection-mode.header-bar .selection-mode.toolbar .linked .button.suggested-action:checked:only-child:focus, .selection-mode.toolbar .linked .button.suggested-action:checked:only-child:focus, .selection-mode.toolbar .linked .button:checked:only-child:hover, .selection-mode.toolbar .linked .selection-mode.header-bar .button.suggested-action:checked:only-child:hover, .selection-mode.header-bar .selection-mode.toolbar .linked .button.suggested-action:checked:only-child:hover, .selection-mode.toolbar .linked .button.suggested-action:checked:only-child:hover, .selection-mode.toolbar .linked .button:checked:only-child:hover:focus, .selection-mode.toolbar .linked .selection-mode.header-bar .button.suggested-action:checked:only-child:hover:focus, .selection-mode.header-bar .selection-mode.toolbar .linked .button.suggested-action:checked:only-child:hover:focus, .selection-mode.toolbar .linked .button.suggested-action:checked:only-child:hover:focus {
       box-shadow: inset 1px 0 rgba(54, 50, 27, 0.06), inset 0 1px rgba(54, 50, 27, 0.07), inset -1px 0 rgba(54, 50, 27, 0.06); }
   .selection-mode.header-bar GtkComboBox, .selection-mode.header-bar .button, .selection-mode.header-bar .button.suggested-action, .selection-mode.toolbar GtkComboBox, .selection-mode.toolbar .button, .selection-mode.toolbar .button.suggested-action {
-    padding: 1px; }
+    padding: 0px; }
     .selection-mode.header-bar GtkComboBox.text-button, .selection-mode.header-bar .button.text-button, .selection-mode.toolbar GtkComboBox.text-button, .selection-mode.toolbar .button.text-button {
-      padding: 2px; }
+      padding: 1px; }
     .selection-mode.header-bar GtkComboBox.image-button, .selection-mode.header-bar .button.image-button, .selection-mode.toolbar GtkComboBox.image-button, .selection-mode.toolbar .button.image-button {
-      padding: 3px 1px 3px 2px; }
+      padding: 2px 0px 2px 1px; }
   .selection-mode.header-bar GtkSeparatorToolItem, .selection-mode.header-bar .separator, .selection-mode.header-bar .separator:insensitive, .selection-mode.toolbar GtkSeparatorToolItem, .selection-mode.toolbar .separator, .selection-mode.toolbar .separator:insensitive {
     color: #90c151;
     border-color: currentColor;
@@ -1428,7 +1428,7 @@ GtkPopover .entry, .menuitem .entry, .entry {
     color: #719d38; }
 
 .selection-mode.toolbar {
-  padding: 2px; }
+  padding: 1px; }
 
 /**********
  ! Calendar
@@ -1518,7 +1518,7 @@ GtkColorChooserWidget #add-color-button {
   color: rgba(32, 32, 42, 0.3); }
 
 GtkColorButton.button, .selection-mode.header-bar GtkColorButton.button.suggested-action, .selection-mode.toolbar GtkColorButton.button.suggested-action {
-  padding: 2px; }
+  padding: 1px; }
 
 /***********************
 ! Font and file choosers
@@ -1557,7 +1557,7 @@ GtkFileChooser {
   .list-row, .list-row.button, .selection-mode.header-bar .list-row.button.suggested-action, .selection-mode.toolbar .list-row.button.suggested-action {
     border: 0;
     border-radius: 0;
-    padding: 2px;
+    padding: 1px;
     background-image: none;
     background-color: rgba(31, 31, 40, 0);
     box-shadow: none; }
@@ -1570,7 +1570,7 @@ GtkFileChooser {
       color: #16161c; }
 
 .grid-child, GtkFlowBox .grid-child {
-  padding: 2px;
+  padding: 1px;
   border-radius: 2px; }
   .grid-child:selected, GtkFlowBox .grid-child:selected {
     outline-offset: -2px; }
@@ -2008,7 +2008,7 @@ GtkInfoBar {
     border-radius: 2px; }
 
 GtkPopover .entry, .menuitem .entry, .entry {
-  padding: 1px 2px;
+  padding: 0px 1px;
   border-width: 1px;
   border-style: solid;
   border-radius: 2px;
@@ -2028,7 +2028,7 @@ GtkPopover .entry, .menuitem .entry, .entry {
     border-radius: 2px;
     color: #16161c; }
   .image.left.entry {
-    padding-right: 2px; }
+    padding-right: 1px; }
 
 /*********
  ! Menubar
@@ -2040,7 +2040,7 @@ GtkPopover .entry, .menuitem .entry, .entry {
   background-image: none;
   color: #ddd8bb; }
   .menubar.menuitem, .menubar .menuitem {
-    padding: 4px 6px;
+    padding: 3px 5px;
     border: 1px solid transparent;
     background-color: transparent;
     background-image: none;
@@ -2062,7 +2062,7 @@ GtkPopover .entry, .menuitem .entry, .entry {
 
 GtkTreeMenu.menu, GtkTreeMenu .menu, GtkMenuToolButton.menu, GtkMenuToolButton .menu, GtkComboBox.menu, GtkComboBox .menu {
   background-color: #16161c;
-  margin: 2px; }
+  margin: 1px; }
 
 #toolbar-popup, .menu {
   padding: 0;
@@ -2085,8 +2085,8 @@ GtkTreeMenu .menuitem {
   border-width: 0; }
 
 .menuitem, .menu .menuitem {
-  margin: 2px;
-  padding: 4px 6px;
+  margin: 1px;
+  padding: 3px 5px;
   border: 0;
   border-radius: 0;
   background-color: transparent;
@@ -2163,7 +2163,7 @@ GtkTreeMenu .menuitem {
     color: mix(#16161c,#ddd8bb,0.5); }
 
 GtkModelMenuItem GtkBox GtkImage {
-  padding-right: 2px; }
+  padding-right: 1px; }
 
 /*********
  ! Popover
@@ -2171,7 +2171,7 @@ GtkModelMenuItem GtkBox GtkImage {
 GtkPopover {
   border-color: #121216;
   margin: 10px;
-  padding: 2px;
+  padding: 1px;
   border-radius: 2px;
   border-width: 1px;
   border-style: solid;
@@ -2469,9 +2469,9 @@ GtkModelButton.button, .selection-mode.header-bar GtkModelButton.button.suggeste
  ! Dialogs *
 ************/
 GtkMessageDialog, .message-dialog, .prompt {
-  -GtkDialog-content-area-border: 2px;
-  -GtkDialog-action-area-border: 2px;
-  -GtkDialog-button-spacing: 2px;
+  -GtkDialog-content-area-border: 1px;
+  -GtkDialog-action-area-border: 1px;
+  -GtkDialog-button-spacing: 1px;
   margin: 0;
   padding: 0; }
 
@@ -2483,7 +2483,7 @@ GtkMessageDialog, .message-dialog, .prompt {
   border-color: rgba(18, 18, 22, 0.8);
   border-width: 0 1px 1px;
   border-radius: 0 0 2px 2px;
-  padding: 4px;
+  padding: 2px;
   background-color: rgba(22, 22, 28, 0.8);
   background-image: none;
   color: #ddd8bb; }
@@ -2585,7 +2585,7 @@ GtkMessageDialog, .message-dialog, .prompt {
  ! Expanders *
 **************/
 GtkExpander {
-  padding: 2px;
+  padding: 1px;
   outline-offset: 1px; }
 
 .expander {
@@ -2655,7 +2655,7 @@ GtkBubbleWindow {
  ! Font-viewer *
 ****************/
 SushiFontWidget {
-  padding: 2px 4px; }
+  padding: 1px 2px; }
 
 /*************
  ! Gucharmap *
@@ -2721,7 +2721,7 @@ GtkLabel.pin-label {
     background-color: #16161c;
     color: #ddd8bb; }
   .notebook tab {
-    padding: 3px 4px;
+    padding: 2px 2px;
     border-style: solid;
     border-color: #14141a;
     background-color: #191920;
@@ -4694,7 +4694,7 @@ GtkOverlay.osd {
   .osd.toolbar,
   #XfceNotifyWindow.toolbar {
     -GtkToolbar-button-relief: normal;
-    padding: 2px;
+    padding: 1px;
     border: 1px solid rgba(18, 18, 22, 0.8);
     border-radius: 2px;
     background-color: rgba(22, 22, 28, 0.8);
@@ -5153,11 +5153,11 @@ OsThumb, OsScrollbar {
   padding: 1px; }
 
 .sidebar .sidebar-icon {
-  padding-left: 4px;
-  padding-right: 4px; }
+  padding-left: 2px;
+  padding-right: 2px; }
 
 GtkAssistant .sidebar {
-  padding: 2px;
+  padding: 1px;
   border-width: 0 1px 0 0;
   border-style: solid;
   border-right-color: #191920;
@@ -5169,7 +5169,7 @@ GtkAssistant .sidebar {
   GtkAssistant .sidebar:dir(rtl), GtkAssistant .linked > GtkComboBox > .sidebar.button:dir(rtl) {
     border-width: 0 0 0 1px; }
   GtkAssistant .sidebar .label {
-    padding: 2px 4px; }
+    padding: 1px 2px; }
     GtkAssistant .sidebar .label.highlight {
       background-color: mix(#1f1f28,#ddd8bb,0.8); }
   GtkAssistant .sidebar.csd .sidebar {
@@ -5183,10 +5183,10 @@ GtkAssistant .sidebar {
 GtkPaned {
   -GtkPaned-handle-size: 1;
   -gtk-icon-source: none;
-  margin: 0 2px; }
+  margin: 0 1px; }
   GtkPaned:dir(rtl), .linked > GtkComboBox > GtkPaned.button:dir(rtl), .selection-mode.header-bar .linked > GtkComboBox > GtkPaned.button.suggested-action:dir(rtl), .selection-mode.toolbar .linked > GtkComboBox > GtkPaned.button.suggested-action:dir(rtl) {
     margin-right: 0;
-    margin-left: 2px; }
+    margin-left: 1px; }
   GtkPaned .pane-separator {
     background-color: #1c1c24; }
   GtkPaned.wide {
@@ -5538,7 +5538,7 @@ column-header .button:last-child .button, column-header .selection-mode.header-b
   border-radius: 2px 2px 0 0;
   background-color: mix(#0f0f14,#ddd8bb,0.21);
   /* this is used for the resize cursor area */
-  margin: 6px; }
+  margin: 3px; }
   .window-frame.tiled {
     border-radius: 0; }
   .window-frame.solid-csd {
@@ -5683,7 +5683,7 @@ GeditWindow .pane-separator {
   background-color: #1f1f28;
   color: mix(#ddd8bb,#1f1f28,0.1); }
   .gedit-document-panel .list-row {
-    padding: 2px; }
+    padding: 1px; }
     .gedit-document-panel .list-row .button, .gedit-document-panel .list-row .selection-mode.header-bar .button.suggested-action, .selection-mode.header-bar .gedit-document-panel .list-row .button.suggested-action, .gedit-document-panel .list-row .selection-mode.toolbar .button.suggested-action, .selection-mode.toolbar .gedit-document-panel .list-row .button.suggested-action {
       padding: 1px;
       border-radius: 2px;
@@ -5740,7 +5740,7 @@ GeditStatusbar GeditSmallButton, GeditStatusMenuButton {
       color: #ddd8bb; }
 
 GeditViewFrame .gedit-search-slider {
-  padding: 2px;
+  padding: 1px;
   border-radius: 0 0 2px 2px;
   border-width: 0 1px 1px;
   border-style: solid;
@@ -5752,14 +5752,14 @@ GeditViewFrame .gedit-search-slider {
     color: #1F1F28; }
 
 GeditFileBrowserWidget .toolbar {
-  padding: 1px;
+  padding: 0.5px;
   border-top: 0;
   background-color: #1f1f28;
   background-image: none; }
 
 .gedit-search-entry-occurrences-tag {
-  margin: 1px;
-  padding: 1px;
+  margin: 0.5px;
+  padding: 0.5px;
   color: mix(#ddd8bb,#16161c,0.5); }
 
 /************
@@ -5799,8 +5799,8 @@ NautilusNotebook .frame {
   border: 0; }
 
 NautilusQueryEditor .toolbar {
-  padding-top: 1px;
-  padding-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: -1px;
   border-width: 1px 0 0;
   border-style: solid;
   border-color: #1f1f28;
@@ -5991,7 +5991,7 @@ PanelAppletFrame {
 GtkWindow > GtkVBox > .dock, GtkWindow > GtkVBox > .dock > GtkHBox > GtkToolbar {
   background-color: #1f1f28;
   background-image: none;
-  padding: 2px;
+  padding: 1px;
   border: 0;
   color: #ddd8bb; }
 
@@ -6282,7 +6282,7 @@ TerminalNotebook.notebook {
     background-color: #16161c;
     color: #ddd8bb; }
   TerminalNotebook.notebook tab {
-    padding: 3px 4px;
+    padding: 2px 2px;
     border: 1px solid transparent;
     background-color: transparent;
     background-image: none;

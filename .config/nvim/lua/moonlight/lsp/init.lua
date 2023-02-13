@@ -190,7 +190,7 @@ M.setup = function()
 	end
 
 	-- Sumneko Language Server
-	local function sumneko_lua()
+	local function lua_ls()
 		local library = {}
 		local path = vim.split(package.path, ";", {})
 
@@ -209,7 +209,7 @@ M.setup = function()
 		add("~/.local/share/nvim/site/pack/packer/opt/*")
 		add("~/.local/share/nvim/site/pack/packer/start/*")
 
-		lspconfig.sumneko_lua.setup({
+		lspconfig.lua_ls.setup({
 			flags = flags,
 			on_attach = on_attach,
 			capabilities = capabilities,
@@ -281,7 +281,6 @@ M.setup = function()
 			capabilities = capabilities,
 		})
 	end ]]
-
 	-- JSON LSP
 	local function jsonls()
 		lspconfig.jsonls.setup({
@@ -314,7 +313,6 @@ M.setup = function()
 			filetypes = { "racket" },
 		})
 	end ]]
-
 	-- Enable the following default language servers
 	local default_servers = {
 		"pyright",
@@ -344,7 +342,7 @@ M.setup = function()
 		clangd,
 		gopls,
 		rust_analyzer,
-		sumneko_lua,
+		lua_ls,
 		-- sqls,
 		tsserver,
 		jsonls,
