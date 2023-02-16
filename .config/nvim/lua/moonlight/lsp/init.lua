@@ -271,16 +271,16 @@ M.setup = function()
 		})
 	end
 
-	--[[ local function sqls()
+	local function sqls()
 		lspconfig.sqls.setup({
 			flags = flags,
 			on_attach = function(client, bufnr)
 				require("sqls").on_attach(client, bufnr)
-				return on_attach(client, bufnr)
+				on_attach(client, bufnr)
 			end,
 			capabilities = capabilities,
 		})
-	end ]]
+	end
 	-- JSON LSP
 	local function jsonls()
 		lspconfig.jsonls.setup({
@@ -343,7 +343,7 @@ M.setup = function()
 		gopls,
 		rust_analyzer,
 		lua_ls,
-		-- sqls,
+		sqls,
 		tsserver,
 		jsonls,
 		--racketls,

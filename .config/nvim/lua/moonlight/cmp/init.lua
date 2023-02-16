@@ -46,6 +46,7 @@ return function()
 
 	local sources = cmp.config.sources({
 		{ name = "luasnip" },
+		{ name = "copilot", group_index = 2 },
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
 		--{ name = "conjure" },
@@ -60,6 +61,7 @@ return function()
 			vim_item.menu = source_mapping[entry.source.name]
 			return vim_item
 		end,
+		symbol_map = { Copilot = "" },
 	})
 
 	local compare = require("cmp.config.compare")
@@ -78,12 +80,15 @@ return function()
 				i = cmp.mapping.abort(),
 				c = cmp.mapping.close(),
 			}),
-			["<c-y>"] = cmp.mapping.confirm({ select = true }),
+			["<c-y>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
 		}),
 		sources = sources,
 		formatting = { format = format },
 		sorting = {
+			priority_weight = 2,
 			comparators = {
+				require("copilot_cmp.comparators").prioritize,
+				require("copilot_cmp.comparators").score,
 				compare.offset,
 				compare.exact,
 				compare.score,

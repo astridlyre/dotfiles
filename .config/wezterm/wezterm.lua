@@ -17,7 +17,7 @@ return {
 		-- cursor and the cursor style is set to Block
 		cursor_bg = "#9ec967",
 		-- Overrides the text color when the current cell is occupied by the cursor
-		cursor_fg = "#16161c",
+		cursor_fg = "#000000",
 		-- Specifies the border color of the cursor when the cursor style is set to Block,
 		-- or the color of the vertical or horizontal bar when the cursor style is set to
 		-- Bar or Underline.
@@ -26,7 +26,7 @@ return {
 		-- the foreground color of selected text
 		selection_fg = "#9ec967",
 		-- the background color of selected text
-		selection_bg = "#16161c",
+		selection_bg = "#000000",
 
 		-- The color of the scrollbar "thumb"; the portion that represents the current viewport
 		scrollbar_thumb = "#222222",

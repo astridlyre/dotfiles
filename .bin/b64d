@@ -1,0 +1,4 @@
+#! /bin/bash
+read -r line
+
+echo "$line"=== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode

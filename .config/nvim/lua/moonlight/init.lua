@@ -50,7 +50,6 @@ return packer.startup({
 				vim.cmd("colorscheme kanagawabones")
 			end,
 		})
-
 		-- Treesitter
 		use({
 			"nvim-treesitter/nvim-treesitter",
@@ -130,7 +129,32 @@ return packer.startup({
 		use({ "b3nj5m1n/kommentary", event = "BufEnter" })
 		use({ "tpope/vim-repeat", event = "BufEnter" })
 		use({ "numToStr/FTerm.nvim" })
-
+		use({ "nanotee/sqls.nvim" })
+		use({
+			"rest-nvim/rest.nvim",
+			config = function()
+				require("rest-nvim").setup({ result_split_horizontal = true })
+			end,
+		})
+		use({
+			"zbirenbaum/copilot.lua",
+			cmd = "Copilot",
+			event = "InsertEnter",
+			config = require("moonlight.copilot"),
+		})
+		use({
+			"zbirenbaum/copilot-cmp",
+			after = { "copilot.lua" },
+			config = function()
+				require("copilot_cmp").setup({
+					method = "getCompletionsCycling",
+					--method = "getPanelCompletions",
+					formatters = {
+						insert_text = require("copilot_cmp.format").remove_existing,
+					},
+				})
+			end,
+		})
 		-- Clojure plugins
 		-- use({ "tpope/vim-dispatch", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
 		-- use({ "clojure-vim/vim-jack-in", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
