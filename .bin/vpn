@@ -1,0 +1,30 @@
+#! /bin/bash
+
+declare -a servers
+
+while read -r server; do
+	servers+=("$server")
+done <<<"$(find "${HOME}/.openvpn" -type f -name "*-${1}*.ovpn")"
+
+echo "Server Options:"
+
+declare -i n
+
+n=0
+
+echo
+
+for server in "${servers[@]}"; do
+	n=$((n + 1))
+	printf "%d) %s\n" "$n" "$server"
+done
+
+echo
+
+read -rp "Select a server: " server
+
+server="${servers[$((server - 1))]}"
+
+printf "Connecting to %s...\n" "${server}"
+
+sudo openvpn --config "${server}" --auth-user-pass "${HOME}/.openvpn/creds.txt"

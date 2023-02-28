@@ -28,3 +28,6 @@ prepend_path "$HOME/.bin"
 
 # fzf
 source "$HOME/.fzf.bash"
+
+# bun
+prepend_path "${HOME}/.bun/bin"

@@ -149,9 +149,9 @@ return packer.startup({
 				require("copilot_cmp").setup({
 					method = "getCompletionsCycling",
 					--method = "getPanelCompletions",
-					formatters = {
+					--[[ formatters = {
 						insert_text = require("copilot_cmp.format").remove_existing,
-					},
+					}, ]]
 				})
 			end,
 		})

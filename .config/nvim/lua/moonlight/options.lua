@@ -162,6 +162,7 @@ imap("?", "?<c-g>u")
 vmap("<leader>ss", "!sort -d -b -f <cr>")
 vmap("<leader>y", '"+y')
 vmap("<c-c>", "<esc>")
+vmap("<leader>fs", "!sqlformat.sh <cr>")
 
 -- terminal mode
 tmap("<c-\\>", function()

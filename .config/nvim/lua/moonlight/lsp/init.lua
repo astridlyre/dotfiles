@@ -5,7 +5,7 @@ local nmap = utils.nmap
 local imap = utils.imap
 
 -- Servers to disable formatting by default (so they don't conflict with null-ls)
-local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls", "racket_langserver", "eslint" }
+local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls", "racket_langserver", "eslint", "sqls" }
 local enable_formatting_on_save = true
 
 local lsp_formatting = function(bufnr)
@@ -259,8 +259,8 @@ M.setup = function()
 				hostInfo = "neovim",
 				preferences = {
 					importModuleSpecifierPreference = "project-relative",
-					includeCompletionsForModuleExports = false, -- enable this if working on smaller projects
-					includeCompletionsForImportStatements = false, -- enable this if working on smaller projects
+					--includeCompletionsForModuleExports = false, -- enable this if working on smaller projects
+					--includeCompletionsForImportStatements = false, -- enable this if working on smaller projects
 				},
 				maxTsServerMemory = 16384,
 			},

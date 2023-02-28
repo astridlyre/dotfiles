@@ -22,8 +22,3 @@
     (#eq? @_name "sql")
   value: (template_string) @sql
 )
-
-(variable_declarator
-	name: (identifier) @name (#eq? @name "sql")
-	(template_string) @sql
-)
