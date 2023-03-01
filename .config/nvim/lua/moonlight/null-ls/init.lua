@@ -26,6 +26,7 @@ return function()
 			diagnostics.flake8,
 			diagnostics.vint,
 			diagnostics.yamllint,
+			require("typescript.extensions.null-ls.code-actions"),
 		},
 		capabilities = capabilities,
 		flags = flags,

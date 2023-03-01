@@ -1,5 +1,6 @@
 local M = {}
 
+local typescript = require("typescript")
 local utils = require("moonlight.utils")
 local nmap = utils.nmap
 local imap = utils.imap
@@ -48,10 +49,9 @@ local function get_diagnostic_at_cursor()
 	return res
 end
 
-local lsp_maps = function(_, bufnr)
+local lsp_maps = function(client, bufnr)
 	local opts = { buffer = bufnr }
 	nmap("gD", vim.lsp.buf.declaration, opts)
-	nmap("gd", vim.lsp.buf.definition, opts)
 	nmap("K", vim.lsp.buf.hover, opts)
 	nmap("gi", vim.lsp.buf.implementation, opts)
 	nmap("gr", vim.lsp.buf.references, opts)
@@ -63,6 +63,18 @@ local lsp_maps = function(_, bufnr)
 	nmap("<space>lf", vim.lsp.buf.formatting_sync)
 	nmap("<c-s>", vim.lsp.buf.signature_help, opts)
 	imap("<c-s>", vim.lsp.buf.signature_help, opts)
+
+	if client and client.name == "tsserver" then
+		nmap("gd", "<cmd>TypescriptGoToSourceDefinition<cr>")
+		nmap("<space>la", function()
+			typescript.actions.addMissingImports()
+		end)
+		nmap("<space>li", function()
+			typescript.actions.organizeImports()
+		end)
+	else
+		nmap("gd", vim.lsp.buf.definition, opts)
+	end
 
 	nmap("<space>ca", function()
 		return vim.lsp.buf.code_action({
@@ -243,30 +255,32 @@ M.setup = function()
 
 	-- TSserver for javascript (nodejs support)
 	local function tsserver()
-		return lspconfig.tsserver.setup({
-			flags = flags,
-			on_attach = on_attach,
-			capabilities = capabilities,
-			filetypes = {
-				"javascript",
-				"javascript.jsx",
-				"javascriptreact",
-				"typescript",
-				"typescriptreact",
-				"typescript.tsx",
-			},
-			init_options = {
-				hostInfo = "neovim",
-				preferences = {
-					importModuleSpecifierPreference = "project-relative",
-					--includeCompletionsForModuleExports = false, -- enable this if working on smaller projects
-					--includeCompletionsForImportStatements = false, -- enable this if working on smaller projects
+		return typescript.setup({
+			server = {
+				flags = flags,
+				on_attach = on_attach,
+				capabilities = capabilities,
+				filetypes = {
+					"javascript",
+					"javascript.jsx",
+					"javascriptreact",
+					"typescript",
+					"typescriptreact",
+					"typescript.tsx",
 				},
-				maxTsServerMemory = 16384,
-			},
-			settings = {
-				diagnosticsDelay = "150ms",
-				experimentalWatchedFileDelay = "850ms",
+				init_options = {
+					hostInfo = "neovim",
+					preferences = {
+						importModuleSpecifierPreference = "project-relative",
+						--includeCompletionsForModuleExports = false, -- enable this if working on smaller projects
+						--includeCompletionsForImportStatements = false, -- enable this if working on smaller projects
+					},
+					maxTsServerMemory = 16384,
+				},
+				settings = {
+					diagnosticsDelay = "150ms",
+					experimentalWatchedFileDelay = "850ms",
+				},
 			},
 		})
 	end
@@ -353,9 +367,9 @@ M.setup = function()
 
 	local signs = {
 		{ name = "DiagnosticSignError", text = "" },
-		{ name = "DiagnosticSignWarn", text = "" },
-		{ name = "DiagnosticSignHint", text = "" },
-		{ name = "DiagnosticSignInfo", text = "" },
+		{ name = "DiagnosticSignWarn",  text = "" },
+		{ name = "DiagnosticSignHint",  text = "" },
+		{ name = "DiagnosticSignInfo",  text = "" },
 	}
 
 	for _, sign in ipairs(signs) do

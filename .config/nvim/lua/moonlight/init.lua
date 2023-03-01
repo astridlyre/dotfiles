@@ -90,6 +90,7 @@ return packer.startup({
 			config = require("moonlight.null-ls"),
 			after = "nvim-lspconfig",
 		})
+		use({ "jose-elias-alvarez/typescript.nvim" })
 		use({ "windwp/nvim-autopairs", event = "InsertEnter", config = require("moonlight.autopairs") })
 
 		-- Version Control
