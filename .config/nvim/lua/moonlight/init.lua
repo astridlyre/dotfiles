@@ -108,6 +108,7 @@ return packer.startup({
 				"nvim-lua/plenary.nvim",
 				"kyazdani42/nvim-web-devicons",
 				"nvim-telescope/telescope-ui-select.nvim",
+				"nvim-telescope/telescope-symbols.nvim",
 			},
 			config = require("moonlight.telescope"),
 			cmd = "Telescope",

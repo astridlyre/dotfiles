@@ -26,6 +26,10 @@ return function()
 			diagnostics.flake8,
 			diagnostics.vint,
 			diagnostics.yamllint,
+			diagnostics.stylelint,
+			--[[ diagnostics.sqlfluff.with({
+				extra_args = { "--dialect", "mysql" },
+			}), ]]
 			require("typescript.extensions.null-ls.code-actions"),
 		},
 		capabilities = capabilities,

@@ -8,6 +8,14 @@ return function()
 	copilot.setup({
 		suggestion = { enabled = false },
 		panel = { enabled = false },
+		server_opts_overrides = {
+			trace = "verbose",
+			settings = {
+				advanced = {
+					inlineSuggestCount = 3, -- #completions for getCompletions
+				},
+			},
+		},
 	})
 
 	lmap("csa", function()

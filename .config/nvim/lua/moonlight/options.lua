@@ -56,7 +56,7 @@ assign_options({
 	jumpoptions = "stack",
 	laststatus = 3,
 	lazyredraw = true,
-	listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←",
+	listchars = "tab:  ,trail:·,extends:…,precedes:…,space: ",
 	list = true,
 	maxmempattern = 100000,
 	mouse = "a",
@@ -145,6 +145,7 @@ lmap("fd", "<cmd>Telescope lsp_definitions<cr>")
 lmap("fi", "<cmd>Telescope lsp_implementations<cr>")
 lmap("fs", "<cmd>Telescope grep_string<cr>")
 lmap("fn", "<cmd>Telescope search_history<cr>")
+lmap("sb", "<cmd>Telescope symbols<cr>")
 lmap("d", "<cmd>lua MiniBufremove.delete()<cr>")
 lmap("m", "mA")
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-bun add --global pnpm neovim
+npm install --global pnpm neovim
 
 DEFAULT_PACKAGES=("bash-language-server"
 	"prettier"
@@ -16,10 +16,12 @@ DEFAULT_PACKAGES=("bash-language-server"
 	"dockerfile-language-server-nodejs"
 	"eslint_d"
 	"write-good"
+	"stylelint"
 	"eslint"
 	"autocannon"
 	"esbuild"
 	"sql-formatter"
-	"@fsouza/prettierd")
+	"@fsouza/prettierd"
+	"rome")
 
-bun add --global "${DEFAULT_PACKAGES[@]}"
+pnpm install --global "${DEFAULT_PACKAGES[@]}"

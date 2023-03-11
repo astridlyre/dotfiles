@@ -66,9 +66,11 @@ local lsp_maps = function(client, bufnr)
 
 	if client and client.name == "tsserver" then
 		nmap("gd", "<cmd>TypescriptGoToSourceDefinition<cr>")
+
 		nmap("<space>la", function()
 			typescript.actions.addMissingImports()
 		end)
+
 		nmap("<space>li", function()
 			typescript.actions.organizeImports()
 		end)
@@ -341,6 +343,7 @@ M.setup = function()
 		--"emmet_ls",
 		--"solang",
 		"eslint",
+		-- "rome"
 	}
 
 	for _, ls in ipairs(default_servers) do
@@ -367,9 +370,9 @@ M.setup = function()
 
 	local signs = {
 		{ name = "DiagnosticSignError", text = "" },
-		{ name = "DiagnosticSignWarn",  text = "" },
-		{ name = "DiagnosticSignHint",  text = "" },
-		{ name = "DiagnosticSignInfo",  text = "" },
+		{ name = "DiagnosticSignWarn", text = "" },
+		{ name = "DiagnosticSignHint", text = "" },
+		{ name = "DiagnosticSignInfo", text = "" },
 	}
 
 	for _, sign in ipairs(signs) do

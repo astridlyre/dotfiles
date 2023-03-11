@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sqlfluff fix --disable-progress-bar --dialect mysql -f -n -

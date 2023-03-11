@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if ! ps -aux | rg transmission-daemon | rg -v rg &>/dev/null; then
+	transmission-daemon
+fi
+
+case $1 in
+"add" | "a")
+	transmission-remote -a "$2"
+	;;
+"stop" | "s")
+	transmission-remote -t "$2" -S
+	;;
+"remove" | "r")
+	transmission-remote -t "$2" -r
+	;;
+"list" | "l")
+	transmission-remote -l
+	;;
+"k" | "kill")
+	killall transmission-daemon
+	;;
+*)
+	echo "Usage: $(basename "$0") {add|stop|remove|list|kill}"
+	;;
+esac
