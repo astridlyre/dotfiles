@@ -75,6 +75,12 @@ function r() {
 	FZF_DEFAULT_COMMAND="$old"
 }
 
+function co() {
+	local branch
+	branch="$(git branch --sort=-committerdate | rg -v '^\*' | sed 's/[ *]*//' | fzf --no-height --ansi --preview 'git log --graph --pretty=oneline --abbrev-commit --color=always -n 15 {}')"
+	[[ "${branch}" ]] && git checkout "${branch}"
+}
+
 # fzf find a man page
 function m() {
 	man -k . | fzf -q "$1" --prompt='man> ' --reverse \

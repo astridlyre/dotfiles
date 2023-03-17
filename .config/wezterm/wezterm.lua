@@ -4,57 +4,52 @@ return {
 	warn_about_missing_glyphs = false,
 	keys = {
 		{ key = "Enter", mods = "SHIFT|CTRL", action = wezterm.action.SpawnWindow },
+		{ key = "Space", mods = "SHIFT|CTRL", action = wezterm.action.SpawnWindow },
 	},
-	font = wezterm.font_with_fallback({ "PragmataPro Liga", "PragmataProMonoLiga Nerd Font" }),
+	font = wezterm.font_with_fallback({ "PragmataPro Mono Liga", "PragmataProMonoLiga Nerd Font" }),
 	font_size = 12,
 	colors = {
 		-- The default text color
-		foreground = "#ddd8bb",
+		foreground = "#c6c6c6",
 		-- The default background color
-		background = "#1f1f28",
-
+		background = "#000000",
 		-- Overrides the cell background color when the current cell is occupied by the
 		-- cursor and the cursor style is set to Block
-		cursor_bg = "#9ec967",
+		cursor_bg = "#ffffff",
 		-- Overrides the text color when the current cell is occupied by the cursor
 		cursor_fg = "#000000",
 		-- Specifies the border color of the cursor when the cursor style is set to Block,
 		-- or the color of the vertical or horizontal bar when the cursor style is set to
 		-- Bar or Underline.
-		cursor_border = "#9ec967",
-
+		cursor_border = "#c6c6c6",
 		-- the foreground color of selected text
-		selection_fg = "#9ec967",
+		selection_fg = "#000000",
 		-- the background color of selected text
-		selection_bg = "#000000",
-
+		selection_bg = "#ffd787",
 		-- The color of the scrollbar "thumb"; the portion that represents the current viewport
 		scrollbar_thumb = "#222222",
-
 		-- The color of the split lines between panes
-		split = "#3c3c51",
-
+		split = "#222222",
 		ansi = {
-			"#1F1F28",
-			"#E46A78",
-			"#98BC6D",
-			"#E5C283",
-			"#7EB3C9",
-			"#957FB8",
-			"#7EB3C9",
-			"#DDD8BB",
+			"#000000",
+			"#af5f5f",
+			"#5faf5f",
+			"#af875f",
+			"#5f87af",
+			"#d787d7",
+			"#5fafaf",
+			"#c6c6c6",
 		},
 		brights = {
-			"#3C3C51",
-			"#EC818C",
-			"#9EC967",
-			"#F1C982",
-			"#7BC2DF",
-			"#A98FD2",
-			"#7BC2DF",
-			"#A8A48D",
+			"#767676",
+			"#ff5f5f",
+			"#5fd75f",
+			"#ffd787",
+			"#5fafff",
+			"#ff87ff",
+			"#5fd7d7",
+			"#ffffff",
 		},
-
 		-- Colors for copy_mode and quick_select
 		-- available since: 20220807-113146-c2fee766
 		-- In copy_mode, the color of the active text is:
@@ -68,7 +63,6 @@ return {
 		copy_mode_active_highlight_fg = { AnsiColor = "Black" },
 		copy_mode_inactive_highlight_bg = { Color = "#52ad70" },
 		copy_mode_inactive_highlight_fg = { AnsiColor = "White" },
-
 		quick_select_label_bg = { Color = "peru" },
 		quick_select_label_fg = { Color = "#ffffff" },
 		quick_select_match_bg = { AnsiColor = "Navy" },

@@ -1,43 +1,43 @@
 set font "PragmataPro Mono Liga normal 11"
 set highlight-transparency 1.0
 
-set default-fg 			    "#ddd8bb"
-set default-bg 			    "#1f1f28"
+set default-fg 			    "#c6c6c6"
+set default-bg 			    "#000000"
 
-set completion-bg		    "#1f1f28"
-set completion-fg		    "#ddd8bb"
-set completion-highlight-bg	"#9ec967"
+set completion-bg		    "#000000"
+set completion-fg		    "#c6c6c6"
+set completion-highlight-bg	"#ffd787"
 set completion-highlight-fg	"#000000"
-set completion-group-bg		"#3c3c51"
-set completion-group-fg		"#7bc2df"
+set completion-group-bg		"#000000"
+set completion-group-fg		"#c6c6c6"
 
-set statusbar-fg		    "#ddd8bb"
-set statusbar-bg		    "#1f1f28"
+set statusbar-fg		    "#c6c6c6"
+set statusbar-bg		    "#000000"
 
-set notification-bg		    "#1f1f28"
-set notification-fg		    "#ddd8bb"
-set notification-error-bg	"#ec818c"
+set notification-bg		    "#000000"
+set notification-fg		    "#c6c6c6"
+set notification-error-bg	"#ff5f5f"
 set notification-error-fg	"#000000"
-set notification-warning-bg	"#e5c283"
+set notification-warning-bg	"#ffd787"
 set notification-warning-fg	"#000000"
 
-set inputbar-fg			    "#ddd8bb"
-set inputbar-bg 		    "#1f1f28"
+set inputbar-fg			    "#c6c6c6"
+set inputbar-bg 		    "#000000"
 
-set recolor-lightcolor		"#1f1f28"
-set recolor-darkcolor		"#ddd8bb"
+set recolor-lightcolor		"#000000"
+set recolor-darkcolor		"#c6c6c6"
 
-set index-fg			    "#ddd8bb"
-set index-bg			    "#1f1f28"
-set index-active-fg		    "#ddd8bb"
-set index-active-bg		    "#1f1f28"
+set index-fg			    "#c6c6c6"
+set index-bg			    "#000000"
+set index-active-fg		    "#c6c6c6"
+set index-active-bg		    "#000000"
 
-set render-loading-bg		"#1f1f28"
-set render-loading-fg		"#ddd8bb"
+set render-loading-bg		"#000000"
+set render-loading-fg		"#c6c6c6"
 
-set highlight-color		    "#1f1f28"
-set highlight-fg            "#a98fd2"
-set highlight-active-color	"#a98fd2"
+set highlight-color		    "#000000"
+set highlight-fg            "#c6c6c6"
+set highlight-active-color	"#c6c6c6"
 
 set sandbox none
 set statusbar-h-padding 0

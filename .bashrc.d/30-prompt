@@ -43,7 +43,7 @@ if [[ "${SESSION_TYPE}" =~ remote/ssh ]]; then
 	PS4="> "
 else
 	# Prompt
-	PS1='\n\[\e[0;36m\]\w \[\e[0;35m\]${SHELL_GIT_BRANCH}\n\[\e[1;${EXIT_COLOR}m\]$ \[\e[0m\]'
+	PS1='\n\[\e[01;34m\]\w \[\e[0;34m\]${SHELL_GIT_BRANCH}\n\[\e[1;${EXIT_COLOR}m\]$ \[\e[0m\]'
 	PS2="+ "
 	PS4="> "
 fi

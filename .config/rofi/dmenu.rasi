@@ -1,15 +1,15 @@
 * {
-    background-color:      #1f1f28;
-    border-color:          #ddd8bb;
-    text-color:            #ddd8bb;
-    font:                  "Native 10";
+    background-color:      #000000;
+    border-color:          #c6c6c6;
+    text-color:            #c6c6c6;
+    font:                  "Pragmata Pro Liga 11";
 }
 
 window {
     anchor:     south;
     location:   center;
-    border:     2px solid;
-	border-radius: 5px;
+    border:     1px solid;
+	border-radius: 0px;
     padding:    5px;
     width:      42%;
     children:   [ horibox ];
@@ -19,12 +19,12 @@ horibox {
     orientation: vertical;
     children:   [ prompt, entry, listview ];
 
-    background-color:      #1f1f28;
+    background-color:      #000000;
 }
 
 prompt {
     padding:    2px;
-	text-color: #a98fd2;
+	text-color: #d787d7;
 }
 
 listview {
@@ -45,8 +45,8 @@ element {
     expand: false;
 }
 element selected {
-    background-color: #a98fd2;
-    text-color: #11111c;
+    background-color: #d787d7;
+    text-color: #000000;
 }
 element-text, element-icon {
 	background-color: inherit;

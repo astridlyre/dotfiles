@@ -31,7 +31,7 @@ super + m
 
 # nnn File Manager
 super + f
-    wezterm start nnn
+    bspc node last.floating -f
 
 super + e
 	element-desktop
@@ -253,14 +253,6 @@ super + shift + f
 super + ctrl + {h,j,k,l}
   ~/.config/bspwm/scripts/node_resize {west,south,north,east} 80
 
-# Expand floating windows
-alt + shift + {Up,Right}
-  ~/.config/bspwm/scripts/float_resize expand {north, east} 80
-
-# Contact floating windows
-alt + shift + {Down,Left}
-  ~/.config/bspwm/scripts/float_resize contract {west, south} 80
-
 # Spiral mode
 super + ctrl + t
   bspc config automatic_scheme spiral
@@ -289,6 +281,14 @@ alt + shift + Tab
 alt + space
         bspc node @/ --rotate {90,-90}
 
+# Resize floating window
+alt + shift + {1,2,3}
+  ~/.config/bspwm/scripts/floating-size.sh {small,medium,large}
+
+alt + shift + {Up, Left, Down, Right}
+  ~/.config/bspwm/scripts/floating-move.sh {top-left,bottom-left,top-right,bottom-right}
+
+
 #################################################################
 # ALT + SHIFT KEYS
 #################################################################
@@ -296,5 +296,3 @@ alt + space
 # edit config files
 alt + shift + {v,b,s,t,w,p}
   ~/.config/bspwm/scripts/edit_configs {nvim, bspwm, sxhkd, bash, wezterm, polybar}
-super + space
-

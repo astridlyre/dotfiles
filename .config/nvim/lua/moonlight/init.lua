@@ -39,23 +39,24 @@ return packer.startup({
 	function(use)
 		use({ "wbthomason/packer.nvim" })
 		use({ "lewis6991/impatient.nvim" })
-
 		-- UI Plugins
 		use({ "norcalli/nvim-colorizer.lua", config = require("moonlight.colorizer"), event = "BufRead" })
 		use({ "echasnovski/mini.nvim", config = require("moonlight.mini"), event = "BufWinEnter" })
 		use({
-			"mcchrish/zenbones.nvim",
+			"~/projects/lunabones",
 			requires = "rktjmp/lush.nvim",
 			config = function()
-				vim.cmd("colorscheme kanagawabones")
+				vim.cmd("colorscheme lunabones")
 			end,
 		})
+		-- use({ "rktjmp/shipwright.nvim" })
 		-- Treesitter
 		use({
 			"nvim-treesitter/nvim-treesitter",
 			run = ":TSUpdate",
 			config = require("moonlight.treesitter"),
 		})
+		use({ "nvim-treesitter/playground" })
 		use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 		use({ "windwp/nvim-ts-autotag" })
 		use({ "andymass/vim-matchup" })
@@ -130,14 +131,7 @@ return packer.startup({
 		-- Misc
 		use({ "b3nj5m1n/kommentary", event = "BufEnter" })
 		use({ "tpope/vim-repeat", event = "BufEnter" })
-		use({ "numToStr/FTerm.nvim" })
 		use({ "nanotee/sqls.nvim" })
-		use({
-			"rest-nvim/rest.nvim",
-			config = function()
-				require("rest-nvim").setup({ result_split_horizontal = true })
-			end,
-		})
 		use({
 			"zbirenbaum/copilot.lua",
 			cmd = "Copilot",
@@ -150,10 +144,6 @@ return packer.startup({
 			config = function()
 				require("copilot_cmp").setup({
 					method = "getCompletionsCycling",
-					--method = "getPanelCompletions",
-					--[[ formatters = {
-						insert_text = require("copilot_cmp.format").remove_existing,
-					}, ]]
 				})
 			end,
 		})
