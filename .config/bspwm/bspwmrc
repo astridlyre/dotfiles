@@ -60,7 +60,7 @@ run sxhkd -c ~/.config/bspwm/sxhkd/sxhkdrc
 run /usr/lib/xfce4/notifyd/xfce4-notifyd
 
 # compositor
-#run picom --experimental-backends --config "$HOME/.config/bspwm/picom.conf"
+# run picom --config "$HOME/.config/bspwm/picom.conf"
 
 # Start unclutter to hide cursor
 run unclutter --timeout 1
@@ -124,4 +124,5 @@ bspc rule -a Emacs state=tiled
 bspc rule -a Gimp desktop='^5' state=tiled
 bspc rule -a OBS desktop='^6' state=tiled
 
-hsetroot -solid "#000000"
+hsetroot -solid '#000000'
+# feh --bg-fill ~/Pictures/wallpaper2.png

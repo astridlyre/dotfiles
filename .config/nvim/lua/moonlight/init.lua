@@ -1,159 +1,667 @@
--- Personal Configuration
-local execute = vim.api.nvim_command
-local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-local compile_path = fn.stdpath("config") .. "/lua/packer_compiled.lua"
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-if fn.empty(vim.fn.glob(install_path)) > 0 then
-	fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
-	execute("packadd packer.nvim")
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
 
-local ml_utils = require("moonlight.utils")
-
--- Packer Configuration
-local packer = ml_utils.safe_require("packer")
-local util = ml_utils.safe_require("packer.util")
-
-if packer == nil or util == nil then
-	return
-end
-
-local packer_init = {
-	display = {
-		open_fn = function()
-			if util ~= nil then
-				return util.float({ border = "rounded" })
-			end
-		end,
-	},
-}
-
-packer.init(packer_init)
+vim.opt.rtp:prepend(lazypath)
 
 require("moonlight.options")
-require("moonlight.functions")
-require("moonlight.autocmds")
 
-return packer.startup({
-	function(use)
-		use({ "wbthomason/packer.nvim" })
-		use({ "lewis6991/impatient.nvim" })
-		-- UI Plugins
-		use({ "norcalli/nvim-colorizer.lua", config = require("moonlight.colorizer"), event = "BufRead" })
-		use({ "echasnovski/mini.nvim", config = require("moonlight.mini"), event = "BufWinEnter" })
-		use({
-			"~/projects/lunabones",
-			requires = "rktjmp/lush.nvim",
-			config = function()
-				vim.cmd("colorscheme lunabones")
-			end,
-		})
-		-- use({ "rktjmp/shipwright.nvim" })
-		-- Treesitter
-		use({
-			"nvim-treesitter/nvim-treesitter",
-			run = ":TSUpdate",
-			config = require("moonlight.treesitter"),
-		})
-		use({ "nvim-treesitter/playground" })
-		use({ "nvim-treesitter/nvim-treesitter-textobjects" })
-		use({ "windwp/nvim-ts-autotag" })
-		use({ "andymass/vim-matchup" })
-		use({ "L3MON4D3/LuaSnip", run = "make install_jsregexp" })
+require("lazy").setup({
+	{
+		"norcalli/nvim-colorizer.lua",
+		event = "BufRead",
+		config = function()
+			require("colorizer").setup({
+				"css",
+				"javascript",
+				"html",
+				"yaml",
+				"python",
+				"sass",
+				"markdown",
+				"lua",
+				"typescript",
+				"vim",
+				"sh",
+				"bash",
+				"scss",
+				"kitty",
+				"javascriptreact",
+				"typescriptreact",
+				"dosini",
+			})
+		end,
+	},
+	{
+		"echasnovski/mini.nvim",
+		config = function()
+			require("mini.bufremove").setup({})
+			require("mini.statusline").setup({
+				set_vim_settings = false,
+			})
+		end,
+	},
+	{ "rktjmp/lush.nvim" },
+	{
+		dir = "~/projects/lunabones",
+		dev = true,
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.cmd("colorscheme lunabones")
+		end,
+	},
+	{ "nvim-treesitter/nvim-treesitter-textobjects" },
+	{ "windwp/nvim-ts-autotag" },
+	{ "andymass/vim-matchup" },
+	{
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+		config = function()
+			require("nvim-treesitter.configs").setup({
+				playground = {
+					enable = true,
+					disable = {},
+					updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+					persist_queries = false, -- Whether the query persists across vim sessions
+					keybindings = {
+						toggle_query_editor = "o",
+						toggle_hl_groups = "i",
+						toggle_injected_languages = "t",
+						toggle_anonymous_nodes = "a",
+						toggle_language_display = "I",
+						focus_language = "f",
+						unfocus_language = "F",
+						update = "R",
+						goto_node = "<cr>",
+						show_help = "?",
+					},
+				},
+				ensure_installed = "all",
+				highlight = { enable = true },
+				indent = { enable = true },
+				incremental_selection = {
+					enable = false,
+					keymaps = {
+						init_selection = "<CR>",
+						scope_incremental = "<S-CR>",
+						node_incremental = "<TAB>",
+						node_decremental = "<S-TAB>",
+					},
+				},
+				textobjects = {
+					select = {
+						enable = true,
+						lookahead = true,
+						keymaps = {
+							["ap"] = "@parameter.outer",
+							["ip"] = "@parameter.inner",
+							["af"] = "@function.outer",
+							["if"] = "@function.inner",
+							["ia"] = "@attribute.inner",
+							["aa"] = "@attribute.outer",
+							["ic"] = "@conditional.inner",
+							["ac"] = "@conditional.outer",
+							["is"] = "@statement.inner",
+							["as"] = "@statement.outer",
+							["ib"] = "@block.inner",
+							["ab"] = "@block.outer",
+							["ir"] = "@regex.inner",
+							["ar"] = "@regex.outer",
+							["iC"] = "@call.inner",
+							["aC"] = "@call.outer",
+						},
+					},
+					swap = {
+						enable = true,
+						swap_next = { ["<leader>sn"] = "@parameter.inner" },
+						swap_previous = { ["<leader>sp"] = "@parameter.inner" },
+					},
+				},
+				autotag = { enable = true },
+				autopairs = { enable = true },
+				matchup = {
+					enable = true,
+				},
+				move = {
+					enable = true,
+					set_jumps = true, -- whether to set jumps in the jumplist
+					goto_next_start = {
+						["]m"] = "@function.outer",
+						["]]"] = "@class.outer",
+					},
+					goto_next_end = {
+						["]M"] = "@function.outer",
+						["]["] = "@class.outer",
+					},
+					goto_previous_start = {
+						["[m"] = "@function.outer",
+						["[["] = "@class.outer",
+					},
+					goto_previous_end = {
+						["[M"] = "@function.outer",
+						["[]"] = "@class.outer",
+					},
+				},
+			})
+		end,
+	},
+	{ "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
+	{ "hrsh7th/cmp-nvim-lsp" },
+	{ "hrsh7th/cmp-nvim-lua" },
+	{ "hrsh7th/cmp-buffer" },
+	{ "L3MON4D3/LuaSnip" },
+	{ "saadparwaiz1/cmp_luasnip" },
+	{ dir = "~/projects/friendly-snippets", dev = true },
+	{ "onsails/lspkind-nvim" },
+	{
+		"hrsh7th/nvim-cmp",
+		event = "InsertEnter",
+		config = function()
+			local cmp = require("cmp")
+			local lspkind = require("lspkind")
+			local luasnip = require("luasnip")
+			local utils = require("moonlight.utils")
+			local imap = utils.imap
 
-		-- Completion
-		use({
-			"hrsh7th/nvim-cmp",
-			config = require("moonlight.cmp"),
-			requires = {
-				"hrsh7th/cmp-nvim-lsp",
-				"hrsh7th/cmp-nvim-lua",
-				"hrsh7th/cmp-buffer",
-				"L3MON4D3/LuaSnip",
-				"saadparwaiz1/cmp_luasnip",
-				"astridlyre/friendly-snippets",
-				"onsails/lspkind-nvim",
-				--"tami5/compe-conjure",
-			},
-		})
+			-- load snippets
+			require("luasnip.loaders.from_vscode").lazy_load()
 
-		-- Language Server
-		use({ "b0o/schemastore.nvim" })
-		use({
-			"neovim/nvim-lspconfig",
-			config = function()
-				require("moonlight.lsp").setup()
-			end,
-		})
-		use({
-			"jose-elias-alvarez/null-ls.nvim",
-			config = require("moonlight.null-ls"),
-			after = "nvim-lspconfig",
-		})
-		use({ "jose-elias-alvarez/typescript.nvim" })
-		use({ "windwp/nvim-autopairs", event = "InsertEnter", config = require("moonlight.autopairs") })
+			-- snippet jumping
+			local t = function(str)
+				return vim.api.nvim_replace_termcodes(str, true, true, true)
+			end
 
-		-- Version Control
-		use({
-			"lewis6991/gitsigns.nvim",
-			requires = { "nvim-lua/plenary.nvim" },
-			config = require("moonlight.gitsigns"),
-			event = "BufRead",
-		})
+			local function snippet_next()
+				if luasnip and luasnip.expand_or_jumpable() then
+					return luasnip.expand_or_jump()
+				else
+					return t("<C-j>")
+				end
+			end
 
-		-- Navigation
-		use({
-			"nvim-telescope/telescope.nvim",
-			requires = {
-				"nvim-lua/plenary.nvim",
-				"kyazdani42/nvim-web-devicons",
-				"nvim-telescope/telescope-ui-select.nvim",
-				"nvim-telescope/telescope-symbols.nvim",
-			},
-			config = require("moonlight.telescope"),
-			cmd = "Telescope",
-		})
-		use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-		use({
-			"nvim-neo-tree/neo-tree.nvim",
-			branch = "v2.x",
-			requires = {
-				"nvim-lua/plenary.nvim",
-				"kyazdani42/nvim-web-devicons",
-				"MunifTanjim/nui.nvim",
-			},
-			config = require("moonlight.neo-tree"),
-			cmd = "Neotree",
-		})
-		use({ "ggandor/leap.nvim", config = require("moonlight.leap"), event = "BufEnter" })
+			local function snippet_prev()
+				if luasnip and luasnip.jumpable(-1) then
+					return luasnip.jump(-1)
+				else
+					return t("<C-k>")
+				end
+			end
 
-		-- Misc
-		use({ "b3nj5m1n/kommentary", event = "BufEnter" })
-		use({ "tpope/vim-repeat", event = "BufEnter" })
-		use({ "nanotee/sqls.nvim" })
-		use({
-			"zbirenbaum/copilot.lua",
-			cmd = "Copilot",
-			event = "InsertEnter",
-			config = require("moonlight.copilot"),
-		})
-		use({
-			"zbirenbaum/copilot-cmp",
-			after = { "copilot.lua" },
-			config = function()
-				require("copilot_cmp").setup({
-					method = "getCompletionsCycling",
-				})
-			end,
-		})
-		-- Clojure plugins
-		-- use({ "tpope/vim-dispatch", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
-		-- use({ "clojure-vim/vim-jack-in", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
-		-- use({ "Olical/conjure", branch = "develop", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
-		-- use({ "radenling/vim-dispatch-neovim", ft = { "clojure", "clojurescript", "fennel", "racket", "scheme" } })
-		-- use({ "wlangstroth/vim-racket" })
-		-- use({ "Olical/aniseed", branch = "develop", ft = { "fennel" } })
-	end,
-	config = { compile_path = compile_path },
+			local function expand(args)
+				luasnip.lsp_expand(args.body)
+			end
+
+			imap("<C-e>", "<C-k>")
+			imap("<C-j>", snippet_next)
+			imap("<C-k>", snippet_prev)
+
+			-- source configs
+			local source_mapping = {
+				nvim_lsp = "[lsp]",
+				nvim_lua = "[lua]",
+				buffer = "[buf]",
+			}
+
+			local sources = cmp.config.sources({
+				{ name = "luasnip" },
+				{ name = "copilot", group_index = 2 },
+				{ name = "nvim_lsp" },
+				{ name = "nvim_lua" },
+				--{ name = "conjure" },
+				--{ name = "path" },
+				{ name = "buffer" },
+			})
+
+			local format = lspkind.cmp_format({
+				mode = "symbol",
+				maxwidth = 50,
+				before = function(entry, vim_item)
+					vim_item.menu = source_mapping[entry.source.name]
+					return vim_item
+				end,
+				symbol_map = { Copilot = "" },
+			})
+
+			local compare = require("cmp.config.compare")
+
+			-- setup cmp
+			cmp.setup({
+				debug = false,
+				--source_timeout = 250,
+				snippet = { expand = expand },
+				experimental = { ghost_text = true },
+				mapping = cmp.mapping.preset.insert({
+					["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+					["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+					["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+					["<C-e>"] = cmp.mapping({
+						i = cmp.mapping.abort(),
+						c = cmp.mapping.close(),
+					}),
+					["<c-y>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+				}),
+				sources = sources,
+				formatting = { format = format },
+				sorting = {
+					priority_weight = 2,
+					comparators = {
+						require("copilot_cmp.comparators").prioritize,
+						require("copilot_cmp.comparators").score,
+						compare.offset,
+						compare.exact,
+						compare.score,
+						compare.kind,
+						compare.sort_text,
+						compare.length,
+						compare.order,
+					},
+				},
+				window = {
+					completion = { border = "solid" },
+					documentation = { border = "solid" },
+				},
+			})
+		end,
+	},
+	{
+		"neovim/nvim-lspconfig",
+		config = function()
+			require("moonlight.lsp").setup()
+		end,
+	},
+	{
+		"jose-elias-alvarez/null-ls.nvim",
+		dependencies = { "nvim-lspconfig" },
+		config = function()
+			local lsp = require("moonlight.lsp")
+			local capabilities = lsp.make_capabilities()
+			local flags = lsp.flags
+
+			-- Null LS
+			local null_ls = require("null-ls")
+			local formatting = null_ls.builtins.formatting
+			local diagnostics = null_ls.builtins.diagnostics
+
+			null_ls.setup({
+				sources = {
+					formatting.joker.with({ filetypes = { "clojure", "clj" } }),
+					formatting.prettierd,
+					formatting.shfmt,
+					formatting.black,
+					formatting.fixjson,
+					formatting.goimports,
+					formatting.isort,
+					formatting.stylua,
+					diagnostics.clj_kondo,
+					diagnostics.shellcheck,
+					diagnostics.staticcheck,
+					diagnostics.write_good.with({ filetypes = { "markdown", "tex", "text" } }),
+					diagnostics.flake8,
+					diagnostics.vint,
+					diagnostics.yamllint,
+					diagnostics.stylelint,
+					--[[ diagnostics.sqlfluff.with({
+				extra_args = { "--dialect", "mysql" },
+			}), ]]
+					require("typescript.extensions.null-ls.code-actions"),
+				},
+				capabilities = capabilities,
+				flags = flags,
+				on_attach = function(client)
+					if client.server_capabilities.documentFormattingProvider then
+						vim.cmd([[
+            augroup LspFormatting
+                autocmd! * <buffer>
+				autocmd BufWritePre <buffer> lua require('moonlight.autoformat').format()
+            augroup END
+            ]])
+					end
+				end,
+			})
+		end,
+	},
+	{ "jose-elias-alvarez/typescript.nvim" },
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = function()
+			require("nvim-autopairs").setup({})
+
+			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+			local cmp = require("cmp")
+
+			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+		end,
+	},
+	{
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			local gitsigns = require("gitsigns")
+
+			gitsigns.setup({
+				signs = {
+					add = { hl = "GitGutterAdd", text = "+" },
+					change = { hl = "GitGutterChange", text = "~" },
+					delete = { hl = "GitGutterDelete", text = "_" },
+					topdelete = { hl = "GitGutterDelete", text = "‾" },
+					changedelete = { hl = "GitGutterChange", text = "~" },
+				},
+			})
+
+			local utils = require("moonlight.utils")
+			local lmap = utils.lmap
+			local nmap = utils.nmap
+			local vmap = utils.vmap
+
+			-- Navigation
+			nmap("]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<cr>'", { expr = true })
+			nmap("[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<cr>'", { expr = true })
+
+			-- Actions
+			vmap("<space>hs", ":Gitsigns stage_hunk<cr>")
+			vmap("<space>hr", ":Gitsigns reset_hunk<cr>")
+			lmap("hs", ":Gitsigns stage_hunk<cr>")
+			lmap("hr", ":Gitsigns reset_hunk<cr>")
+			lmap("hS", gitsigns.stage_buffer)
+			lmap("hu", gitsigns.undo_stage_hunk)
+			lmap("hR", gitsigns.reset_buffer)
+			lmap("hp", gitsigns.preview_hunk)
+			lmap("hb", function()
+				gitsigns.blame_line({ full = true })
+			end)
+			lmap("gb", gitsigns.toggle_current_line_blame)
+			lmap("hd", gitsigns.diffthis)
+			lmap("hD", function()
+				gitsigns.diffthis("~")
+			end)
+			lmap("gt", gitsigns.toggle_deleted)
+		end,
+		event = "BufRead",
+	},
+	{ "nvim-lua/plenary.nvim", lazy = true },
+	{ "kyazdani42/nvim-web-devicons", lazy = true },
+	{ "MunifTanjim/nui.nvim", lazy = true },
+	{ "nvim-telescope/telescope-ui-select.nvim" },
+	{ "nvim-telescope/telescope-symbols.nvim" },
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = {
+			"nvim-telescope/telescope-fzf-native.nvim",
+		},
+		config = function()
+			local telescope = require("telescope")
+			telescope.setup({
+				defaults = {
+					prompt_prefix = "❯ ",
+					selection_caret = "  ",
+					path_display = { "smart" },
+					sorting_strategy = "ascending",
+					layout_strategy = "flex",
+					layout_config = {
+						horizontal = { prompt_position = "top", preview_width = 0.55 },
+						vertical = { mirror = false },
+						width = 0.87,
+						height = 0.8,
+						preview_cutoff = 120,
+					},
+					dynamic_preview_title = true,
+					preview = {
+						filesize_hook = function(filepath, bufnr, opts)
+							local max_bytes = 10000
+							local cmd = { "head", "-c", max_bytes, filepath }
+							require("telescope.previewers.utils").job_maker(cmd, bufnr, opts)
+						end,
+					},
+				},
+				pickers = {
+					find_files = {
+						find_command = {
+							"rg",
+							"--files",
+							"--hidden",
+							"--glob",
+							"!**/node_modules/**",
+							"--glob",
+							"!**/build/**",
+							"--glob",
+							"!**/.git/**",
+							"--glob",
+							"!**/.cache/**",
+							"--glob",
+							"!**/.mypy_cache/**",
+							"--glob",
+							"!**/dist/**",
+							"--glob",
+							"!**/.parcel-cache/**",
+							"--glob",
+							"!*.min.js",
+							"--max-filesize",
+							"1M",
+							"--glob",
+							"!*.{jpg,png,gif}",
+						},
+					},
+				},
+				extensions = {
+					["ui-select"] = {
+						require("telescope.themes").get_dropdown({}),
+					},
+				},
+			})
+			telescope.load_extension("fzf")
+			telescope.load_extension("ui-select")
+		end,
+	},
+	{
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v2.x",
+		config = function()
+			vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+			vim.cmd([[
+highlight! link NeoTreeDirectoryIcon NvimTreeFolderIcon
+highlight! link NeoTreeDirectoryName NvimTreeFolderName
+highlight! link NeoTreeSymbolicLinkTarget NvimTreeSymlink
+highlight! link NeoTreeRootName NvimTreeRootFolder
+highlight! link NeoTreeDirectoryName NvimTreeOpenedFolderName
+highlight! link NeoTreeFileNameOpened NvimTreeOpenedFile
+]])
+
+			require("neo-tree").setup({
+				close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
+				popup_border_style = "solid",
+				resize_timer_interval = -1,
+				enable_git_status = true,
+				enable_diagnostics = false,
+				default_component_configs = {
+					indent = {
+						indent_size = 2,
+						padding = 1, -- extra padding on left hand side
+						-- indent guides
+						with_markers = true,
+						indent_marker = "│",
+						last_indent_marker = "└",
+						highlight = "NeoTreeIndentMarker",
+						-- expander config, needed for nesting files
+						with_expanders = nil, -- if nil and file nesting is enabled, will enable expanders
+						expander_collapsed = "",
+						expander_expanded = "",
+						expander_highlight = "NeoTreeExpander",
+					},
+					icon = {
+						folder_closed = "",
+						folder_open = "",
+						folder_empty = "ﰊ",
+						default = "*",
+					},
+					modified = {
+						symbol = "⏺",
+						highlight = "NeoTreeModified",
+					},
+					name = {
+						trailing_slash = false,
+						use_git_status_colors = true,
+					},
+					git_status = {
+						symbols = {
+							-- Change type
+							added = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
+							modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
+							deleted = "✖", -- this can only be used in the git_status source
+							renamed = "", -- this can only be used in the git_status source
+							-- Status type
+							untracked = "",
+							ignored = "",
+							unstaged = "",
+							staged = "",
+							conflict = "",
+						},
+					},
+				},
+				window = {
+					position = "left",
+					width = 30,
+					mappings = {
+						["<space>"] = "toggle_node",
+						["<2-LeftMouse>"] = "open",
+						["<cr>"] = "open",
+						["S"] = "open_split",
+						["s"] = "open_vsplit",
+						["t"] = "open_tabnew",
+						["C"] = "close_node",
+						["<bs>"] = "navigate_up",
+						["."] = "set_root",
+						["H"] = "toggle_hidden",
+						["R"] = "refresh",
+						["a"] = "add",
+						["A"] = "add_directory",
+						["d"] = "delete",
+						["r"] = "rename",
+						["y"] = "copy_to_clipboard",
+						["x"] = "cut_to_clipboard",
+						["p"] = "paste_from_clipboard",
+						["c"] = "copy", -- takes text input for destination
+						["m"] = "move", -- takes text input for destination
+						["q"] = "close_window",
+					},
+				},
+				nesting_rules = {},
+				filesystem = {
+					filtered_items = {
+						visible = false, -- when true, they will just be displayed differently than normal items
+						hide_dotfiles = true,
+						hide_gitignored = true,
+						hide_by_name = {
+							".DS_Store",
+							"thumbs.db",
+							"node_modules",
+						},
+					},
+					follow_current_file = true, -- This will find and focus the file in the active buffer every
+					hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
+					use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
+				},
+				git_status = {
+					window = {
+						position = "float",
+						mappings = {
+							["A"] = "git_add_all",
+							["gu"] = "git_unstage_file",
+							["ga"] = "git_add_file",
+							["gr"] = "git_revert_file",
+							["gc"] = "git_commit",
+							["gp"] = "git_push",
+							["gg"] = "git_commit_and_push",
+						},
+					},
+				},
+			})
+		end,
+		cmd = "Neotree",
+	},
+	{
+		"ggandor/leap.nvim",
+		config = function()
+			require("leap").add_default_mappings()
+		end,
+		event = "BufEnter",
+	},
+	{ "b3nj5m1n/kommentary" },
+	{ "tpope/vim-repeat" },
+	{ "nanotee/sqls.nvim" },
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			local copilot = require("copilot")
+			local panel = require("copilot.panel")
+			local suggestion = require("copilot.suggestion")
+			local utils = require("moonlight.utils")
+			local lmap = utils.lmap
+
+			copilot.setup({
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+				server_opts_overrides = {
+					trace = "verbose",
+					settings = {
+						advanced = {
+							inlineSuggestCount = 3, -- #completions for getCompletions
+						},
+					},
+				},
+			})
+
+			lmap("csa", function()
+				suggestion.accept()
+			end)
+
+			lmap("csn", function()
+				suggestion.next()
+			end)
+
+			lmap("csp", function()
+				suggestion.prev()
+			end)
+
+			lmap("cpa", function()
+				panel.accept()
+			end)
+
+			lmap("cpn", function()
+				panel.next()
+			end)
+
+			lmap("cpp", function()
+				panel.prev()
+			end)
+
+			lmap("cpo", function()
+				panel.open()
+			end)
+
+			lmap("cpr", function()
+				panel.refresh()
+			end)
+		end,
+	},
+	{
+		"zbirenbaum/copilot-cmp",
+		config = function()
+			require("copilot_cmp").setup({
+				method = "getCompletionsCycling",
+			})
+		end,
+	},
 })

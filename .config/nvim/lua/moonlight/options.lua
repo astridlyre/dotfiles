@@ -1,7 +1,6 @@
 local utils = require("moonlight.utils")
 
 local nmap = utils.nmap
-local tmap = utils.tmap
 local vmap = utils.vmap
 local cmap = utils.cmap
 local lmap = utils.lmap
@@ -93,7 +92,6 @@ assign_options({
 }, vim.opt)
 
 -- leader mappings
-lmap("u", ":PackerUpdate<cr>")
 lmap(";", ":w<cr>")
 lmap("y", '"+y')
 lmap("ft", require("moonlight.autoformat").toggle_formatting)
@@ -127,11 +125,20 @@ nmap("[b", "<cmd>bprev<cr>")
 nmap("]b", "<cmd>bnext<cr>")
 nmap("[q", "<cmd>cprev<cr>zz")
 nmap("]q", "<cmd>cnext<cr>zz")
-nmap("<localleader>cc", "<cmd>ClojureConnect<cr>")
 nmap("<c-p>", "<c-^>")
-nmap("<c-\\>", function()
-	utils.safe_require("FTerm").toggle()
-end)
+
+-- toggle quickfix
+vim.g.qfix_win = nil
+local function toggle_qf_list()
+	if vim.g.qfix_win ~= nil then
+		vim.cmd("cclose")
+		vim.g.qfix_win = nil
+	else
+		vim.cmd("copen")
+	end
+end
+
+nmap("<c-q>", toggle_qf_list)
 
 -- telescope
 lmap("<space>", "<cmd>Telescope find_files hidden=true follow=true<cr>")
@@ -175,14 +182,87 @@ vmap("<c-c>", "<esc>")
 vmap("<leader>fs", "!sqlformat.sh <cr>")
 vmap("<leader>se", "<cmd>SqlsExecuteQuery<cr>")
 
--- terminal mode
-tmap("<c-\\>", function()
-	utils.safe_require("FTerm").close({ bang = true })
-end)
-
 -- command mode
 cmap("<c-b>", "<left>")
 cmap("<c-f>", "<right>")
 cmap("<c-a>", "<home>")
 cmap("<c-e>", "<end>")
 cmap("<c-d>", "<del>")
+
+vim.cmd([[
+augroup QFixToggle
+	autocmd!
+	autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
+augroup END
+	]])
+
+vim.cmd([[
+iabbr improt import
+iabbr funciton function
+iabbr exprot export
+iabbr expotr export
+	]])
+
+vim.cmd([[
+augroup GoLang
+	autocmd!
+	autocmd FileType go iabbr ;; :=
+augroup end
+	]])
+-- lambda abbreviation for racket
+vim.cmd([[
+augroup Racket
+	autocmd!
+	autocmd FileType racket iabbr ld λ
+augroup end
+	]])
+
+-- don't list quickfix in buffers
+vim.cmd([[
+augroup NoListQuick
+	autocmd!
+	autocmd FileType qf set nobuflisted
+augroup end
+]])
+
+-- show cursorline only in active buffer
+vim.cmd([[
+augroup CursorLine
+	autocmd!
+	autocmd WinEnter,BufEnter,InsertLeave * if ! &cursorline && win_gettype() != 'popup' && ! &pvw | setlocal cursorline | endif
+	autocmd WinLeave,BufLeave,InsertEnter * if &cursorline && win_gettype() != 'popup' && ! &pvw | setlocal nocursorline | endif
+augroup end
+]])
+
+-- resize windows automatically
+vim.cmd([[
+augroup WinResize
+	autocmd!
+	autocmd VimResized * tabdo wincmd =
+augroup end
+]])
+
+-- enable spell if file type is text-related
+vim.cmd([[
+augroup SpellCheck
+	autocmd!
+	let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
+	autocmd BufEnter * if index(spellable, &ft) < 0 | set nospell | else | set spell | endif
+augroup end
+]])
+
+-- highlight yanked text
+vim.cmd([[
+augroup HighlightYank
+    autocmd!
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
+augroup end
+]])
+
+-- return to last position when opening files
+vim.cmd([[
+augroup RestoreLastPosition
+	autocmd!
+	autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+augroup end
+]])

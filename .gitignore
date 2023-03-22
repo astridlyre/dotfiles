@@ -8,6 +8,10 @@
 .bin/proselint
 .bin/pycodestyle
 .bin/pyflakes
+.bin/mysql
+.bin/mysqlsh
+.bin/mysqldump
+.bin/tor
 tags
 tags.lock
 tags.temp

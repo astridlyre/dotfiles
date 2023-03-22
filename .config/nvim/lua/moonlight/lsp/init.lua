@@ -220,8 +220,7 @@ M.setup = function()
 
 		add("$VIMRUNTIME")
 		add("~/.config/nvim")
-		add("~/.local/share/nvim/site/pack/packer/opt/*")
-		add("~/.local/share/nvim/site/pack/packer/start/*")
+		add("~/.local/share/nvim/lazy/*")
 
 		lspconfig.lua_ls.setup({
 			flags = flags,
@@ -297,38 +296,7 @@ M.setup = function()
 			capabilities = capabilities,
 		})
 	end
-	-- JSON LSP
-	local function jsonls()
-		lspconfig.jsonls.setup({
-			flags = flags,
-			on_attach = on_attach,
-			capabilities = capabilities,
-			settings = {
-				schemas = require("schemastore").json.schemas({
-					select = {
-						"package.json",
-						"tsconfig.json",
-						"prettierrc.json",
-						".eslintrc",
-						"babelrc.json",
-						"Packer",
-						"swcrc",
-						".adonisrc.json",
-						"docker-compose.yml",
-					},
-				}),
-			},
-		})
-	end
 
-	--[[ local function racketls()
-		lspconfig.racket_langserver.setup({
-			flags = flags,
-			on_attach = on_attach,
-			capabilities = capabilities,
-			filetypes = { "racket" },
-		})
-	end ]]
 	-- Enable the following default language servers
 	local default_servers = {
 		"pyright",
@@ -339,11 +307,9 @@ M.setup = function()
 		"dockerls",
 		"bashls",
 		"clojure_lsp",
-		--"cssmodules_ls",
-		--"emmet_ls",
-		--"solang",
 		"eslint",
-		-- "rome"
+		"zls",
+		"jsonls",
 	}
 
 	for _, ls in ipairs(default_servers) do
@@ -362,8 +328,6 @@ M.setup = function()
 		lua_ls,
 		sqls,
 		tsserver,
-		jsonls,
-		--racketls,
 	}) do
 		ls()
 	end

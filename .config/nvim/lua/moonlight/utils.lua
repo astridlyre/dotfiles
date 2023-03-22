@@ -28,15 +28,4 @@ function M.tmap(from, to, opts)
 	return M.map("t", from, to, opts)
 end
 
--- Handle errors
-function M.safe_require(p)
-	local ok, plugin = pcall(require, p)
-	if ok then
-		return plugin
-	else
-		print("Unable to load " .. p)
-		return nil
-	end
-end
-
 return M
