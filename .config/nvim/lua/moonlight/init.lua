@@ -16,9 +16,11 @@ vim.opt.rtp:prepend(lazypath)
 require("moonlight.options")
 
 require("lazy").setup({
+	{ "folke/lazy.nvim", version = "*" },
 	{
 		"norcalli/nvim-colorizer.lua",
-		event = "BufRead",
+		version = false,
+		event = { "BufReadPost", "BufNewFile" },
 		config = function()
 			require("colorizer").setup({
 				"css",
@@ -42,17 +44,42 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"echasnovski/mini.nvim",
+		"echasnovski/mini.comment",
+		event = "VeryLazy",
+		version = false,
 		config = function()
-			require("mini.bufremove").setup({})
+			require("mini.comment").setup()
+		end,
+	},
+	{
+		"echasnovski/mini.pairs",
+		version = false,
+		event = "VeryLazy",
+		config = function()
+			require("mini.pairs").setup()
+		end,
+	},
+	{
+		"echasnovski/mini.statusline",
+		version = false,
+		config = function()
 			require("mini.statusline").setup({
 				set_vim_settings = false,
 			})
 		end,
 	},
-	{ "rktjmp/lush.nvim" },
+	{
+		"echasnovski/mini.bufremove",
+		event = "VeryLazy",
+		version = false,
+		config = function()
+			require("mini.bufremove").setup()
+		end,
+	},
 	{
 		dir = "~/projects/lunabones",
+		dependencies = { "rktjmp/lush.nvim", version = false },
+		version = false,
 		dev = true,
 		lazy = false,
 		priority = 1000,
@@ -60,32 +87,19 @@ require("lazy").setup({
 			vim.cmd("colorscheme lunabones")
 		end,
 	},
-	{ "nvim-treesitter/nvim-treesitter-textobjects" },
-	{ "windwp/nvim-ts-autotag" },
-	{ "andymass/vim-matchup" },
 	{
 		"nvim-treesitter/nvim-treesitter",
+		version = false,
+		event = { "BufReadPost", "BufNewFile" },
+		dependencies = {
+			{ "nvim-treesitter/nvim-treesitter-textobjects", version = false },
+			{ "windwp/nvim-ts-autotag", version = false },
+			{ "andymass/vim-matchup", version = false },
+			{ "nvim-treesitter/nvim-treesitter-textobjects", version = false },
+		},
 		build = ":TSUpdate",
 		config = function()
 			require("nvim-treesitter.configs").setup({
-				playground = {
-					enable = true,
-					disable = {},
-					updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-					persist_queries = false, -- Whether the query persists across vim sessions
-					keybindings = {
-						toggle_query_editor = "o",
-						toggle_hl_groups = "i",
-						toggle_injected_languages = "t",
-						toggle_anonymous_nodes = "a",
-						toggle_language_display = "I",
-						focus_language = "f",
-						unfocus_language = "F",
-						update = "R",
-						goto_node = "<cr>",
-						show_help = "?",
-					},
-				},
 				ensure_installed = "all",
 				highlight = { enable = true },
 				indent = { enable = true },
@@ -136,36 +150,34 @@ require("lazy").setup({
 					enable = true,
 					set_jumps = true, -- whether to set jumps in the jumplist
 					goto_next_start = {
-						["]m"] = "@function.outer",
-						["]]"] = "@class.outer",
+						["]]"] = "@function.outer",
 					},
 					goto_next_end = {
-						["]M"] = "@function.outer",
-						["]["] = "@class.outer",
+						["]m"] = "@function.outer",
 					},
 					goto_previous_start = {
-						["[m"] = "@function.outer",
-						["[["] = "@class.outer",
+						["[["] = "@function.outer",
 					},
 					goto_previous_end = {
-						["[M"] = "@function.outer",
-						["[]"] = "@class.outer",
+						["[m"] = "@function.outer",
 					},
 				},
 			})
 		end,
 	},
-	{ "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
-	{ "hrsh7th/cmp-nvim-lsp" },
-	{ "hrsh7th/cmp-nvim-lua" },
-	{ "hrsh7th/cmp-buffer" },
-	{ "L3MON4D3/LuaSnip" },
-	{ "saadparwaiz1/cmp_luasnip" },
-	{ dir = "~/projects/friendly-snippets", dev = true },
-	{ "onsails/lspkind-nvim" },
 	{
 		"hrsh7th/nvim-cmp",
+		version = false,
 		event = "InsertEnter",
+		dependencies = {
+			{ "hrsh7th/cmp-nvim-lsp", version = false },
+			{ "hrsh7th/cmp-nvim-lua", version = false },
+			{ "hrsh7th/cmp-buffer", version = false },
+			{ "saadparwaiz1/cmp_luasnip", version = false },
+			{ "L3MON4D3/LuaSnip", build = "make install_jsregexp", version = false },
+			{ dir = "~/projects/friendly-snippets", dev = true },
+			{ "onsails/lspkind-nvim", version = false },
+		},
 		config = function()
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
@@ -217,8 +229,6 @@ require("lazy").setup({
 				{ name = "copilot", group_index = 2 },
 				{ name = "nvim_lsp" },
 				{ name = "nvim_lua" },
-				--{ name = "conjure" },
-				--{ name = "path" },
 				{ name = "buffer" },
 			})
 
@@ -237,7 +247,6 @@ require("lazy").setup({
 			-- setup cmp
 			cmp.setup({
 				debug = false,
-				--source_timeout = 250,
 				snippet = { expand = expand },
 				experimental = { ghost_text = true },
 				mapping = cmp.mapping.preset.insert({
@@ -275,12 +284,14 @@ require("lazy").setup({
 	},
 	{
 		"neovim/nvim-lspconfig",
+		version = false,
 		config = function()
 			require("moonlight.lsp").setup()
 		end,
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
+		version = false,
 		dependencies = { "nvim-lspconfig" },
 		config = function()
 			local lsp = require("moonlight.lsp")
@@ -310,9 +321,6 @@ require("lazy").setup({
 					diagnostics.vint,
 					diagnostics.yamllint,
 					diagnostics.stylelint,
-					--[[ diagnostics.sqlfluff.with({
-				extra_args = { "--dialect", "mysql" },
-			}), ]]
 					require("typescript.extensions.null-ls.code-actions"),
 				},
 				capabilities = capabilities,
@@ -330,31 +338,22 @@ require("lazy").setup({
 			})
 		end,
 	},
-	{ "jose-elias-alvarez/typescript.nvim" },
-	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		config = function()
-			require("nvim-autopairs").setup({})
-
-			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-			local cmp = require("cmp")
-
-			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-		end,
-	},
+	{ "jose-elias-alvarez/typescript.nvim", lazy = true, version = false },
 	{
 		"lewis6991/gitsigns.nvim",
+		event = { "BufRead", "BufNewFile" },
+		version = false,
 		config = function()
 			local gitsigns = require("gitsigns")
 
 			gitsigns.setup({
 				signs = {
-					add = { hl = "GitGutterAdd", text = "+" },
-					change = { hl = "GitGutterChange", text = "~" },
-					delete = { hl = "GitGutterDelete", text = "_" },
-					topdelete = { hl = "GitGutterDelete", text = "‾" },
-					changedelete = { hl = "GitGutterChange", text = "~" },
+					add = { hl = "GitGutterAdd", text = "▎" },
+					change = { hl = "GitGutterChange", text = "▎" },
+					delete = { hl = "GitGutterDelete", text = "" },
+					topdelete = { hl = "GitGutterDelete", text = "" },
+					changedelete = { hl = "GitGutterChange", text = "▎" },
+					untracked = { text = "▎" },
 				},
 			})
 
@@ -386,16 +385,16 @@ require("lazy").setup({
 			end)
 			lmap("gt", gitsigns.toggle_deleted)
 		end,
-		event = "BufRead",
 	},
-	{ "nvim-lua/plenary.nvim", lazy = true },
-	{ "kyazdani42/nvim-web-devicons", lazy = true },
-	{ "MunifTanjim/nui.nvim", lazy = true },
-	{ "nvim-telescope/telescope-ui-select.nvim" },
-	{ "nvim-telescope/telescope-symbols.nvim" },
-	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	{ "nvim-lua/plenary.nvim", lazy = true, version = false },
+	{ "kyazdani42/nvim-web-devicons", lazy = true, version = false },
+	{ "MunifTanjim/nui.nvim", lazy = true, version = false },
+	{ "nvim-telescope/telescope-ui-select.nvim", version = false },
+	{ "nvim-telescope/telescope-symbols.nvim", version = false },
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make", version = false },
 	{
 		"nvim-telescope/telescope.nvim",
+		version = false,
 		dependencies = {
 			"nvim-telescope/telescope-fzf-native.nvim",
 		},
@@ -465,7 +464,8 @@ require("lazy").setup({
 	},
 	{
 		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v2.x",
+		cmd = "Neotree",
+		version = false,
 		config = function()
 			vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 			vim.cmd([[
@@ -587,21 +587,28 @@ highlight! link NeoTreeFileNameOpened NvimTreeOpenedFile
 				},
 			})
 		end,
-		cmd = "Neotree",
+	},
+	{
+		"ggandor/flit.nvim",
+		config = function()
+			require("flit").setup()
+		end,
 	},
 	{
 		"ggandor/leap.nvim",
 		config = function()
 			require("leap").add_default_mappings()
 		end,
-		event = "BufEnter",
+		version = false,
+		event = { "BufReadPost", "BufNewFile" },
 	},
-	{ "b3nj5m1n/kommentary" },
-	{ "tpope/vim-repeat" },
-	{ "nanotee/sqls.nvim" },
+	{ "tpope/vim-repeat", event = "VeryLazy" },
+	{ "nanotee/sqls.nvim", version = false },
 	{
 		"zbirenbaum/copilot.lua",
+		version = false,
 		cmd = "Copilot",
+		build = ":Copilot auth",
 		event = "InsertEnter",
 		config = function()
 			local copilot = require("copilot")
@@ -658,6 +665,7 @@ highlight! link NeoTreeFileNameOpened NvimTreeOpenedFile
 	},
 	{
 		"zbirenbaum/copilot-cmp",
+		version = false,
 		config = function()
 			require("copilot_cmp").setup({
 				method = "getCompletionsCycling",
