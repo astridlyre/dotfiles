@@ -1,7 +1,6 @@
 # My dot files
 
-As in the Linux tradition, here are my dot files. I use bspwm and a few Xfce
-programs for my desktop. I mostly work from the terminal.
+As in the Linux tradition, here are my dot files. I use bspwm and I work from the terminal.
 
 ![Screen Shot One](https://raw.githubusercontent.com/astridlyre/dotfiles/master/ss1.jpg)
 
@@ -22,20 +21,19 @@ git clone https://www.gitlab.com/ebflat9/dotfiles && cd dotfiles
 ## About me
 
 I am a professional guitarist turned Linux nerd in this post-Covid world. I am
-learning to program and just passed my LPIC-1 certificate. Aiming to get work in
+learning to program and passed my LPIC-1 certificate. Aiming to get work in
 cyber-security someday, if music doesn't pick up again.
 
 ## Some of the applications I am using
 
 - [neovim](https://neovim.io/) text editor
 - bash
-- [alacritty](https://github.com/alacritty/alacritty) terminal emulator
+- [wezterm](https://wezfurlong.org/wezterm/) terminal emulator
 - [bspwm](https://github.com/baskerville/bspwm) window manager
 - [polybar](https://github.com/polybar/polybar) bar
 - [rofi](https://github.com/davatorium/rofi) window switcher / program launcher
 - [zathura](https://github.com/pwmt/zathura) document reader
-- [brave](https://brave.com/) web browser
-- pcmanfm GUI file manager
+- [firefox](https://firefox.com/) web browser
 
 ## Contact
 
