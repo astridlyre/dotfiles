@@ -78,3 +78,9 @@ alias stripe="docker run --rm -it -v stripe-config://root/.config/stripe/ -v str
 
 alias proddb='tsh ssh -L 3308:prod-aurora-us-west-1.cluster-cqioi60hyw7w.us-west-1.rds.amazonaws.com:3306 -N --proxy=secure.common.aws.us-west-1.streamily.com root@bastion-prod-1'
 alias stagingdb='tsh ssh -L 3307:staging-aurora-us-west-1.cluster-cpe86pd9fivv.us-west-1.rds.amazonaws.com:3306 -N --proxy=secure.common.aws.us-west-1.streamily.com root@bastion-staging-1'
+
+alias prodredis='tsh ssh -L 6379:redis.default.svc.cluster.local:6379 -N --proxy=secure.common.aws.us-west-1.streamily.com root@bastion-prod-1'
+
+alias stagingredis='tsh ssh -L 6379:redis.default.svc.cluster.local:6379 -N --proxy=secure.common.aws.us-west-1.streamily.com root@bastion-staging-1'
+
+alias redis-cli="docker run -it --network host --rm redis redis-cli"

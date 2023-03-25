@@ -52,14 +52,6 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"echasnovski/mini.pairs",
-		version = false,
-		event = "VeryLazy",
-		config = function()
-			require("mini.pairs").setup()
-		end,
-	},
-	{
 		"echasnovski/mini.statusline",
 		version = false,
 		config = function()
@@ -166,6 +158,20 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = function()
+			require("nvim-autopairs").setup()
+
+			local rule = require("nvim-autopairs").get_rule("'")[1]
+			local cond = require("nvim-autopairs.conds")
+
+			-- remove add single quote on filetype scheme or lisp
+			rule.not_filetypes = { "scheme", "lisp", "clojure", "clj" }
+			rule:with_pair(cond.not_after_text("["))
+		end,
+	},
+	{
 		"hrsh7th/nvim-cmp",
 		version = false,
 		event = "InsertEnter",
@@ -228,6 +234,7 @@ require("lazy").setup({
 				{ name = "luasnip" },
 				{ name = "copilot", group_index = 2 },
 				{ name = "nvim_lsp" },
+				-- { name = "conjure" },
 				{ name = "nvim_lua" },
 				{ name = "buffer" },
 			})
@@ -671,5 +678,10 @@ highlight! link NeoTreeFileNameOpened NvimTreeOpenedFile
 				method = "getCompletionsCycling",
 			})
 		end,
+	},
+	{
+		"Olical/conjure",
+		version = false,
+		filetypes = { "clojure", "fennel", "lisp", "scheme", "hy", "clj" },
 	},
 })

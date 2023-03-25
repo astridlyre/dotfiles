@@ -120,7 +120,7 @@ nmap("k", '(v:count > 5 ? "m\'" . v:count : "") . "gk"', { expr = true })
 nmap("j", '(v:count > 5 ? "m\'" . v:count : "") . "gj"', { expr = true })
 nmap("<m-j>", "mz:m+<cr>`z")
 nmap("<m-k>", "mz:m-2<cr>`z")
-nmap("\\", "<cmd>noh<cr><esc>")
+nmap("<esc>", "<cmd>noh<cr><esc>")
 nmap("[b", "<cmd>bprev<cr>")
 nmap("]b", "<cmd>bnext<cr>")
 nmap("[q", "<cmd>cprev<cr>zz")
@@ -145,6 +145,7 @@ lmap("<space>", "<cmd>Telescope find_files hidden=true follow=true<cr>")
 lmap("ff", "<cmd>Telescope find_files hidden=true follow=true<cr>")
 lmap("lg", "<cmd>Telescope live_grep<cr>")
 lmap("fb", "<cmd>Telescope buffers<cr>")
+lmap("o", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
 lmap("b", "<cmd>Telescope buffers<cr>")
 lmap("fh", "<cmd>Telescope oldfiles<cr>")
 lmap("fqq", "<cmd>Telescope quickfix<cr>")
@@ -210,7 +211,9 @@ iabbr expotr export
 vim.api.nvim_create_autocmd("FileType", {
 	group = augroup("golang"),
 	callback = function()
-		vim.api.nvim_buf_set_keymap(0, "i", ";;", ":=", { silent = true })
+		if vim.bo.filetype == "go" then
+			vim.api.nvim_buf_set_keymap(0, "i", ";;", ":=", { silent = true })
+		end
 	end,
 })
 
@@ -295,6 +298,6 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = augroup("highlight_yank"),
 	callback = function()
-		vim.highlight.on_yank()
+		vim.highlight.on_yank({ timeout = 200 })
 	end,
 })

@@ -125,4 +125,3 @@ bspc rule -a Gimp desktop='^5' state=tiled
 bspc rule -a OBS desktop='^6' state=tiled
 
 hsetroot -solid '#000000'
-# feh --bg-fill ~/Pictures/wallpaper2.png

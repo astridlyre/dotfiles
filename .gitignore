@@ -19,3 +19,4 @@ tags.temp
 .bin/ytfzf
 .mypy_cache
 .bin/exercism
+.bin/stash
