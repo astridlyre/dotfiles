@@ -1,2 +1,2 @@
 #!/bin/sh
-exec kitty --title iwctl --class iwctl --name iwctl -e iwctl
+exec wezterm start --class iwctl iwctl
