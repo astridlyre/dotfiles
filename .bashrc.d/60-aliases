@@ -11,8 +11,8 @@ alias ll="exa -al --color=always -s type"
 alias t="exa -aT --color=always -s type"
 
 # cat replacement
-alias cat="bat -pp --theme='ansi'"
-alias bat="bat --theme='ansi' --tabs=4 --decorations never"
+alias cat="bat -pp --theme='Catppuccin-mocha'"
+alias bat="bat --theme='Catppuccin-mocha' --tabs=4 --decorations never"
 
 # easy typed common things
 alias c="clear"

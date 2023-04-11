@@ -1,5 +1,5 @@
 Xcursor.size: 16
-Xcursor.theme: Adwaita
+Xcursor.theme: Catppuccin-Mocha-Mauve-Cursors
 Xft.dpi: 96
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault
@@ -8,22 +8,37 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-*background:  #000000
-*cursorColor:  #767676
-*foreground:  #c6c6c6
-*color0: #000000
-*color1: #af5f5f
-*color2: #5faf5f
-*color3: #af875f
-*color4: #5f87af
-*color5: #d787d7
-*color6: #5fafaf
-*color7: #c6c6c6
-*color8: #767676
-*color9: #ff5f5f
-*color10: #5fd75f
-*color11: #ffd787
-*color12: #5fafff
-*color13: #ff87ff
-*color14: #5fd7d7
-*color15: #ffffff
+*background: #1E1E2E
+*foreground: #CDD6F4
+
+! black
+*color0: #45475A
+*color8: #585B70
+
+! red
+*color1: #F38BA8
+*color9: #F38BA8
+
+! green
+*color2: #A6E3A1
+*color10: #A6E3A1
+
+! yellow
+*color3: #F9E2AF
+*color11: #F9E2AF
+
+! blue
+*color4: #89B4FA
+*color12: #89B4FA
+
+! magenta
+*color5: #F5C2E7
+*color13: #F5C2E7
+
+! cyan
+*color6: #94E2D5
+*color14: #94E2D5
+
+! white
+*color7: #BAC2DE
+*color15: #A6ADC8

@@ -3,8 +3,8 @@
 
 declare -i FIRST_RUN=0
 
-ICON_COLOR="#ff87ff" # Icon color
-TEXT_COLOR="#c6c6c6" # Text color
+ICON_COLOR="#cba6f7" # Icon color
+TEXT_COLOR="#cdd6f4" # Text color
 
 listen() {
 	docker system events 2>/dev/null | {

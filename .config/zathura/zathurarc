@@ -1,43 +1,43 @@
 set font "PragmataPro Mono Liga normal 11"
 set highlight-transparency 1.0
 
-set default-fg 			    "#c6c6c6"
-set default-bg 			    "#000000"
+set default-fg                "#CDD6F4"
+set default-bg 			          "#1E1E2E"
 
-set completion-bg		    "#000000"
-set completion-fg		    "#c6c6c6"
-set completion-highlight-bg	"#ffd787"
-set completion-highlight-fg	"#000000"
-set completion-group-bg		"#000000"
-set completion-group-fg		"#c6c6c6"
+set completion-bg		          "#313244"
+set completion-fg		          "#CDD6F4"
+set completion-highlight-bg	  "#575268"
+set completion-highlight-fg	  "#CDD6F4"
+set completion-group-bg		    "#313244"
+set completion-group-fg		    "#89B4FA"
 
-set statusbar-fg		    "#c6c6c6"
-set statusbar-bg		    "#000000"
+set statusbar-fg		          "#CDD6F4"
+set statusbar-bg		          "#313244"
 
-set notification-bg		    "#000000"
-set notification-fg		    "#c6c6c6"
-set notification-error-bg	"#ff5f5f"
-set notification-error-fg	"#000000"
-set notification-warning-bg	"#ffd787"
-set notification-warning-fg	"#000000"
+set notification-bg		        "#313244"
+set notification-fg		        "#CDD6F4"
+set notification-error-bg	    "#313244"
+set notification-error-fg	    "#F38BA8"
+set notification-warning-bg	  "#313244"
+set notification-warning-fg	  "#FAE3B0"
 
-set inputbar-fg			    "#c6c6c6"
-set inputbar-bg 		    "#000000"
+set inputbar-fg			          "#CDD6F4"
+set inputbar-bg 		          "#313244"
 
-set recolor-lightcolor		"#000000"
-set recolor-darkcolor		"#c6c6c6"
+set recolor-lightcolor		    "#1E1E2E"
+set recolor-darkcolor		      "#CDD6F4"
 
-set index-fg			    "#c6c6c6"
-set index-bg			    "#000000"
-set index-active-fg		    "#c6c6c6"
-set index-active-bg		    "#000000"
+set index-fg			            "#CDD6F4"
+set index-bg			            "#1E1E2E"
+set index-active-fg		        "#CDD6F4"
+set index-active-bg		        "#313244"
 
-set render-loading-bg		"#000000"
-set render-loading-fg		"#c6c6c6"
+set render-loading-bg		      "#1E1E2E"
+set render-loading-fg		      "#CDD6F4"
 
-set highlight-color		    "#000000"
-set highlight-fg            "#c6c6c6"
-set highlight-active-color	"#c6c6c6"
+set highlight-color		        "#575268"
+set highlight-fg              "#F5C2E7"
+set highlight-active-color	  "#F5C2E7"
 
 set sandbox none
 set statusbar-h-padding 0

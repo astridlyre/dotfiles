@@ -10,9 +10,12 @@ super + d
 super + w
     rofi -show window
 
+super + a
+	rofi -show drun
+
 # qutebrowser
 super + b
-	LIBVA_DRIVER_NAME=nvidia MOZ_DISABLE_RDD_SANDBOX=1 firefox-developer-edition
+	LIBVA_DRIVER_NAME=nvidia MOZ_DISABLE_RDD_SANDBOX=1 NVD_BACKEND=direct firefox-developer-edition
 
 # Pavucontrol
 super + v
@@ -27,7 +30,7 @@ super + space
 
 # DB
 super + m
-  beekeeper
+  beekeeper-studio
 
 # nnn File Manager
 super + f

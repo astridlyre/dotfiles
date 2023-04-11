@@ -6,7 +6,7 @@ local nmap = utils.nmap
 local imap = utils.imap
 
 -- Servers to disable formatting by default (so they don't conflict with null-ls)
-local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls", "racket_langserver", "eslint", "sqls" }
+local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls", "racket_langserver", "eslint" }
 local enable_formatting_on_save = true
 
 local lsp_formatting = function(bufnr)
@@ -59,8 +59,7 @@ local lsp_maps = function(client, bufnr)
 	nmap("<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
 	nmap("<space>ld", vim.lsp.buf.type_definition, opts)
 	nmap("<space>rn", vim.lsp.buf.rename, opts)
-	nmap("<space>qf", vim.diagnostic.setqflist)
-	nmap("<space>lf", vim.lsp.buf.formatting_sync)
+	nmap("<space>qf", vim.diagnostic.setqflist, opts)
 	nmap("<c-s>", vim.lsp.buf.signature_help, opts)
 	imap("<c-s>", vim.lsp.buf.signature_help, opts)
 
@@ -77,6 +76,10 @@ local lsp_maps = function(client, bufnr)
 	else
 		nmap("gd", vim.lsp.buf.definition, opts)
 	end
+
+	nmap("<space>lf", function()
+		lsp_formatting(bufnr)
+	end, opts)
 
 	nmap("<space>ca", function()
 		return vim.lsp.buf.code_action({
@@ -139,7 +142,7 @@ local function make_capabilities()
 end
 
 local capabilities = make_capabilities()
-local flags = { debounce_text_changes = 150, allow_incremental_sync = true }
+-- local flags = { debounce_text_changes = 150, allow_incremental_sync = true }
 
 -- Lsp Configs
 M.setup = function()
@@ -158,7 +161,7 @@ M.setup = function()
 			},
 			on_attach = on_attach,
 			capabilities = capabilities,
-			flags = flags,
+			-- flags = flags,
 		})
 	end
 
@@ -175,14 +178,14 @@ M.setup = function()
 			init_options = { usePlaceholders = true, completeUnimported = true },
 			on_attach = on_attach,
 			capabilities = capabilities,
-			flags = flags,
+			-- flags = flags,
 		})
 	end
 
 	-- Rust Analyzer
 	local function rust_analyzer()
 		lspconfig.rust_analyzer.setup({
-			flags = flags,
+			-- flags = flags,
 			on_attach = on_attach,
 			capabilities = capabilities,
 			settings = {
@@ -223,7 +226,7 @@ M.setup = function()
 		add("~/.local/share/nvim/lazy/*")
 
 		lspconfig.lua_ls.setup({
-			flags = flags,
+			-- flags = flags,
 			on_attach = on_attach,
 			capabilities = capabilities,
 			on_new_config = function(config, root)
@@ -258,7 +261,7 @@ M.setup = function()
 	local function tsserver()
 		return typescript.setup({
 			server = {
-				flags = flags,
+				-- flags = flags,
 				on_attach = on_attach,
 				capabilities = capabilities,
 				filetypes = {
@@ -278,22 +281,8 @@ M.setup = function()
 					},
 					maxTsServerMemory = 16384,
 				},
-				settings = {
-					diagnosticsDelay = "150ms",
-					experimentalWatchedFileDelay = "850ms",
-				},
+				settings = { completions = { completeFunctionCalls = true } },
 			},
-		})
-	end
-
-	local function sqls()
-		lspconfig.sqls.setup({
-			flags = flags,
-			on_attach = function(client, bufnr)
-				require("sqls").on_attach(client, bufnr)
-				on_attach(client, bufnr)
-			end,
-			capabilities = capabilities,
 		})
 	end
 
@@ -310,13 +299,16 @@ M.setup = function()
 		"eslint",
 		"zls",
 		"jsonls",
+		"astro",
+		"sqlls",
+		-- "tailwindcss",
 	}
 
 	for _, ls in ipairs(default_servers) do
 		lspconfig[ls].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			flags = flags,
+			-- flags = flags,
 		})
 	end
 
@@ -326,7 +318,6 @@ M.setup = function()
 		gopls,
 		rust_analyzer,
 		lua_ls,
-		sqls,
 		tsserver,
 	}) do
 		ls()
@@ -382,7 +373,7 @@ M.setup = function()
 end
 
 M.make_capabilities = make_capabilities
-M.flags = flags
+-- M.flags = flags
 M.lsp_format = lsp_formatting
 
 return M

@@ -1,0 +1,86 @@
+#!/bin/env node
+const stream = require("node:stream");
+const { pipeline } = require("node:stream/promises");
+
+const compose =
+  (...fns) =>
+  (x) =>
+    fns.reduceRight((y, f) => f(y), x);
+
+const trim = (str) => str.trim();
+const map = (fn) => (arr) => arr.map(fn);
+const filter = (fn) => (arr) => arr.filter(fn);
+
+const quote = (str) => JSON.stringify(str);
+const joinLine = (line) => `${line.join(",")}\n`;
+const notBar = (str) => str !== "|";
+const filterOutBars = filter(notBar);
+const isBarLine = (line) => line.startsWith("|");
+const isHeaderDelimiter = (line = "") => /^\+-+.*-+\+$/.test(line);
+const toCamelCase = (str) =>
+  str.toLowerCase().replace(/(\s\w)/g, (match) => match[1].toUpperCase());
+
+const splitByBars = (str) => {
+  return str
+    .replace(/^\|\s+/, "")
+    .replace(/\s+\|$/, "")
+    .split("|");
+};
+
+const processHeaders = (line = "") =>
+  compose(
+    joinLine,
+    map(quote),
+    filterOutBars,
+    map(compose(toCamelCase, trim)),
+    splitByBars,
+  )(line);
+
+const processLine = (line = "") =>
+  compose(joinLine, map(quote), filterOutBars, map(trim), splitByBars)(line);
+
+(async function main() {
+  let inHeaders = false;
+  let parsedHeaders = false;
+
+  const transform = new stream.Transform({
+    write(chunk, _, callback) {
+      this.__inHeaders = this.__inHeaders || false;
+      this.__parsedHeaders = this.__parsedHeaders || false;
+
+      const input = chunk.toString();
+      const lines = input.split("\n").filter(Boolean);
+
+      lines.forEach((line) => {
+        if (isHeaderDelimiter(line) && !inHeaders && !parsedHeaders) {
+          inHeaders = true;
+        } else if (inHeaders && !parsedHeaders && isBarLine(line)) {
+          this.push(processHeaders(line));
+          parsedHeaders = true;
+        } else if (isHeaderDelimiter(line) && inHeaders) {
+          inHeaders = false;
+        } else if (isBarLine(line)) {
+          this.push(processLine(line));
+        }
+      });
+
+      callback();
+    },
+    final(callback) {
+      this.push("\n");
+      callback();
+    },
+  });
+
+  const stdin = process.stdin;
+  const stdout = process.stdout;
+
+  try {
+    await pipeline(stdin, transform, stdout);
+
+    process.exit(0);
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+})();

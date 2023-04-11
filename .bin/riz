@@ -1,0 +1,3 @@
+#!/bin/bash
+
+paru && setxkbmap -option ctrl:nocaps

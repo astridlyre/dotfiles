@@ -69,14 +69,37 @@ require("lazy").setup({
 		end,
 	},
 	{
-		dir = "~/projects/lunabones",
-		dependencies = { "rktjmp/lush.nvim", version = false },
+		"catppuccin/nvim",
+		name = "catppuccin",
 		version = false,
-		dev = true,
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd("colorscheme lunabones")
+			require("catppuccin").setup({
+				integrations = { mini = true, leap = true, neotree = true },
+				custom_highlights = function(colors)
+					return {
+						WinSeparator = { fg = colors.surface2 },
+						DiagnosticUnnecessary = { fg = colors.yellow, style = { "italic" } },
+					}
+				end,
+			})
+			vim.cmd("colorscheme catppuccin-mocha")
+		end,
+	},
+	{
+		"james1236/backseat.nvim",
+		config = function()
+			require("backseat").setup({
+				openai_api_key = "", -- Get yours from platform.openai.com/account/api-keys
+				openai_model_id = "gpt-3.5-turbo", --gpt-4
+				-- split_threshold = 100,
+				additional_instruction = "Respond with sass", -- (GPT-3 will probably deny this request, but GPT-4 complies)
+				highlight = {
+					icon = "", -- ''
+					group = "Comment",
+				},
+			})
 		end,
 	},
 	{
@@ -93,7 +116,7 @@ require("lazy").setup({
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = "all",
-				highlight = { enable = true },
+				highlight = { enable = true, additional_vim_regex_highlighting = false },
 				indent = { enable = true },
 				incremental_selection = {
 					enable = false,
@@ -133,7 +156,28 @@ require("lazy").setup({
 						swap_previous = { ["<leader>sp"] = "@parameter.inner" },
 					},
 				},
-				autotag = { enable = true },
+				autotag = {
+					enable = true,
+					filetypes = {
+						"html",
+						"javascript",
+						"typescript",
+						"javascriptreact",
+						"typescriptreact",
+						"svelte",
+						"vue",
+						"tsx",
+						"jsx",
+						"rescript",
+						"xml",
+						"php",
+						"markdown",
+						"glimmer",
+						"handlebars",
+						"hbs",
+						"astro",
+					},
+				},
 				autopairs = { enable = true },
 				matchup = {
 					enable = true,
@@ -257,7 +301,7 @@ require("lazy").setup({
 			cmp.setup({
 				debug = false,
 				snippet = { expand = expand },
-				experimental = { ghost_text = true },
+				experimental = { ghost_text = { hl_group = "LspCodeLens" } },
 				mapping = cmp.mapping.preset.insert({
 					["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 					["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
@@ -305,7 +349,7 @@ require("lazy").setup({
 		config = function()
 			local lsp = require("moonlight.lsp")
 			local capabilities = lsp.make_capabilities()
-			local flags = lsp.flags
+			-- local flags = lsp.flags
 
 			-- Null LS
 			local null_ls = require("null-ls")
@@ -333,7 +377,7 @@ require("lazy").setup({
 					require("typescript.extensions.null-ls.code-actions"),
 				},
 				capabilities = capabilities,
-				flags = flags,
+				-- flags = flags,
 				on_attach = function(client)
 					if client.server_capabilities.documentFormattingProvider then
 						vim.cmd([[

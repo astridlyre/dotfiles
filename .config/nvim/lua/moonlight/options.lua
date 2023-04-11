@@ -126,6 +126,7 @@ nmap("]b", "<cmd>bnext<cr>")
 nmap("[q", "<cmd>cprev<cr>zz")
 nmap("]q", "<cmd>cnext<cr>zz")
 nmap("<c-p>", "<c-^>")
+nmap("<c-h>", "<c-^>")
 
 -- toggle quickfix
 vim.g.qfix_win = nil
@@ -165,6 +166,8 @@ lmap("lr", "<cmd>Telescope lsp_references<cr>")
 lmap("ld", "<cmd>Telescope lsp_definitions<cr>")
 lmap("lh", "<cmd>Telescope diagnostics<cr>")
 lmap("d", "<cmd>lua MiniBufremove.delete()<cr>")
+lmap("sj", "<cmd>%!sql_to_json<cr>")
+lmap("sc", "<cmd>%!sql_to_csv<cr>")
 
 -- insert mode
 imap("<c-c>", "<esc>")
@@ -182,6 +185,8 @@ vmap("<leader>y", '"+y')
 vmap("<c-c>", "<esc>")
 vmap("<leader>fs", "!sqlformat.sh <cr>")
 vmap("<leader>se", "<cmd>SqlsExecuteQuery<cr>")
+vmap("<leader>sj", "!sql_to_json<cr>")
+vmap("<leader>sc", "!sql_to_csv<cr>")
 
 -- command mode
 cmap("<c-b>", "<left>")
