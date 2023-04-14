@@ -78,10 +78,7 @@ require("lazy").setup({
 			require("catppuccin").setup({
 				integrations = { mini = true, leap = true, neotree = true },
 				custom_highlights = function(colors)
-					return {
-						WinSeparator = { fg = colors.surface2 },
-						DiagnosticUnnecessary = { fg = colors.yellow, style = { "italic" } },
-					}
+					return { WinSeparator = { fg = colors.surface2 } }
 				end,
 			})
 			vim.cmd("colorscheme catppuccin-mocha")
@@ -119,7 +116,7 @@ require("lazy").setup({
 				highlight = { enable = true, additional_vim_regex_highlighting = false },
 				indent = { enable = true },
 				incremental_selection = {
-					enable = false,
+					enable = true,
 					keymaps = {
 						init_selection = "<CR>",
 						scope_incremental = "<S-CR>",
@@ -237,6 +234,26 @@ require("lazy").setup({
 			local utils = require("moonlight.utils")
 			local imap = utils.imap
 
+			local unlinkgrp = vim.api.nvim_create_augroup("UnlinkSnippetOnModeChange", { clear = true })
+
+			vim.api.nvim_create_autocmd("ModeChanged", {
+				group = unlinkgrp,
+				pattern = { "s:n", "i:*" },
+				desc = "Forget the snippet on mode change",
+				callback = function(evt)
+					if
+						luasnip
+						and luasnip.session
+						and luasnip.session.current_nodes[evt.buf]
+						and not luasnip.session.jump_active
+					then
+						luasnip.unlink_current()
+					end
+				end,
+			})
+
+			luasnip.config.set_config({ region_check_events = "CursorMoved" })
+
 			-- load snippets
 			require("luasnip.loaders.from_vscode").lazy_load()
 
@@ -286,10 +303,14 @@ require("lazy").setup({
 			})
 
 			local format = lspkind.cmp_format({
-				mode = "symbol",
+				mode = "symbol_text",
 				maxwidth = 50,
 				before = function(entry, vim_item)
-					vim_item.menu = source_mapping[entry.source.name]
+					vim_item.menu = "(" .. vim_item.kind .. ")"
+					vim_item.dup = ({
+						nvim_lsp = 0,
+						path = 0,
+					})[entry.source.name] or 0
 					return vim_item
 				end,
 				symbol_map = { Copilot = "" },
@@ -308,12 +329,12 @@ require("lazy").setup({
 					["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 					["<C-e>"] = cmp.mapping({
 						i = cmp.mapping.abort(),
-						c = cmp.mapping.close(),
+						c = cmp.mapping.close({ behavior = cmp.ConfirmBehavior.Replace }),
 					}),
 					["<c-y>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
 				}),
 				sources = sources,
-				formatting = { format = format },
+				formatting = { format = format, fields = { "kind", "abbr", "menu" } },
 				sorting = {
 					priority_weight = 2,
 					comparators = {
@@ -329,8 +350,8 @@ require("lazy").setup({
 					},
 				},
 				window = {
-					completion = { border = "solid" },
-					documentation = { border = "solid" },
+					completion = cmp.config.window.bordered({ col_offset = 3, side_padding = 0 }),
+					documentation = cmp.config.window.bordered(),
 				},
 			})
 		end,
@@ -375,6 +396,7 @@ require("lazy").setup({
 					diagnostics.yamllint,
 					diagnostics.stylelint,
 					require("typescript.extensions.null-ls.code-actions"),
+					null_ls.builtins.code_actions.gitsigns,
 				},
 				capabilities = capabilities,
 				-- flags = flags,
@@ -443,13 +465,13 @@ require("lazy").setup({
 	{ "kyazdani42/nvim-web-devicons", lazy = true, version = false },
 	{ "MunifTanjim/nui.nvim", lazy = true, version = false },
 	{ "nvim-telescope/telescope-ui-select.nvim", version = false },
-	{ "nvim-telescope/telescope-symbols.nvim", version = false },
 	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make", version = false },
 	{
 		"nvim-telescope/telescope.nvim",
 		version = false,
 		dependencies = {
 			"nvim-telescope/telescope-fzf-native.nvim",
+			"nvim-telescope/telescope-file-browser.nvim",
 		},
 		config = function()
 			local telescope = require("telescope")
@@ -506,6 +528,24 @@ require("lazy").setup({
 					},
 				},
 				extensions = {
+					fzf = {
+						fuzzy = true,
+						override_generic_sorter = true,
+						override_file_sorter = true,
+						case_mode = "smart_case",
+					},
+					file_browser = {
+						previewer = false,
+						theme = "ivy",
+						hijack_netrw = true,
+						initial_mode = "insert",
+						git_status = true,
+						mappings = {
+							i = {
+								["<esc>"] = false,
+							},
+						},
+					},
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown({}),
 					},
@@ -515,132 +555,132 @@ require("lazy").setup({
 			telescope.load_extension("ui-select")
 		end,
 	},
-	{
-		"nvim-neo-tree/neo-tree.nvim",
-		cmd = "Neotree",
-		version = false,
-		config = function()
-			vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-			vim.cmd([[
-highlight! link NeoTreeDirectoryIcon NvimTreeFolderIcon
-highlight! link NeoTreeDirectoryName NvimTreeFolderName
-highlight! link NeoTreeSymbolicLinkTarget NvimTreeSymlink
-highlight! link NeoTreeRootName NvimTreeRootFolder
-highlight! link NeoTreeDirectoryName NvimTreeOpenedFolderName
-highlight! link NeoTreeFileNameOpened NvimTreeOpenedFile
-]])
-
-			require("neo-tree").setup({
-				close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
-				popup_border_style = "solid",
-				resize_timer_interval = -1,
-				enable_git_status = true,
-				enable_diagnostics = false,
-				default_component_configs = {
-					indent = {
-						indent_size = 2,
-						padding = 1, -- extra padding on left hand side
-						-- indent guides
-						with_markers = true,
-						indent_marker = "│",
-						last_indent_marker = "└",
-						highlight = "NeoTreeIndentMarker",
-						-- expander config, needed for nesting files
-						with_expanders = nil, -- if nil and file nesting is enabled, will enable expanders
-						expander_collapsed = "",
-						expander_expanded = "",
-						expander_highlight = "NeoTreeExpander",
-					},
-					icon = {
-						folder_closed = "",
-						folder_open = "",
-						folder_empty = "ﰊ",
-						default = "*",
-					},
-					modified = {
-						symbol = "⏺",
-						highlight = "NeoTreeModified",
-					},
-					name = {
-						trailing_slash = false,
-						use_git_status_colors = true,
-					},
-					git_status = {
-						symbols = {
-							-- Change type
-							added = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
-							modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
-							deleted = "✖", -- this can only be used in the git_status source
-							renamed = "", -- this can only be used in the git_status source
-							-- Status type
-							untracked = "",
-							ignored = "",
-							unstaged = "",
-							staged = "",
-							conflict = "",
-						},
-					},
-				},
-				window = {
-					position = "left",
-					width = 30,
-					mappings = {
-						["<space>"] = "toggle_node",
-						["<2-LeftMouse>"] = "open",
-						["<cr>"] = "open",
-						["S"] = "open_split",
-						["s"] = "open_vsplit",
-						["t"] = "open_tabnew",
-						["C"] = "close_node",
-						["<bs>"] = "navigate_up",
-						["."] = "set_root",
-						["H"] = "toggle_hidden",
-						["R"] = "refresh",
-						["a"] = "add",
-						["A"] = "add_directory",
-						["d"] = "delete",
-						["r"] = "rename",
-						["y"] = "copy_to_clipboard",
-						["x"] = "cut_to_clipboard",
-						["p"] = "paste_from_clipboard",
-						["c"] = "copy", -- takes text input for destination
-						["m"] = "move", -- takes text input for destination
-						["q"] = "close_window",
-					},
-				},
-				nesting_rules = {},
-				filesystem = {
-					filtered_items = {
-						visible = false, -- when true, they will just be displayed differently than normal items
-						hide_dotfiles = true,
-						hide_gitignored = true,
-						hide_by_name = {
-							".DS_Store",
-							"thumbs.db",
-							"node_modules",
-						},
-					},
-					follow_current_file = true, -- This will find and focus the file in the active buffer every
-					hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
-					use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
-				},
-				git_status = {
-					window = {
-						position = "float",
-						mappings = {
-							["A"] = "git_add_all",
-							["gu"] = "git_unstage_file",
-							["ga"] = "git_add_file",
-							["gr"] = "git_revert_file",
-							["gc"] = "git_commit",
-							["gp"] = "git_push",
-							["gg"] = "git_commit_and_push",
-						},
-					},
-				},
-			})
-		end,
-	},
+	-- 	{
+	-- 		"nvim-neo-tree/neo-tree.nvim",
+	-- 		cmd = "Neotree",
+	-- 		version = false,
+	-- 		config = function()
+	-- 			vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+	-- 			vim.cmd([[
+	-- highlight! link NeoTreeDirectoryIcon NvimTreeFolderIcon
+	-- highlight! link NeoTreeDirectoryName NvimTreeFolderName
+	-- highlight! link NeoTreeSymbolicLinkTarget NvimTreeSymlink
+	-- highlight! link NeoTreeRootName NvimTreeRootFolder
+	-- highlight! link NeoTreeDirectoryName NvimTreeOpenedFolderName
+	-- highlight! link NeoTreeFileNameOpened NvimTreeOpenedFile
+	-- ]])
+	--
+	-- 			require("neo-tree").setup({
+	-- 				close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
+	-- 				popup_border_style = "solid",
+	-- 				resize_timer_interval = -1,
+	-- 				enable_git_status = true,
+	-- 				enable_diagnostics = false,
+	-- 				default_component_configs = {
+	-- 					indent = {
+	-- 						indent_size = 2,
+	-- 						padding = 1, -- extra padding on left hand side
+	-- 						-- indent guides
+	-- 						with_markers = true,
+	-- 						indent_marker = "│",
+	-- 						last_indent_marker = "└",
+	-- 						highlight = "NeoTreeIndentMarker",
+	-- 						-- expander config, needed for nesting files
+	-- 						with_expanders = nil, -- if nil and file nesting is enabled, will enable expanders
+	-- 						expander_collapsed = "",
+	-- 						expander_expanded = "",
+	-- 						expander_highlight = "NeoTreeExpander",
+	-- 					},
+	-- 					icon = {
+	-- 						folder_closed = "",
+	-- 						folder_open = "",
+	-- 						folder_empty = "ﰊ",
+	-- 						default = "*",
+	-- 					},
+	-- 					modified = {
+	-- 						symbol = "⏺",
+	-- 						highlight = "NeoTreeModified",
+	-- 					},
+	-- 					name = {
+	-- 						trailing_slash = false,
+	-- 						use_git_status_colors = true,
+	-- 					},
+	-- 					git_status = {
+	-- 						symbols = {
+	-- 							-- Change type
+	-- 							added = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
+	-- 							modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
+	-- 							deleted = "✖", -- this can only be used in the git_status source
+	-- 							renamed = "", -- this can only be used in the git_status source
+	-- 							-- Status type
+	-- 							untracked = "",
+	-- 							ignored = "",
+	-- 							unstaged = "",
+	-- 							staged = "",
+	-- 							conflict = "",
+	-- 						},
+	-- 					},
+	-- 				},
+	-- 				window = {
+	-- 					position = "left",
+	-- 					width = 30,
+	-- 					mappings = {
+	-- 						["<space>"] = "toggle_node",
+	-- 						["<2-LeftMouse>"] = "open",
+	-- 						["<cr>"] = "open",
+	-- 						["S"] = "open_split",
+	-- 						["s"] = "open_vsplit",
+	-- 						["t"] = "open_tabnew",
+	-- 						["C"] = "close_node",
+	-- 						["<bs>"] = "navigate_up",
+	-- 						["."] = "set_root",
+	-- 						["H"] = "toggle_hidden",
+	-- 						["R"] = "refresh",
+	-- 						["a"] = "add",
+	-- 						["A"] = "add_directory",
+	-- 						["d"] = "delete",
+	-- 						["r"] = "rename",
+	-- 						["y"] = "copy_to_clipboard",
+	-- 						["x"] = "cut_to_clipboard",
+	-- 						["p"] = "paste_from_clipboard",
+	-- 						["c"] = "copy", -- takes text input for destination
+	-- 						["m"] = "move", -- takes text input for destination
+	-- 						["q"] = "close_window",
+	-- 					},
+	-- 				},
+	-- 				nesting_rules = {},
+	-- 				filesystem = {
+	-- 					filtered_items = {
+	-- 						visible = false, -- when true, they will just be displayed differently than normal items
+	-- 						hide_dotfiles = true,
+	-- 						hide_gitignored = true,
+	-- 						hide_by_name = {
+	-- 							".DS_Store",
+	-- 							"thumbs.db",
+	-- 							"node_modules",
+	-- 						},
+	-- 					},
+	-- 					follow_current_file = true, -- This will find and focus the file in the active buffer every
+	-- 					hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
+	-- 					use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
+	-- 				},
+	-- 				git_status = {
+	-- 					window = {
+	-- 						position = "float",
+	-- 						mappings = {
+	-- 							["A"] = "git_add_all",
+	-- 							["gu"] = "git_unstage_file",
+	-- 							["ga"] = "git_add_file",
+	-- 							["gr"] = "git_revert_file",
+	-- 							["gc"] = "git_commit",
+	-- 							["gp"] = "git_push",
+	-- 							["gg"] = "git_commit_and_push",
+	-- 						},
+	-- 					},
+	-- 				},
+	-- 			})
+	-- 		end,
+	-- 	},
 	{
 		"ggandor/flit.nvim",
 		config = function()
@@ -656,7 +696,6 @@ highlight! link NeoTreeFileNameOpened NvimTreeOpenedFile
 		event = { "BufReadPost", "BufNewFile" },
 	},
 	{ "tpope/vim-repeat", event = "VeryLazy" },
-	{ "nanotee/sqls.nvim", version = false },
 	{
 		"zbirenbaum/copilot.lua",
 		version = false,

@@ -57,7 +57,6 @@ local lsp_maps = function(client, bufnr)
 	nmap("gr", vim.lsp.buf.references, opts)
 	nmap("<space>wa", vim.lsp.buf.add_workspace_folder, opts)
 	nmap("<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
-	nmap("<space>ld", vim.lsp.buf.type_definition, opts)
 	nmap("<space>rn", vim.lsp.buf.rename, opts)
 	nmap("<space>qf", vim.diagnostic.setqflist, opts)
 	nmap("<c-s>", vim.lsp.buf.signature_help, opts)
@@ -300,8 +299,6 @@ M.setup = function()
 		"zls",
 		"jsonls",
 		"astro",
-		"sqlls",
-		-- "tailwindcss",
 	}
 
 	for _, ls in ipairs(default_servers) do
@@ -345,20 +342,21 @@ M.setup = function()
 		float = {
 			show_header = false,
 			focusable = false,
-			style = "minimal",
-			border = "solid",
+			border = "rounded",
 			source = "if_many",
 			header = "",
 			prefix = "",
 		},
 	})
 
+	require("lspconfig.ui.windows").default_options.border = "rounded"
+
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-		border = "solid",
+		border = "rounded",
 	})
 
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-		border = "solid",
+		border = "rounded",
 	})
 
 	vim.lsp.set_log_level("OFF")
