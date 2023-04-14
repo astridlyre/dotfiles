@@ -17,6 +17,9 @@ super + a
 super + b
 	LIBVA_DRIVER_NAME=nvidia MOZ_DISABLE_RDD_SANDBOX=1 NVD_BACKEND=direct firefox-developer-edition
 
+super + shift + b
+	QUTE_QT_WRAPPER=PyQt6 qutebrowser
+
 # Pavucontrol
 super + v
     pavucontrol

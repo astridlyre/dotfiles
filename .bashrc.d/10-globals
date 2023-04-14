@@ -120,3 +120,4 @@ export PATH="$PNPM_HOME:$PATH"
 export LIBVA_DRIVER_NAME=nvidia
 export MOZ_DISABLE_RDD_SANDBOX=1
 export BUN_INSTALL="$HOME/.bun"
+export TZ='America/Vancouver'
