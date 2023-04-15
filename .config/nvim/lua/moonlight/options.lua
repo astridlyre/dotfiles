@@ -177,7 +177,6 @@ vmap("<leader>ss", "!sort -d -b -f <cr>")
 vmap("<leader>y", '"+y')
 vmap("<c-c>", "<esc>")
 vmap("<leader>fs", "!sqlformat.sh <cr>")
-vmap("<leader>se", "<cmd>SqlsExecuteQuery<cr>")
 vmap("<leader>sj", "!sql_to_json<cr>")
 vmap("<leader>sc", "!sql_to_csv<cr>")
 
