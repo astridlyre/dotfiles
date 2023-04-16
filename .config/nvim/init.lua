@@ -14,4 +14,31 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("moonlight.options")
-require("lazy").setup("plugins", { ui = { border = "rounded" } })
+require("lazy").setup("plugins", {
+	ui = { border = "rounded" },
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"2html_plugin",
+				"getscript",
+				"getscriptPlugin",
+				"gzip",
+				"logiPat",
+				"matchit",
+				"matchparen",
+				"netrw",
+				"netrwPlugin",
+				"perl_provider",
+				"python_provider",
+				"rrhelper",
+				"ruby_provider",
+				"tar",
+				"tarPlugin",
+				"vimball",
+				"vimballPlugin",
+				"zip",
+				"zipPlugin",
+			},
+		},
+	},
+})

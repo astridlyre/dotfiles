@@ -299,6 +299,7 @@ M.setup = function()
 		"zls",
 		"jsonls",
 		"astro",
+		"dartls",
 	}
 
 	for _, ls in ipairs(default_servers) do

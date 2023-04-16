@@ -28,6 +28,7 @@ return {
 	{
 		"Olical/conjure",
 		version = false,
+		lazy = true,
 		filetypes = { "clojure", "fennel", "lisp", "scheme", "hy", "clj" },
 	},
 	{
@@ -78,12 +79,37 @@ return {
 		end,
 	},
 	{
+		"pwntester/octo.nvim",
+		lazy = true,
+		cmd = "Octo",
+		version = false,
+		config = function()
+			require("octo").setup()
+		end,
+	},
+	{
 		"echasnovski/mini.statusline",
 		version = false,
 		config = function()
 			require("mini.statusline").setup({
 				set_vim_settings = false,
 			})
+		end,
+	},
+	{
+		"stevearc/dressing.nvim",
+		lazy = true,
+		init = function()
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.ui.select = function(...)
+				require("lazy").load({ plugins = { "dressing.nvim" } })
+				return vim.ui.select(...)
+			end
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.ui.input = function(...)
+				require("lazy").load({ plugins = { "dressing.nvim" } })
+				return vim.ui.input(...)
+			end
 		end,
 	},
 }

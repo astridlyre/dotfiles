@@ -73,6 +73,8 @@ super + i
 super + u
   blueberry
 
+super + BackSpace
+	betterlockscreen -l
 #################################################################
 # SUPER + SHIFT KEYS
 #################################################################

@@ -98,6 +98,7 @@ lmap("ft", require("moonlight.autoformat").toggle_formatting)
 lmap("64d", "!!b64d<cr>")
 lmap("64e", "!!base64<cr>")
 lmap("ct", "<cmd>ColorizerToggle<cr>")
+lmap("w", "<cmd>MatchupWhereAmI??<cr>")
 
 -- normal mode
 nmap("^", "0")

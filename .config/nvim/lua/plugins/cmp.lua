@@ -10,7 +10,7 @@ return {
 			{ "saadparwaiz1/cmp_luasnip", version = false },
 			{ "L3MON4D3/LuaSnip", build = "make install_jsregexp", version = false },
 			{ dir = "~/projects/friendly-snippets", dev = true },
-			{ "onsails/lspkind-nvim", version = false },
+			{ "onsails/lspkind-nvim" },
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -71,13 +71,6 @@ return {
 			imap("<C-j>", snippet_next)
 			imap("<C-k>", snippet_prev)
 
-			-- source configs
-			local source_mapping = {
-				nvim_lsp = "[lsp]",
-				nvim_lua = "[lua]",
-				buffer = "[buf]",
-			}
-
 			local sources = cmp.config.sources({
 				{ name = "luasnip" },
 				{ name = "copilot", group_index = 2 },
@@ -88,8 +81,14 @@ return {
 			})
 
 			local format = lspkind.cmp_format({
-				mode = "symbol_text",
-				maxwidth = 50,
+				mode = "symbol", -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+				maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+				-- menu = ({ -- showing type in menu
+				--   nvim_lsp = "(LSP)",
+				--   path = "(Path)",
+				--   buffer = "(Buffer)",
+				--   luasnip = "(LuaSnip)",
+				-- }),
 				before = function(entry, vim_item)
 					vim_item.menu = "(" .. vim_item.kind .. ")"
 					vim_item.dup = ({
@@ -119,7 +118,10 @@ return {
 					["<c-y>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
 				}),
 				sources = sources,
-				formatting = { format = format, fields = { "kind", "abbr", "menu" } },
+				formatting = {
+					format = format,
+					fields = { "kind", "abbr", "menu" },
+				},
 				sorting = {
 					priority_weight = 2,
 					comparators = {
@@ -135,8 +137,14 @@ return {
 					},
 				},
 				window = {
-					completion = cmp.config.window.bordered({ col_offset = 3, side_padding = 0 }),
-					documentation = cmp.config.window.bordered(),
+					completion = cmp.config.window.bordered({
+						col_offset = 3,
+						side_padding = 0,
+						winhighlight = "Normal:Normal,FloatBorder:BorderBG,CursorLine:PmenuSel,Search:None",
+					}),
+					documentation = cmp.config.window.bordered({
+						winhighlight = "Normal:Normal,FloatBorder:BorderBG,CursorLine:PmenuSel,Search:None",
+					}),
 				},
 			})
 		end,
@@ -177,7 +185,7 @@ return {
 					trace = "verbose",
 					settings = {
 						advanced = {
-							inlineSuggestCount = 3, -- #completions for getCompletions
+							inlineSuggestCount = 5, -- #completions for getCompletions
 						},
 					},
 				},
@@ -227,10 +235,11 @@ return {
 	},
 	{
 		"james1236/backseat.nvim",
+		cmd = { "Backseat", "BackseatAsk", "BackseatClear", "BackseatClearLine" },
 		config = function()
 			require("backseat").setup({
 				openai_api_key = "", -- Get yours from platform.openai.com/account/api-keys
-				openai_model_id = "gpt-3.5-turbo", --gpt-4
+				openai_model_id = "gpt-4", --gpt-4
 				-- split_threshold = 100,
 				additional_instruction = "Respond with sass", -- (GPT-3 will probably deny this request, but GPT-4 complies)
 				highlight = {

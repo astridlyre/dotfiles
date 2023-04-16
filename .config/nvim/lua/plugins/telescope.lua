@@ -2,15 +2,14 @@ return {
 	{ "nvim-lua/plenary.nvim", lazy = true, version = false },
 	{ "kyazdani42/nvim-web-devicons", lazy = true, version = false },
 	{ "MunifTanjim/nui.nvim", lazy = true, version = false },
-	{ "nvim-telescope/telescope-ui-select.nvim", version = false },
 	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make", version = false },
+	{ "nvim-telescope/telescope-file-browser.nvim", lazy = true, version = false },
 	{
 		"nvim-telescope/telescope.nvim",
+		lazy = true,
+		cmd = "Telescope",
 		version = false,
-		dependencies = {
-			"nvim-telescope/telescope-fzf-native.nvim",
-			"nvim-telescope/telescope-file-browser.nvim",
-		},
+		dependencies = { "nvim-telescope/telescope-fzf-native.nvim" },
 		config = function()
 			local telescope = require("telescope")
 			telescope.setup({
@@ -84,13 +83,9 @@ return {
 							},
 						},
 					},
-					["ui-select"] = {
-						require("telescope.themes").get_dropdown({}),
-					},
 				},
 			})
 			telescope.load_extension("fzf")
-			telescope.load_extension("ui-select")
 		end,
 	},
 }

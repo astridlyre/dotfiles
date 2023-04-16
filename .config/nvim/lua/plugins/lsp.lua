@@ -8,6 +8,7 @@ return {
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
+		event = "BufReadPre",
 		version = false,
 		dependencies = { "nvim-lspconfig" },
 		config = function()
@@ -30,6 +31,7 @@ return {
 					formatting.goimports,
 					formatting.isort,
 					formatting.stylua,
+					formatting.dart_format,
 					diagnostics.clj_kondo,
 					diagnostics.shellcheck,
 					diagnostics.staticcheck,
