@@ -16,6 +16,7 @@ return {
 					cmp = true,
 					semantic_tokens = true,
 					treesitter = true,
+					octo = true,
 					native_lsp = {
 						enabled = true,
 						virtual_text = {

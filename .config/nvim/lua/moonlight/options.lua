@@ -100,6 +100,15 @@ lmap("64e", "!!base64<cr>")
 lmap("ct", "<cmd>ColorizerToggle<cr>")
 lmap("w", "<cmd>MatchupWhereAmI??<cr>")
 
+lmap("Ol", "<cmd>Octo pr list<cr>")
+lmap("Or", "<cmd>Octo review start<cr>")
+lmap("Ou", "<cmd>Octo review resume<cr>")
+lmap("Oc", "<cmd>Octo review comments<cr>")
+lmap("Os", "<cmd>Octo review submit<cr>")
+lmap("Otr", "<cmd>Octo thread resolve<cr>")
+lmap("Otu", "<cmd>Octo thread unresolve<cr>")
+lmap("Opc", "<cmd>Octo pr create<cr>")
+
 -- normal mode
 nmap("^", "0")
 nmap("0", "^")

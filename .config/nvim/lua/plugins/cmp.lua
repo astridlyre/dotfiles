@@ -77,6 +77,7 @@ return {
 				{ name = "nvim_lsp" },
 				-- { name = "conjure" },
 				{ name = "nvim_lua" },
+				{ name = "git" },
 				{ name = "buffer" },
 			})
 
@@ -147,6 +148,14 @@ return {
 					}),
 				},
 			})
+		end,
+	},
+	{
+		"petertriho/cmp-git",
+		lazy = true,
+		ft = { "gitcommit", "octo" },
+		config = function()
+			require("cmp_git").setup()
 		end,
 	},
 	{

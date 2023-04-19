@@ -2,9 +2,11 @@ return {
 	{ "folke/lazy.nvim", version = "*" },
 	{
 		"ggandor/flit.nvim",
+		version = false,
 		config = function()
 			require("flit").setup()
 		end,
+		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
 		"ggandor/leap.nvim",

@@ -12,6 +12,7 @@ configuration{
     display-window: " 﩯  Window";
     display-Network: " 󰤨  Network";
     sidebar-mode: true;
+	kb-cancel: "Control+c";
 }
 
 @theme "catppuccin-mocha"

@@ -58,5 +58,9 @@ return {
 			})
 		end,
 	},
-	{ "jose-elias-alvarez/typescript.nvim", lazy = true, version = false },
+	{
+		"jose-elias-alvarez/typescript.nvim",
+		lazy = true,
+		version = false,
+	},
 }

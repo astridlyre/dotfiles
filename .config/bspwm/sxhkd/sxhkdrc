@@ -17,9 +17,6 @@ super + a
 super + b
 	LIBVA_DRIVER_NAME=nvidia MOZ_DISABLE_RDD_SANDBOX=1 NVD_BACKEND=direct firefox-developer-edition
 
-super + shift + b
-	QUTE_QT_WRAPPER=PyQt6 qutebrowser
-
 # Pavucontrol
 super + v
     pavucontrol
@@ -38,9 +35,6 @@ super + m
 # nnn File Manager
 super + f
     bspc node last.floating -f
-
-super + e
-	element-desktop
 
 # Zathura
 super + z
@@ -90,13 +84,6 @@ super + shift + g
 # OBS
 super + shift + o
   obs
-
-# Brave
-super + shift + b
-        brave --use-gl=desktop \
-			--enable-features=VaapiVideoDecoder \
-			--disable-gpu-driver-bug-workarounds \
-			--enable-features=VaapiVideoEncoder,VaapiVideoDecoder,CanvasOopRasterization
 
 #################################################################
 #     SCREENSHOTS
