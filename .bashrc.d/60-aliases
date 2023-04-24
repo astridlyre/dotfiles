@@ -41,9 +41,6 @@ alias btc="crypto-query btc"
 alias eth="crypto-query eth"
 alias ada="crypto-query ada"
 
-# Time chez Liz
-alias liztime="TZ='US/Michigan' date"
-
 # Switcher for optimus
 alias opswitch="sudo /usr/bin/prime-switch"
 
@@ -62,13 +59,13 @@ alias jctl="journalctl -p 3 -xb"
 
 # Upgrade python packages
 alias pip-upgrade="pip freeze --user | cut -d'=' -f1 | xargs -n1 pip install -U"
-alias suse="ssh -p 2222 moonlight@suse"
 alias g="gpg-connect-agent updatestartuptty /bye &>/dev/null"
 
 # git
 alias push="git push"
 alias pull="git pull"
 alias checkout="git checkout"
+alias commit="git commit"
 alias st="git status"
 
 alias repl="clj -Sdeps '{:deps {nrepl/nrepl {:mvn/version \"0.9.0\"} cider/cider-nrepl {:mvn/version \"0.28.4\"}}}' -m nrepl.cmdline --middleware '[\"cider.nrepl/cider-middleware\"]' --interactive"
@@ -84,3 +81,7 @@ alias prodredis='tsh ssh -L 6379:redis.default.svc.cluster.local:6379 -N --proxy
 alias stagingredis='tsh ssh -L 6379:redis.default.svc.cluster.local:6379 -N --proxy=secure.common.aws.us-west-1.streamily.com root@bastion-staging-1'
 
 alias redis-cli="docker run -it --network host --rm redis redis-cli"
+
+alias mnt="udisksctl mount -b"
+alias umnt="udisksctl unmount -b"
+alias serve="python -m http.server 8080"

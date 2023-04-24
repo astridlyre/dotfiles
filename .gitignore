@@ -20,3 +20,4 @@ tags.temp
 .mypy_cache
 .bin/exercism
 .bin/stash
+.bin/start-tor-browser

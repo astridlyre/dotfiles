@@ -20,10 +20,10 @@ export MONITORS
 if xrandr | grep "$EXTERNAL connected"; then # 1920 portable monitor
 	MONITORS="$LAPTOP $EXTERNAL"
 	# If I haz two monitors
-	xrandr --output $EXTERNAL --mode $EXTERNAL_SIZE --pos 1920x0 --rotate normal \
-		--output $LAPTOP --primary --mode $LAPTOP_SIZE --pos 0x0 --rotate normal
-	bspc monitor $LAPTOP -d 1 2 3 4 5
-	bspc monitor $EXTERNAL -d 6
+	xrandr --output $EXTERNAL --mode $EXTERNAL_SIZE --pos 0x0 --rotate normal \
+		--output $LAPTOP --primary --mode $LAPTOP_SIZE --pos 1920x0 --rotate normal
+	bspc monitor $LAPTOP -d 2 3 4 5 6
+	bspc monitor $EXTERNAL -d 1
 elif xrandr | grep "${EXTERNAL2} connected"; then # HDMI 4k monitor
 	MONITORS="$LAPTOP $EXTERNAL2"
 	# If I haz two monitors
