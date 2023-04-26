@@ -141,11 +141,7 @@ end
 nmap("<c-q>", toggle_qf_list)
 
 -- telescope
-nmap("<c-n>", function()
-	require("telescope").extensions.file_browser.file_browser()
-end)
 lmap("o", "<cmd>Telescope find_files hidden=true follow=true<cr>")
-lmap("lg", "<cmd>Telescope live_grep<cr>")
 lmap("fb", "<cmd>Telescope buffers<cr>")
 lmap("fo", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
 lmap("fh", "<cmd>Telescope oldfiles<cr>")

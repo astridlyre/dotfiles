@@ -96,7 +96,7 @@ function n() {
 	fi
 
 	export NNN_TMPFILE="$HOME/.config/nnn/.lastd"
-	nnn -c "$@"
+	nnn -dec "$@"
 
 	if [[ -f $NNN_TMPFILE ]]; then
 		. "$NNN_TMPFILE"

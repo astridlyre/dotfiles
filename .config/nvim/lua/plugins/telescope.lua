@@ -9,9 +9,11 @@ return {
 		lazy = true,
 		cmd = "Telescope",
 		version = false,
-		dependencies = { "nvim-telescope/telescope-fzf-native.nvim" },
+		dependencies = { "nvim-telescope/telescope-fzf-native.nvim", "nvim-telescope/telescope-live-grep-args.nvim" },
 		config = function()
+			local lga_actions = require("telescope-live-grep-args.actions")
 			local telescope = require("telescope")
+
 			telescope.setup({
 				defaults = {
 					prompt_prefix = "❯ ",
@@ -57,6 +59,8 @@ return {
 							"!**/.parcel-cache/**",
 							"--glob",
 							"!*.min.js",
+							"--glob",
+							"!**/db-init/**",
 							"--max-filesize",
 							"1M",
 							"--glob",
@@ -65,6 +69,17 @@ return {
 					},
 				},
 				extensions = {
+					live_grep_args = {
+						auto_quoting = true, -- enable/disable auto-quoting
+						-- define mappings, e.g.
+						mappings = {
+							-- extend mappings
+							i = {
+								["<C-k>"] = lga_actions.quote_prompt(),
+								["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob **/db-init/**" }),
+							},
+						},
+					},
 					fzf = {
 						fuzzy = true,
 						override_generic_sorter = true,
@@ -86,6 +101,16 @@ return {
 				},
 			})
 			telescope.load_extension("fzf")
+
+			local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
+			vim.keymap.set("n", "gw", live_grep_args_shortcuts.grep_word_under_cursor)
+			vim.keymap.set("v", "gw", live_grep_args_shortcuts.grep_visual_selection)
+			vim.keymap.set("n", "<c-n>", function()
+				require("telescope").extensions.file_browser.file_browser()
+			end)
+			vim.keymap.set("n", "<space>lg", function()
+				require("telescope").extensions.live_grep_args.live_grep_args()
+			end)
 		end,
 	},
 }

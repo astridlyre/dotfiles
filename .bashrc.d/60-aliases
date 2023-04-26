@@ -3,11 +3,10 @@
 # Confirm before overwriting
 alias cp="cp -i"
 alias mv="mv -i"
-alias rm="rm -I"
 
 # ls replacement
-alias ls="exa -aG --color=always -s type"
-alias ll="exa -al --color=always -s type"
+alias ls="exa -a --color=always -s type"
+alias ll="nnn -dec"
 alias t="exa -aT --color=always -s type"
 
 # cat replacement

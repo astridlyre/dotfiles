@@ -64,6 +64,7 @@ export BAT_THEME='ansi'
 export NNN_COLORS='5555'
 export NNN_FCOLORS='0A0B0C02000D0E0809030601'
 export NNN_OPENER='nnn_opener'
+export NNN_PLUG='s:suedit'
 export NNN_TMPFILE="$HOME/.config}/nnn/.lastd"
 
 # fzf directories to ignore
@@ -121,3 +122,11 @@ export LIBVA_DRIVER_NAME=nvidia
 export MOZ_DISABLE_RDD_SANDBOX=1
 export BUN_INSTALL="$HOME/.bun"
 export TZ='America/Vancouver'
+
+export PATH="/run/user/1000/fnm_multishells/414703_1682457091556/bin":$PATH
+export FNM_ARCH="x64"
+export FNM_NODE_DIST_MIRROR="https://nodejs.org/dist"
+export FNM_LOGLEVEL="info"
+export FNM_MULTISHELL_PATH="/run/user/1000/fnm_multishells/414703_1682457091556"
+export FNM_VERSION_FILE_STRATEGY="local"
+export FNM_DIR="/home/ml/.local/share/fnm"
