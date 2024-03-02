@@ -262,7 +262,7 @@ return {
 		cmd = { "Backseat", "BackseatAsk", "BackseatClear", "BackseatClearLine" },
 		config = function()
 			require("backseat").setup({
-				openai_api_key = "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", -- Get yours from platform.openai.com/account/api-keys
+				openai_api_key = "", -- Get yours from platform.openai.com/account/api-keys
 				openai_model_id = "gpt-4", --gpt-4
 				-- split_threshold = 100,
 				additional_instruction = "Respond with sass", -- (GPT-3 will probably deny this request, but GPT-4 complies)
