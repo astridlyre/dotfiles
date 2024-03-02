@@ -4,6 +4,12 @@
 # Get Weather
 # ------------
 
-CITY=$1
+CITY=""
 
-curl "wttr.in/$CITY?qF"
+if [ "$1" ]; then
+	CITY="$1"
+fi
+
+echo
+
+curl "wttr.in/$CITY?qF" 2>/dev/null | sed '$d'

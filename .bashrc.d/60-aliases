@@ -5,13 +5,13 @@ alias cp="cp -i"
 alias mv="mv -i"
 
 # ls replacement
-alias ls="exa -a --color=always -s type"
+alias ls="eza -a -s type"
 alias ll="nnn -dec"
-alias t="exa -aT --color=always -s type"
+alias t="eza -aT -s type"
 
 # cat replacement
-alias cat="bat -pp --theme='Catppuccin-mocha'"
-alias bat="bat --theme='Catppuccin-mocha' --tabs=4 --decorations never"
+alias cat="bat -pp --theme=ansi"
+alias bat="bat --theme=ansi --tabs=4 --decorations never"
 
 # easy typed common things
 alias c="clear"
@@ -84,3 +84,5 @@ alias redis-cli="docker run -it --network host --rm redis redis-cli"
 alias mnt="udisksctl mount -b"
 alias umnt="udisksctl unmount -b"
 alias serve="python -m http.server 8080"
+
+alias order_numbers='for file in * ; do cat $file | rg -o "P(\d{9})" ; done | sort | uniq > order_numbers.txt'

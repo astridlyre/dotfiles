@@ -300,6 +300,8 @@ M.setup = function()
 		"jsonls",
 		"astro",
 		"dartls",
+		"rescriptls",
+		"templ",
 	}
 
 	for _, ls in ipairs(default_servers) do

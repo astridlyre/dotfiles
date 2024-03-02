@@ -44,6 +44,7 @@ assign_options({
 	backup = false,
 	breakindent = true,
 	completeopt = "menu,menuone,noinsert",
+	foldmethod = "manual",
 	formatoptions = "1jql",
 	grepformat = "%f:%l:%c:%m",
 	grepprg = "rg --hidden --vimgrep --smart-case --",
@@ -304,3 +305,5 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank({ timeout = 200 })
 	end,
 })
+
+vim.filetype.add({ extension = { templ = "templ" } })

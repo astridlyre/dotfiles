@@ -7,7 +7,7 @@ return {
 		end,
 	},
 	{
-		"jose-elias-alvarez/null-ls.nvim",
+		"nvimtools/none-ls.nvim",
 		event = "BufReadPre",
 		version = false,
 		dependencies = { "nvim-lspconfig" },
@@ -27,16 +27,14 @@ return {
 					formatting.prettierd,
 					formatting.shfmt,
 					formatting.black,
-					formatting.fixjson,
 					formatting.goimports,
 					formatting.isort,
 					formatting.stylua,
 					formatting.dart_format,
+					formatting.rescript,
 					diagnostics.clj_kondo,
-					diagnostics.shellcheck,
 					diagnostics.staticcheck,
 					diagnostics.write_good.with({ filetypes = { "markdown", "tex", "text" } }),
-					diagnostics.flake8,
 					diagnostics.vint,
 					diagnostics.yamllint,
 					diagnostics.stylelint,
@@ -63,4 +61,6 @@ return {
 		lazy = true,
 		version = false,
 	},
+	-- Lazy.nvim
+	{ "rescript-lang/vim-rescript", ft = "rescript", lazy = true, version = false },
 }

@@ -71,6 +71,20 @@ return {
 			imap("<C-j>", snippet_next)
 			imap("<C-k>", snippet_prev)
 
+			local autocomplete_group = vim.api.nvim_create_augroup("vimrc_autocompletion", { clear = true })
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "sql", "mysql", "plsql" },
+				callback = function()
+					cmp.setup.buffer({
+						sources = {
+							{ name = "copilot", group_index = 2 },
+							{ name = "vim-dadbod-completion" },
+						},
+					})
+				end,
+				group = autocomplete_group,
+			})
+
 			local sources = cmp.config.sources({
 				{ name = "luasnip" },
 				{ name = "copilot", group_index = 2 },
@@ -90,6 +104,14 @@ return {
 				--   buffer = "(Buffer)",
 				--   luasnip = "(LuaSnip)",
 				-- }),
+				menu = {
+					buffer = "[Buffer]",
+					nvim_lsp = "[LSP]",
+					vsnip = "[Snippet]",
+					tags = "[Tag]",
+					path = "[Path]",
+					["vim-dadbod-completion"] = "[DB]",
+				},
 				before = function(entry, vim_item)
 					vim_item.menu = "(" .. vim_item.kind .. ")"
 					vim_item.dup = ({
@@ -165,13 +187,6 @@ return {
 			require("nvim-autopairs").setup({
 				enable_check_bracket_line = false,
 			})
-
-			local rule = require("nvim-autopairs").get_rule("'")[1]
-			local cond = require("nvim-autopairs.conds")
-
-			-- remove add single quote on filetype scheme or lisp
-			rule.not_filetypes = { "scheme", "lisp", "clojure", "clj" }
-			rule:with_pair(cond.not_after_text("["))
 		end,
 	},
 	{
@@ -247,7 +262,7 @@ return {
 		cmd = { "Backseat", "BackseatAsk", "BackseatClear", "BackseatClearLine" },
 		config = function()
 			require("backseat").setup({
-				openai_api_key = "", -- Get yours from platform.openai.com/account/api-keys
+				openai_api_key = "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", -- Get yours from platform.openai.com/account/api-keys
 				openai_model_id = "gpt-4", --gpt-4
 				-- split_threshold = 100,
 				additional_instruction = "Respond with sass", -- (GPT-3 will probably deny this request, but GPT-4 complies)

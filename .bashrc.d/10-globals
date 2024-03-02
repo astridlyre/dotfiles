@@ -79,23 +79,10 @@ done
 # fzf
 export FZF_DEFAULT_COMMAND="rg --files --hidden $FZF_IGNORE_GLOB"
 
-# Frappe
-# export FZF_DEFAULT_OPTS=" \
-# --color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284 \
-# --color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf \
-# --color=marker:#f2d5cf,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284"
-#
-# Macchiato
-# export FZF_DEFAULT_OPTS=" \
-# --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
-# --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
-# --color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
-#
-# Mocha
 export FZF_DEFAULT_OPTS=" \
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+--color=bg+:#2c2e33,bg:#14161b,spinner:#fce094,hl:#9b9ea4 \
+--color=fg:#eef1f8,header:#b3f6c0,info:#ffcaff,pointer:#eef1f8 \
+--color=marker:#4f5258,fg+:#eef1f8,prompt:#ffcaff,hl+:#9b9ea4"
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS=' --preview "batfile {}" --no-height'
@@ -130,3 +117,8 @@ export FNM_LOGLEVEL="info"
 export FNM_MULTISHELL_PATH="/run/user/1000/fnm_multishells/414703_1682457091556"
 export FNM_VERSION_FILE_STRATEGY="local"
 export FNM_DIR="/home/ml/.local/share/fnm"
+
+export DB_UI_LOCAL=mysql://root:admin@127.0.0.1:3306/streamily_staging
+export DB_UI_STAGING=mysql://root:1lFGdmIJT7cJ72RZeYuScjNDqZ5tBkAv5c@127.0.0.1:3307/streamily
+export DB_UI_PRODUCTION=mysql://root:AnlZXLM3uNXUCJVG2SxYfXdCFr6PB6BOPN@127.0.0.1:3308/streamily
+export DB_UI_COOKBOOK=mysql://root:admin@127.0.0.1:3306/cookbook
