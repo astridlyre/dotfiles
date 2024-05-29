@@ -19,23 +19,23 @@ return {
 			local utils = require("moonlight.utils")
 			local imap = utils.imap
 
-			local unlinkgrp = vim.api.nvim_create_augroup("UnlinkSnippetOnModeChange", { clear = true })
-
-			vim.api.nvim_create_autocmd("ModeChanged", {
-				group = unlinkgrp,
-				pattern = { "s:n", "i:*" },
-				desc = "Forget the snippet on mode change",
-				callback = function(evt)
-					if
-						luasnip
-						and luasnip.session
-						and luasnip.session.current_nodes[evt.buf]
-						and not luasnip.session.jump_active
-					then
-						luasnip.unlink_current()
-					end
-				end,
-			})
+			-- local unlinkgrp = vim.api.nvim_create_augroup("UnlinkSnippetOnModeChange", { clear = true })
+			--
+			-- vim.api.nvim_create_autocmd("ModeChanged", {
+			-- 	group = unlinkgrp,
+			-- 	pattern = { "s:n", "i:*" },
+			-- 	desc = "Forget the snippet on mode change",
+			-- 	callback = function(evt)
+			-- 		if
+			-- 			luasnip
+			-- 			and luasnip.session
+			-- 			and luasnip.session.current_nodes[evt.buf]
+			-- 			and not luasnip.session.jump_active
+			-- 		then
+			-- 			luasnip.unlink_current()
+			-- 		end
+			-- 	end,
+			-- })
 
 			luasnip.config.set_config({ region_check_events = "CursorMoved" })
 
@@ -86,24 +86,19 @@ return {
 			})
 
 			local sources = cmp.config.sources({
-				{ name = "luasnip" },
+				{ name = "luasnip", group_index = 2 },
 				{ name = "copilot", group_index = 2 },
-				{ name = "nvim_lsp" },
+				{ name = "nvim_lsp", group_index = 2 },
 				-- { name = "conjure" },
-				{ name = "nvim_lua" },
-				{ name = "git" },
-				{ name = "buffer" },
+				{ name = "nvim_lua", group_index = 2 },
+				{ name = "git", group_index = 2 },
+			}, {
+				{ name = "buffer", group_index = 2 },
 			})
 
 			local format = lspkind.cmp_format({
 				mode = "symbol", -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
 				maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-				-- menu = ({ -- showing type in menu
-				--   nvim_lsp = "(LSP)",
-				--   path = "(Path)",
-				--   buffer = "(Buffer)",
-				--   luasnip = "(LuaSnip)",
-				-- }),
 				menu = {
 					buffer = "[Buffer]",
 					nvim_lsp = "[LSP]",
@@ -148,10 +143,10 @@ return {
 				sorting = {
 					priority_weight = 2,
 					comparators = {
-						require("copilot_cmp.comparators").prioritize,
-						require("copilot_cmp.comparators").score,
-						compare.offset,
 						compare.exact,
+						require("copilot_cmp.comparators").prioritize,
+						-- require("copilot_cmp.comparators").score,
+						compare.offset,
 						compare.score,
 						compare.kind,
 						compare.sort_text,
@@ -254,22 +249,6 @@ return {
 		config = function()
 			require("copilot_cmp").setup({
 				method = "getCompletionsCycling",
-			})
-		end,
-	},
-	{
-		"james1236/backseat.nvim",
-		cmd = { "Backseat", "BackseatAsk", "BackseatClear", "BackseatClearLine" },
-		config = function()
-			require("backseat").setup({
-				openai_api_key = "", -- Get yours from platform.openai.com/account/api-keys
-				openai_model_id = "gpt-4", --gpt-4
-				-- split_threshold = 100,
-				additional_instruction = "Respond with sass", -- (GPT-3 will probably deny this request, but GPT-4 complies)
-				highlight = {
-					icon = "", -- ''
-					group = "Comment",
-				},
 			})
 		end,
 	},

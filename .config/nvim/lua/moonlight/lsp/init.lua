@@ -302,14 +302,26 @@ M.setup = function()
 		"dartls",
 		"rescriptls",
 		"templ",
+		-- "htmx-lsp",
+		"tailwindcss",
 	}
 
 	for _, ls in ipairs(default_servers) do
-		lspconfig[ls].setup({
+		local cfg = {
 			on_attach = on_attach,
 			capabilities = capabilities,
 			-- flags = flags,
-		})
+		}
+
+		if ls == "html" or ls == "htmx-lsp" or ls == "tailwindcss" then
+			cfg.filetypes = { "html", "templ" }
+		end
+
+		if ls == "tailwindcss" then
+			cfg.init_options = { userLanguages = { templ = "html" } }
+		end
+
+		lspconfig[ls].setup(cfg)
 	end
 
 	-- Custom server configurations

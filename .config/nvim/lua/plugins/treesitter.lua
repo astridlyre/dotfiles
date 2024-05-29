@@ -1,5 +1,40 @@
 return {
 	{
+
+		"windwp/nvim-ts-autotag",
+		version = false,
+		event = { "BufReadPre", "BufNewFile" },
+		config = function()
+			require("nvim-ts-autotag").setup({
+				opts = {
+					enable_close = true, -- Auto close tags
+					enable_rename = true, -- Auto rename pairs of tags
+					enable_close_on_slash = false, -- Auto close on trailing </
+					filetypes = {
+						"html",
+						"javascript",
+						"typescript",
+						"javascriptreact",
+						"typescriptreact",
+						"svelte",
+						"vue",
+						"tsx",
+						"jsx",
+						"rescript",
+						"xml",
+						"php",
+						"markdown",
+						"glimmer",
+						"handlebars",
+						"hbs",
+						"astro",
+						"templ",
+					},
+				},
+			})
+		end,
+	},
+	{
 		"nvim-treesitter/nvim-treesitter",
 		version = false,
 		event = { "BufReadPost", "BufNewFile" },
@@ -55,32 +90,8 @@ return {
 						swap_previous = { ["<leader>sp"] = "@parameter.inner" },
 					},
 				},
-				autotag = {
-					enable = true,
-					filetypes = {
-						"html",
-						"javascript",
-						"typescript",
-						"javascriptreact",
-						"typescriptreact",
-						"svelte",
-						"vue",
-						"tsx",
-						"jsx",
-						"rescript",
-						"xml",
-						"php",
-						"markdown",
-						"glimmer",
-						"handlebars",
-						"hbs",
-						"astro",
-					},
-				},
 				autopairs = { enable = true },
-				matchup = {
-					enable = true,
-				},
+				matchup = { enable = true },
 				move = {
 					enable = true,
 					set_jumps = true, -- whether to set jumps in the jumplist

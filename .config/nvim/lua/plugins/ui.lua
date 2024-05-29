@@ -1,5 +1,16 @@
 return {
 	{
+		"sainnhe/gruvbox-material",
+		name = "gruvbox",
+		version = false,
+		config = function()
+			vim.g.gruvbox_material_foreground = "material"
+			vim.g.gruvbox_material_background = "hard"
+			vim.g.gruvbox_material_better_performance = 1
+			vim.cmd("colorscheme gruvbox-material")
+		end,
+	},
+	{
 		"norcalli/nvim-colorizer.lua",
 		version = false,
 		event = { "BufReadPost", "BufNewFile" },

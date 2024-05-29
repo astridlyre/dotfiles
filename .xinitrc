@@ -1,5 +1,9 @@
 #!/bin/sh
-/usr/bin/prime-offload & # Start optimus manager
+xrandr --setprovideroutputsource modesetting NVIDIA-0
+xrandr --auto
+xrandr --dpi 96
+
+xrandr >>.xrandr.log
 
 export QT_AUTO_SCREEN_SCALE_FACTOR=1 # Scaling fix for QT
 export AWT_TOOLKIT=MToolkit          # Fixes for Java Apps

@@ -19,7 +19,7 @@ super + b
 
 # Pavucontrol
 super + v
-    pavucontrol
+    GTK_THEME=Gruvbox-Material-Dark pavucontrol
 
 # Alacritty
 super + Return
@@ -30,7 +30,7 @@ super + space
 
 # DB
 super + m
-  beekeeper-studio
+  beekeeper
 
 # nnn File Manager
 super + f

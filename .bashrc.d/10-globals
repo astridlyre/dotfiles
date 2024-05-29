@@ -79,10 +79,12 @@ done
 # fzf
 export FZF_DEFAULT_COMMAND="rg --files --hidden $FZF_IGNORE_GLOB"
 
-export FZF_DEFAULT_OPTS=" \
---color=bg+:#2c2e33,bg:#14161b,spinner:#fce094,hl:#9b9ea4 \
---color=fg:#eef1f8,header:#b3f6c0,info:#ffcaff,pointer:#eef1f8 \
---color=marker:#4f5258,fg+:#eef1f8,prompt:#ffcaff,hl+:#9b9ea4"
+export FZF_DEFAULT_OPTS="
+		--color=fg:#D4BE98,bg:#1D2021,hl:#eddeb5
+		--color=fg+:#D4BE98,bg+:#1D2021,hl+:#eddeb5
+		--color=border:#ea6962,header:#eddeb5,gutter:#1D2021
+		--color=spinner:#7daea3,info:#7daea3,separator:#1D2021
+		--color=pointer:#d8a657,marker:#ea6962,prompt:#d8a657"
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS=' --preview "batfile {}" --no-height'
@@ -122,3 +124,5 @@ export DB_UI_LOCAL=mysql://root:admin@127.0.0.1:3306/streamily_staging
 export DB_UI_STAGING=mysql://root:1lFGdmIJT7cJ72RZeYuScjNDqZ5tBkAv5c@127.0.0.1:3307/streamily
 export DB_UI_PRODUCTION=mysql://root:AnlZXLM3uNXUCJVG2SxYfXdCFr6PB6BOPN@127.0.0.1:3308/streamily
 export DB_UI_COOKBOOK=mysql://root:admin@127.0.0.1:3306/cookbook
+
+export GTK_THEME="Gruvbox-Material-Dark"

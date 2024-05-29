@@ -8,48 +8,19 @@ return {
 	},
 	font = wezterm.font_with_fallback({ "PragmataPro Mono Liga", "PragmataProMonoLiga Nerd Font" }),
 	font_size = 12,
-	colors = {
-		background = "#14161b",
-		-- Overrides the cell background color when the current cell is occupied by the
-		-- cursor and the cursor style is set to Block
-		cursor_bg = "#eef1f8",
-		-- Overrides the text color when the current cell is occupied by the cursor
-		cursor_fg = "black",
-		-- Specifies the border color of the cursor when the cursor style is set to Block,
-		-- or the color of the vertical or horizontal bar when the cursor style is set to
-		-- Bar or Underline.
-		cursor_border = "#eef1f8",
+	color_scheme = "gruvbox_material_dark_hard",
+	color_schemes = {
+		["gruvbox_material_dark_hard"] = {
+			foreground = "#D4BE98",
+			background = "#1D2021",
+			cursor_bg = "#D4BE98",
+			cursor_border = "#D4BE98",
+			cursor_fg = "#1D2021",
+			selection_bg = "#D4BE98",
+			selection_fg = "#3C3836",
 
-		-- the foreground color of selected text
-		selection_fg = "black",
-		-- the background color of selected text
-		selection_bg = "#9b9ea4",
-
-		-- The color of the scrollbar "thumb"; the portion that represents the current viewport
-		scrollbar_thumb = "#2c2e33",
-
-		-- The color of the split lines between panes
-		split = "#2c2e33",
-
-		ansi = {
-			"#14161b",
-			"#ffc0b9",
-			"#b3f6c0",
-			"#fce094",
-			"#a6dbff",
-			"#ffcaff",
-			"#8cf8f7",
-			"#eef1f8",
-		},
-		brights = {
-			"#4f5258",
-			"#ffc0b9",
-			"#b3f6c0",
-			"#fce094",
-			"#a6dbff",
-			"#ffcaff",
-			"#8cf8f7",
-			"#eef1f8",
+			ansi = { "#1d2021", "#ea6962", "#a9b665", "#d8a657", "#7daea3", "#d3869b", "#89b482", "#d4be98" },
+			brights = { "#eddeb5", "#ea6962", "#a9b665", "#d8a657", "#7daea3", "#d3869b", "#89b482", "#d4be98" },
 		},
 	},
 	enable_tab_bar = false,
