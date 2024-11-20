@@ -1,14 +1,15 @@
 return {
 	{
-		"hrsh7th/nvim-cmp",
+		"iguanacucumber/magazine.nvim",
+		name = "nvim-cmp",
 		version = false,
 		event = "InsertEnter",
 		dependencies = {
-			{ "hrsh7th/cmp-nvim-lsp", version = false },
-			{ "hrsh7th/cmp-nvim-lua", version = false },
-			{ "hrsh7th/cmp-buffer", version = false },
-			{ "saadparwaiz1/cmp_luasnip", version = false },
-			{ "L3MON4D3/LuaSnip", build = "make install_jsregexp", version = false },
+			{ "hrsh7th/cmp-nvim-lsp",               version = false },
+			{ "hrsh7th/cmp-nvim-lua",               version = false },
+			{ "hrsh7th/cmp-buffer",                 version = false },
+			{ "saadparwaiz1/cmp_luasnip",           version = false },
+			{ "L3MON4D3/LuaSnip",                   build = "make install_jsregexp", version = false },
 			{ dir = "~/projects/friendly-snippets", dev = true },
 			{ "onsails/lspkind-nvim" },
 		},
@@ -18,24 +19,6 @@ return {
 			local luasnip = require("luasnip")
 			local utils = require("moonlight.utils")
 			local imap = utils.imap
-
-			-- local unlinkgrp = vim.api.nvim_create_augroup("UnlinkSnippetOnModeChange", { clear = true })
-			--
-			-- vim.api.nvim_create_autocmd("ModeChanged", {
-			-- 	group = unlinkgrp,
-			-- 	pattern = { "s:n", "i:*" },
-			-- 	desc = "Forget the snippet on mode change",
-			-- 	callback = function(evt)
-			-- 		if
-			-- 			luasnip
-			-- 			and luasnip.session
-			-- 			and luasnip.session.current_nodes[evt.buf]
-			-- 			and not luasnip.session.jump_active
-			-- 		then
-			-- 			luasnip.unlink_current()
-			-- 		end
-			-- 	end,
-			-- })
 
 			luasnip.config.set_config({ region_check_events = "CursorMoved" })
 
@@ -78,7 +61,6 @@ return {
 					cmp.setup.buffer({
 						sources = {
 							{ name = "copilot", group_index = 2 },
-							{ name = "vim-dadbod-completion" },
 						},
 					})
 				end,
@@ -86,12 +68,11 @@ return {
 			})
 
 			local sources = cmp.config.sources({
-				{ name = "luasnip", group_index = 2 },
-				{ name = "copilot", group_index = 2 },
+				{ name = "luasnip",  group_index = 2 },
+				{ name = "copilot",  group_index = 2 },
 				{ name = "nvim_lsp", group_index = 2 },
 				-- { name = "conjure" },
 				{ name = "nvim_lua", group_index = 2 },
-				{ name = "git", group_index = 2 },
 			}, {
 				{ name = "buffer", group_index = 2 },
 			})
@@ -105,7 +86,6 @@ return {
 					vsnip = "[Snippet]",
 					tags = "[Tag]",
 					path = "[Path]",
-					["vim-dadbod-completion"] = "[DB]",
 				},
 				before = function(entry, vim_item)
 					vim_item.menu = "(" .. vim_item.kind .. ")"
@@ -165,14 +145,6 @@ return {
 					}),
 				},
 			})
-		end,
-	},
-	{
-		"petertriho/cmp-git",
-		lazy = true,
-		ft = { "gitcommit", "octo" },
-		config = function()
-			require("cmp_git").setup()
 		end,
 	},
 	{
@@ -243,13 +215,92 @@ return {
 			end)
 		end,
 	},
+	-- {
+	-- 	'saghen/blink.cmp',
+	-- 	lazy = false, -- lazy loading handled internally
+	-- 	-- optional: provides snippets for the snippet source
+	-- 	dependencies = {
+	-- 		{ dir = "~/projects/friendly-snippets", dev = true },
+	-- 		{ "giuxtaposition/blink-cmp-copilot" }
+	-- 	},
+	--
+	-- 	-- use a release tag to download pre-built binaries
+	-- 	version = 'v0.*',
+	-- 	-- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+	-- 	-- build = 'cargo build --release',
+	-- 	-- If you use nix, you can build from source using latest nightly rust with:
+	-- 	-- build = 'nix run .#build-plugin',
+	--
+	-- 	---@module 'blink.cmp'
+	-- 	---@type blink.cmp.Config
+	-- 	opts = {
+	-- 		-- 'default' for mappings similar to built-in completion
+	-- 		-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
+	-- 		-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
+	-- 		-- see the "default configuration" section below for full documentation on how to define
+	-- 		-- your own keymap.
+	-- 		keymap = { preset = 'default', ['<C-j>'] = { 'snippet_forward', 'fallback' }, ['<C-k>'] = { 'snippet_backward', 'fallback' } },
+	--
+	-- 		highlight = {
+	-- 			-- sets the fallback highlight groups to nvim-cmp's highlight groups
+	-- 			-- useful for when your theme doesn't support blink.cmp
+	-- 			-- will be removed in a future release, assuming themes add support
+	-- 			use_nvim_cmp_as_default = true,
+	-- 		},
+	-- 		-- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+	-- 		-- adjusts spacing to ensure icons are aligned
+	-- 		nerd_font_variant = 'mono',
+	--
+	-- 		-- experimental auto-brackets support
+	-- 		-- accept = { auto_brackets = { enabled = true } }
+	--
+	-- 		-- experimental signature help support
+	-- 		-- trigger = { signature_help = { enabled = true } }
+	-- 		sources = {
+	-- 			providers = {
+	-- 				copilot = {
+	-- 					name = "copilot",
+	-- 					module = "blink-cmp-copilot",
+	-- 				},
+	-- 			},
+	-- 			completion = {
+	-- 				enabled_providers = { "lsp", "path", "snippets", "buffer", "copilot" },
+	-- 			},
+	-- 		},
+	-- 	},
+	-- 	-- allows extending the enabled_providers array elsewhere in your config
+	-- 	-- without having to redefining it
+	-- 	opts_extend = { "sources.completion.enabled_providers" }
+	-- },
 	{
 		"zbirenbaum/copilot-cmp",
 		version = false,
 		config = function()
-			require("copilot_cmp").setup({
-				method = "getCompletionsCycling",
-			})
+			require("copilot_cmp").setup()
+		end,
+	},
+	{
+		"Olical/conjure",
+		ft = { "clojure", "fennel", "python", "racket" }, -- etc
+		lazy = true,
+		init = function()
+			-- Set configuration options here
+			-- Uncomment this to get verbose logging to help diagnose internal Conjure issues
+			-- This is VERY helpful when reporting an issue with the project
+			-- vim.g["conjure#debug"] = true
+		end,
+
+		-- Optional cmp-conjure integration
+		dependencies = { "PaterJason/cmp-conjure" },
+	},
+	{
+		"PaterJason/cmp-conjure",
+		lazy = true,
+		config = function()
+			local cmp = require("cmp")
+			local config = cmp.get_config()
+			table.insert(config.sources, { name = "conjure" })
+			return cmp.setup(config)
 		end,
 	},
 }

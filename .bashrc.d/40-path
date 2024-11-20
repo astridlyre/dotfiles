@@ -11,7 +11,7 @@ prepend_path() {
 }
 
 # ruby
-prepend_path "$HOME/.local/share/gem/ruby/2.7.0/bin"
+prepend_path "$HOME/.local/share/gem/ruby/3.0.0/bin"
 
 prepend_path "$HOME/.npm-packages/bin"
 
@@ -31,3 +31,7 @@ source "$HOME/.fzf.bash"
 
 # bun
 prepend_path "${HOME}/.bun/bin"
+
+# haskell
+prepend_path "${HOME}/.stack/bin"
+prepend_path "${HOME}/.ghcup/bin"

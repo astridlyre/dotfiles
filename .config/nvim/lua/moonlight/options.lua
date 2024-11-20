@@ -44,6 +44,7 @@ assign_options({
 	backup = false,
 	breakindent = true,
 	completeopt = "menu,menuone,noinsert",
+	exrc = true,
 	foldmethod = "manual",
 	formatoptions = "1jql",
 	grepformat = "%f:%l:%c:%m",
@@ -58,10 +59,10 @@ assign_options({
 	list = true,
 	maxmempattern = 100000,
 	mouse = "a",
-	number = true,
+	-- number = true,
 	pumheight = 16,
 	redrawtime = 8000,
-	relativenumber = true,
+	-- relativenumber = true,
 	scrolloff = 3,
 	shiftround = true,
 	shiftwidth = 4,
@@ -95,7 +96,6 @@ assign_options({
 lmap("u", "<cmd>Lazy update<cr>")
 lmap(";", ":w<cr>")
 lmap("y", '"+y')
-lmap("ft", require("moonlight.autoformat").toggle_formatting)
 lmap("64d", "!!b64d<cr>")
 lmap("64e", "!!base64<cr>")
 lmap("ct", "<cmd>ColorizerToggle<cr>")
@@ -109,6 +109,9 @@ lmap("Os", "<cmd>Octo review submit<cr>")
 lmap("Otr", "<cmd>Octo thread resolve<cr>")
 lmap("Otu", "<cmd>Octo thread unresolve<cr>")
 lmap("Opc", "<cmd>Octo pr create<cr>")
+
+lmap("la", "<cmd>TSToolsAddMissingImports<cr>")
+lmap("li", "<cmd>TSToolsOrganizeImports<cr>")
 
 -- normal mode
 nmap("^", "0")
@@ -168,6 +171,8 @@ lmap("ga", "<cmd>Gitsigns stage_buffer<cr>")
 lmap("gh", "<cmd>Gitsigns stage_hunk<cr>")
 lmap("gH", "<cmd>Gitsigns undo_stage_hunk<cr>")
 lmap("gR", "<cmd>Gitsigns reset_buffer<cr>")
+lmap("gbl", "<cmd>Gitsigns blame_line<cr>")
+lmap("gp", "<cmd>Gitsigns preview_hunk<cr>")
 
 -- insert mode
 imap("<c-c>", "<esc>")

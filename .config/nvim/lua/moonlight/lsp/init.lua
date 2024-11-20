@@ -1,25 +1,8 @@
 local M = {}
 
-local typescript = require("typescript")
 local utils = require("moonlight.utils")
 local nmap = utils.nmap
 local imap = utils.imap
-
--- Servers to disable formatting by default (so they don't conflict with null-ls)
-local disable_formatting = { "tsserver", "jsonls", "gopls", "html", "cssls", "racket_langserver", "eslint" }
-local enable_formatting_on_save = true
-
-local lsp_formatting = function(bufnr)
-	vim.lsp.buf.format({
-		filter = function(client)
-			if vim.tbl_contains(disable_formatting, client.name) then
-				return false
-			end
-			return true
-		end,
-		bufnr = bufnr,
-	})
-end
 
 local function get_diagnostic_at_cursor()
 	local cur_buf = vim.api.nvim_get_current_buf()
@@ -52,6 +35,16 @@ end
 local lsp_maps = function(client, bufnr)
 	local opts = { buffer = bufnr }
 	nmap("gD", vim.lsp.buf.declaration, opts)
+
+	nmap("gd", function()
+		if vim.tbl_contains({ "javascript", "typescript", "javascriptreact", "typescriptreact" }, vim.bo.filetype) then
+			vim.cmd("TSToolsGoToSourceDefinition")
+			return
+		end
+
+		vim.lsp.buf.definition()
+	end, opts)
+
 	nmap("K", vim.lsp.buf.hover, opts)
 	nmap("gi", vim.lsp.buf.implementation, opts)
 	nmap("gr", vim.lsp.buf.references, opts)
@@ -61,24 +54,6 @@ local lsp_maps = function(client, bufnr)
 	nmap("<space>qf", vim.diagnostic.setqflist, opts)
 	nmap("<c-s>", vim.lsp.buf.signature_help, opts)
 	imap("<c-s>", vim.lsp.buf.signature_help, opts)
-
-	if client and client.name == "tsserver" then
-		nmap("gd", "<cmd>TypescriptGoToSourceDefinition<cr>")
-
-		nmap("<space>la", function()
-			typescript.actions.addMissingImports()
-		end)
-
-		nmap("<space>li", function()
-			typescript.actions.organizeImports()
-		end)
-	else
-		nmap("gd", vim.lsp.buf.definition, opts)
-	end
-
-	nmap("<space>lf", function()
-		lsp_formatting(bufnr)
-	end, opts)
 
 	nmap("<space>ca", function()
 		return vim.lsp.buf.code_action({
@@ -103,27 +78,11 @@ local lsp_maps = function(client, bufnr)
 	nmap("<c-k>", function()
 		return vim.diagnostic.goto_prev({ border = "solid" })
 	end)
-
-	nmap("<space>lf", function()
-		return lsp_formatting()
-	end)
 end
 
 -- Generic On-Attach Function
 local on_attach = function(client, bufnr)
 	lsp_maps(client, bufnr)
-	if
-		enable_formatting_on_save
-		and client.server_capabilities.documentFormattingProvider
-		and not vim.tbl_contains(disable_formatting, client.name)
-	then
-		vim.cmd([[
-            augroup LspFormatting
-                autocmd! * <buffer>
-                autocmd BufWritePre <buffer> lua require('moonlight.autoformat').format(]] .. bufnr .. [[)
-            augroup END
-            ]])
-	end
 end
 
 -- Client Capabilities
@@ -141,7 +100,6 @@ local function make_capabilities()
 end
 
 local capabilities = make_capabilities()
--- local flags = { debounce_text_changes = 150, allow_incremental_sync = true }
 
 -- Lsp Configs
 M.setup = function()
@@ -256,35 +214,6 @@ M.setup = function()
 		})
 	end
 
-	-- TSserver for javascript (nodejs support)
-	local function tsserver()
-		return typescript.setup({
-			server = {
-				-- flags = flags,
-				on_attach = on_attach,
-				capabilities = capabilities,
-				filetypes = {
-					"javascript",
-					"javascript.jsx",
-					"javascriptreact",
-					"typescript",
-					"typescriptreact",
-					"typescript.tsx",
-				},
-				init_options = {
-					hostInfo = "neovim",
-					preferences = {
-						importModuleSpecifierPreference = "project-relative",
-						--includeCompletionsForModuleExports = false, -- enable this if working on smaller projects
-						--includeCompletionsForImportStatements = false, -- enable this if working on smaller projects
-					},
-					maxTsServerMemory = 16384,
-				},
-				settings = { completions = { completeFunctionCalls = true } },
-			},
-		})
-	end
-
 	-- Enable the following default language servers
 	local default_servers = {
 		"pyright",
@@ -299,11 +228,9 @@ M.setup = function()
 		"zls",
 		"jsonls",
 		"astro",
-		"dartls",
-		"rescriptls",
+		"racket_langserver",
 		"templ",
 		-- "htmx-lsp",
-		"tailwindcss",
 	}
 
 	for _, ls in ipairs(default_servers) do
@@ -313,13 +240,9 @@ M.setup = function()
 			-- flags = flags,
 		}
 
-		if ls == "html" or ls == "htmx-lsp" or ls == "tailwindcss" then
-			cfg.filetypes = { "html", "templ" }
-		end
-
-		if ls == "tailwindcss" then
-			cfg.init_options = { userLanguages = { templ = "html" } }
-		end
+		-- if ls == "html" or ls == "htmx-lsp" or ls == "tailwindcss" then
+		-- 	cfg.filetypes = { "html", "templ" }
+		-- end
 
 		lspconfig[ls].setup(cfg)
 	end
@@ -330,7 +253,6 @@ M.setup = function()
 		gopls,
 		rust_analyzer,
 		lua_ls,
-		tsserver,
 	}) do
 		ls()
 	end
@@ -375,18 +297,8 @@ M.setup = function()
 	})
 
 	vim.lsp.set_log_level("OFF")
-
-	-- Add reload lsp function
-	function _G.reload_lsp()
-		vim.lsp.stop_client(vim.lsp.get_active_clients(), false)
-		vim.cmd([[edit]])
-	end
-
-	vim.cmd("command! -nargs=0 LspRestart call v:lua.reload_lsp()")
 end
 
 M.make_capabilities = make_capabilities
--- M.flags = flags
-M.lsp_format = lsp_formatting
 
 return M

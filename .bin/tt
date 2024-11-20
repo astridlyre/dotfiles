@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source "${HOME}/projects/scripts/gh-clickup/.env"
+bun "${HOME}/projects/scripts/gh-clickup/index.ts" "${@}"

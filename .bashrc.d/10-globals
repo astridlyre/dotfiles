@@ -27,17 +27,11 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
-export TERM=wezterm
-
-# Shell for keybinds
-export SXHKD_SHELL=/bin/sh
+export TERMINAL=foot
 
 # GPG and SSH
 unset SSH_AGENT_PID
-if ((${gnupg_SSH_AUTH_SOCK_by:-0} != $$)); then
-	declare -x SSH_AUTH_SOCK
-	SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-fi
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
 
 # Update startup TTY
 GPG_TTY="$(tty)"
@@ -58,17 +52,15 @@ export MATCH_IP='([0-9]{1,3}\.){3}[0-9]{1,3}'
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # bat theme
-export BAT_THEME='ansi'
+export BAT_THEME=ansi
 
 # nnn
-export NNN_COLORS='5555'
-export NNN_FCOLORS='0A0B0C02000D0E0809030601'
-export NNN_OPENER='nnn_opener'
+export NNN_OPENER='handlr open'
 export NNN_PLUG='s:suedit'
 export NNN_TMPFILE="$HOME/.config}/nnn/.lastd"
 
 # fzf directories to ignore
-FZF_IGNORE_DIRS=(".git" "build" "node_modules" ".fzf" ".npm-packages" "vendor/bundle" ".cache" ".mypy_cache" ".icons" ".themes" "Videos" "Pictures")
+FZF_IGNORE_DIRS=(".git" "build" "node_modules" ".fzf" ".npm-global" "vendor/bundle" ".cache" ".mypy_cache" ".icons" ".themes" "Videos" "Pictures")
 FZF_IGNORE_GLOB=""
 FZF_IGNORE_EXCLUDE=""
 for p in "${FZF_IGNORE_DIRS[@]}"; do
@@ -79,12 +71,14 @@ done
 # fzf
 export FZF_DEFAULT_COMMAND="rg --files --hidden $FZF_IGNORE_GLOB"
 
-export FZF_DEFAULT_OPTS="
-		--color=fg:#D4BE98,bg:#1D2021,hl:#eddeb5
-		--color=fg+:#D4BE98,bg+:#1D2021,hl+:#eddeb5
-		--color=border:#ea6962,header:#eddeb5,gutter:#1D2021
-		--color=spinner:#7daea3,info:#7daea3,separator:#1D2021
-		--color=pointer:#d8a657,marker:#ea6962,prompt:#d8a657"
+# FZF color settings
+export FZF_DEFAULT_OPTS=" \
+    --color=fg:#ECE1D7,bg:#292522,hl:#BD8183 \
+    --color=fg+:#ECE1D7,bg+:#403A36,hl+:#BD8183 \
+    --color=info:#7F91B2,prompt:#E49B5D,pointer:#BD8183 \
+    --color=marker:#85B695,spinner:#D47766,header:#7B9695 \
+    --color=gutter:#34302C,scrollbar:#A3A9CE \
+    --color=border:#C1A78E"
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS=' --preview "batfile {}" --no-height'
@@ -94,35 +88,30 @@ export FZF_ALT_C_OPTS='--preview "exa -a -T -L 1 --color=always {}" --no-height'
 
 export UV_THREADPOOL_SIZE=64
 export PRETTIERD_DEFAULT_CONFIG=/home/ml/.prettierrc.json
-export NPM_PACKAGES="${HOME}/.npm-packages"
+export NPM_PACKAGES="${HOME}/.npm-global"
 export MANPATH="${MANPATH-$(manpath)}:${NPM_PACKAGES}/share/man"
-export CHROME_PATH=/usr/bin/brave
 export DICPATH=/usr/share/hunspell/
-export JAVA_HOME=/usr/lib/jvm/java-17-graalvm
 export PGDATA=/var/lib/postgres/data
 export DOCKER_BUILDKIT=1
 
 # pnpm
 export PNPM_HOME="/home/ml/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
+export PATH="/home/ml/.npm-global/bin:$PATH"
 # pnpm end
 
-export LIBVA_DRIVER_NAME=nvidia
-export MOZ_DISABLE_RDD_SANDBOX=1
 export BUN_INSTALL="$HOME/.bun"
 export TZ='America/Vancouver'
-
 export PATH="/run/user/1000/fnm_multishells/414703_1682457091556/bin":$PATH
-export FNM_ARCH="x64"
-export FNM_NODE_DIST_MIRROR="https://nodejs.org/dist"
-export FNM_LOGLEVEL="info"
-export FNM_MULTISHELL_PATH="/run/user/1000/fnm_multishells/414703_1682457091556"
-export FNM_VERSION_FILE_STRATEGY="local"
-export FNM_DIR="/home/ml/.local/share/fnm"
+export QT_QPA_PLATFORMTHEME=qt5ct
 
-export DB_UI_LOCAL=mysql://root:admin@127.0.0.1:3306/streamily_staging
-export DB_UI_STAGING=mysql://root:1lFGdmIJT7cJ72RZeYuScjNDqZ5tBkAv5c@127.0.0.1:3307/streamily
-export DB_UI_PRODUCTION=mysql://root:AnlZXLM3uNXUCJVG2SxYfXdCFr6PB6BOPN@127.0.0.1:3308/streamily
-export DB_UI_COOKBOOK=mysql://root:admin@127.0.0.1:3306/cookbook
+# fnm
+FNM_PATH="/home/ml/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+	export PATH="$FNM_PATH:$PATH"
+	eval "$(fnm env --version-file-strategy=recursive)"
+fi
 
-export GTK_THEME="Gruvbox-Material-Dark"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export COLORTERM=truecolor

@@ -1,15 +1,14 @@
 return {
-	{ "nvim-lua/plenary.nvim", lazy = true, version = false },
-	{ "kyazdani42/nvim-web-devicons", lazy = true, version = false },
-	{ "MunifTanjim/nui.nvim", lazy = true, version = false },
-	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make", version = false },
+	{ "nvim-lua/plenary.nvim",                      lazy = true, version = false },
 	{ "nvim-telescope/telescope-file-browser.nvim", lazy = true, version = false },
 	{
 		"nvim-telescope/telescope.nvim",
-		lazy = true,
-		cmd = "Telescope",
+		lazy = false,
 		version = false,
-		dependencies = { "nvim-telescope/telescope-fzf-native.nvim", "nvim-telescope/telescope-live-grep-args.nvim" },
+		dependencies = {
+			{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' },
+			{ "kyazdani42/nvim-web-devicons",             lazy = true,                                                                                   version = false },
+			"nvim-telescope/telescope-live-grep-args.nvim" },
 		config = function()
 			local lga_actions = require("telescope-live-grep-args.actions")
 			local telescope = require("telescope")

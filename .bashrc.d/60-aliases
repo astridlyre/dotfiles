@@ -69,7 +69,7 @@ alias st="git status"
 
 alias repl="clj -Sdeps '{:deps {nrepl/nrepl {:mvn/version \"0.9.0\"} cider/cider-nrepl {:mvn/version \"0.28.4\"}}}' -m nrepl.cmdline --middleware '[\"cider.nrepl/cider-middleware\"]' --interactive"
 
-alias pandock='docker run --rm -v "$(pwd):/data" -u $(id -u):$(id -g) pandoc/latex'
+alias pandock='docker run --rm -v "$(pwd):/data" -u $(id -u):$(id -g) pandoc/extra'
 alias stripe="docker run --rm -it -v stripe-config://root/.config/stripe/ -v stripe-gpg://root/.gnupg/ -v stripe-pass://root/.password-store/ stripe-cli"
 
 alias proddb='tsh ssh -L 3308:prod-aurora-us-west-1.cluster-cqioi60hyw7w.us-west-1.rds.amazonaws.com:3306 -N --proxy=secure.common.aws.us-west-1.streamily.com root@bastion-prod-1'
@@ -84,5 +84,4 @@ alias redis-cli="docker run -it --network host --rm redis redis-cli"
 alias mnt="udisksctl mount -b"
 alias umnt="udisksctl unmount -b"
 alias serve="python -m http.server 8080"
-
-alias order_numbers='for file in * ; do cat $file | rg -o "P(\d{9})" ; done | sort | uniq > order_numbers.txt'
+alias pick-color='grim -g "$(slurp -p)" -t ppm - | magick - -format "%[pixel:p{0,0}]" txt:-'

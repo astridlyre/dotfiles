@@ -1,1 +1,1 @@
-au BufEnter *.hbs set filetype=html
+au BufEnter *.hbs set filetype=handlebars

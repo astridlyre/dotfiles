@@ -21,3 +21,8 @@ tags.temp
 .bin/exercism
 .bin/stash
 .bin/start-tor-browser
+.bin/tctl
+.bin/tsh
+.bin/mysql.binary
+.bin/beekeeper-studio
+

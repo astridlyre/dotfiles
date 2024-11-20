@@ -1,16 +1,5 @@
 return {
 	{
-		"sainnhe/gruvbox-material",
-		name = "gruvbox",
-		version = false,
-		config = function()
-			vim.g.gruvbox_material_foreground = "material"
-			vim.g.gruvbox_material_background = "hard"
-			vim.g.gruvbox_material_better_performance = 1
-			vim.cmd("colorscheme gruvbox-material")
-		end,
-	},
-	{
 		"norcalli/nvim-colorizer.lua",
 		version = false,
 		event = { "BufReadPost", "BufNewFile" },
@@ -37,12 +26,6 @@ return {
 		end,
 	},
 	{
-		"Olical/conjure",
-		version = false,
-		lazy = true,
-		filetypes = { "clojure", "fennel", "lisp", "scheme", "hy", "clj" },
-	},
-	{
 		"lewis6991/gitsigns.nvim",
 		event = { "BufRead", "BufNewFile" },
 		version = false,
@@ -51,11 +34,11 @@ return {
 
 			gitsigns.setup({
 				signs = {
-					add = { hl = "GitGutterAdd", text = "▎" },
-					change = { hl = "GitGutterChange", text = "▎" },
-					delete = { hl = "GitGutterDelete", text = "" },
-					topdelete = { hl = "GitGutterDelete", text = "" },
-					changedelete = { hl = "GitGutterChange", text = "▎" },
+					add = { text = "▎" },
+					change = { text = "▎" },
+					delete = { text = "" },
+					topdelete = { text = "" },
+					changedelete = { text = "▎" },
 					untracked = { text = "▎" },
 				},
 			})
@@ -90,24 +73,6 @@ return {
 		end,
 	},
 	{
-		"pwntester/octo.nvim",
-		lazy = true,
-		cmd = "Octo",
-		version = false,
-		config = function()
-			require("octo").setup()
-		end,
-	},
-	{
-		"echasnovski/mini.statusline",
-		version = false,
-		config = function()
-			require("mini.statusline").setup({
-				set_vim_settings = false,
-			})
-		end,
-	},
-	{
 		"stevearc/dressing.nvim",
 		lazy = true,
 		init = function()
@@ -123,4 +88,11 @@ return {
 			end
 		end,
 	},
+	{
+		"savq/melange-nvim",
+		config = function()
+			vim.opt.termguicolors = true
+			vim.cmd.colorscheme("melange")
+		end
+	}
 }

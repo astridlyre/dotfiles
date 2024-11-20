@@ -3,9 +3,6 @@
 
 declare -i FIRST_RUN=0
 
-ICON_COLOR="#a9b665" # Icon color
-TEXT_COLOR="#d4be98" # Text color
-
 listen() {
 	docker system events 2>/dev/null | {
 		while true; do
@@ -28,7 +25,7 @@ listen() {
 }
 
 output() {
-	echo "%{F${ICON_COLOR}}  %{F${TEXT_COLOR}}$(docker ps -aq | wc -l)%{F-}"
+	docker ps -aq | wc -l
 }
 
 case "$1" in

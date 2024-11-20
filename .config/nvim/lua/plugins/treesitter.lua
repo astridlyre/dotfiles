@@ -40,8 +40,8 @@ return {
 		event = { "BufReadPost", "BufNewFile" },
 		dependencies = {
 			{ "nvim-treesitter/nvim-treesitter-textobjects", version = false },
-			{ "windwp/nvim-ts-autotag", version = false },
-			{ "andymass/vim-matchup", version = false },
+			{ "windwp/nvim-ts-autotag",                      version = false },
+			{ "andymass/vim-matchup",                        version = false },
 			{ "nvim-treesitter/nvim-treesitter-textobjects", version = false },
 		},
 		build = ":TSUpdate",
@@ -53,12 +53,11 @@ return {
 				highlight = { enable = true, additional_vim_regex_highlighting = false },
 				indent = { enable = true },
 				incremental_selection = {
-					enable = true,
+					enable = false,
 					keymaps = {
-						init_selection = "<CR>",
-						scope_incremental = "<S-CR>",
-						node_incremental = "<TAB>",
-						node_decremental = "<S-TAB>",
+						init_selection = true,
+						node_incremental = "v",
+						node_decremental = "<BS>",
 					},
 				},
 				textobjects = {
