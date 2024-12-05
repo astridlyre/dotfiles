@@ -35,3 +35,6 @@ prepend_path "${HOME}/.bun/bin"
 # haskell
 prepend_path "${HOME}/.stack/bin"
 prepend_path "${HOME}/.ghcup/bin"
+
+# fly.io
+prepend_path "${HOME}/.fly/bin"

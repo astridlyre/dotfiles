@@ -120,7 +120,27 @@ return {
 							"cat ~/.config/github-copilot/hosts.json | sed -e 's/.*oauth_token...//;s/\".*//'",
 						},
 					},
+				},
+				hooks = {
+					CodeReview = function(gp, params)
+						local template =
+							"You are an expert software developer with a specialization in Javascript / Node.js functional programming. I have the following code from {{filename}}:\n\n"
+							.. "```{{filetype}}\n{{selection}}\n```\n\n"
+							.. "Please analyze for code smells and suggest improvements."
+						local agent = gp.get_chat_agent()
+						gp.Prompt(params, gp.Target.enew("markdown"), agent, template)
+					end,
+					Commit = function(gp, params)
+						local git_changes = vim.fn.system("git diff --staged")
+
+						local template = "I have the following code changes in my git stage:\n\n" ..
+							git_changes .. "\nPlease suggest a commit message."
+
+						local agent = gp.get_chat_agent()
+						gp.Prompt(params, gp.Target.enew("markdown"), agent, template)
+					end,
 				}
+
 			})
 
 			local function keymapOptions(desc)
@@ -128,12 +148,15 @@ return {
 					noremap = true,
 					silent = true,
 					nowait = true,
-					desc = "GPT prompt " .. desc,
+					desc = "Prompt: " .. desc,
 				}
 			end
 
+			vim.keymap.set({ "n", "i" }, "<C-g>cr", "<cmd>GpCodeReview<cr>", keymapOptions("Code Review"))
+			vim.keymap.set({ "n", "i" }, "<C-g>cs", "<cmd>GpCommit<cr>", keymapOptions("Commit"))
+
 			-- Chat commands
-			vim.keymap.set({ "n", "i" }, "<C-g>c", "<cmd>GpChatNew<cr>", keymapOptions("New Chat"))
+			vim.keymap.set({ "n", "i" }, "<C-g>cn", "<cmd>GpChatNew<cr>", keymapOptions("New Chat"))
 			vim.keymap.set({ "n", "i" }, "<C-g>t", "<cmd>GpChatToggle<cr>", keymapOptions("Toggle Chat"))
 			vim.keymap.set({ "n", "i" }, "<C-g>f", "<cmd>GpChatFinder<cr>", keymapOptions("Chat Finder"))
 

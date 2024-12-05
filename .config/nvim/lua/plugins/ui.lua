@@ -1,31 +1,5 @@
 return {
 	{
-		"norcalli/nvim-colorizer.lua",
-		version = false,
-		event = { "BufReadPost", "BufNewFile" },
-		config = function()
-			require("colorizer").setup({
-				"css",
-				"javascript",
-				"html",
-				"yaml",
-				"python",
-				"sass",
-				"markdown",
-				"lua",
-				"typescript",
-				"vim",
-				"sh",
-				"bash",
-				"scss",
-				"kitty",
-				"javascriptreact",
-				"typescriptreact",
-				"dosini",
-			})
-		end,
-	},
-	{
 		"lewis6991/gitsigns.nvim",
 		event = { "BufRead", "BufNewFile" },
 		version = false,
