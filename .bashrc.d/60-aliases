@@ -67,13 +67,14 @@ alias checkout="git checkout"
 alias commit="git commit"
 alias st="git status"
 
-alias repl="clj -Sdeps '{:deps {nrepl/nrepl {:mvn/version \"0.9.0\"} cider/cider-nrepl {:mvn/version \"0.28.4\"}}}' -m nrepl.cmdline --middleware '[\"cider.nrepl/cider-middleware\"]' --interactive"
+alias repl="clj -M:repl/conjure"
 
 alias pandock='docker run --rm -v "$(pwd):/data" -u $(id -u):$(id -g) pandoc/extra'
 alias stripe="docker run --rm -it -v stripe-config://root/.config/stripe/ -v stripe-gpg://root/.gnupg/ -v stripe-pass://root/.password-store/ stripe-cli"
 
-alias proddb='tsh ssh -L 3308:prod-aurora-us-west-1.cluster-cqioi60hyw7w.us-west-1.rds.amazonaws.com:3306 -N --proxy=secure.common.aws.us-west-1.streamily.com root@bastion-prod-1'
-alias stagingdb='tsh ssh -L 3307:staging-aurora-us-west-1.cluster-cpe86pd9fivv.us-west-1.rds.amazonaws.com:3306 -N --proxy=secure.common.aws.us-west-1.streamily.com root@bastion-staging-1'
+alias proddb='ssh -i "~/.ssh/st-prod-1.pem" -L 3308:st-prod-1-us-west-1.cluster-cz4qc0ygmyrt.us-west-1.rds.amazonaws.com:3306 ec2-user@ec2-52-53-72-199.us-west-1.compute.amazonaws.com -N'
+alias proddb2='ssh -v -i "~/.ssh/st-prod-1.pem" -L 3308:st-prod-1-us-west-1.cluster-cz4qc0ygmyrt.us-west-1.rds.amazonaws.com:3306 ubuntu@ec2-54-177-172-105.us-west-1.compute.amazonaws.com -N'
+alias stagingdb='ssh -i "~/.ssh/st-staging-1.pem" -L 3307:st-staging-1-us-west-1.cluster-cb4uoooy6nqd.us-west-1.rds.amazonaws.com:3306 ec2-user@ec2-204-236-166-169.us-west-1.compute.amazonaws.com -N'
 
 alias prodredis='tsh ssh -L 6379:redis.default.svc.cluster.local:6379 -N --proxy=secure.common.aws.us-west-1.streamily.com root@bastion-prod-1'
 
@@ -85,3 +86,4 @@ alias mnt="udisksctl mount -b"
 alias umnt="udisksctl unmount -b"
 alias serve="python -m http.server 8080"
 alias pick-color='grim -g "$(slurp -p)" -t ppm - | magick - -format "%[pixel:p{0,0}]" txt:-'
+alias el="iamb"

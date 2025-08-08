@@ -71,14 +71,17 @@ done
 # fzf
 export FZF_DEFAULT_COMMAND="rg --files --hidden $FZF_IGNORE_GLOB"
 
-# FZF color settings
-export FZF_DEFAULT_OPTS=" \
-    --color=fg:#ECE1D7,bg:#292522,hl:#BD8183 \
-    --color=fg+:#ECE1D7,bg+:#403A36,hl+:#BD8183 \
-    --color=info:#7F91B2,prompt:#E49B5D,pointer:#BD8183 \
-    --color=marker:#85B695,spinner:#D47766,header:#7B9695 \
-    --color=gutter:#34302C,scrollbar:#A3A9CE \
-    --color=border:#C1A78E"
+export FZF_DEFAULT_OPTS="
+  --color=bg:#FAF2EB,fg:#1A1918
+  --color=hl:#0000A6,hl+:#6F00A6
+  --color=fg+:#1A1918,bg+:#FAFAFA
+  --color=info:#00A6A6
+  --color=prompt:#6F00A6
+  --color=pointer:#A60000
+  --color=marker:#00A600
+  --color=spinner:#6F00A6
+  --color=header:#00A6A6
+"
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS=' --preview "batfile {}" --no-height'
@@ -102,15 +105,15 @@ export PATH="/home/ml/.npm-global/bin:$PATH"
 
 export BUN_INSTALL="$HOME/.bun"
 export TZ='America/Vancouver'
-export PATH="/run/user/1000/fnm_multishells/414703_1682457091556/bin":$PATH
+# export PATH="/run/user/1000/fnm_multishells/414703_1682457091556/bin":$PATH
 export QT_QPA_PLATFORMTHEME=qt5ct
 
 # fnm
-FNM_PATH="/home/ml/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-	export PATH="$FNM_PATH:$PATH"
-	eval "$(fnm env --version-file-strategy=recursive)"
-fi
+# FNM_PATH="/home/ml/.local/share/fnm"
+# if [ -d "$FNM_PATH" ]; then
+# 	export PATH="$FNM_PATH:$PATH"
+# 	eval "$(fnm env --version-file-strategy=recursive)"
+# fi
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"

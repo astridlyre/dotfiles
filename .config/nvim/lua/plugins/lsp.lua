@@ -6,16 +6,21 @@ return {
 			require("moonlight.lsp").setup()
 		end,
 	},
-	{
-		'mrcjkb/haskell-tools.nvim',
-		version = '^4', -- Recommended
-		lazy = false, -- This plugin is already lazy
-	},
+	-- {
+	-- 	'mrcjkb/haskell-tools.nvim',
+	-- 	version = '^4', -- Recommended
+	-- 	lazy = false, -- This plugin is already lazy
+	-- },
 	{
 		"pmizio/typescript-tools.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "williamboman/mason.nvim" },
 		version = false,
+		lazy = false,
 		opts = {},
+		keys = {
+			{ "<leader>la", ":TSToolsAddMissingImports<cr>", desc = "Add Missing Imports" },
+			{ "<leader>li", ":TSToolsOrganizeImports<cr>",   desc = "Organize Imports" },
+		}
 	},
 	{
 		"williamboman/mason.nvim",
@@ -35,6 +40,10 @@ return {
 					raco = { command = "raco", args = 'fmt' }
 				},
 				formatters_by_ft = {
+					-- javascript = { "prettierd" },
+					-- typescript = { "prettierd" },
+					-- javascriptreact = { "prettierd" },
+					-- typescriptreact = { "prettierd" },
 					javascript = { "biome" },
 					typescript = { "biome" },
 					javascriptreact = { "biome" },
@@ -90,6 +99,7 @@ return {
 						hint = vim.diagnostic.severity.HINT,
 					}, { ['source'] = 'review' })
 			}
+
 			lint.linters_by_ft = { python = { "pylint" }, racket = { "raco_review" } }
 
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
@@ -117,7 +127,7 @@ return {
 						secret = {
 							"bash",
 							"-c",
-							"cat ~/.config/github-copilot/hosts.json | sed -e 's/.*oauth_token...//;s/\".*//'",
+							"cat ~/.config/github-copilot/apps.json | sed -e 's/.*oauth_token...//;s/\".*//'",
 						},
 					},
 				},
@@ -134,7 +144,8 @@ return {
 						local git_changes = vim.fn.system("git diff --staged")
 
 						local template = "I have the following code changes in my git stage:\n\n" ..
-							git_changes .. "\nPlease suggest a commit message."
+							git_changes ..
+							"\nPlease suggest a commit message. Do not explain or describe it in any way, just provide the commit message following the 'conventional commit' style."
 
 						local agent = gp.get_chat_agent()
 						gp.Prompt(params, gp.Target.enew("markdown"), agent, template)

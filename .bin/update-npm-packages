@@ -21,7 +21,6 @@ DEFAULT_PACKAGES=("bash-language-server"
 	"autocannon"
 	"esbuild"
 	"sql-formatter"
-	"@fsouza/prettierd"
-	"rome")
+	"@fsouza/prettierd")
 
 pnpm install --global "${DEFAULT_PACKAGES[@]}"

@@ -53,11 +53,11 @@ return {
 				highlight = { enable = true, additional_vim_regex_highlighting = false },
 				indent = { enable = false },
 				incremental_selection = {
-					enable = false,
+					enable = true,
 					keymaps = {
-						init_selection = true,
-						node_incremental = "v",
-						node_decremental = "<BS>",
+						init_selection = "<Enter>",
+						node_incremental = "<Enter>",
+						node_decremental = "<S-Enter>",
 					},
 				},
 				textobjects = {

@@ -5,18 +5,19 @@
 # Usage: vscan dir
 #
 
-SCANDIR="$HOME" # Default scan home directory
+SCANDIR="${HOME}" # Default scan home directory
 TRASH_DIR="/tmp/trash"
+LOG_FILE="${HOME}/.vscan.log"
 
-[[ -n "$1" ]] && SCANDIR="$1" # If passed dir, use that instead
-[[ ! -d "$TRASH_DIR" ]] && mkdir "$TRASH_DIR" # Make temp trash folder if needed
+[[ -n "$1" ]] && SCANDIR="${1}"                   # If passed dir, use that instead
+[[ ! -d "${TRASH_DIR}" ]] && mkdir "${TRASH_DIR}" # Make temp trash folder if needed
 
 # Begin scan
-echo "Scanning $SCANDIR"
-sudo clamscan --infected --recursive --move="$TRASH_DIR" "$SCANDIR"
+echo "Scanning ${SCANDIR}"
+sudo clamscan --log="${LOG_FILE}" --infected --recursive --move="${TRASH_DIR}" "${SCANDIR}"
 
 # Post scan view trash
 echo "Trash dir contents:"
-ls "$TRASH_DIR"
+ls "${TRASH_DIR}"
 
 # EOF

@@ -118,7 +118,8 @@ function stage() {
 	local branch
 	branch="$(git branch --show-current)"
 
-	git checkout new-aws-staging-deployment &&
+	git checkout staging &&
+		git pull &&
 		git merge "$branch" &&
 		git push
 }

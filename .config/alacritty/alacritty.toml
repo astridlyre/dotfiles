@@ -4,27 +4,32 @@ size = 14
 [font.normal]
 family = "PragmataProMonoLiga Nerd Font"
 
+# Colors (Vesper)
+# Source https://github.com/raunofreiberg/vesper
+
 [colors.primary]
-foreground = "#ECE1D7"
-background = "#292522"
+background = '#101010'
+foreground = '#ffffff'
+
 [colors.normal]
-black      = "#34302C"
-red        = "#BD8183"
-green      = "#78997A"
-yellow     = "#E49B5D"
-blue       = "#7F91B2"
-magenta    = "#B380B0"
-cyan       = "#7B9695"
-white      = "#C1A78E"
+black   = '#101010'
+red     = '#f5a191'
+green   = '#90b99f'
+yellow  = '#e6b99d'
+blue    = '#aca1cf'
+magenta = '#e29eca'
+cyan    = '#ea83a5'
+white   = '#a0a0a0'
+
 [colors.bright]
-black      = "#867462"
-red        = "#D47766"
-green      = "#85B695"
-yellow     = "#EBC06D"
-blue       = "#A3A9CE"
-magenta    = "#CF9BC2"
-cyan       = "#89B3B6"
-white      = "#ECE1D7"
+black   = '#7e7e7e'
+red     = '#ff8080'
+green   = '#99ffe4'
+yellow  = '#ffc799'
+blue    = '#b9aeda'
+magenta = '#ecaad6'
+cyan    = '#f591b2'
+white   = '#ffffff'
 
 [keyboard]
 bindings = [

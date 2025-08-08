@@ -1,157 +1,173 @@
 return {
 	{
-		"iguanacucumber/magazine.nvim",
-		name = "nvim-cmp",
-		version = false,
-		event = "InsertEnter",
+		"saghen/blink.cmp",
 		dependencies = {
-			{ "hrsh7th/cmp-nvim-lsp",               version = false },
-			{ "hrsh7th/cmp-nvim-lua",               version = false },
-			{ "hrsh7th/cmp-buffer",                 version = false },
-			{ "saadparwaiz1/cmp_luasnip",           version = false },
-			{ "L3MON4D3/LuaSnip",                   build = "make install_jsregexp", version = false },
 			{ dir = "~/projects/friendly-snippets", dev = true },
-			{ "onsails/lspkind-nvim" },
+			"giuxtaposition/blink-cmp-copilot",
 		},
-		config = function()
-			local cmp = require("cmp")
-			local lspkind = require("lspkind")
-			local luasnip = require("luasnip")
-			local utils = require("moonlight.utils")
-			local imap = utils.imap
+		version = "*",
 
-			luasnip.config.set_config({ region_check_events = "CursorMoved" })
+		---@module 'blink.cmp'
+		---@type blink.cmp.Config
+		opts = {
+			appearance = {
+				use_nvim_cmp_as_default = false,
+				nerd_font_variant = "mono",
+				kind_icons = {
 
-			-- load snippets
-			require("luasnip.loaders.from_vscode").lazy_load()
+					Copilot = "",
+					Text = '󰉿',
+					Method = '󰊕',
+					Function = '󰊕',
+					Constructor = '󰒓',
 
-			-- snippet jumping
-			local t = function(str)
-				return vim.api.nvim_replace_termcodes(str, true, true, true)
-			end
+					Field = '󰜢',
+					Variable = '󰆦',
+					Property = '󰖷',
 
-			local function snippet_next()
-				if luasnip and luasnip.expand_or_jumpable() then
-					return luasnip.expand_or_jump()
-				else
-					return t("<C-j>")
-				end
-			end
+					Class = '󱡠',
+					Interface = '󱡠',
+					Struct = '󱡠',
+					Module = '󰅩',
 
-			local function snippet_prev()
-				if luasnip and luasnip.jumpable(-1) then
-					return luasnip.jump(-1)
-				else
-					return t("<C-k>")
-				end
-			end
+					Unit = '󰪚',
+					Value = '󰦨',
+					Enum = '󰦨',
+					EnumMember = '󰦨',
 
-			local function expand(args)
-				luasnip.lsp_expand(args.body)
-			end
+					Keyword = '󰻾',
+					Constant = '󰏿',
 
-			imap("<C-e>", "<C-k>")
-			imap("<C-j>", snippet_next)
-			imap("<C-k>", snippet_prev)
+					Snippet = '󱄽',
+					Color = '󰏘',
+					File = '󰈔',
+					Reference = '󰬲',
+					Folder = '󰉋',
+					Event = '󱐋',
+					Operator = '󰪚',
+					TypeParameter = '󰬛',
+				},
+			},
 
-			local autocomplete_group = vim.api.nvim_create_augroup("vimrc_autocompletion", { clear = true })
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = { "sql", "mysql", "plsql" },
-				callback = function()
-					cmp.setup.buffer({
-						sources = {
-							{ name = "copilot", group_index = 2 },
-						},
-					})
-				end,
-				group = autocomplete_group,
-			})
+			enabled = function()
+				return not vim.tbl_contains({ "TelescopePrompt", "DressingSelect", "DressingInput" }, vim.bo.filetype)
+					and vim.bo.buftype ~= "prompt"
+					and vim.b.completion ~= false
+			end,
 
-			local sources = cmp.config.sources({
-				{ name = "luasnip",  group_index = 2 },
-				{ name = "copilot",  group_index = 2 },
-				{ name = "nvim_lsp", group_index = 2 },
-				-- { name = "conjure" },
-				{ name = "nvim_lua", group_index = 2 },
-			}, {
-				{ name = "buffer", group_index = 2 },
-			})
+			completion = {
+				trigger = { prefetch_on_insert = false },
+				accept = { auto_brackets = { enabled = true } },
 
-			local format = lspkind.cmp_format({
-				mode = "symbol", -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
-				maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 250,
+					treesitter_highlighting = true,
+				},
+
+				list = { selection = { preselect = true, auto_insert = true } },
+
 				menu = {
-					buffer = "[Buffer]",
-					nvim_lsp = "[LSP]",
-					vsnip = "[Snippet]",
-					tags = "[Tag]",
-					path = "[Path]",
-				},
-				before = function(entry, vim_item)
-					vim_item.menu = "(" .. vim_item.kind .. ")"
-					vim_item.dup = ({
-						nvim_lsp = 0,
-						path = 0,
-					})[entry.source.name] or 0
-					return vim_item
-				end,
-				symbol_map = { Copilot = " " },
-			})
+					cmdline_position = function()
+						if vim.g.ui_cmdline_pos ~= nil then
+							local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
+							return { pos[1] - 1, pos[2] }
+						end
+						local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
+						return { vim.o.lines - height, 0 }
+					end,
 
-			local compare = require("cmp.config.compare")
-
-			-- setup cmp
-			cmp.setup({
-				debug = false,
-				snippet = { expand = expand },
-				experimental = { ghost_text = { hl_group = "LspCodeLens" } },
-				mapping = cmp.mapping.preset.insert({
-					["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-					["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-					["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-					["<C-e>"] = cmp.mapping({
-						i = cmp.mapping.abort(),
-						c = cmp.mapping.close({ behavior = cmp.ConfirmBehavior.Replace }),
-					}),
-					["<c-y>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
-				}),
-				sources = sources,
-				formatting = {
-					format = format,
-					fields = { "kind", "abbr", "menu" },
-				},
-				sorting = {
-					priority_weight = 2,
-					comparators = {
-						compare.exact,
-						require("copilot_cmp.comparators").prioritize,
-						-- require("copilot_cmp.comparators").score,
-						compare.offset,
-						compare.score,
-						compare.kind,
-						compare.sort_text,
-						compare.length,
-						compare.order,
+					draw = {
+						columns = { { 'item_idx' }, { 'kind_icon' }, { 'label', 'label_description', gap = 1 } },
+						components = {
+							item_idx = {
+								text = function(ctx)
+									return ctx.idx == 10 and '0' or ctx.idx >= 10 and ' ' or
+										tostring(ctx.idx)
+								end,
+								highlight = 'BlinkCmpItemIdx' -- optional, only if you want to change its color
+							}
+						},
 					},
 				},
-				window = {
-					completion = cmp.config.window.bordered({
-						col_offset = 3,
-						side_padding = 0,
-						winhighlight = "Normal:Normal,FloatBorder:BorderBG,CursorLine:PmenuSel,Search:None",
-					}),
-					documentation = cmp.config.window.bordered({
-						winhighlight = "Normal:Normal,FloatBorder:BorderBG,CursorLine:PmenuSel,Search:None",
-					}),
+			},
+
+			keymap = {
+				preset = "none",
+				["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+				["<C-e>"] = { "hide", "fallback" },
+				["<C-y>"] = { "accept", "fallback" },
+				["<C-s>"] = { "show_signature", "hide_signature", "fallback" },
+				["<C-j>"] = { "snippet_forward", "accept", "fallback" },
+				["<C-k>"] = { "snippet_backward", "fallback" },
+				["<Up>"] = { "select_prev", "fallback" },
+				["<Down>"] = { "select_next", "fallback" },
+				["<C-p>"] = { "select_prev", "fallback" },
+				["<C-n>"] = { "select_next", "fallback" },
+				["<C-up>"] = { "scroll_documentation_up", "fallback" },
+				["<C-down>"] = { "scroll_documentation_down", "fallback" },
+				['<A-1>'] = { function(cmp) cmp.accept({ index = 1 }) end },
+				['<A-2>'] = { function(cmp) cmp.accept({ index = 2 }) end },
+				['<A-3>'] = { function(cmp) cmp.accept({ index = 3 }) end },
+				['<A-4>'] = { function(cmp) cmp.accept({ index = 4 }) end },
+				['<A-5>'] = { function(cmp) cmp.accept({ index = 5 }) end },
+				['<A-6>'] = { function(cmp) cmp.accept({ index = 6 }) end },
+				['<A-7>'] = { function(cmp) cmp.accept({ index = 7 }) end },
+				['<A-8>'] = { function(cmp) cmp.accept({ index = 8 }) end },
+				['<A-9>'] = { function(cmp) cmp.accept({ index = 9 }) end },
+				['<A-0>'] = { function(cmp) cmp.accept({ index = 10 }) end },
+			},
+
+			signature = {
+				enabled = true,
+			},
+
+			-- cmdline = { sources = {} }, -- Disable sources for command-line mode
+
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer", "copilot" },
+				providers = {
+					lsp = {
+						min_keyword_length = 1, -- Number of characters to trigger provider
+						score_offset = 0, -- Boost/penalize the score of the items
+					},
+					path = {
+						min_keyword_length = 1,
+					},
+					snippets = {
+						min_keyword_length = 1,
+						score_offset = 200,
+						max_items = 3
+					},
+					buffer = {
+						min_keyword_length = 5,
+						max_items = 2,
+					},
+					copilot = {
+						name = "Copilot",
+						module = "blink-cmp-copilot",
+						score_offset = 100,
+						async = true,
+						transform_items = function(_, items)
+							local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+							local kind_idx = #CompletionItemKind + 1
+							CompletionItemKind[kind_idx] = "Copilot"
+							for _, item in ipairs(items) do
+								item.kind = kind_idx
+								item.kind_icon = ""
+							end
+							return items
+						end,
+					}
 				},
-			})
-		end,
+			},
+		},
 	},
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		config = function()
-			require("nvim-autopairs").setup({
+			require('nvim-autopairs').setup({
 				enable_check_bracket_line = false,
 			})
 		end,
@@ -166,12 +182,11 @@ return {
 			local copilot = require("copilot")
 			local panel = require("copilot.panel")
 			local suggestion = require("copilot.suggestion")
-			local utils = require("moonlight.utils")
-			local lmap = utils.lmap
 
 			copilot.setup({
 				suggestion = { enabled = false },
 				panel = { enabled = false },
+				copilot_model = 'gpt-4o-copilot',
 				server_opts_overrides = {
 					trace = "verbose",
 					settings = {
@@ -182,44 +197,14 @@ return {
 				},
 			})
 
-			lmap("csa", function()
-				suggestion.accept()
-			end)
-
-			lmap("csn", function()
-				suggestion.next()
-			end)
-
-			lmap("csp", function()
-				suggestion.prev()
-			end)
-
-			lmap("cpa", function()
-				panel.accept()
-			end)
-
-			lmap("cpn", function()
-				panel.next()
-			end)
-
-			lmap("cpp", function()
-				panel.prev()
-			end)
-
-			lmap("cpo", function()
-				panel.open()
-			end)
-
-			lmap("cpr", function()
-				panel.refresh()
-			end)
-		end,
-	},
-	{
-		"zbirenbaum/copilot-cmp",
-		version = false,
-		config = function()
-			require("copilot_cmp").setup()
+			vim.keymap.set('n', "<leader>csa", function() suggestion.accept() end)
+			vim.keymap.set('n', "<leader>csn", function() suggestion.next() end)
+			vim.keymap.set('n', "csp", function() suggestion.prev() end)
+			vim.keymap.set('n', "cpa", function() panel.accept() end)
+			vim.keymap.set('n', "cpn", function() panel.next() end)
+			vim.keymap.set('n', "cpp", function() panel.prev() end)
+			vim.keymap.set('n', "cpo", function() panel.open() end)
+			vim.keymap.set('n', "cpr", function() panel.refresh() end)
 		end,
 	},
 	{
@@ -231,19 +216,6 @@ return {
 			-- Uncomment this to get verbose logging to help diagnose internal Conjure issues
 			-- This is VERY helpful when reporting an issue with the project
 			-- vim.g["conjure#debug"] = true
-		end,
-
-		-- Optional cmp-conjure integration
-		dependencies = { "PaterJason/cmp-conjure" },
-	},
-	{
-		"PaterJason/cmp-conjure",
-		lazy = true,
-		config = function()
-			local cmp = require("cmp")
-			local config = cmp.get_config()
-			table.insert(config.sources, { name = "conjure" })
-			return cmp.setup(config)
 		end,
 	},
 }

@@ -1,9 +1,5 @@
 local M = {}
 
-local utils = require("moonlight.utils")
-local nmap = utils.nmap
-local imap = utils.imap
-
 local function get_diagnostic_at_cursor()
 	local cur_buf = vim.api.nvim_get_current_buf()
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -34,50 +30,25 @@ end
 
 local lsp_maps = function(client, bufnr)
 	local opts = { buffer = bufnr }
-	nmap("gD", vim.lsp.buf.declaration, opts)
 
-	nmap("gd", function()
-		if vim.tbl_contains({ "javascript", "typescript", "javascriptreact", "typescriptreact" }, vim.bo.filetype) then
-			vim.cmd("TSToolsGoToSourceDefinition")
-			return
-		end
-
-		vim.lsp.buf.definition()
-	end, opts)
-
-	nmap("K", vim.lsp.buf.hover, opts)
-	nmap("gi", vim.lsp.buf.implementation, opts)
-	nmap("gr", vim.lsp.buf.references, opts)
-	nmap("<space>wa", vim.lsp.buf.add_workspace_folder, opts)
-	nmap("<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
-	nmap("<space>rn", vim.lsp.buf.rename, opts)
-	nmap("<space>qf", vim.diagnostic.setqflist, opts)
-	nmap("<c-s>", vim.lsp.buf.signature_help, opts)
-	imap("<c-s>", vim.lsp.buf.signature_help, opts)
-
-	nmap("<space>ca", function()
-		return vim.lsp.buf.code_action({
-			context = {
-				diagnostics = get_diagnostic_at_cursor(),
-			},
-		})
+	vim.keymap.set('n', "gD", vim.lsp.buf.declaration, opts)
+	vim.keymap.set('n', "gd", vim.lsp.buf.definition, opts)
+	vim.keymap.set('n', "K", vim.lsp.buf.hover, opts)
+	vim.keymap.set('n', "gi", vim.lsp.buf.implementation, opts)
+	vim.keymap.set('n', "gr", vim.lsp.buf.references, opts)
+	vim.keymap.set('n', "<leader>rn", vim.lsp.buf.rename, opts)
+	vim.keymap.set('n', "<leader>qf", vim.diagnostic.setqflist, opts)
+	vim.keymap.set('n', "<leader>ca", function()
+		return vim.lsp.buf.code_action({ context = { diagnostics = get_diagnostic_at_cursor() } })
 	end)
-
-	nmap("<space>wp", function()
-		return print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+	vim.keymap.set('n', "<leader>wp", function() return print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end)
+	vim.keymap.set('n', "<leader>ld", function()
+		return vim.diagnostic.open_float(nil, { source = "always", border = "rounded" })
 	end)
-
-	nmap("<space>ll", function()
-		return vim.diagnostic.open_float(nil, { source = "always", border = "solid" })
-	end)
-
-	nmap("<c-j>", function()
-		return vim.diagnostic.goto_next({ border = "solid" })
-	end)
-
-	nmap("<c-k>", function()
-		return vim.diagnostic.goto_prev({ border = "solid" })
-	end)
+	vim.keymap.set('n', "<c-j>",
+		function() return vim.diagnostic.jump({ count = 1, float = { border = "rounded" } }) end)
+	vim.keymap.set('n', "<c-k>",
+		function() return vim.diagnostic.jump({ count = -1, float = { border = "rounded" } }) end)
 end
 
 -- Generic On-Attach Function
@@ -95,7 +66,12 @@ local function make_capabilities()
 	capabilities.textDocument.completion.completionItem.resolveSupport = {
 		properties = { "documentation", "detail", "additionalTextEdits" },
 	}
-	capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+	capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+
+	require('nvim-autopairs').get_rules("'")[1].not_filetypes = { "scheme", "lisp", "clojure", "clojurescript", "racket" }
+	require('nvim-autopairs').get_rules("`")[1].not_filetypes = { "scheme", "lisp", "clojure", "clojurescript", "racket" }
+	require('nvim-autopairs').get_rules("'")[1]:with_pair(require('nvim-autopairs.conds').not_after_text("["))
+
 	return capabilities
 end
 
@@ -118,7 +94,6 @@ M.setup = function()
 			},
 			on_attach = on_attach,
 			capabilities = capabilities,
-			-- flags = flags,
 		})
 	end
 
@@ -135,14 +110,12 @@ M.setup = function()
 			init_options = { usePlaceholders = true, completeUnimported = true },
 			on_attach = on_attach,
 			capabilities = capabilities,
-			-- flags = flags,
 		})
 	end
 
 	-- Rust Analyzer
 	local function rust_analyzer()
 		lspconfig.rust_analyzer.setup({
-			-- flags = flags,
 			on_attach = on_attach,
 			capabilities = capabilities,
 			settings = {
@@ -183,7 +156,6 @@ M.setup = function()
 		add("~/.local/share/nvim/lazy/*")
 
 		lspconfig.lua_ls.setup({
-			-- flags = flags,
 			on_attach = on_attach,
 			capabilities = capabilities,
 			on_new_config = function(config, root)
@@ -229,7 +201,9 @@ M.setup = function()
 		"jsonls",
 		"astro",
 		"racket_langserver",
-		"templ",
+		--"biome",
+		-- "templ",
+		--"tailwindcss"
 		-- "htmx-lsp",
 	}
 
@@ -237,7 +211,6 @@ M.setup = function()
 		local cfg = {
 			on_attach = on_attach,
 			capabilities = capabilities,
-			-- flags = flags,
 		}
 
 		-- if ls == "html" or ls == "htmx-lsp" or ls == "tailwindcss" then
@@ -257,21 +230,16 @@ M.setup = function()
 		ls()
 	end
 
-	local signs = {
-		{ name = "DiagnosticSignError", text = "" },
-		{ name = "DiagnosticSignWarn", text = "" },
-		{ name = "DiagnosticSignHint", text = "" },
-		{ name = "DiagnosticSignInfo", text = "" },
-	}
-
-	for _, sign in ipairs(signs) do
-		vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
-	end
-
 	vim.diagnostic.config({
 		virtual_text = false,
 		signs = {
-			active = signs,
+			text = {
+				[vim.diagnostic.severity.ERROR] = "",
+				[vim.diagnostic.severity.WARN] = "",
+				[vim.diagnostic.severity.INFO] = "",
+				[vim.diagnostic.severity.HINT] = "",
+
+			}
 		},
 		update_in_insert = false,
 		underline = true,
@@ -279,21 +247,10 @@ M.setup = function()
 		float = {
 			show_header = false,
 			focusable = false,
-			border = "rounded",
 			source = "if_many",
 			header = "",
 			prefix = "",
 		},
-	})
-
-	require("lspconfig.ui.windows").default_options.border = "rounded"
-
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-		border = "rounded",
-	})
-
-	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-		border = "rounded",
 	})
 
 	vim.lsp.set_log_level("OFF")

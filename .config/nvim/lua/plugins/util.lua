@@ -1,5 +1,5 @@
 return {
-	{ "folke/lazy.nvim",  version = "*" },
+	{ "folke/lazy.nvim", version = "*" },
 	{
 		"ggandor/flit.nvim",
 		version = false,
@@ -25,9 +25,8 @@ return {
 		version = false,
 		event = { "BufReadPost", "BufNewFile" },
 	},
-	{ "tpope/vim-repeat", event = "VeryLazy" },
 	{
-		'echasnovski/mini.nvim',
+		'echasnovski/mini.hipatterns',
 		version = false,
 		config = function()
 			local hipatterns = require('mini.hipatterns')
@@ -46,19 +45,9 @@ return {
 		end
 	},
 	{
-		"echasnovski/mini.comment",
+		"folke/ts-comments.nvim",
+		opts = {},
 		event = "VeryLazy",
-		version = false,
-		config = function()
-			require("mini.comment").setup()
-		end,
-	},
-	{
-		"echasnovski/mini.bufremove",
-		event = "VeryLazy",
-		version = false,
-		config = function()
-			require("mini.bufremove").setup()
-		end,
-	},
+		enabled = vim.fn.has("nvim-0.10.0") == 1,
+	}
 }

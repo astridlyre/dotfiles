@@ -5,7 +5,6 @@ return {
 		version = false,
 		config = function()
 			local gitsigns = require("gitsigns")
-
 			gitsigns.setup({
 				signs = {
 					add = { text = "▎" },
@@ -16,57 +15,27 @@ return {
 					untracked = { text = "▎" },
 				},
 			})
-
-			local utils = require("moonlight.utils")
-			local lmap = utils.lmap
-			local nmap = utils.nmap
-			local vmap = utils.vmap
-
-			-- Navigation
-			nmap("]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<cr>'", { expr = true })
-			nmap("[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<cr>'", { expr = true })
-
-			-- Actions
-			vmap("<space>hs", ":Gitsigns stage_hunk<cr>")
-			vmap("<space>hr", ":Gitsigns reset_hunk<cr>")
-			lmap("hs", ":Gitsigns stage_hunk<cr>")
-			lmap("hr", ":Gitsigns reset_hunk<cr>")
-			lmap("hS", gitsigns.stage_buffer)
-			lmap("hu", gitsigns.undo_stage_hunk)
-			lmap("hR", gitsigns.reset_buffer)
-			lmap("hp", gitsigns.preview_hunk)
-			lmap("hb", function()
-				gitsigns.blame_line({ full = true })
-			end)
-			lmap("gb", gitsigns.toggle_current_line_blame)
-			lmap("hd", gitsigns.diffthis)
-			lmap("hD", function()
-				gitsigns.diffthis("~")
-			end)
-			lmap("gt", gitsigns.toggle_deleted)
 		end,
+		keys = {
+			{ "<leader>gh", ":Gitsigns stage_hunk<cr>",                                     desc = 'Git Stage Hunk' },
+			{ "<leader>gr", ":Gitsigns reset_hunk<cr>",                                     desc = 'Git Reset Hunk' },
+			{ "<leader>gH", ":Gitsigns undo_stage_hunk<cr>",                                desc = 'Git Undo Stage Hunk' },
+			{ "<leader>ga", ":Gitsigns stage_buffer<cr>",                                   desc = 'Git Stage Buffer' },
+			{ "<leader>gR", ":Gitsigns reset_buffer<cr>",                                   desc = 'Git Reset Buffer' },
+			{ "<leader>gp", ":Gitsigns preview_hunk<cr>",                                   desc = 'Git Preview Hunk' },
+			{ "<leader>gB", function() require('gitsigns').blame_line({ full = true }) end, desc = 'Git Blame Line Full' },
+			{ "<leader>gB", ":Gitsigns toggle_current_line_blame<cr>",                      desc = 'Git Toggle Blame Line' },
+			{ "<leader>gd", ":Gitsigns diffthis<cr>",                                       desc = 'Git Diff This' },
+			{ "<leader>gD", function() require("gitsigns").diffthis("~") end,               desc = 'Git Diff This' },
+			{ "<leader>gt", ":Gitsigns toggle_deleted<cr>",                                 desc = 'Git Toggle Deleted' },
+		}
 	},
 	{
-		"stevearc/dressing.nvim",
-		lazy = true,
-		init = function()
-			---@diagnostic disable-next-line: duplicate-set-field
-			vim.ui.select = function(...)
-				require("lazy").load({ plugins = { "dressing.nvim" } })
-				return vim.ui.select(...)
-			end
-			---@diagnostic disable-next-line: duplicate-set-field
-			vim.ui.input = function(...)
-				require("lazy").load({ plugins = { "dressing.nvim" } })
-				return vim.ui.input(...)
-			end
-		end,
-	},
-	{
-		"savq/melange-nvim",
+		'Verf/deepwhite.nvim',
+		lazy = false,
+		priority = 1000,
 		config = function()
-			vim.opt.termguicolors = true
-			vim.cmd.colorscheme("melange")
-		end
+			vim.cmd [[colorscheme deepwhite]]
+		end,
 	}
 }

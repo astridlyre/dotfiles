@@ -1,18 +1,10 @@
-local utils = require("moonlight.utils")
-
-local nmap = utils.nmap
-local vmap = utils.vmap
-local cmap = utils.cmap
-local lmap = utils.lmap
-local imap = utils.imap
-
-local function assign_options(option_table, target)
+local function assign(option_table, target)
 	for key, value in pairs(option_table) do
 		target[key] = value
 	end
 end
 
-assign_options({
+assign({
 	loaded_2html_plugin = 1,
 	loaded_getscript = 1,
 	loaded_getscriptPlugin = 1,
@@ -40,7 +32,7 @@ assign_options({
 	python3_host_prog = "/usr/bin/python3",
 }, vim.g)
 
-assign_options({
+assign({
 	backup = false,
 	breakindent = true,
 	completeopt = "menu,menuone,noinsert",
@@ -59,10 +51,8 @@ assign_options({
 	list = true,
 	maxmempattern = 100000,
 	mouse = "a",
-	-- number = true,
 	pumheight = 16,
 	redrawtime = 8000,
-	-- relativenumber = true,
 	scrolloff = 3,
 	shiftround = true,
 	shiftwidth = 4,
@@ -92,123 +82,72 @@ assign_options({
 	writebackup = false,
 }, vim.opt)
 
+assign({
+	winborder = "rounded"
+}, vim.o)
+
 -- leader mappings
-lmap("u", "<cmd>Lazy update<cr>")
-lmap(";", ":w<cr>")
-lmap("y", '"+y')
-lmap("64d", "!!b64d<cr>")
-lmap("64e", "!!base64<cr>")
-lmap("ct", "<cmd>ColorizerToggle<cr>")
-lmap("w", "<cmd>MatchupWhereAmI??<cr>")
-
-lmap("Ol", "<cmd>Octo pr list<cr>")
-lmap("Or", "<cmd>Octo review start<cr>")
-lmap("Ou", "<cmd>Octo review resume<cr>")
-lmap("Oc", "<cmd>Octo review comments<cr>")
-lmap("Os", "<cmd>Octo review submit<cr>")
-lmap("Otr", "<cmd>Octo thread resolve<cr>")
-lmap("Otu", "<cmd>Octo thread unresolve<cr>")
-lmap("Opc", "<cmd>Octo pr create<cr>")
-
-lmap("la", "<cmd>TSToolsAddMissingImports<cr>")
-lmap("li", "<cmd>TSToolsOrganizeImports<cr>")
-
--- normal mode
-nmap("^", "0")
-nmap("0", "^")
-nmap("<c-c>", "<esc>")
-nmap("'", "`")
-nmap("`", "'")
-nmap("k", '(v:count > 5 ? "m\'" . v:count : "") . "gk"', { expr = true })
-nmap("j", '(v:count > 5 ? "m\'" . v:count : "") . "gj"', { expr = true })
-nmap("<m-j>", "mz:m+<cr>`z")
-nmap("<m-k>", "mz:m-2<cr>`z")
-nmap("<esc>", "<cmd>noh<cr><esc>")
-nmap("[b", "<cmd>bprev<cr>")
-nmap("]b", "<cmd>bnext<cr>")
-nmap("[q", "<cmd>cprev<cr>zz")
-nmap("]q", "<cmd>cnext<cr>zz")
-nmap("<c-p>", "<c-^>")
-nmap("<c-h>", "<c-^>")
-
--- toggle quickfix
-vim.g.qfix_win = nil
-local function toggle_qf_list()
-	if vim.g.qfix_win ~= nil then
-		vim.cmd("cclose")
-		vim.g.qfix_win = nil
-	else
-		vim.cmd("copen")
-	end
-end
-
-nmap("<c-q>", toggle_qf_list)
-
--- telescope
-lmap("o", "<cmd>Telescope find_files hidden=true follow=true<cr>")
-lmap("fb", "<cmd>Telescope buffers<cr>")
-lmap("fo", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
-lmap("fh", "<cmd>Telescope oldfiles<cr>")
-lmap("fqq", "<cmd>Telescope quickfix<cr>")
-lmap("fqh", "<cmd>Telescope quickfixhistory<cr>")
-lmap("fr", "<cmd>Telescope lsp_references<cr>")
-lmap("fd", "<cmd>Telescope lsp_definitions<cr>")
-lmap("fi", "<cmd>Telescope lsp_implementations<cr>")
-lmap("fs", "<cmd>Telescope grep_string<cr>")
-lmap("fn", "<cmd>Telescope search_history<cr>")
-lmap("fc", "<cmd>Telescope command_history<cr>")
-lmap("fm", "<cmd>Telescope man_pages<cr>")
-lmap("fj", "<cmd>Telescope jumplist<cr>")
-lmap("ls", "<cmd>Telescope lsp_document_symbols<cr>")
-lmap("lS", "<cmd>Telescope lsp_workspace_symbols<cr>")
-lmap("fd", "<cmd>Telescope diagnostics<cr>")
-lmap("d", "<cmd>lua MiniBufremove.delete()<cr>")
-lmap("sj", "<cmd>%!sql_to_json<cr>")
-lmap("sc", "<cmd>%!sql_to_csv<cr>")
-lmap("co", "<cmd>Telescope git_branches<cr>")
-lmap("gs", "<cmd>Telescope git_status<cr>")
-lmap("ga", "<cmd>Gitsigns stage_buffer<cr>")
-lmap("gh", "<cmd>Gitsigns stage_hunk<cr>")
-lmap("gH", "<cmd>Gitsigns undo_stage_hunk<cr>")
-lmap("gR", "<cmd>Gitsigns reset_buffer<cr>")
-lmap("gbl", "<cmd>Gitsigns blame_line<cr>")
-lmap("gp", "<cmd>Gitsigns preview_hunk<cr>")
+vim.keymap.set('n', "<leader>u", "<cmd>Lazy update<cr>")
+vim.keymap.set('n', "<leader>y", '"+y')
+vim.keymap.set('n', "<c-c>", "<esc>")
+vim.keymap.set('n', "'", "`")
+vim.keymap.set('n', "`", "'")
+vim.keymap.set('n', "<esc>", "<cmd>noh<cr><esc>")
+vim.keymap.set('n', "[b", "<cmd>bprev<cr>")
+vim.keymap.set('n', "]b", "<cmd>bnext<cr>")
+vim.keymap.set('n', "[q", "<cmd>cprev<cr>zz")
+vim.keymap.set('n', "]q", "<cmd>cnext<cr>zz")
+vim.keymap.set('n', "<c-h>", "<c-^>")
+vim.keymap.set('n', "<leader>fl", "<cmd>!biome lint --fix --unsafe --stdin-file-path=%<cr>")
 
 -- insert mode
-imap("<c-c>", "<esc>")
-imap("<c-d>", "<del>")
-imap("<c-b>", "<left>")
-imap("<c-f>", "<right>")
-imap(",", ",<c-g>u")
-imap(".", ".<c-g>u")
-imap("!", "!<c-g>u")
-imap("?", "?<c-g>u")
+vim.keymap.set('i', "<c-c>", function()
+	vim.snippet.stop()
+	return "<esc>"
+end, { expr = true })
+
+vim.keymap.set('i', "<esc>", function()
+	vim.snippet.stop()
+	return "<esc>"
+end, { expr = true })
 
 -- visual mode
-vmap("<leader>ss", "!sort -d -b -f <cr>")
-vmap("<leader>y", '"+y')
-vmap("<c-c>", "<esc>")
-vmap("<leader>fs", "!sqlformat.sh <cr>")
-vmap("<leader>sj", "!sql_to_json<cr>")
-vmap("<leader>sc", "!sql_to_csv<cr>")
+vim.keymap.set("v", "<leader>ss", "!sort -d -b -f <cr>")
+vim.keymap.set("v", "<leader>y", '"+y')
+vim.keymap.set("v", "<c-c>", "<esc>")
+vim.keymap.set("v", "<leader>fs", "!sqlformat.sh <cr>")
+vim.keymap.set("v", "<leader>fh", "!prettier --parser html <cr>")
+vim.keymap.set("v", "<leader>fc", "!prettier --parser css <cr>")
+vim.keymap.set("v", "<leader>fg", "!prettier --parser graphql <cr>")
+vim.keymap.set("v", "<leader>fj", "!prettier --parser json <cr>")
+vim.keymap.set("v", "<leader>fg", "!prettier --parser glimmer <cr>")
+vim.keymap.set("v", "<leader>fl", "!biome lint --fix --unsafe --stdin-file-path=%<cr>")
+
+-- Color converter
+vim.keymap.set("v", "<leader>cc", function()
+	local selection = table.concat(vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos(".")), "\n")
+	local handle = io.popen("echo " .. vim.fn.shellescape(selection) .. " | color_convert.sh", "r")
+	if not handle then return end
+	local output = handle:read("*a")
+	handle:close()
+	output = output:gsub("\n$", "")
+	vim.api.nvim_paste(output, true, -1)
+end)
 
 -- command mode
-cmap("<c-b>", "<left>")
-cmap("<c-f>", "<right>")
-cmap("<c-a>", "<home>")
-cmap("<c-e>", "<end>")
-cmap("<c-d>", "<del>")
+vim.keymap.set('c', "<c-b>", "<left>")
+vim.keymap.set('c', "<c-f>", "<right>")
+vim.keymap.set('c', "<c-a>", "<home>")
+vim.keymap.set('c', "<c-e>", "<end>")
+vim.keymap.set('c', "<c-d>", "<del>")
+
+vim.keymap.set('n', "<c-q>", function()
+	vim.cmd("copen")
+end)
 
 local function augroup(name)
 	return vim.api.nvim_create_augroup("moonlight_" .. name, { clear = true })
 end
-
-vim.api.nvim_create_autocmd("BufWinEnter", {
-	group = augroup("qfixtoggle"),
-	callback = function()
-		vim.g.qfix_win = vim.api.nvim_get_current_buf()
-	end,
-})
 
 vim.cmd([[
 iabbr improt import
@@ -312,3 +251,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.filetype.add({ extension = { templ = "templ" } })
+
+vim.api.nvim_create_autocmd('BufEnter', {
+	command = "syntax sync fromstart",
+	pattern = { '*.ly', '*.ily', '*.tex' }
+})
