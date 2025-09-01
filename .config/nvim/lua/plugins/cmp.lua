@@ -174,7 +174,8 @@ return {
 	},
 	{
 		"zbirenbaum/copilot.lua",
-		version = false,
+		branch = 'master',
+		-- commit = "f0c0d98",
 		cmd = "Copilot",
 		build = ":Copilot auth",
 		event = "InsertEnter",
@@ -191,7 +192,7 @@ return {
 					trace = "verbose",
 					settings = {
 						advanced = {
-							inlineSuggestCount = 5, -- #completions for getCompletions
+							inlineSuggestCount = 3, -- #completions for getCompletions
 						},
 					},
 				},

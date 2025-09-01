@@ -1,112 +1,99 @@
+local languages = {
+	'astro',
+	'bash',
+	'c',
+	'clojure',
+	'cmake',
+	'css',
+	'csv',
+	'diff',
+	'dockerfile',
+	'fennel',
+	'gitattributes',
+	'gitcommit',
+	'git_config',
+	'gitignore',
+	'git_rebase',
+	'go',
+	'gomod',
+	'gosum',
+	'gotmpl',
+	'gpg',
+	'graphql',
+	'haskell',
+	'html',
+	'http',
+	'javascript',
+	'jq',
+	'jsdoc',
+	'json',
+	'json5',
+	'jsx',
+	'latex',
+	'lua',
+	'luadoc',
+	'make',
+	'markdown',
+	'nginx',
+	'passwd',
+	'python',
+	'racket',
+	'regex',
+	'rust',
+	'scss',
+	'sql',
+	'styled',
+	'templ',
+	'terraform',
+	'toml',
+	'tsv',
+	'tsx',
+	'typescript',
+	'vim',
+	'vimdoc',
+	'xml',
+	'xresources',
+	'yaml',
+	'zathurarc',
+	'zig'
+}
+
 return {
 	{
-
-		"windwp/nvim-ts-autotag",
-		version = false,
-		event = { "BufReadPre", "BufNewFile" },
-		config = function()
-			require("nvim-ts-autotag").setup({
-				opts = {
-					enable_close = true, -- Auto close tags
-					enable_rename = true, -- Auto rename pairs of tags
-					enable_close_on_slash = false, -- Auto close on trailing </
-					filetypes = {
-						"html",
-						"javascript",
-						"typescript",
-						"javascriptreact",
-						"typescriptreact",
-						"svelte",
-						"vue",
-						"tsx",
-						"jsx",
-						"rescript",
-						"xml",
-						"php",
-						"markdown",
-						"glimmer",
-						"handlebars",
-						"hbs",
-						"astro",
-						"templ",
-					},
-				},
-			})
-		end,
-	},
-	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = 'main',
+		lazy = false,
 		version = false,
-		event = { "BufReadPost", "BufNewFile" },
-		dependencies = {
-			{ "nvim-treesitter/nvim-treesitter-textobjects", version = false },
-			{ "windwp/nvim-ts-autotag",                      version = false },
-			{ "andymass/vim-matchup",                        version = false },
-			{ "nvim-treesitter/nvim-treesitter-textobjects", version = false },
-		},
 		build = ":TSUpdate",
 		config = function()
-			vim.treesitter.language.register("markdown", "octo")
+			require("nvim-treesitter").install(languages)
 
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = "all",
-				highlight = { enable = true, additional_vim_regex_highlighting = false },
-				indent = { enable = false },
-				incremental_selection = {
-					enable = true,
-					keymaps = {
-						init_selection = "<Enter>",
-						node_incremental = "<Enter>",
-						node_decremental = "<S-Enter>",
-					},
-				},
-				textobjects = {
-					select = {
-						enable = true,
-						lookahead = true,
-						keymaps = {
-							["ap"] = "@parameter.outer",
-							["ip"] = "@parameter.inner",
-							["af"] = "@function.outer",
-							["if"] = "@function.inner",
-							["ia"] = "@attribute.inner",
-							["aa"] = "@attribute.outer",
-							["ic"] = "@conditional.inner",
-							["ac"] = "@conditional.outer",
-							["is"] = "@statement.inner",
-							["as"] = "@statement.outer",
-							["ib"] = "@block.inner",
-							["ab"] = "@block.outer",
-							["ir"] = "@regex.inner",
-							["ar"] = "@regex.outer",
-							["iC"] = "@call.inner",
-							["aC"] = "@call.outer",
-						},
-					},
-					swap = {
-						enable = true,
-						swap_next = { ["<leader>sn"] = "@parameter.inner" },
-						swap_previous = { ["<leader>sp"] = "@parameter.inner" },
-					},
-				},
-				autopairs = { enable = true },
-				matchup = { enable = true },
-				move = {
-					enable = true,
-					set_jumps = true, -- whether to set jumps in the jumplist
-					goto_next_start = {
-						["]]"] = "@function.outer",
-					},
-					goto_next_end = {
-						["]m"] = "@function.outer",
-					},
-					goto_previous_start = {
-						["[["] = "@function.outer",
-					},
-					goto_previous_end = {
-						["[m"] = "@function.outer",
-					},
-				},
+			vim.api.nvim_create_autocmd('FileType', {
+				group = vim.api.nvim_create_augroup('treesitter.setup', {}),
+				callback = function(args)
+					local buf = args.buf
+					local filetype = args.match
+
+					-- you need some mechanism to avoid running on buffers that do not
+					-- correspond to a language (like oil.nvim buffers), this implementation
+					-- checks if a parser exists for the current language
+					local language = vim.treesitter.language.get_lang(filetype) or filetype
+					if not vim.treesitter.language.add(language) then
+						return
+					end
+
+					-- replicate `fold = { enable = true }`
+					-- vim.wo.foldmethod = 'expr'
+					-- vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+
+					-- replicate `highlight = { enable = true }`
+					vim.treesitter.start(buf, language)
+
+					-- replicate `indent = { enable = true }`
+					vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+					-- `incremental_selection = { enable = true }` cannot be easily replicated
+				end,
 			})
 		end,
 	},

@@ -1,5 +1,39 @@
 return {
 	{
+		'dmtrKovalenko/fff.nvim',
+		build = 'cargo build --release',
+		-- or if you are using nixos
+		-- build = "nix run .#release",
+		opts = {         -- (optional)
+			debug = {
+				enabled = true, -- we expect your collaboration at least during the beta
+				show_scores = true, -- to help us optimize the scoring system, feel free to share your scores!
+			},
+		},
+		-- No need to lazy-load with lazy.nvim.
+		-- This plugin initializes itself lazily.
+		lazy = false,
+		keys = {
+			{
+				"<leader>o", -- try it if you didn't it is a banger keybinding for a picker
+				function() require('fff').find_files() end,
+				desc = 'Find files',
+			}
+		},
+		config = function()
+			require("fff").setup({
+				title = 'Files',
+				layout = {
+					prompt_position = "top",
+				},
+				keymaps = {
+					close = { '<Esc>', "<C-c>" },
+				}
+			})
+		end
+
+	},
+	{
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
@@ -16,8 +50,7 @@ return {
 		},
 		keys = {
 			{ "<leader>d",  function() Snacks.bufdelete.delete() end,             desc = 'Buf Delete' },
-			{ "<leader>ff", function() Snacks.picker.files() end,                 desc = "Smart Find Files" },
-			{ "<leader>o",  function() Snacks.picker.smart() end,                 desc = "Smart Find Files" },
+			-- { "<leader>o",  function() Snacks.picker.smart() end,                 desc = "Smart Find Files" },
 			{ "<leader>,",  function() Snacks.picker.buffers() end,               desc = "Buffers" },
 			{ "<leader>/",  function() Snacks.picker.grep() end,                  desc = "Grep" },
 			{ "<leader>fg", function() Snacks.picker.git_files() end,             desc = "Find Git Files" },

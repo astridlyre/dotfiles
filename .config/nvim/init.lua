@@ -14,7 +14,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("moonlight.options")
--- require("moonlight.statusline")
 require("lazy").setup("plugins", {
 	performance = {
 		rtp = {
