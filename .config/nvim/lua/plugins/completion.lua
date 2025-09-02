@@ -125,7 +125,21 @@ return {
 			-- cmdline = { sources = {} }, -- Disable sources for command-line mode
 
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer", "copilot" },
+				default = function(ctx)
+					local success, node = pcall(vim.treesitter.get_node)
+					if success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
+						return { 'buffer' }
+					elseif vim.bo.filetype == 'lua' then
+						return { 'lsp', 'path' }
+					end
+
+					local copilot = require("moonlight.copilot")
+					if copilot.enabled() then
+						return { "lsp", "path", "snippets", "buffer", "copilot" }
+					else
+						return { "lsp", "path", "snippets", "buffer" }
+					end
+				end,
 				providers = {
 					lsp = {
 						min_keyword_length = 1, -- Number of characters to trigger provider

@@ -1,3 +1,5 @@
+local copilot = require("moonlight.copilot")
+
 local function assign(option_table, target)
 	for key, value in pairs(option_table) do
 		target[key] = value
@@ -99,6 +101,7 @@ vim.keymap.set('n', "[q", "<cmd>cprev<cr>zz")
 vim.keymap.set('n', "]q", "<cmd>cnext<cr>zz")
 vim.keymap.set('n', "<c-h>", "<c-^>")
 vim.keymap.set('n', "<leader>fl", "<cmd>!biome lint --fix --unsafe --stdin-file-path=%<cr>")
+vim.keymap.set('n', "<leader>ct", copilot.toggle)
 
 -- insert mode
 vim.keymap.set('i', "<c-c>", function()
