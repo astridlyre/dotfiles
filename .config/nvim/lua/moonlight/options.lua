@@ -203,20 +203,25 @@ vim.api.nvim_create_autocmd("VimResized", {
 vim.api.nvim_create_autocmd("FileType", {
 	group = augroup("close_with_q"),
 	pattern = {
-		"PlenaryTestPopup",
+		"copilot",
 		"help",
 		"lspinfo",
 		"man",
+		"nofile",
 		"notify",
+		"PlenaryTestPopup",
+		"prompt",
 		"qf",
 		"query", -- :InspectTree
 		"spectre_panel",
 		"startuptime",
+		"terminal",
+		"toggleterm",
 		"tsplayground",
 	},
 	callback = function(event)
 		vim.bo[event.buf].buflisted = false
-		vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+		vim.api.nvim_buf_set_keymap(event.buf, "n", "q", "<Cmd>close<CR>", { silent = true })
 	end,
 })
 

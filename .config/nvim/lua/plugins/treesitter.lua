@@ -67,6 +67,16 @@ return {
 		build = ":TSUpdate",
 		config = function()
 			require("nvim-treesitter").install(languages)
+			require('moonlight.incremental.init').setup({
+				enable = true,
+				disable = false,
+				keymaps = {
+					init_selection = '<Enter>',
+					node_incremental = '<Enter>',
+					scope_incremental = '<Tab>',
+					node_decremental = '<S-Enter>',
+				}
+			})
 
 			vim.api.nvim_create_autocmd('FileType', {
 				group = vim.api.nvim_create_augroup('treesitter.setup', {}),
@@ -92,7 +102,11 @@ return {
 					-- replicate `indent = { enable = true }`
 					vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
-					-- `incremental_selection = { enable = true }` cannot be easily replicated
+					local incremental = require("moonlight.incremental.init")
+					incremental.attach({
+						buf = buf,
+						language = language
+					})
 				end,
 			})
 		end,
