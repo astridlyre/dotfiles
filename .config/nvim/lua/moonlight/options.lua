@@ -88,7 +88,7 @@ assign({
 	winborder = "rounded"
 }, vim.o)
 
--- leader mappings
+-- normal mappings
 vim.keymap.set('n', "<leader>u", "<cmd>Lazy update<cr>")
 vim.keymap.set('n', "<leader>y", '"+y')
 vim.keymap.set('n', "<c-c>", "<esc>")
@@ -102,6 +102,10 @@ vim.keymap.set('n', "]q", "<cmd>cnext<cr>zz")
 vim.keymap.set('n', "<c-h>", "<c-^>")
 vim.keymap.set('n', "<leader>fl", "<cmd>!biome lint --fix --unsafe --stdin-file-path=%<cr>")
 vim.keymap.set('n', "<leader>ct", copilot.toggle)
+vim.keymap.set('n', '<c-i>', 'i') -- sometimes i mess up by typing <c-c> then <c-i> when i mean to do <c-c> i
+vim.keymap.set('n', "<c-q>", function()
+	vim.cmd("copen")
+end)
 
 -- insert mode
 vim.keymap.set('i', "<c-c>", function()
@@ -144,9 +148,6 @@ vim.keymap.set('c', "<c-a>", "<home>")
 vim.keymap.set('c', "<c-e>", "<end>")
 vim.keymap.set('c', "<c-d>", "<del>")
 
-vim.keymap.set('n', "<c-q>", function()
-	vim.cmd("copen")
-end)
 
 local function augroup(name)
 	return vim.api.nvim_create_augroup("moonlight_" .. name, { clear = true })
