@@ -51,35 +51,18 @@ local lsp_maps = function(client, bufnr)
 		function() return vim.diagnostic.jump({ count = -1, float = { border = "rounded" } }) end)
 end
 
--- Generic On-Attach Function
-local on_attach = function(client, bufnr)
-	lsp_maps(client, bufnr)
-end
-
 -- Client Capabilities
 local function make_capabilities()
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	-- capabilities.textDocument.completion.completionItem.snippetSupport = true
-	-- capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-	-- capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-	-- capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
-	-- capabilities.textDocument.completion.completionItem.resolveSupport = {
-	-- 	properties = { "documentation", "detail", "additionalTextEdits" },
-	-- }
-	capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
-	return capabilities
+	return require("blink.cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
 
 local capabilities = make_capabilities()
 
 -- Lsp Configs
 M.setup = function()
-	local lspconfig = require("lspconfig")
-	lsp_maps()
-
 	-- clangd
 	local function clangd()
-		lspconfig.clangd.setup({
+		vim.lsp.config('clangd', {
 			cmd = {
 				"clangd",
 				"--background-index",
@@ -87,14 +70,14 @@ M.setup = function()
 				"--clang-tidy",
 				"--header-insertion=iwyu",
 			},
-			on_attach = on_attach,
 			capabilities = capabilities,
 		})
+		vim.lsp.enable({ "clangd" })
 	end
 
 	-- Go Language Server
 	local function gopls()
-		lspconfig.gopls.setup({
+		vim.lsp.config('gopls', {
 			settings = {
 				gopls = {
 					analyses = { unusedparams = true, shadow = true },
@@ -103,15 +86,14 @@ M.setup = function()
 				},
 			},
 			init_options = { usePlaceholders = true, completeUnimported = true },
-			on_attach = on_attach,
 			capabilities = capabilities,
 		})
+		vim.lsp.enable({ "gopls" })
 	end
 
 	-- Rust Analyzer
 	local function rust_analyzer()
-		lspconfig.rust_analyzer.setup({
-			on_attach = on_attach,
+		vim.lsp.config('rust_analyzer', {
 			capabilities = capabilities,
 			settings = {
 				["rust-analyzer"] = {
@@ -129,6 +111,7 @@ M.setup = function()
 				},
 			},
 		})
+		vim.lsp.enable({ "rust_analyzer" })
 	end
 
 	-- Sumneko Language Server
@@ -150,8 +133,7 @@ M.setup = function()
 		add("~/.config/nvim")
 		add("~/.local/share/nvim/lazy/*")
 
-		lspconfig.lua_ls.setup({
-			on_attach = on_attach,
+		vim.lsp.config('lua_ls', {
 			capabilities = capabilities,
 			on_new_config = function(config, root)
 				local libs = vim.tbl_deep_extend("force", {}, library)
@@ -179,6 +161,7 @@ M.setup = function()
 				},
 			},
 		})
+		vim.lsp.enable({ "lua_ls" })
 	end
 
 	-- Enable the following default language servers
@@ -196,6 +179,7 @@ M.setup = function()
 		"jsonls",
 		"astro",
 		"racket_langserver",
+		"harper_ls"
 		--"biome",
 		-- "templ",
 		--"tailwindcss"
@@ -204,15 +188,18 @@ M.setup = function()
 
 	for _, ls in ipairs(default_servers) do
 		local cfg = {
-			on_attach = on_attach,
 			capabilities = capabilities,
 		}
 
 		-- if ls == "html" or ls == "htmx-lsp" or ls == "tailwindcss" then
 		-- 	cfg.filetypes = { "html", "templ" }
 		-- end
+		--
+		if ls == "harper_ls" then
+			cfg.filetypes = { "gitcommit", "markdown" }
+		end
 
-		lspconfig[ls].setup(cfg)
+		vim.lsp.enable({ ls })
 	end
 
 	-- Custom server configurations
@@ -249,6 +236,14 @@ M.setup = function()
 	})
 
 	vim.lsp.set_log_level("OFF")
+
+	vim.api.nvim_create_autocmd("LspAttach", {
+		callback = function(args)
+			local bufnr = args.buf
+			local client = vim.lsp.get_client_by_id(args.data.client_id)
+			lsp_maps(client, bufnr)
+		end,
+	})
 end
 
 M.make_capabilities = make_capabilities

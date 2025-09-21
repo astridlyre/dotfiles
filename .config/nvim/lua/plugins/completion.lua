@@ -1,11 +1,59 @@
 return {
 	{
-		"saghen/blink.cmp",
+		'saghen/blink.pairs',
+		version = '*', -- (recommended) only required with prebuilt binaries
+
+		-- download prebuilt binaries from github releases
+		dependencies = {
+			'saghen/blink.download',
+		},
+		-- OR build from source, requires nightly:
+		-- https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+		-- build = 'cargo build --release',
+		-- If you use nix, you can build from source using latest nightly rust with:
+		-- build = 'nix run .#build-plugin',
+
+		--- @module 'blink.pairs'
+		--- @type blink.pairs.Config
+		opts = {
+			mappings = {
+				-- you can call require("blink.pairs.mappings").enable()
+				-- and require("blink.pairs.mappings").disable()
+				-- to enable/disable mappings at runtime
+				enabled = true,
+				-- or disable with `vim.g.pairs = false` (global) and `vim.b.pairs = false` (per-buffer)
+				-- and/or with `vim.g.blink_pairs = false` and `vim.b.blink_pairs = false`
+				disabled_filetypes = {},
+				-- see the defaults:
+				-- https://github.com/Saghen/blink.pairs/blob/main/lua/blink/pairs/config/mappings.lua#L14
+				pairs = {},
+			},
+			highlights = {
+				enabled = false,
+				-- requires require('vim._extui').enable({}), otherwise has no effect
+				groups = {
+					'BlinkPairsOrange',
+					'BlinkPairsPurple',
+					'BlinkPairsBlue',
+				},
+
+				-- highlights matching pairs under the cursor
+				matchparen = {
+					enabled = true,
+					-- known issue where typing won't update matchparen highlight, disabled by default
+					group = 'BlinkPairsMatchParen',
+				},
+			},
+			debug = false,
+		}
+	},
+	{
+		'saghen/blink.cmp',
+		build = 'cargo build --release',
 		dependencies = {
 			{ dir = "~/projects/friendly-snippets", dev = true },
 			"giuxtaposition/blink-cmp-copilot",
 		},
-		version = "*",
 
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
@@ -129,8 +177,6 @@ return {
 					local success, node = pcall(vim.treesitter.get_node)
 					if success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
 						return { 'buffer' }
-					elseif vim.bo.filetype == 'lua' then
-						return { 'lsp', 'path' }
 					end
 
 					local copilot = require("moonlight.copilot")

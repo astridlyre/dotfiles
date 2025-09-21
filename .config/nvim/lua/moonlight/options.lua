@@ -102,7 +102,6 @@ vim.keymap.set('n', "]q", "<cmd>cnext<cr>zz")
 vim.keymap.set('n', "<c-h>", "<c-^>")
 vim.keymap.set('n', "<leader>fl", "<cmd>!biome lint --fix --unsafe --stdin-file-path=%<cr>")
 vim.keymap.set('n', "<leader>ct", copilot.toggle)
-vim.keymap.set('n', '<c-i>', 'i') -- sometimes i mess up by typing <c-c> then <c-i> when i mean to do <c-c> i
 vim.keymap.set('n', "<c-q>", function()
 	vim.cmd("copen")
 end)

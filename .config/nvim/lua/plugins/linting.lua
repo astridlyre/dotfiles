@@ -20,7 +20,7 @@ return {
 					}, { ['source'] = 'review' })
 			}
 
-			lint.linters_by_ft = { python = { "pylint" }, racket = { "raco_review" } }
+			lint.linters_by_ft = { python = { "pylint" }, racket = { "raco_review" }, clojure = { 'clj-kondo' } }
 
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
