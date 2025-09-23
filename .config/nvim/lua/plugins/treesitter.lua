@@ -107,6 +107,9 @@ return {
 						buf = buf,
 						language = language
 					})
+
+					local autoclosetag = require("moonlight.autoclosetag.init")
+					autoclosetag.setup()
 				end,
 			})
 		end,

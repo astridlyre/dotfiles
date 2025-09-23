@@ -199,6 +199,7 @@ M.setup = function()
 			cfg.filetypes = { "gitcommit", "markdown" }
 		end
 
+		vim.lsp.config(ls, cfg)
 		vim.lsp.enable({ ls })
 	end
 
