@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# This script is used to handle webhooks for the streamily-dev project.
+function handle_webhook() {
+	local dir="/home/ml/projects/streamily-dev-webhook"
+
+	source "$dir/.env" && "$dir/streamily-dev-webhook" "$@"
+}
+
+handle_webhook "$@"

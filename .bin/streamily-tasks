@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-TERM=xterm-256color ssh -i "${HOME}"/.ssh/id_streamily_root.pem ubuntu@streamily-tasks "$@"

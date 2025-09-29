@@ -7,7 +7,7 @@ return {
 		enabled = vim.fn.has("nvim-0.10.0") == 1,
 	},
 	{
-		'nvim-mini/mini.statusline',
+		'nvim-mini/mini.nvim',
 		version = false,
 		config = function()
 			require("mini.statusline").setup({
@@ -35,22 +35,9 @@ return {
 					inactive = nil
 				},
 				use_icons = true
+
 			})
-		end
-	},
-	{
-		'Verf/deepwhite.nvim',
-		lazy = false,
-		priority = 1000,
-		config = function()
-			vim.cmd [[colorscheme deepwhite]]
-			vim.api.nvim_set_hl(0, "QuickFixLine", { fg = "#000000", bg = "#D4FAD4" })
-		end,
-	},
-	{
-		'nvim-mini/mini.hipatterns',
-		version = false,
-		config = function()
+
 			local hipatterns = require('mini.hipatterns')
 			hipatterns.setup({
 				highlighters = {
@@ -64,6 +51,17 @@ return {
 					hex_color = hipatterns.gen_highlighter.hex_color(),
 				},
 			})
+
+			require('mini.pairs').setup()
 		end
-	}
+	},
+	{
+		'Verf/deepwhite.nvim',
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.cmd [[colorscheme deepwhite]]
+			vim.api.nvim_set_hl(0, "QuickFixLine", { fg = "#000000", bg = "#D4FAD4" })
+		end,
+	},
 }
