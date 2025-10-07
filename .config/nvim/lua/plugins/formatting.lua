@@ -33,6 +33,7 @@ return {
 					sh = { "shfmt" },
 					racket = { "raco" },
 					clojure = { "cljstyle" },
+					fennel = { "fnlfmt" }
 				},
 				format_on_save = {
 					lsp_fallback = true,
@@ -50,4 +51,9 @@ return {
 			end, { desc = "Format file or range (in visual mode)" })
 		end,
 	},
+	{
+		"eraserhd/parinfer-rust",
+		build = "cargo build --release",
+		ft = { "lisp", "scheme", "racket", "clojure", "clojurescript", "fennel" },
+	}
 }

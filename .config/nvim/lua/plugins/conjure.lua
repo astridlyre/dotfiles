@@ -9,5 +9,6 @@ return {
 			-- This is VERY helpful when reporting an issue with the project
 			-- vim.g["conjure#debug"] = true
 		end
-	}
+	},
+	{ "Olical/nfnl", ft = "fennel" }
 }

@@ -38,3 +38,5 @@ prepend_path "${HOME}/.ghcup/bin"
 
 # fly.io
 prepend_path "${HOME}/.fly/bin"
+
+prepend_path "${HOME}/.luarocks-luajit/bin"

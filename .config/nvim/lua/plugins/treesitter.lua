@@ -107,11 +107,16 @@ return {
 						buf = buf,
 						language = language
 					})
-
-					local autoclosetag = require("moonlight.autoclosetag.init")
-					autoclosetag.setup()
 				end,
 			})
 		end,
 	},
+	{
+		"windwp/nvim-ts-autotag",
+		version = false,
+		config = function()
+			require('nvim-ts-autotag').setup()
+		end,
+		event = "VeryLazy"
+	}
 }

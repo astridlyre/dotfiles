@@ -25,4 +25,4 @@ tags.temp
 .bin/tsh
 .bin/mysql.binary
 .bin/beekeeper-studio
-
+.bin/fennel-ls
