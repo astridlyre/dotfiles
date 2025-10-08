@@ -1,15 +1,19 @@
-(local M {})
+(local vim _G.vim)
 
-(set M.__copilot_enabled true)
+(var copilot-enabled true)
 
-(set M.enabled (fn [] M.__copilot_enabled))
+(fn enabled []
+  "Returns whether Copilot is enabled"
+  copilot-enabled)
 
 (fn message-for [state]
   (if state :enabled :disabled))
 
-(set M.toggle (fn []
-                (set M.__copilot_enabled (not M.__copilot_enabled))
-                (print (.. "Copilot " (message-for M.__copilot_enabled)))
-                M.__copilot_enabled))
+(fn toggle-copilot []
+  "Toggles Copilot on and off, printing a message to indicate the new state"
+  (set copilot-enabled (not copilot-enabled))
+  (if copilot-enabled (vim.cmd "Copilot enable") (vim.cmd "Copilot disable"))
+  (print (.. "Copilot " (message-for copilot-enabled)))
+  copilot-enabled)
 
-M
+{: enabled : toggle-copilot}

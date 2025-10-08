@@ -1,7 +1,6 @@
 -- [nfnl] lua/moonlight/lsp.fnl
 local vim = _G.vim
 local kmap = vim.keymap.set
-local M = {}
 local function get_diagnostic_at_cursor()
   local cur_buf = vim.api.nvim_get_current_buf()
   local _let_1_ = vim.api.nvim_win_get_cursor(0)
@@ -118,5 +117,4 @@ local function _9_()
   end
   return vim.api.nvim_create_autocmd("LspAttach", {callback = _11_})
 end
-M.setup = _9_
-return M
+return {setup = _9_}

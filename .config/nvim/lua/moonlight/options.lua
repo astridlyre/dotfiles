@@ -66,7 +66,7 @@ kmap("n", "[q", "<cmd>cprev<cr>zz")
 kmap("n", "]q", "<cmd>cnext<cr>zz")
 kmap("n", "<c-h>", "<c-^>")
 kmap("n", "<leader>fl", "<cmd>!biome lint --fix --unsafe --stdin-file-path=%<cr>")
-kmap("n", "<leader>ct", copilot.toggle)
+kmap("n", "<leader>ct", copilot["toggle-copilot"])
 local function _1_()
   return vim.cmd("copen")
 end

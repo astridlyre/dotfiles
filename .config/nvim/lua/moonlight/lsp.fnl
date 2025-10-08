@@ -1,8 +1,6 @@
 (local vim _G.vim)
 (local kmap vim.keymap.set)
 
-(local M {})
-
 ;; -- Utils --
 (fn get-diagnostic-at-cursor []
   "Get the diagnostic message at the current cursor position."
@@ -117,55 +115,52 @@
     (vim.lsp.enable [:lua_ls])))
 
 ;; Module setup
-(set M.setup
-     (fn []
-       ;; default servers
-       (let [default-servers [:pyright
-                              :yamlls
-                              :vimls
-                              :html
-                              :cssls
-                              :dockerls
-                              :bashls
-                              :clojure_lsp
-                              :eslint
-                              :zls
-                              :jsonls
-                              :astro
-                              :racket_langserver
-                              :fennel_ls
-                              :harper_ls]]
-         (each [_ ls (ipairs default-servers)]
-           (let [cfg {:capabilities (make-caps)}]
-             (when (= ls :harper_ls)
-               (set cfg.filetypes [:gitcommit :markdown]))
-             (vim.lsp.config ls cfg)
-             (vim.lsp.enable [ls]))))
-       ;; custom servers
-       (each [_ f (ipairs [clangd gopls rust-analyzer lua-ls])]
-         (f))
-       ;; diagnostics config
-       (let [signs {:text {}}]
-         (tset (. signs :text) (. vim.diagnostic.severity :ERROR) "")
-         (tset (. signs :text) (. vim.diagnostic.severity :WARN) "")
-         (tset (. signs :text) (. vim.diagnostic.severity :INFO) "")
-         (tset (. signs :text) (. vim.diagnostic.severity :HINT) "")
-         (vim.diagnostic.config {:virtual_text false
-                                 : signs
-                                 :update_in_insert false
-                                 :underline true
-                                 :severity_sort true
-                                 :float {:show_header false
-                                         :focusable false
-                                         :source :if_many
-                                         :header ""
-                                         :prefix ""}}))
-       (vim.lsp.set_log_level :OFF)
-       (vim.api.nvim_create_autocmd :LspAttach
-                                    {:callback (fn [args]
-                                                 (let [bufnr args.buf
-                                                       client (vim.lsp.get_client_by_id (. args.data
-                                                                                           :client_id))]
-                                                   (lsp-maps client bufnr)))})))
-
-M
+{:setup (fn []
+          ;; default servers
+          (let [default-servers [:pyright
+                                 :yamlls
+                                 :vimls
+                                 :html
+                                 :cssls
+                                 :dockerls
+                                 :bashls
+                                 :clojure_lsp
+                                 :eslint
+                                 :zls
+                                 :jsonls
+                                 :astro
+                                 :racket_langserver
+                                 :fennel_ls
+                                 :harper_ls]]
+            (each [_ ls (ipairs default-servers)]
+              (let [cfg {:capabilities (make-caps)}]
+                (when (= ls :harper_ls)
+                  (set cfg.filetypes [:gitcommit :markdown]))
+                (vim.lsp.config ls cfg)
+                (vim.lsp.enable [ls]))))
+          ;; custom servers
+          (each [_ f (ipairs [clangd gopls rust-analyzer lua-ls])]
+            (f))
+          ;; diagnostics config
+          (let [signs {:text {}}]
+            (tset (. signs :text) (. vim.diagnostic.severity :ERROR) "")
+            (tset (. signs :text) (. vim.diagnostic.severity :WARN) "")
+            (tset (. signs :text) (. vim.diagnostic.severity :INFO) "")
+            (tset (. signs :text) (. vim.diagnostic.severity :HINT) "")
+            (vim.diagnostic.config {:virtual_text false
+                                    : signs
+                                    :update_in_insert false
+                                    :underline true
+                                    :severity_sort true
+                                    :float {:show_header false
+                                            :focusable false
+                                            :source :if_many
+                                            :header ""
+                                            :prefix ""}}))
+          (vim.lsp.set_log_level :OFF)
+          (vim.api.nvim_create_autocmd :LspAttach
+                                       {:callback (fn [args]
+                                                    (let [bufnr args.buf
+                                                          client (vim.lsp.get_client_by_id (. args.data
+                                                                                              :client_id))]
+                                                      (lsp-maps client bufnr)))}))}

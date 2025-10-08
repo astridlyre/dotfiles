@@ -1,10 +1,9 @@
 -- [nfnl] lua/moonlight/copilot.fnl
-local M = {}
-M.__copilot_enabled = true
-local function _1_()
-  return M.__copilot_enabled
+local vim = _G.vim
+local copilot_enabled = true
+local function enabled()
+  return copilot_enabled
 end
-M.enabled = _1_
 local function message_for(state)
   if state then
     return "enabled"
@@ -12,10 +11,14 @@ local function message_for(state)
     return "disabled"
   end
 end
-local function _3_()
-  M.__copilot_enabled = not M.__copilot_enabled
-  print(("Copilot " .. message_for(M.__copilot_enabled)))
-  return M.__copilot_enabled
+local function toggle_copilot()
+  copilot_enabled = not copilot_enabled
+  if copilot_enabled then
+    vim.cmd("Copilot enable")
+  else
+    vim.cmd("Copilot disable")
+  end
+  print(("Copilot " .. message_for(copilot_enabled)))
+  return copilot_enabled
 end
-M.toggle = _3_
-return M
+return {enabled = enabled, ["toggle-copilot"] = toggle_copilot}

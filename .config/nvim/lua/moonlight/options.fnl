@@ -73,7 +73,7 @@
 (kmap :n "]q" :<cmd>cnext<cr>zz)
 (kmap :n :<c-h> :<c-^>)
 (kmap :n :<leader>fl "<cmd>!biome lint --fix --unsafe --stdin-file-path=%<cr>")
-(kmap :n :<leader>ct copilot.toggle)
+(kmap :n :<leader>ct copilot.toggle-copilot)
 (kmap :n :<c-q> (fn [] (vim.cmd :copen)))
 
 (kmap :i :<c-c> (fn [] (vim.snippet.stop) :<esc>) {:expr true})
