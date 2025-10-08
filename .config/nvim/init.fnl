@@ -36,6 +36,6 @@
                                                                     :zip
                                                                     :zipPlugin]}}})
 
-((. (require :luarocks) :add_luarocks_paths))
+((. (require :luarocks) :add-luarocks-paths))
 
 (require :moonlight.autocmds)
