@@ -9,7 +9,7 @@ local function with_augroup(name, cmds, opts)
 end
 local function _1_()
   if (vim.bo.filetype == "go") then
-    return vim.api.nvim_buf_set_keymap(0, "i", ";;", ":=", {silent = true})
+    return vim.api.nvim_buf_set_keymap(0, "i", ";;", ":=", {silent = true, desc = "Convert ;; to :="})
   else
     return nil
   end
@@ -48,7 +48,7 @@ end
 with_augroup("winresize", "VimResized", {callback = _9_})
 local function _10_(event)
   core["assoc-in"](vim.bo, {event.buf, "buflisted"}, false)
-  return vim.api.nvim_buf_set_keymap(event.buf, "n", "q", "<Cmd>close<CR>", {silent = true})
+  return vim.api.nvim_buf_set_keymap(event.buf, "n", "q", "<Cmd>close<CR>", {silent = true, desc = "Close buffer"})
 end
 with_augroup("close_with_q", "FileType", {pattern = {"copilot", "help", "lspinfo", "man", "nofile", "notify", "PlenaryTestPopup", "prompt", "qf", "query", "spectre_panel", "startuptime", "terminal", "toggleterm", "tsplayground"}, callback = _10_})
 local function _11_()

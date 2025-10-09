@@ -17,30 +17,29 @@ local function get_diagnostic_at_cursor()
   return res
 end
 local function lsp_maps(_, bufnr)
-  local opts = {buffer = bufnr}
-  kmap("n", "gD", vim.lsp.buf.declaration, opts)
-  kmap("n", "gd", vim.lsp.buf.definition, opts)
-  kmap("n", "K", vim.lsp.buf.hover, opts)
-  kmap("n", "gi", vim.lsp.buf.implementation, opts)
-  kmap("n", "gr", vim.lsp.buf.references, opts)
-  kmap("n", "<leader>rn", vim.lsp.buf.rename, opts)
-  kmap("n", "<leader>qf", vim.diagnostic.setqflist, opts)
+  kmap("n", "gD", vim.lsp.buf.declaration, {buffer = bufnr, desc = "Go to declaration"})
+  kmap("n", "gd", vim.lsp.buf.definition, {buffer = bufnr, desc = "Go to definition"})
+  kmap("n", "K", vim.lsp.buf.hover, {buffer = bufnr, desc = "LSP hover"})
+  kmap("n", "gi", vim.lsp.buf.implementation, {buffer = bufnr, desc = "Go to implementation"})
+  kmap("n", "gr", vim.lsp.buf.references, {buffer = bufnr, desc = "Go to references"})
+  kmap("n", "<leader>rn", vim.lsp.buf.rename, {buffer = bufnr, desc = "LSP rename"})
+  kmap("n", "<leader>qf", vim.diagnostic.setqflist, {buffer = bufnr, desc = "Set quickfix from diagnostics"})
   local function _3_()
     return vim.lsp.buf.code_action({context = {diagnostics = get_diagnostic_at_cursor()}})
   end
-  kmap("n", "<leader>ca", _3_)
+  kmap("n", "<leader>ca", _3_, {buffer = bufnr, desc = "LSP code action"})
   local function _4_()
     return vim.diagnostic.open_float(nil, {source = "always", border = "rounded"})
   end
-  kmap("n", "<leader>ld", _4_)
+  kmap("n", "<leader>ld", _4_, {buffer = bufnr, desc = "Show line diagnostics"})
   local function _5_()
     return vim.diagnostic.jump({count = 1, float = {border = "rounded"}})
   end
-  kmap("n", "<c-j>", _5_)
+  kmap("n", "<c-j>", _5_, {buffer = bufnr, desc = "Go to next diagnostic"})
   local function _6_()
     return vim.diagnostic.jump({count = -1, float = {border = "rounded"}})
   end
-  return kmap("n", "<c-k>", _6_)
+  return kmap("n", "<c-k>", _6_, {buffer = bufnr, desc = "Go to previous diagnostic"})
 end
 local function make_caps()
   local cmp = require("blink-cmp")

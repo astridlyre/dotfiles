@@ -19,26 +19,32 @@
     res))
 
 (fn lsp-maps [_ bufnr]
-  (let [opts {:buffer bufnr}]
-    (kmap :n :gD vim.lsp.buf.declaration opts)
-    (kmap :n :gd vim.lsp.buf.definition opts)
-    (kmap :n :K vim.lsp.buf.hover opts)
-    (kmap :n :gi vim.lsp.buf.implementation opts)
-    (kmap :n :gr vim.lsp.buf.references opts)
-    (kmap :n :<leader>rn vim.lsp.buf.rename opts)
-    (kmap :n :<leader>qf vim.diagnostic.setqflist opts)
-    (kmap :n :<leader>ca
-          (fn []
-            (vim.lsp.buf.code_action {:context {:diagnostics (get-diagnostic-at-cursor)}})))
-    (kmap :n :<leader>ld
-          (fn []
-            (vim.diagnostic.open_float nil {:source :always :border :rounded})))
-    (kmap :n :<c-j>
-          (fn []
-            (vim.diagnostic.jump {:count 1 :float {:border :rounded}})))
-    (kmap :n :<c-k>
-          (fn []
-            (vim.diagnostic.jump {:count -1 :float {:border :rounded}})))))
+  (kmap :n :gD vim.lsp.buf.declaration
+        {:buffer bufnr :desc "Go to declaration"})
+  (kmap :n :gd vim.lsp.buf.definition {:buffer bufnr :desc "Go to definition"})
+  (kmap :n :K vim.lsp.buf.hover {:buffer bufnr :desc "LSP hover"})
+  (kmap :n :gi vim.lsp.buf.implementation
+        {:buffer bufnr :desc "Go to implementation"})
+  (kmap :n :gr vim.lsp.buf.references {:buffer bufnr :desc "Go to references"})
+  (kmap :n :<leader>rn vim.lsp.buf.rename {:buffer bufnr :desc "LSP rename"})
+  (kmap :n :<leader>qf vim.diagnostic.setqflist
+        {:buffer bufnr :desc "Set quickfix from diagnostics"})
+  (kmap :n :<leader>ca
+        (fn []
+          (vim.lsp.buf.code_action {:context {:diagnostics (get-diagnostic-at-cursor)}}))
+        {:buffer bufnr :desc "LSP code action"})
+  (kmap :n :<leader>ld
+        (fn []
+          (vim.diagnostic.open_float nil {:source :always :border :rounded}))
+        {:buffer bufnr :desc "Show line diagnostics"})
+  (kmap :n :<c-j>
+        (fn []
+          (vim.diagnostic.jump {:count 1 :float {:border :rounded}}))
+        {:buffer bufnr :desc "Go to next diagnostic"})
+  (kmap :n :<c-k>
+        (fn []
+          (vim.diagnostic.jump {:count -1 :float {:border :rounded}}))
+        {:buffer bufnr :desc "Go to previous diagnostic"}))
 
 (fn make-caps []
   (let [cmp (require :blink-cmp)]

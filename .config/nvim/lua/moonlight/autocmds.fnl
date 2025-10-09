@@ -13,7 +13,9 @@
   :FileType
   {:callback (fn []
                (when (= vim.bo.filetype :go)
-                 (vim.api.nvim_buf_set_keymap 0 :i ";;" ":=" {:silent true})))})
+                 (vim.api.nvim_buf_set_keymap 0 :i ";;" ":="
+                                              {:silent true
+                                               :desc "Convert ;; to :="})))})
 
 ;; Make quickfix buffers not show in buffer list
 (with-augroup :noqfixlisted
@@ -64,7 +66,7 @@
    :callback (fn [event]
                (core.assoc-in vim.bo [event.buf :buflisted] false)
                (vim.api.nvim_buf_set_keymap event.buf :n :q :<Cmd>close<CR>
-                                            {:silent true}))})
+                                            {:silent true :desc "Close buffer"}))})
 
 ;; Wrap and spell check for certain filetypes
 (with-augroup :wrap_spell

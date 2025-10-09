@@ -61,34 +61,39 @@
 (local kmap vim.keymap.set)
 
 ;; Mappings
-(kmap :n :<leader>u "<cmd>Lazy update<cr>")
-(kmap :n :<leader>y "\"+y")
-(kmap :n :<c-c> :<esc>)
-(kmap :n "'" "`")
-(kmap :n "`" "'")
-(kmap :n :<esc> :<cmd>noh<cr><esc>)
-(kmap :n "[b" :<cmd>bprev<cr>)
-(kmap :n "]b" :<cmd>bnext<cr>)
-(kmap :n "[q" :<cmd>cprev<cr>zz)
-(kmap :n "]q" :<cmd>cnext<cr>zz)
-(kmap :n :<c-h> :<c-^>)
-(kmap :n :<leader>fl "<cmd>!biome lint --fix --unsafe --stdin-file-path=%<cr>")
-(kmap :n :<leader>ct copilot.toggle-copilot)
-(kmap :n :<c-q> (fn [] (vim.cmd :copen)))
+(kmap :n :<leader>u "<cmd>Lazy update<cr>" {:desc "Update plugins"})
+(kmap :n :<leader>y "\"+y" {:desc "Yank to system clipboard"})
+(kmap :n :<c-c> :<esc> {:desc :Escape})
+(kmap :n "'" "`" {:desc "Jump to mark"})
+(kmap :n "`" "'" {:desc "Jump to mark"})
+(kmap :n :<esc> :<cmd>noh<cr><esc> {:desc "Clear search highlight"})
+(kmap :n "[b" :<cmd>bprev<cr> {:desc "Previous buffer"})
+(kmap :n "]b" :<cmd>bnext<cr> {:desc "Next buffer"})
+(kmap :n "[q" :<cmd>cprev<cr>zz {:desc "Previous quickfix"})
+(kmap :n "]q" :<cmd>cnext<cr>zz {:desc "Next quickfix"})
+(kmap :n :<c-h> :<c-^> {:desc "Switch to alternate file"})
+(kmap :n :<leader>fl "<cmd>!biome lint --fix --unsafe --stdin-file-path=%<cr>"
+      {:desc "Fix current file with Biome"})
 
-(kmap :i :<c-c> (fn [] (vim.snippet.stop) :<esc>) {:expr true})
-(kmap :i :<esc> (fn [] (vim.snippet.stop) :<esc>) {:expr true})
+(kmap :n :<leader>ct copilot.toggle-copilot {:desc "Toggle GitHub Copilot"})
+(kmap :n :<c-q> (fn [] (vim.cmd :copen)) {:desc "Open quickfix"})
 
-(kmap :v :<leader>ss "!sort -d -b -f <cr>")
-(kmap :v :<leader>y "\"+y")
-(kmap :v :<c-c> :<esc>)
-(kmap :v :<leader>fs "!sqlformat.sh <cr>")
-(kmap :v :<leader>fh "!prettier --parser html <cr>")
-(kmap :v :<leader>fc "!prettier --parser css <cr>")
-(kmap :v :<leader>fg "!prettier --parser graphql <cr>")
-(kmap :v :<leader>fj "!prettier --parser json <cr>")
-(kmap :v :<leader>fg "!prettier --parser glimmer <cr>")
-(kmap :v :<leader>fl "!biome lint --fix --unsafe --stdin-file-path=%<cr>")
+(kmap :i :<c-c> (fn [] (vim.snippet.stop) :<esc>)
+      {:expr true :desc "Escape (End snippet)"})
+
+(kmap :i :<esc> (fn [] (vim.snippet.stop) :<esc>)
+      {:expr true :desc "Escape (End snippet)"})
+
+(kmap :v :<leader>ss "!sort -d -b -f <cr>" {:desc "Sort selection"})
+(kmap :v :<leader>y "\"+y" {:desc "Yank to system clipboard"})
+(kmap :v :<c-c> :<esc> {:desc :Escape})
+(kmap :v :<leader>fs "!sqlformat.sh <cr>" {:desc "Format SQL"})
+(kmap :v :<leader>fh "!prettier --parser html <cr>" {:desc "Format HTML"})
+(kmap :v :<leader>fc "!prettier --parser css <cr>" {:desc "Format CSS"})
+(kmap :v :<leader>fg "!prettier --parser graphql <cr>" {:desc "Format GraphQL"})
+(kmap :v :<leader>fj "!prettier --parser json <cr>" {:desc "Format JSON"})
+(kmap :v :<leader>fl "!biome lint --fix --unsafe --stdin-file-path=%<cr>"
+      {:desc "Fix current selection with Biome"})
 
 (fn convert-color []
   "Convert color under cursor/selection to other formats"
@@ -103,13 +108,14 @@
         ((vim.api.nvim_paste (output:gsub "\n$" " ") true -1))))))
 
 ;; Convert color under cursor/selection to other formats
-(kmap :v :<leader>cc convert-color)
+(kmap :v :<leader>cc convert-color
+      {:desc "Convert selected color from hex to rgb or vice versa"})
 
-(kmap :c :<c-b> :<left>)
-(kmap :c :<c-f> :<right>)
-(kmap :c :<c-a> :<home>)
-(kmap :c :<c-e> :<end>)
-(kmap :c :<c-d> :<del>)
+(kmap :c :<c-b> :<left> {:desc :Left})
+(kmap :c :<c-f> :<right> {:desc :Right})
+(kmap :c :<c-a> :<home> {:desc :Home})
+(kmap :c :<c-e> :<end> {:desc :End})
+(kmap :c :<c-d> :<del> {:desc :Delete})
 
 ;; Filetypes
 (vim.filetype.add {:extension {:templ :templ}})
