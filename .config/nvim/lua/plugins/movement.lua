@@ -7,12 +7,12 @@ return {
 
 			vim.keymap.set({ 'n', 'x', 'o' }, 'ga', function()
 				require('leap.treesitter').select()
-			end)
+			end, { desc = "Leap to selection" })
 
 			-- Linewise.
 			vim.keymap.set({ 'n', 'x', 'o' }, 'gA',
-				'V<cmd>lua require("leap.treesitter").select()<cr>'
-			)
+				'V<cmd>lua require("leap.treesitter").select()<cr>',
+				{ desc = "Leap to selection (linewise)" })
 		end,
 		version = false,
 		event = { "BufReadPost", "BufNewFile" },
@@ -25,14 +25,4 @@ return {
 		end,
 		event = { "BufReadPost", "BufNewFile" },
 	},
-	-- {
-	-- 	"guns/vim-sexp",
-	-- 	version = false,
-	-- 	ft = { "lisp", "scheme", "clojure", "racket", "fennel" },
-	-- },
-	-- {
-	-- 	"tpope/vim-sexp-mappings-for-regular-people",
-	-- 	version = false,
-	-- 	ft = { "lisp", "scheme", "clojure", "racket", "fennel" },
-	-- }
 }

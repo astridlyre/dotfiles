@@ -25,14 +25,14 @@ return {
 				},
 			})
 
-			vim.keymap.set('n', "<leader>csa", function() suggestion.accept() end)
-			vim.keymap.set('n', "<leader>csn", function() suggestion.next() end)
-			vim.keymap.set('n', "csp", function() suggestion.prev() end)
-			vim.keymap.set('n', "cpa", function() panel.accept() end)
-			vim.keymap.set('n', "cpn", function() panel.next() end)
-			vim.keymap.set('n', "cpp", function() panel.prev() end)
-			vim.keymap.set('n', "cpo", function() panel.open() end)
-			vim.keymap.set('n', "cpr", function() panel.refresh() end)
+			vim.keymap.set('n', "<leader>csa", function() suggestion.accept() end, { desc = "Accept Copilot Suggestion" })
+			vim.keymap.set('n', "<leader>csn", function() suggestion.next() end, { desc = "Next Copilot Suggestion" })
+			vim.keymap.set('n', "csp", function() suggestion.prev() end, { desc = "Previous Copilot Suggestion" })
+			vim.keymap.set('n', "cpa", function() panel.accept() end, { desc = "Accept Copilot Panel Suggestion" })
+			vim.keymap.set('n', "cpn", function() panel.next() end, { desc = "Next Copilot Panel Suggestion" })
+			vim.keymap.set('n', "cpp", function() panel.prev() end, { desc = "Previous Copilot Panel Suggestion" })
+			vim.keymap.set('n', "cpo", function() panel.open() end, { desc = "Open Copilot Panel" })
+			vim.keymap.set('n', "cpr", function() panel.refresh() end, { desc = "Refresh Copilot Panel" })
 		end,
 	},
 	{

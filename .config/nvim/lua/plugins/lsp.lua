@@ -6,11 +6,6 @@ return {
 			require("moonlight.lsp").setup()
 		end,
 	},
-	-- {
-	-- 	'mrcjkb/haskell-tools.nvim',
-	-- 	version = '^6', -- Recommended
-	-- 	lazy = false, -- This plugin is already lazy
-	-- },
 	{
 		"pmizio/typescript-tools.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "williamboman/mason.nvim" },
