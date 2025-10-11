@@ -60,8 +60,4 @@ with_augroup("wrap_spell", "FileType", {pattern = {"gitcommit", "markdown"}, cal
 local function _12_()
   return vim.highlight.on_yank({higroup = "IncSearch", timeout = 200})
 end
-with_augroup("highlight_yank", "TextYankPost", {callback = _12_})
-local function _13_(args)
-  return core["assoc-in"](vim.b, {args.buf, "minipairs_disable"}, true)
-end
-return with_augroup("mini_disable_pairs", "FileType", {pattern = {"lazy", "mason", "scheme", "fennel", "clojure", "clojurec", "clojurescript", "clojurex", "edn", "lisp", "racket"}, callback = _13_})
+return with_augroup("highlight_yank", "TextYankPost", {callback = _12_})

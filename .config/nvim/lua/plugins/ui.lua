@@ -62,6 +62,7 @@ return {
 		config = function()
 			vim.cmd [[colorscheme deepwhite]]
 			vim.api.nvim_set_hl(0, "QuickFixLine", { fg = "#000000", bg = "#D4FAD4" })
+			vim.api.nvim_set_hl(0, "LeapLabel", { fg = "#ffffff", bg = "#000000" })
 		end,
 	},
 }

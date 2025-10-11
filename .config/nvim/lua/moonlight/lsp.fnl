@@ -120,6 +120,25 @@
                                       :telemetry {:enable false}}}})
     (vim.lsp.enable [:lua_ls])))
 
+(fn ts-go []
+  "Configure Typescript Go LSP server with specific options."
+  (vim.lsp.config :ts-go {:cmd [(.. (os.getenv :HOME)
+                                    :/projects/typescript-go/built/local/tsgo)
+                                :--lsp
+                                :-stdio]
+                          :capabilities (make-caps)
+                          :filetypes [:javascript
+                                      :javascriptreact
+                                      :javascript.jsx
+                                      :typescript
+                                      :typescriptreact
+                                      :typescript.jsx]
+                          :root_markers [:tsconfig.json
+                                         :jsconfig.json
+                                         :package.json
+                                         :.git]})
+  (vim.lsp.enable :ts-go))
+
 ;; Module setup
 {:setup (fn []
           ;; default servers
@@ -163,7 +182,7 @@
                                             :source :if_many
                                             :header ""
                                             :prefix ""}}))
-          (vim.lsp.set_log_level :OFF)
+          (vim.lsp.set_log_level :ERROR)
           (vim.api.nvim_create_autocmd :LspAttach
                                        {:callback (fn [args]
                                                     (let [bufnr args.buf

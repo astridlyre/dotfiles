@@ -80,20 +80,3 @@
 (with-augroup :highlight_yank
   :TextYankPost
   {:callback (fn [] (vim.highlight.on_yank {:higroup :IncSearch :timeout 200}))})
-
-;; Disable minipairs in certain filetypes
-(with-augroup :mini_disable_pairs
-  :FileType
-  {:pattern [:lazy
-             :mason
-             :scheme
-             :fennel
-             :clojure
-             :clojurec
-             :clojurescript
-             :clojurex
-             :edn
-             :lisp
-             :racket]
-   :callback (fn [args]
-               (core.assoc-in vim.b [args.buf :minipairs_disable] true))})

@@ -84,6 +84,10 @@ local function lua_ls()
   vim.lsp.config("lua_ls", {capabilities = make_caps(), on_new_config = _8_, settings = {Lua = {runtime = {version = "LuaJIT", path = path}, completion = {callSnippet = "Both"}, diagnostics = {globals = {"vim"}}, workspace = {library = library, maxPreload = 2000, preloadFileSize = 50000, checkThirdParty = false}, telemetry = {enable = false}}}})
   return vim.lsp.enable({"lua_ls"})
 end
+local function ts_go()
+  vim.lsp.config("ts-go", {cmd = {(os.getenv("HOME") .. "/projects/typescript-go/built/local/tsgo"), "--lsp", "-stdio"}, capabilities = make_caps(), filetypes = {"javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.jsx"}, root_markers = {"tsconfig.json", "jsconfig.json", "package.json", ".git"}})
+  return vim.lsp.enable("ts-go")
+end
 local function _9_()
   do
     local default_servers = {"pyright", "yamlls", "vimls", "html", "cssls", "dockerls", "bashls", "clojure_lsp", "eslint", "zls", "jsonls", "astro", "racket_langserver", "fennel_ls", "harper_ls"}
@@ -108,7 +112,7 @@ local function _9_()
     signs.text[vim.diagnostic.severity.HINT] = "\239\129\154"
     vim.diagnostic.config({signs = signs, underline = true, severity_sort = true, float = {source = "if_many", header = "", prefix = "", focusable = false, show_header = false}, update_in_insert = false, virtual_text = false})
   end
-  vim.lsp.set_log_level("OFF")
+  vim.lsp.set_log_level("ERROR")
   local function _11_(args)
     local bufnr = args.buf
     local client = vim.lsp.get_client_by_id(args.data.client_id)

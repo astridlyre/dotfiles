@@ -14,7 +14,7 @@ return {
 			copilot.setup({
 				suggestion = { enabled = false },
 				panel = { enabled = false },
-				copilot_model = 'gpt-4o-copilot',
+				copilot_model = 'gpt-41-copilot',
 				server_opts_overrides = {
 					trace = "verbose",
 					settings = {
@@ -62,9 +62,14 @@ return {
 					Commit = function(gp, params)
 						local git_changes = vim.fn.system("git diff --staged")
 
-						local template = "I have the following code changes in my git stage:\n\n" ..
+						local template = "I have the following code changes in my git staged:\n\n" ..
 							git_changes ..
-							"\nPlease suggest a commit message. Do not explain or describe it in any way, just provide the commit message following the 'conventional commit' style."
+							"\nPlease suggest a commit message in the 'conventional commit' style. Do not explain your reasoning in any way, do not title your response, just provide the message. Follow the format 'type(scope): description'. Use the following types where appropriate: feat, fix, docs, style, refactor, perf, test, chore. Use '!' after the type to indicate a breaking change if necessary. If the changes do not fit any of these types, use 'chore' as the type. Here are some examples:\n\n" ..
+							"feat(parser): add ability to parse arrays\n" ..
+							"fix(auth): resolve login issue on mobile devices\n" ..
+							"docs(README): update installation instructions\n" ..
+							"style(lint): apply code formatting with Prettier\n\n" ..
+							"Please also describe the changes made in the commit in a concise paragraph after the message."
 
 						local agent = gp.get_chat_agent()
 						gp.Prompt(params, gp.Target.enew("markdown"), agent, template)
