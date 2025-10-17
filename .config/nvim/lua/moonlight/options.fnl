@@ -2,7 +2,7 @@
 
 ;; Variables
 (set vim.g.mapleader " ")
-(set vim.g.maplocalleader "\\")
+(set vim.g.maplocalleader ",")
 (set vim.g.omni_sql_no_default_maps 1)
 (set vim.g.python3_host_prog :/usr/bin/python3)
 

@@ -33,7 +33,8 @@ return {
 					sh = { "shfmt" },
 					racket = { "raco" },
 					clojure = { "cljstyle" },
-					fennel = { "fnlfmt" }
+					fennel = { "fnlfmt" },
+					astro = { "prettierd" }
 				},
 				format_on_save = {
 					lsp_fallback = true,
@@ -55,6 +56,24 @@ return {
 		"julienvincent/nvim-paredit",
 		config = function()
 			local paredit = require("nvim-paredit")
+
+			local wrap_keys = {}
+			for _, v in ipairs({ { "(", ")" }, { "[", "]" }, { "{", "}" }, { '"', '"' }, { "'", "'" } }) do
+				local open, close = v[1], v[2]
+				wrap_keys["<localleader>w" .. open] = {
+					function()
+						paredit.api.wrap_element_under_cursor(open, close)
+					end,
+					"Wrap element under cursor in " .. open .. close .. " form",
+				}
+				wrap_keys["<localleader>W" .. open] = {
+					function()
+						paredit.api.wrap_enclosing_form_under_cursor(open, close)
+					end,
+					"Wrap enclosing form under cursor in " .. open .. close .. " form",
+				}
+			end
+
 			paredit.setup({
 				-- Should plugin use default keybindings? (default = true)
 				use_default_keys = true,
@@ -103,7 +122,7 @@ return {
 				},
 
 				-- list of default keybindings
-				keys = {
+				keys = vim.tbl_deep_extend('force', {
 					["<localleader>@"] = { paredit.unwrap.unwrap_form_under_cursor, "Splice sexp" },
 					[">)"] = { paredit.api.slurp_forwards, "Slurp forwards" },
 					[">("] = { paredit.api.barf_backwards, "Barf backwards" },
@@ -122,6 +141,7 @@ return {
 
 					["<localleader>o"] = { paredit.api.raise_form, "Raise form" },
 					["<localleader>O"] = { paredit.api.raise_element, "Raise element" },
+					["<localleader>u"] = { paredit.api.unwrap_form_under_cursor, "Unwrap form" },
 
 					["E"] = {
 						paredit.api.move_to_next_element_tail,
@@ -207,8 +227,55 @@ return {
 						repeatable = false,
 						mode = { "o", "v" },
 					},
-				},
+				}, wrap_keys),
 			})
 		end
+	},
+	{
+		"eraserhd/parinfer-rust",
+		build = "cargo build --release",
+		keys = {
+			{
+				"<localleader>po",
+				function()
+					vim.cmd("ParinferOn")
+					print("Parinfer enabled")
+				end,
+				desc = "Enable Parinfer"
+			},
+			{
+				"<localleader>pf",
+				function()
+					vim.cmd("ParinferOff")
+					print("Parinfer disabled")
+				end,
+				desc = "Disable Parinfer"
+			},
+			{
+				"<localleader>ps",
+				function()
+					vim.g.parinfer_mode = 'smart'
+					print("Parinfer mode set to 'smart'")
+				end,
+				desc = "Enable 'smart' mode in Parinfer"
+			},
+			{
+				"<localleader>pi",
+				function()
+					vim.g.parinfer_mode = 'indent'
+					print("Parinfer mode set to 'intent'")
+				end,
+				desc = "Enable 'indent' mode in Parinfer"
+			},
+			{
+				"<localleader>pp",
+				function()
+					vim.g.parinfer_mode = 'paren'
+					print("Parinfer mode set to 'paren'")
+				end,
+				desc = "Enable 'paren' mode in Parinfer"
+			},
+		}
+
 	}
 }
