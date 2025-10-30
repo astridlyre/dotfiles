@@ -10,7 +10,9 @@ return {
 			for k, v in pairs(opts) do
 				leap.opts[k] = v
 			end
-			require("leap").add_default_mappings()
+
+			vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap)')
+			vim.keymap.set('n', 'S', '<Plug>(leap-from-window)')
 
 			local function leap_line(backward)
 				require('leap').leap {

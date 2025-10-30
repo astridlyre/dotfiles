@@ -69,7 +69,7 @@ return {
 							"fix(auth): resolve login issue on mobile devices\n" ..
 							"docs(README): update installation instructions\n" ..
 							"style(lint): apply code formatting with Prettier\n\n" ..
-							"Please also describe the changes made in the commit in a concise paragraph after the message."
+							"Please also describe the changes made in the commit in a concise paragraph after the message. The paragraph must be no longer than 3 sentences."
 
 						local agent = gp.get_chat_agent()
 						gp.Prompt(params, gp.Target.enew("markdown"), agent, template)
