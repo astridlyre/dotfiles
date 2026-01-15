@@ -33,6 +33,8 @@ return {
 					sh = { "shfmt" },
 					racket = { "raco" },
 					clojure = { "cljstyle" },
+					clojurescript = { "cljstyle" },
+					edn = { "cljstyle" },
 					fennel = { "fnlfmt" },
 					astro = { "prettierd" }
 				},
@@ -231,52 +233,51 @@ return {
 			})
 		end
 	},
-	{
-		"eraserhd/parinfer-rust",
-		build = "cargo build --release",
-		ft = { "clojure", "fennel", "lisp", "scheme", "racket" },
-		keys = {
-			{
-				"<localleader>po",
-				function()
-					vim.cmd("ParinferOn")
-					print("Parinfer enabled")
-				end,
-				desc = "Enable Parinfer"
-			},
-			{
-				"<localleader>pf",
-				function()
-					vim.cmd("ParinferOff")
-					print("Parinfer disabled")
-				end,
-				desc = "Disable Parinfer"
-			},
-			{
-				"<localleader>ps",
-				function()
-					vim.g.parinfer_mode = 'smart'
-					print("Parinfer mode set to 'smart'")
-				end,
-				desc = "Enable 'smart' mode in Parinfer"
-			},
-			{
-				"<localleader>pi",
-				function()
-					vim.g.parinfer_mode = 'indent'
-					print("Parinfer mode set to 'intent'")
-				end,
-				desc = "Enable 'indent' mode in Parinfer"
-			},
-			{
-				"<localleader>pp",
-				function()
-					vim.g.parinfer_mode = 'paren'
-					print("Parinfer mode set to 'paren'")
-				end,
-				desc = "Enable 'paren' mode in Parinfer"
-			},
-		}
-
-	}
+	-- {
+	-- 	"eraserhd/parinfer-rust",
+	-- 	build = "cargo build --release",
+	-- 	ft = { "clojure", "fennel", "lisp", "scheme", "racket" },
+	-- 	keys = {
+	-- 		{
+	-- 			"<localleader>po",
+	-- 			function()
+	-- 				vim.cmd("ParinferOn")
+	-- 				print("Parinfer enabled")
+	-- 			end,
+	-- 			desc = "Enable Parinfer"
+	-- 		},
+	-- 		{
+	-- 			"<localleader>pf",
+	-- 			function()
+	-- 				vim.cmd("ParinferOff")
+	-- 				print("Parinfer disabled")
+	-- 			end,
+	-- 			desc = "Disable Parinfer"
+	-- 		},
+	-- 		{
+	-- 			"<localleader>ps",
+	-- 			function()
+	-- 				vim.g.parinfer_mode = 'smart'
+	-- 				print("Parinfer mode set to 'smart'")
+	-- 			end,
+	-- 			desc = "Enable 'smart' mode in Parinfer"
+	-- 		},
+	-- 		{
+	-- 			"<localleader>pi",
+	-- 			function()
+	-- 				vim.g.parinfer_mode = 'indent'
+	-- 				print("Parinfer mode set to 'intent'")
+	-- 			end,
+	-- 			desc = "Enable 'indent' mode in Parinfer"
+	-- 		},
+	-- 		{
+	-- 			"<localleader>pp",
+	-- 			function()
+	-- 				vim.g.parinfer_mode = 'paren'
+	-- 				print("Parinfer mode set to 'paren'")
+	-- 			end,
+	-- 			desc = "Enable 'paren' mode in Parinfer"
+	-- 		},
+	-- 	}
+	-- }
 }

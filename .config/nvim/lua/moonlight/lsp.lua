@@ -84,13 +84,9 @@ local function lua_ls()
   vim.lsp.config("lua_ls", {capabilities = make_caps(), on_new_config = _8_, settings = {Lua = {runtime = {version = "LuaJIT", path = path}, completion = {callSnippet = "Both"}, diagnostics = {globals = {"vim"}}, workspace = {library = library, maxPreload = 2000, preloadFileSize = 50000, checkThirdParty = false}, telemetry = {enable = false}}}})
   return vim.lsp.enable({"lua_ls"})
 end
-local function ts_go()
-  vim.lsp.config("ts-go", {cmd = {(os.getenv("HOME") .. "/projects/typescript-go/built/local/tsgo"), "--lsp", "-stdio"}, capabilities = make_caps(), filetypes = {"javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.jsx"}, root_markers = {"tsconfig.json", "jsconfig.json", "package.json", ".git"}})
-  return vim.lsp.enable("ts-go")
-end
 local function _9_()
   do
-    local default_servers = {"pyright", "yamlls", "vimls", "html", "cssls", "dockerls", "bashls", "clojure_lsp", "eslint", "zls", "jsonls", "astro", "racket_langserver", "fennel_ls", "harper_ls"}
+    local default_servers = {"pyright", "yamlls", "vimls", "html", "cssls", "dockerls", "bashls", "clojure_lsp", "eslint", "zls", "jsonls", "astro", "racket_langserver", "jdtls", "fennel_ls", "harper_ls"}
     for _, ls in ipairs(default_servers) do
       local cfg = {capabilities = make_caps()}
       if (ls == "harper_ls") then

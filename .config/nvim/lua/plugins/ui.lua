@@ -65,4 +65,31 @@ return {
 			vim.api.nvim_set_hl(0, "LeapLabel", { fg = "#ffffff", bg = "#000000" })
 		end,
 	},
+	-- lazy.nvim
+	{
+		'saghen/blink.indent',
+		--- @module 'blink.indent'
+		--- @type blink.indent.Config
+		opts = {
+			static = {
+				char = '│',
+			},
+			scope = {
+				char = '│',
+				highlights = { 'BlinkIndentScope' },
+			}
+		},
+	},
+	{
+		'andymass/vim-matchup',
+		-- or use the `opts` mechanism built into `lazy.nvim`. It calls
+		-- `require('match-up').setup` under the hood
+		---@type matchup.Config
+		opts = {
+			treesitter = {
+				stopline = 500,
+			}
+		}
+	}
+
 }

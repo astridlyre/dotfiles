@@ -5,6 +5,7 @@ vim.g.maplocalleader = ","
 vim.g.omni_sql_no_default_maps = 1
 vim.g.python3_host_prog = "/usr/bin/python3"
 vim.o.backup = false
+vim.o.background = "dark"
 vim.o.breakindent = true
 vim.o.completeopt = "menu,menuone,noinsert"
 vim.o.exrc = true

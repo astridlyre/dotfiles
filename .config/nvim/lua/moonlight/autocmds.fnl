@@ -81,8 +81,8 @@
   :TextYankPost
   {:callback (fn [] (vim.highlight.on_yank {:higroup :IncSearch :timeout 200}))})
 
-(with-augroup :mini.pairs
-  :FileType
-  {:pattern [:fennel :clojure :racket :lisp :scheme]
-   :callback (fn [args]
-               (core.assoc-in vim.b [args.buf :minipairs_disable] true))})
+; (with-augroup :mini.pairs
+;   :FileType
+;   {:pattern [:fennel :clojure :racket :lisp :scheme :clojurescript]
+;    :callback (fn [args]
+;                (core.assoc-in vim.b [args.buf :minipairs_disable] true))})

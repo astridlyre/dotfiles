@@ -47,11 +47,6 @@ return {
 			notifier = { enabled = true },
 			quickfile = { enabled = true },
 			bufdelete = { enabled = true },
-			indent = {
-				enabled = true,
-				char = '▏',
-				animate = { enabled = false }
-			}
 		},
 		keys = {
 			{ "<leader>d",  function() Snacks.bufdelete.delete() end,             desc = 'Buf Delete' },

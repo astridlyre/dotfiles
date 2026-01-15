@@ -26,3 +26,7 @@ tags.temp
 .bin/mysql.binary
 .bin/beekeeper-studio
 .bin/fennel-ls
+.bin/claude
+.bin/tailwindcss
+.clj-kondo/
+.lsp

@@ -8,6 +8,7 @@
 
 ;; Options
 (set vim.o.backup false)
+(set vim.o.background :dark)
 (set vim.o.breakindent true)
 (set vim.o.completeopt "menu,menuone,noinsert")
 (set vim.o.exrc true)

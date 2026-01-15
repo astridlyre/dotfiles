@@ -23,6 +23,24 @@
   value: (template_string) @sql
 )
 
+(variable_declarator
+  name: (identifier) @_name
+	(#match? @_name "\\csql")
+  value: [(string) (template_string)] @injection.content
+	(#offset! @injection.content 0 1 0 -1)
+	(#set! injection.include-children)
+	(#set! injection.combined)
+	(#set! injection.language "sql"))
+
+(pair
+  key: (property_identifier) @_name
+	(#match? @_name "\\csql")
+  value: [(string) (template_string)] @injection.content
+	(#offset! @injection.content 0 1 0 -1)
+	(#set! injection.include-children)
+	(#set! injection.combined)
+	(#set! injection.language "sql"))
+
 (((comment) @_jsdoc_comment
   (#match? @_jsdoc_comment "^/\\*\\*[^\\*].*\\*/")) @jsdoc)
 

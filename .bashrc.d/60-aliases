@@ -67,8 +67,8 @@ alias checkout="git checkout"
 alias commit="git commit"
 alias st="git status"
 
-alias repl="clj -M:repl/conjure"
-
+alias repl="clojure -M:repl/reloaded"
+alias brepl="rlwrap bb socket-repl 1666"
 alias pandock='docker run --rm -v "$(pwd):/data" -u $(id -u):$(id -g) pandoc/extra'
 alias stripe="docker run --rm -it -v stripe-config://root/.config/stripe/ -v stripe-gpg://root/.gnupg/ -v stripe-pass://root/.password-store/ stripe-cli"
 
@@ -76,9 +76,9 @@ alias proddb='ssh -i "~/.ssh/st-prod-1.pem" -L 3308:st-prod-1-us-west-1.cluster-
 alias proddb2='ssh -v -i "~/.ssh/st-prod-1.pem" -L 3308:st-prod-1-us-west-1.cluster-cz4qc0ygmyrt.us-west-1.rds.amazonaws.com:3306 ubuntu@ec2-54-177-172-105.us-west-1.compute.amazonaws.com -N'
 alias stagingdb='ssh -i "~/.ssh/st-staging-1.pem" -L 3307:st-staging-1-us-west-1.cluster-cb4uoooy6nqd.us-west-1.rds.amazonaws.com:3306 ec2-user@ec2-204-236-166-169.us-west-1.compute.amazonaws.com -N'
 
-alias prodredis='tsh ssh -L 6379:redis.default.svc.cluster.local:6379 -N --proxy=secure.common.aws.us-west-1.streamily.com root@bastion-prod-1'
+alias prodredis='ssh -v -i "~/.ssh/st-prod-1.pem" -L 6379:ec-st-prod-1-us-west-1.jnv1yn.clustercfg.usw1.cache.amazonaws.com:6379 ubuntu@ec2-54-177-172-105.us-west-1.compute.amazonaws.com -N'
 
-alias stagingredis='tsh ssh -L 6379:redis.default.svc.cluster.local:6379 -N --proxy=secure.common.aws.us-west-1.streamily.com root@bastion-staging-1'
+alias stagingredis='ssh -v -i "~/.ssh/st-staging-1.pem" -L 6379:ec-st-staging-1-us-west-1.ctek8e.clustercfg.usw1.cache.amazonaws.com:6379 ec2-user@ec2-204-236-166-169.us-west-1.compute.amazonaws.com -N'
 
 alias redis-cli="docker run -it --network host --rm redis redis-cli"
 

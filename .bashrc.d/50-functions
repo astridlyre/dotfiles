@@ -30,19 +30,6 @@ function es() {
 	cd "$prev" || exit 1
 }
 
-# Unlock my bitwarden session
-function bwinit() {
-	local pw
-	printf 'pw: '
-	read -rs pw
-	eval "$(bw unlock "$pw" | grep -Eo 'export BW_SESSION=.*')"
-}
-
-# Get a password
-function bwget() {
-	bw get password "$1" | xsel -b
-}
-
 # Use fd instead of the default find
 function _fzf_compgen_path() {
 	rg --files --hidden --follow --glob "!.git/**" --glob "!build/**" --glob \
@@ -77,7 +64,7 @@ function r() {
 
 function co() {
 	local branch
-	branch="$(git branch --sort=-committerdate | rg -v '^\*' | sed 's/[ *]*//' | fzf --no-height --ansi --preview 'git log --graph --pretty=oneline --abbrev-commit --color=always -n 15 {}')"
+	branch="$(git branch --sort=-committerdate | rg -v '^\*' | sed 's/[ *]*//' | fzf --no-height --ansi --layout reverse --preview 'git log --graph --pretty=oneline --abbrev-commit --color=always -n 15 {}')"
 	[[ "${branch}" ]] && git checkout "${branch}"
 }
 
@@ -137,6 +124,14 @@ function osc7_cwd() {
 		encoded+="${o}"
 	done
 	printf '\e]7;file://%s%s\e\\' "${HOSTNAME}" "${encoded}"
+}
+
+function fix_trackpad() {
+	echo "0018:32AC:001B.0006" | sudo tee /sys/bus/hid/drivers/hid-sensor-hub/unbind
+	sudo modprobe -r hid_multitouch
+	sudo modprobe hid_multitouch
+	sudo modprobe -r i2c_hid_acpi
+	sudo modprobe i2c_hid_acpi
 }
 
 PROMPT_COMMAND=${PROMPT_COMMAND:+${PROMPT_COMMAND%;}; }osc7_cwd

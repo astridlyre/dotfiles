@@ -120,3 +120,4 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export COLORTERM=truecolor
 
 export FLYCTL_INSTALL="/home/ml/.fly"
+export SDKMAN_DIR="$HOME/.sdkman"
