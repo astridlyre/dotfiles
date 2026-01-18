@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 
 case "$(file -L -b --mime-type "$1")" in
-  text/* )
-    bat --color=always --decorations never --line-range 0:50 "$1"
-    ;;
-  *)
-    printf "\e[1;31mNon-text content\e[0m"
+text/*)
+	bat --color=always --decorations never --line-range 0:50 "$1"
+	;;
+application/*)
+	bat --color=always --decorations never --line-range 0:50 "$1"
+	;;
+*)
+	printf "\e[1;31mNon-text content\e[0m"
+	;;
 esac

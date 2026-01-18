@@ -1,45 +1,18 @@
-Xcursor.size: 16
-Xcursor.theme: Bibata-Modern-Ice
-Xft.dpi: 96
-Xft.autohint: 0
-Xft.lcdfilter: lcddefault
-Xft.hintstyle: hintfull
-Xft.hinting: 1
-Xft.antialias: 1
-Xft.rgba: rgb
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! Gruvbox Material Dark
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-*background: #1d2021
-! medium
-! *background: #282828
-! soft
-! *background: #32302f
-
-*foreground: #d4be98
-
-! Black + DarkGrey
-*color0:  #32302f
-*color8:  #32302f
-! DarkRed + Red
-*color1:  #ea6962
-*color9:  #ea6962
-! DarkGreen + Green
-*color2:  #a9b665
-*color10: #a9b665
-! DarkYellow + Yellow
-*color3:  #e78a4e
-*color11: #e78a4e
-! DarkBlue + Blue
-*color4:  #7daea3
-*color12: #7daea3
-! DarkMagenta + Magenta
-*color5:  #d3869b
-*color13: #d3869b
-! DarkCyan + Cyan
-*color6:  #89b482
-*color14: #89b482
-! LightGrey + White
-*color7:  #d4be98
-*color15: #d4be98
+*background: #FAF2EB
+*foreground: #1A1918
+*color0: #1A1918
+*color1: #A60000
+*color2: #00A600
+*color3: #F2F200
+*color4: #0000A6
+*color5: #6F00A6
+*color6: #00A6A6
+*color7: #FAFAFA
+*color8: #1A1918
+*color9: #A60000
+*color10: #00A600
+*color11: #F2F200
+*color12: #0000A6
+*color13: #6F00A6
+*color14: #00A6A6
+*color15: #FAFAFA

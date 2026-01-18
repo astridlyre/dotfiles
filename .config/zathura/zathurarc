@@ -1,62 +1,40 @@
-set font "PragmataPro Mono Liga normal 11"
-set highlight-transparency 1.0
+set font "PragmataPro Mono Liga 13"
 
-###############################################################################
-# Zathura Gruvbox Material Dark
-#
-# Material Soft Variant
-# Inspired by: https://github.com/sainnhe/gruvbox-material
-#
-# Written by: Marco Antonio Cardoso Moreno
-#
-###############################################################################
+# Background colors
+set default-bg "#FAF2EB"             # Main background color (base)
+set statusbar-bg "#CCCBC6"           # Status bar background (mantle)
+set inputbar-bg "#CCCBC6"            # Input bar background (mantle)
 
-set notification-error-bg       "#32302f" # bg0
-set notification-error-fg       "#ea6962" # red
-set notification-warning-bg     "#32302f" # bg0
-set notification-warning-fg     "#d8a657" # yellow
-set notification-bg             "#32302f" # bg0
-set notification-fg             "#a9b665" # green
+# Foreground colors
+set default-fg "#1A1918"             # Text color (text)
+set statusbar-fg "#1A1918"           # Status bar text (text)
+set inputbar-fg "#1A1918"            # Input bar text (text)
 
-set completion-bg               "#3c3836" # bg2
-set completion-fg               "#d4be98" # fg0
-set completion-group-bg         "#3c3836" # bg1
-set completion-group-fg         "#928374" # gray
-set completion-highlight-bg     "#7daea3" # blue
-set completion-highlight-fg     "#3c3836" # bg2
+# Highlight and selection
+set highlight-color "#6F00A6"        # Highlight color (magenta)
+set highlight-active-color "#C4A000" # Active highlight (yellow)
+set completion-bg "#CCCBC6"          # Completion menu background (mantle)
+set completion-fg "#0000A6"          # Completion text (blue)
+set completion-highlight-bg "#FAF2EB"   # Completion highlight background (base)
+set completion-highlight-fg "#A60000"   # Completion highlight text (red)
 
-# Define the color in index mode
-set index-bg                    "#3c3836" # bg2
-set index-fg                    "#d4be98" # fg0
-set index-active-bg             "#7daea3" # blue
-set index-active-fg             "#3c3836" # bg2
+# Link and error colors
+set recolor-lightcolor "#1A1918"     # Link color or light color in recolor mode (text)
+set recolor-darkcolor "#FAF2EB"      # Dark color in recolor mode (base)
 
-set inputbar-bg                 "#3c3836" # bg2
-set inputbar-fg                 "#d4be98" # fg0
+# Recolor mode (for night/low-light reading)
+set recolor "#CCCBC6"                # Enable recolor mode (mantle for a softer low-light)
 
-set statusbar-bg                "#3c3836" # bg2
-set statusbar-fg                "#d4be98" # fg0
+# Additional settings
+set notification-bg "#A60000"        # Notification background (overlay0 / red)
+set notification-fg "#FAF2EB"        # Notification text (base)
 
-set highlight-color             "#d8a657" # yellow
-set highlight-active-color      "#e78a4e" # orange
-
-set default-bg                  "#504945" # bg3
-set default-fg                  "#ddc7a1" # fg1
-set render-loading              true
-set render-loading-bg           "#32302f" # bg0
-set render-loading-fg           "#d4be98" # fg0
-
-# Recolor book content's color
-set recolor-lightcolor          "#32302f" # bg0
-set recolor-darkcolor           "#d4be98" # fg0
-set recolor                     "true"
-set recolor-keephue             true      # keep original color
-
-set sandbox none
+set sandbox strict
 set statusbar-h-padding 0
 set statusbar-v-padding 0
 set page-padding 1
 set selection-clipboard clipboard
+
 map u scroll half-up
 map d scroll half-down
 map D toggle_page_mode
@@ -66,4 +44,3 @@ map K zoom in
 map J zoom out
 map i recolor
 map p print
-

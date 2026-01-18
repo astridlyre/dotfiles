@@ -44,7 +44,7 @@ function _fzf_compgen_dir() {
 # fzf find a file to edit in vim
 function s() {
 	local file prev
-	file="$(fzf --preview 'batfile {}' --no-height --reverse --ansi)"
+	file="$(fzf --preview 'batfile {}' --no-height --ansi)"
 	prev="$PWD"
 	cd "$(dirname "$prev/$file")" || exit 1
 	[[ "$file" ]] && vim "$prev/$file"
@@ -54,8 +54,8 @@ function s() {
 function r() {
 	local file old
 	old="$FZF_DEFAULT_COMMAND"
-	FZF_DEFAULT_COMMAND="rg --files --glob '*.pdf' --glob '*.epub' $HOME/toread"
-	file="$(fzf --no-height --reverse --ansi)"
+	FZF_DEFAULT_COMMAND="rg --files --glob '*.pdf' --glob '*.epub' $HOME/books"
+	file="$(fzf --no-height --ansi)"
 	[[ "$file" ]] && zathura "$file" &>/dev/null &
 	disown
 	clear
@@ -64,13 +64,13 @@ function r() {
 
 function co() {
 	local branch
-	branch="$(git branch --sort=-committerdate | rg -v '^\*' | sed 's/[ *]*//' | fzf --no-height --ansi --layout reverse --preview 'git log --graph --pretty=oneline --abbrev-commit --color=always -n 15 {}')"
+	branch="$(git branch --sort=-committerdate | rg -v '^\*' | sed 's/[ *]*//' | fzf --no-height --ansi --preview 'git log --graph --pretty=oneline --abbrev-commit --color=always -n 15 {}')"
 	[[ "${branch}" ]] && git checkout "${branch}"
 }
 
 # fzf find a man page
 function m() {
-	man -k . | fzf -q "$1" --prompt='man> ' --reverse \
+	man -k . | fzf -q "$1" --prompt='man> ' \
 		--preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man' |
 		tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
 }
