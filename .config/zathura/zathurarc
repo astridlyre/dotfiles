@@ -1,33 +1,33 @@
 set font "PragmataPro Mono Liga 13"
 
 # Background colors
-set default-bg "#FAF2EB"             # Main background color (base)
-set statusbar-bg "#CCCBC6"           # Status bar background (mantle)
-set inputbar-bg "#CCCBC6"            # Input bar background (mantle)
+set default-bg "#101010"             # Main background color (base)
+set statusbar-bg "#272727"           # Status bar background (mantle)
+set inputbar-bg "#272727"            # Input bar background (mantle)
 
 # Foreground colors
-set default-fg "#1A1918"             # Text color (text)
-set statusbar-fg "#1A1918"           # Status bar text (text)
-set inputbar-fg "#1A1918"            # Input bar text (text)
+set default-fg "#b0b0b0"             # Text color (text)
+set statusbar-fg "#b0b0b0"           # Status bar text (text)
+set inputbar-fg "#b0b0b0"            # Input bar text (text)
 
 # Highlight and selection
-set highlight-color "#6F00A6"        # Highlight color (magenta)
-set highlight-active-color "#C4A000" # Active highlight (yellow)
-set completion-bg "#CCCBC6"          # Completion menu background (mantle)
-set completion-fg "#0000A6"          # Completion text (blue)
-set completion-highlight-bg "#FAF2EB"   # Completion highlight background (base)
-set completion-highlight-fg "#A60000"   # Completion highlight text (red)
+set highlight-color "#ff7219"        # Highlight color (orange accent)
+set highlight-active-color "#d9ba73" # Active highlight (yellow)
+set completion-bg "#272727"          # Completion menu background (mantle)
+set completion-fg "#8ebeec"          # Completion text (info)
+set completion-highlight-bg "#101010"   # Completion highlight background (base)
+set completion-highlight-fg "#ff7676"   # Completion highlight text (danger)
 
 # Link and error colors
-set recolor-lightcolor "#1A1918"     # Link color or light color in recolor mode (text)
-set recolor-darkcolor "#FAF2EB"      # Dark color in recolor mode (base)
+set recolor-lightcolor "#b0b0b0"     # Link color or light color in recolor mode (text)
+set recolor-darkcolor "#101010"      # Dark color in recolor mode (base)
 
 # Recolor mode (for night/low-light reading)
-set recolor "#CCCBC6"                # Enable recolor mode (mantle for a softer low-light)
+set recolor "#272727"                # Enable recolor mode (mantle for a softer low-light)
 
 # Additional settings
-set notification-bg "#A60000"        # Notification background (overlay0 / red)
-set notification-fg "#FAF2EB"        # Notification text (base)
+set notification-bg "#ff7676"        # Notification background (danger)
+set notification-fg "#101010"        # Notification text (base)
 
 set sandbox strict
 set statusbar-h-padding 0
