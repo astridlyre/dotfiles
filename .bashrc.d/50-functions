@@ -54,7 +54,7 @@ function s() {
 function r() {
 	local file old
 	old="$FZF_DEFAULT_COMMAND"
-	FZF_DEFAULT_COMMAND="rg --files --glob '*.pdf' --glob '*.epub' $HOME/books"
+	FZF_DEFAULT_COMMAND="rg --files --glob '*.pdf' --glob '*.epub' $HOME/Books"
 	file="$(fzf --no-height --ansi)"
 	[[ "$file" ]] && zathura "$file" &>/dev/null &
 	disown

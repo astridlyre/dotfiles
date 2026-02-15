@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-lynx "https://linux.die.net/man/$1/$2"
-

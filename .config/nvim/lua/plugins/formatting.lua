@@ -5,27 +5,25 @@ return {
 		config = function()
 			local conform = require("conform")
 
-
 			conform.setup({
 				formatters = {
 					raco = { command = "raco", args = 'fmt' }
 				},
 				formatters_by_ft = {
-					-- javascript = { "prettierd" },
-					-- typescript = { "prettierd" },
-					-- javascriptreact = { "prettierd" },
-					-- typescriptreact = { "prettierd" },
-					javascript = { "biome" },
-					typescript = { "biome" },
-					javascriptreact = { "biome" },
-					typescriptreact = { "biome" },
-					svelte = { "prettierd" },
-					css = { "biome" },
+					javascript = { "oxfmt" },
+					typescript = { "oxfmt" },
+					javascriptreact = { "oxfmt" },
+					typescriptreact = { "oxfmt" },
+					css = { "oxfmt" },
 					html = { "prettierd" },
-					json = { "biome" },
-					yaml = { "prettierd" },
-					markdown = { "prettierd" },
-					graphql = { "biome" },
+					json = { "oxfmt" },
+					jsonc = { "oxfmt" },
+					json5 = { "oxfmt" },
+					yaml = { "oxfmt" },
+					toml = { "oxfmt" },
+					markdown = { "oxfmt" },
+					graphql = { "oxfmt" },
+					handlebars = { "oxfmt" },
 					lua = { "stylua" },
 					python = { "isort", "black" },
 					go = { "gofmt", "goimports" },
@@ -233,51 +231,4 @@ return {
 			})
 		end
 	},
-	-- {
-	-- 	"eraserhd/parinfer-rust",
-	-- 	build = "cargo build --release",
-	-- 	ft = { "clojure", "fennel", "lisp", "scheme", "racket" },
-	-- 	keys = {
-	-- 		{
-	-- 			"<localleader>po",
-	-- 			function()
-	-- 				vim.cmd("ParinferOn")
-	-- 				print("Parinfer enabled")
-	-- 			end,
-	-- 			desc = "Enable Parinfer"
-	-- 		},
-	-- 		{
-	-- 			"<localleader>pf",
-	-- 			function()
-	-- 				vim.cmd("ParinferOff")
-	-- 				print("Parinfer disabled")
-	-- 			end,
-	-- 			desc = "Disable Parinfer"
-	-- 		},
-	-- 		{
-	-- 			"<localleader>ps",
-	-- 			function()
-	-- 				vim.g.parinfer_mode = 'smart'
-	-- 				print("Parinfer mode set to 'smart'")
-	-- 			end,
-	-- 			desc = "Enable 'smart' mode in Parinfer"
-	-- 		},
-	-- 		{
-	-- 			"<localleader>pi",
-	-- 			function()
-	-- 				vim.g.parinfer_mode = 'indent'
-	-- 				print("Parinfer mode set to 'intent'")
-	-- 			end,
-	-- 			desc = "Enable 'indent' mode in Parinfer"
-	-- 		},
-	-- 		{
-	-- 			"<localleader>pp",
-	-- 			function()
-	-- 				vim.g.parinfer_mode = 'paren'
-	-- 				print("Parinfer mode set to 'paren'")
-	-- 			end,
-	-- 			desc = "Enable 'paren' mode in Parinfer"
-	-- 		},
-	-- 	}
-	-- }
 }

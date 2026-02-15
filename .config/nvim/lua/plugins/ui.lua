@@ -1,6 +1,12 @@
 return {
 	{ "folke/lazy.nvim", version = "*" },
 	{
+		"m4xshen/hardtime.nvim",
+		lazy = false,
+		dependencies = { "MunifTanjim/nui.nvim" },
+		opts = {},
+	},
+	{
 		"folke/ts-comments.nvim",
 		opts = {},
 		event = "VeryLazy",
@@ -56,15 +62,24 @@ return {
 		end
 	},
 	{
-		dir = '~/projects/deepwhite.nvim',
+		dir = '~/projects/mfd.nvim',
 		dev = true,
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd [[colorscheme deepwhite]]
+			vim.cmd('colorscheme mfd-stealth')
+
+			vim.opt.guicursor = {
+				"n:block-CursorNormal",
+				"v:block-CursorVisual",
+				"i:block-CursorInsert",
+				"r-cr:block-CursorReplace",
+				"c:block-CursorCommand",
+			}
+
+			require('mfd').enable_cursor_sync()
 		end,
 	},
-	-- lazy.nvim
 	{
 		'saghen/blink.indent',
 		--- @module 'blink.indent'

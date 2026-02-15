@@ -2,7 +2,6 @@ return {
 	{
 		"zbirenbaum/copilot.lua",
 		branch = 'master',
-		-- commit = "f0c0d98",
 		cmd = "Copilot",
 		build = ":Copilot auth",
 		event = "InsertEnter",
@@ -69,7 +68,7 @@ return {
 							"fix(auth): resolve login issue on mobile devices\n" ..
 							"docs(README): update installation instructions\n" ..
 							"style(lint): apply code formatting with Prettier\n\n" ..
-							"Please also describe the changes made in the commit in a concise paragraph after the message. The paragraph must be no longer than 3 sentences."
+							"Please also describe the changes made in the commit in a concise paragraph after the message. The paragraph must be no longer than 2 sentences. Keep the description factual and do not make any value judgements. It should be cold and descriptive only."
 
 						local agent = gp.get_chat_agent()
 						gp.Prompt(params, gp.Target.enew("markdown"), agent, template)

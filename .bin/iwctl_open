@@ -1,2 +1,0 @@
-#!/bin/sh
-exec wezterm start --class iwctl iwctl

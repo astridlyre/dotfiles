@@ -1,19 +1,19 @@
 #!/bin/sh
 
 if [ "${1}" = "" ] || [ "${2}" = "" ]; then
-	echo "Usage: loremipsum [p or s] [int]
+	echo "Usage: $(basename $0) [p or s] [int]
 	p for paragraph
 	s for sentence"
 else
 	case $1 in
-	  p)
+	p)
 		curl -s http://metaphorpsum.com/paragraphs/"${2}" && printf "\n"
-	    ;;
-	  s)
-	    curl -s http://metaphorpsum.com/sentences/"${2}" && printf "\n"
-	    ;;
-	  *)
-	    default
-	    ;;
+		;;
+	s)
+		curl -s http://metaphorpsum.com/sentences/"${2}" && printf "\n"
+		;;
+	*)
+		default
+		;;
 	esac
 fi

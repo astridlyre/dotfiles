@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-OUTPUT="${1%.c}"
-cc -o "$OUTPUT" "$1"
-"$OUTPUT"

@@ -7,17 +7,6 @@ return {
 		end,
 	},
 	{
-		"pmizio/typescript-tools.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "williamboman/mason.nvim" },
-		version = false,
-		lazy = false,
-		opts = {},
-		keys = {
-			{ "<leader>la", ":TSToolsAddMissingImports<cr>", desc = "Add Missing Imports" },
-			{ "<leader>li", ":TSToolsOrganizeImports<cr>",   desc = "Organize Imports" },
-		}
-	},
-	{
 		"williamboman/mason.nvim",
 		config = function()
 			require("mason").setup()

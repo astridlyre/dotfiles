@@ -122,8 +122,6 @@ return {
 				enabled = true,
 			},
 
-			-- cmdline = { sources = {} }, -- Disable sources for command-line mode
-
 			sources = {
 				default = function(ctx)
 					local success, node = pcall(vim.treesitter.get_node)

@@ -138,8 +138,10 @@
                                  :racket_langserver
                                  :jdtls
                                  :fennel_ls
-                                 ; :tsgo
-                                 :harper_ls]]
+                                 :tsgo
+                                 :harper_ls
+                                 ;; :oxlint
+                                 ]]
             (each [_ ls (ipairs default-servers)]
               (let [cfg {:capabilities (make-caps)}]
                 (when (= ls :harper_ls)

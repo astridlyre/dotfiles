@@ -86,7 +86,7 @@ local function lua_ls()
 end
 local function _9_()
   do
-    local default_servers = {"pyright", "yamlls", "vimls", "html", "cssls", "dockerls", "bashls", "clojure_lsp", "eslint", "zls", "jsonls", "astro", "racket_langserver", "jdtls", "fennel_ls", "harper_ls"}
+    local default_servers = {"pyright", "yamlls", "vimls", "html", "cssls", "dockerls", "bashls", "clojure_lsp", "eslint", "zls", "jsonls", "astro", "racket_langserver", "jdtls", "fennel_ls", "tsgo", "harper_ls"}
     for _, ls in ipairs(default_servers) do
       local cfg = {capabilities = make_caps()}
       if (ls == "harper_ls") then

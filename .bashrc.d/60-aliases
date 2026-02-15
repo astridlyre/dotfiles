@@ -87,3 +87,5 @@ alias umnt="udisksctl unmount -b"
 alias serve="python -m http.server 8080"
 alias pick-color='grim -g "$(slurp -p)" -t ppm - | magick - -format "%[pixel:p{0,0}]" txt:-'
 alias el="iamb"
+
+alias battery='upower -i /org/freedesktop/UPower/devices/battery_BAT1'

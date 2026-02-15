@@ -72,15 +72,16 @@ done
 export FZF_DEFAULT_COMMAND="rg --files --hidden $FZF_IGNORE_GLOB"
 
 export FZF_DEFAULT_OPTS="
-  --color=bg:#101010,fg:#b0b0b0
-  --color=hl:#ff7219,hl+:#8ebeec
-  --color=fg+:#ffffff,bg+:#272727
-  --color=info:#8ebeec
-  --color=prompt:#ff7219
-  --color=pointer:#ff7676
-  --color=marker:#86cd82
-  --color=spinner:#ff7219
-  --color=header:#8ebeec
+  --color=bg:#0D1410,fg:#7A9A7A
+  --color=hl:#9ABB9A,hl+:#9ABB9A
+  --color=fg+:#9ABB9A,bg+:#1d2b21
+  --color=info:#355039
+  --color=prompt:#9ABB9A
+  --color=pointer:#9ABB9A
+  --color=marker:#9ABB9A
+  --color=spinner:#7A9A7A
+  --color=header:#355039
+  --color=border:#2A3A2A
 "
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
