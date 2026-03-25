@@ -139,7 +139,7 @@ return {
 				providers = {
 					lsp = {
 						min_keyword_length = 1, -- Number of characters to trigger provider
-						score_offset = 0, -- Boost/penalize the score of the items
+						score_offset = 50, -- Boost/penalize the score of the items
 					},
 					path = {
 						min_keyword_length = 1,
@@ -158,6 +158,7 @@ return {
 						module = "blink-cmp-copilot",
 						score_offset = 100,
 						async = true,
+						max_items = 2,
 						transform_items = function(_, items)
 							local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
 							local kind_idx = #CompletionItemKind + 1

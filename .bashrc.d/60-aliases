@@ -89,3 +89,8 @@ alias pick-color='grim -g "$(slurp -p)" -t ppm - | magick - -format "%[pixel:p{0
 alias el="iamb"
 
 alias battery='upower -i /org/freedesktop/UPower/devices/battery_BAT1'
+alias h="hledger"
+
+alias staginges='ssh -v -i "~/.ssh/st-staging-1.pem" -L 5000:vpc-streamily-staging-1-doz2lorwocyq2mlzhdvqfxbube.us-west-1.es.amazonaws.com:443 ec2-user@ec2-204-236-166-169.us-west-1.compute.amazonaws.com -N'
+
+alias timelog='hledger -f ~/Documents/finance/time.journal add'

@@ -117,6 +117,3 @@
 (kmap :c :<c-a> :<home> {:desc :Home})
 (kmap :c :<c-e> :<end> {:desc :End})
 (kmap :c :<c-d> :<del> {:desc :Delete})
-
-;; Filetypes
-(vim.filetype.add {:extension {:templ :templ}})

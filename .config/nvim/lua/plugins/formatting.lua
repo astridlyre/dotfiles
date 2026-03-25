@@ -15,7 +15,7 @@ return {
 					javascriptreact = { "oxfmt" },
 					typescriptreact = { "oxfmt" },
 					css = { "oxfmt" },
-					html = { "prettierd" },
+					html = { "biome" },
 					json = { "oxfmt" },
 					jsonc = { "oxfmt" },
 					json5 = { "oxfmt" },
@@ -34,7 +34,7 @@ return {
 					clojurescript = { "cljstyle" },
 					edn = { "cljstyle" },
 					fennel = { "fnlfmt" },
-					astro = { "prettierd" }
+					astro = { "prettier" }
 				},
 				format_on_save = {
 					lsp_fallback = true,

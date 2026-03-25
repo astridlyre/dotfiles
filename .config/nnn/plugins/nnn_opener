@@ -84,15 +84,9 @@ if [ -n "$ext" ]; then
 	ext="$(printf "%s" "${ext}" | tr '[:upper:]' '[:lower:]')"
 fi
 
-is_mac() {
-	uname | grep -q "Darwin"
-}
-
 handle_pdf() {
 	if [ "$GUI" -ne 0 ]; then
-		if is_mac; then
-			nohup open "${FPATH}" >/dev/null 2>&1 &
-		elif type zathura >/dev/null 2>&1; then
+		if type zathura >/dev/null 2>&1; then
 			nohup zathura "${FPATH}" >/dev/null 2>&1 &
 		else
 			return
@@ -111,10 +105,10 @@ handle_pdf() {
 }
 
 handle_audio() {
-	if type mocp >/dev/null 2>&1 && type mocq >/dev/null 2>&1; then
-		mocq "${FPATH}" "opener" >/dev/null 2>&1
-	elif type mpv >/dev/null 2>&1; then
+	if type mpv >/dev/null 2>&1; then
 		mpv "${FPATH}" >/dev/null 2>&1 &
+	elif type mocp >/dev/null 2>&1 && type mocq >/dev/null 2>&1; then
+		mocq "${FPATH}" "opener" >/dev/null 2>&1
 	elif type media_client >/dev/null 2>&1; then
 		media_client play "${FPATH}" >/dev/null 2>&1 &
 	elif type mediainfo >/dev/null 2>&1; then
@@ -129,11 +123,7 @@ handle_audio() {
 
 handle_video() {
 	if [ "$GUI" -ne 0 ]; then
-		if is_mac; then
-			nohup open "${FPATH}" >/dev/null 2>&1 &
-		elif type smplayer >/dev/null 2>&1; then
-			nohup smplayer "${FPATH}" >/dev/null 2>&1 &
-		elif type mpv >/dev/null 2>&1; then
+		if type mpv >/dev/null 2>&1; then
 			nohup mpv "${FPATH}" >/dev/null 2>&1 &
 		else
 			return
@@ -325,10 +315,7 @@ handle_multimedia() {
 	## Image
 	image/*)
 		if [ "$GUI" -ne 0 ]; then
-			if is_mac; then
-				nohup open "${FPATH}" >/dev/null 2>&1 &
-				exit 0
-			elif type imv >/dev/null 2>&1; then
+			if type imv >/dev/null 2>&1; then
 				load_dir imv "${FPATH}" >/dev/null 2>&1 &
 				exit 0
 			elif type imvr >/dev/null 2>&1; then

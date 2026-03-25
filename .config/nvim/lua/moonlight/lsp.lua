@@ -84,7 +84,57 @@ local function lua_ls()
   vim.lsp.config("lua_ls", {capabilities = make_caps(), on_new_config = _8_, settings = {Lua = {runtime = {version = "LuaJIT", path = path}, completion = {callSnippet = "Both"}, diagnostics = {globals = {"vim"}}, workspace = {library = library, maxPreload = 2000, preloadFileSize = 50000, checkThirdParty = false}, telemetry = {enable = false}}}})
   return vim.lsp.enable({"lua_ls"})
 end
-local function _9_()
+local function _9_(args)
+  local bufnr = args.buf
+  local client = vim.lsp.get_client_by_id(args.data.client_id)
+  if (client.name == "tsgo") then
+    local function _10_()
+      return vim.lsp.buf.document_highlight()
+    end
+    vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {buffer = bufnr, callback = _10_})
+    local function _11_()
+      return vim.lsp.buf.clear_references()
+    end
+    vim.api.nvim_create_autocmd({"CursorMoved", "CursorMovedI"}, {buffer = bufnr, callback = _11_})
+    local function _12_()
+      return vim.lsp.codelens.refresh({bufnr = bufnr})
+    end
+    vim.api.nvim_create_autocmd({"BufEnter", "BufWritePost"}, {buffer = bufnr, callback = _12_})
+    local function _13_()
+      return vim.lsp.codelens.run()
+    end
+    kmap("n", "<leader>ll", _13_, {buffer = bufnr, desc = "Run code lens"})
+    local function _14_()
+      return vim.lsp.buf.incoming_calls()
+    end
+    kmap("n", "<leader>lc", _14_, {buffer = bufnr, desc = "Incoming calls"})
+    local function _15_()
+      return vim.lsp.buf.outgoing_calls()
+    end
+    kmap("n", "<leader>lC", _15_, {buffer = bufnr, desc = "Outgoing calls"})
+    local function _16_()
+      local enabled = vim.lsp.inlay_hint.is_enabled({bufnr = bufnr})
+      return vim.lsp.inlay_hint.enable(not enabled, {bufnr = bufnr})
+    end
+    kmap("n", "<leader>lh", _16_, {buffer = bufnr, desc = "Toggle inlay hints"})
+    local function _17_()
+      return vim.lsp.buf.code_action({context = {only = {"source.organizeImports"}, diagnostics = {}}, apply = true})
+    end
+    kmap("n", "<leader>li", _17_, {buffer = bufnr, desc = "Organize imports"})
+    local function _18_()
+      return vim.lsp.buf.code_action({context = {only = {"source.removeUnusedImports"}, diagnostics = {}}, apply = true})
+    end
+    kmap("n", "<leader>lr", _18_, {buffer = bufnr, desc = "Remove unused imports"})
+    local function _19_()
+      return vim.lsp.buf.code_action({context = {only = {"source.sortImports"}, diagnostics = {}}, apply = true})
+    end
+    return kmap("n", "<leader>ls", _19_, {buffer = bufnr, desc = "Sort imports"})
+  else
+    return nil
+  end
+end
+vim.api.nvim_create_autocmd("LspAttach", {callback = _9_})
+local function _21_()
   do
     local default_servers = {"pyright", "yamlls", "vimls", "html", "cssls", "dockerls", "bashls", "clojure_lsp", "eslint", "zls", "jsonls", "astro", "racket_langserver", "jdtls", "fennel_ls", "tsgo", "harper_ls"}
     for _, ls in ipairs(default_servers) do
@@ -109,11 +159,11 @@ local function _9_()
     vim.diagnostic.config({signs = signs, underline = true, severity_sort = true, float = {source = "if_many", header = "", prefix = "", focusable = false, show_header = false}, update_in_insert = false, virtual_text = false})
   end
   vim.lsp.set_log_level("ERROR")
-  local function _11_(args)
+  local function _23_(args)
     local bufnr = args.buf
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     return lsp_maps(client, bufnr)
   end
-  return vim.api.nvim_create_autocmd("LspAttach", {callback = _11_})
+  return vim.api.nvim_create_autocmd("LspAttach", {callback = _23_})
 end
-return {setup = _9_}
+return {setup = _21_}

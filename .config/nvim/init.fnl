@@ -39,3 +39,4 @@
 ((. (require :luarocks) :add-luarocks-paths))
 
 (require :moonlight.autocmds)
+(require :moonlight.filetypes)

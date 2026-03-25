@@ -72,16 +72,16 @@ done
 export FZF_DEFAULT_COMMAND="rg --files --hidden $FZF_IGNORE_GLOB"
 
 export FZF_DEFAULT_OPTS="
-  --color=bg:#0D1410,fg:#7A9A7A
-  --color=hl:#9ABB9A,hl+:#9ABB9A
-  --color=fg+:#9ABB9A,bg+:#1d2b21
-  --color=info:#355039
-  --color=prompt:#9ABB9A
-  --color=pointer:#9ABB9A
-  --color=marker:#9ABB9A
-  --color=spinner:#7A9A7A
-  --color=header:#355039
-  --color=border:#2A3A2A
+  --color=bg:#FAF2EB,fg:#1A1918
+  --color=hl:#f27900,hl+:#f27900
+  --color=fg+:#1A1918,bg+:#E6E4DF
+  --color=info:#807E79
+  --color=prompt:#0000A6
+  --color=pointer:#f27900
+  --color=marker:#00A600
+  --color=spinner:#999791
+  --color=header:#807E79
+  --color=border:#B3B1AD
 "
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -99,9 +99,9 @@ export PGDATA=/var/lib/postgres/data
 export DOCKER_BUILDKIT=1
 
 # pnpm
-export PNPM_HOME="/home/ml/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
-export PATH="/home/ml/.npm-global/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$PATH"
 # pnpm end
 
 export BUN_INSTALL="$HOME/.bun"
@@ -113,5 +113,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export COLORTERM=truecolor
 
-export FLYCTL_INSTALL="/home/ml/.fly"
+export FLYCTL_INSTALL="$HOME/.fly"
 export SDKMAN_DIR="$HOME/.sdkman"
+export LEDGER_FILE="$HOME/Documents/finance/main.journal"

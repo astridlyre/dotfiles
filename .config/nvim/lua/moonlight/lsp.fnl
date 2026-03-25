@@ -120,6 +120,70 @@
                                       :telemetry {:enable false}}}})
     (vim.lsp.enable [:lua_ls])))
 
+(vim.api.nvim_create_autocmd :LspAttach
+                             {:callback (fn [args]
+                                          (let [bufnr args.buf
+                                                client (vim.lsp.get_client_by_id args.data.client_id)]
+                                            (when (= client.name :tsgo)
+                                              (vim.api.nvim_create_autocmd [:CursorHold
+                                                                            :CursorHoldI]
+                                                                           {:buffer bufnr
+                                                                            :callback (fn []
+                                                                                        (vim.lsp.buf.document_highlight))})
+                                              (vim.api.nvim_create_autocmd [:CursorMoved
+                                                                            :CursorMovedI]
+                                                                           {:buffer bufnr
+                                                                            :callback (fn []
+                                                                                        (vim.lsp.buf.clear_references))})
+                                              (vim.api.nvim_create_autocmd [:BufEnter
+                                                                            :BufWritePost]
+                                                                           {:buffer bufnr
+                                                                            :callback (fn []
+                                                                                        (vim.lsp.codelens.refresh {: bufnr}))})
+                                              (kmap :n :<leader>ll
+                                                    (fn []
+                                                      (vim.lsp.codelens.run))
+                                                    {:buffer bufnr
+                                                     :desc "Run code lens"})
+                                              (kmap :n :<leader>lc
+                                                    (fn []
+                                                      (vim.lsp.buf.incoming_calls))
+                                                    {:buffer bufnr
+                                                     :desc "Incoming calls"})
+                                              (kmap :n :<leader>lC
+                                                    (fn []
+                                                      (vim.lsp.buf.outgoing_calls))
+                                                    {:buffer bufnr
+                                                     :desc "Outgoing calls"})
+                                              (kmap :n :<leader>lh
+                                                    (fn []
+                                                      (let [enabled (vim.lsp.inlay_hint.is_enabled {: bufnr})]
+                                                        (vim.lsp.inlay_hint.enable (not enabled)
+                                                                                   {: bufnr})))
+                                                    {:buffer bufnr
+                                                     :desc "Toggle inlay hints"})
+                                              (kmap :n :<leader>li
+                                                    (fn []
+                                                      (vim.lsp.buf.code_action {:context {:only {1 :source.organizeImports}
+                                                                                          :diagnostics {}}
+                                                                                :apply true}))
+                                                    {:buffer bufnr
+                                                     :desc "Organize imports"})
+                                              (kmap :n :<leader>lr
+                                                    (fn []
+                                                      (vim.lsp.buf.code_action {:context {:only {1 :source.removeUnusedImports}
+                                                                                          :diagnostics {}}
+                                                                                :apply true}))
+                                                    {:buffer bufnr
+                                                     :desc "Remove unused imports"})
+                                              (kmap :n :<leader>ls
+                                                    (fn []
+                                                      (vim.lsp.buf.code_action {:context {:only {1 :source.sortImports}
+                                                                                          :diagnostics {}}
+                                                                                :apply true}))
+                                                    {:buffer bufnr
+                                                     :desc "Sort imports"}))))})
+
 ;; Module setup
 {:setup (fn []
           ;; default servers

@@ -56,7 +56,7 @@ function r() {
 	old="$FZF_DEFAULT_COMMAND"
 	FZF_DEFAULT_COMMAND="rg --files --glob '*.pdf' --glob '*.epub' $HOME/Books"
 	file="$(fzf --no-height --ansi)"
-	[[ "$file" ]] && zathura "$file" &>/dev/null &
+	[[ "$file" ]] && zathura-sandbox "$file" &>/dev/null &
 	disown
 	clear
 	FZF_DEFAULT_COMMAND="$old"
@@ -92,7 +92,7 @@ function n() {
 }
 
 function oz() {
-	zathura "${@}" &>/dev/null &
+	zathura-sandbox "${@}" &>/dev/null &
 	disown
 	clear
 }
@@ -132,6 +132,19 @@ function fix_trackpad() {
 	sudo modprobe hid_multitouch
 	sudo modprobe -r i2c_hid_acpi
 	sudo modprobe i2c_hid_acpi
+}
+
+function awscurl() {
+	docker run --rm \
+		--network host \
+		-it okigan/awscurl \
+		--service es \
+		--region us-west-1 \
+		--access_key "$AWS_ACCESS_KEY_ID" \
+		--secret_key "$AWS_SECRET_ACCESS_KEY" \
+		--session_token "$AWS_SESSION_TOKEN" -k \
+		-H "Host: vpc-streamily-staging-1-doz2lorwocyq2mlzhdvqfxbube.us-west-1.es.amazonaws.com" \
+		"https://localhost:5000${1}"
 }
 
 PROMPT_COMMAND=${PROMPT_COMMAND:+${PROMPT_COMMAND%;}; }osc7_cwd
