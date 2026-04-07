@@ -28,5 +28,7 @@ tags.temp
 .bin/fennel-ls
 .bin/claude
 .bin/tailwindcss
+.bin/aws
+.bin/aws_completer
 .clj-kondo/
 .lsp

@@ -5,6 +5,7 @@ return {
 		dependencies = {
 			{ dir = "~/projects/friendly-snippets", dev = true },
 			"giuxtaposition/blink-cmp-copilot",
+			'Kaiser-Yang/blink-cmp-dictionary', -- Required for dictionary completion
 		},
 
 		---@module 'blink.cmp'
@@ -126,7 +127,12 @@ return {
 				default = function(ctx)
 					local success, node = pcall(vim.treesitter.get_node)
 					if success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
-						return { 'buffer' }
+						return { 'dictionary', 'buffer' }
+					end
+
+					local filetype = vim.bo.filetype
+					if vim.tbl_contains({ 'lilypond' }, filetype) then
+						return { 'dictionary', 'buffer' }
 					end
 
 					local copilot = require("moonlight.copilot")
@@ -137,6 +143,20 @@ return {
 					end
 				end,
 				providers = {
+					dictionary = {
+						name = "Dict",
+						module = "blink-cmp-dictionary",
+						min_keyword_length = 3,
+						score_offset = 100,
+						max_items = 5,
+						opts = {
+							dictionary_files = function()
+								if vim.bo.filetype == 'lilypond' then
+									return vim.fn.glob(vim.fn.expand("$LILYDICTPATH") .. "/*", true, true)
+								end
+							end,
+						},
+					},
 					lsp = {
 						min_keyword_length = 1, -- Number of characters to trigger provider
 						score_offset = 50, -- Boost/penalize the score of the items

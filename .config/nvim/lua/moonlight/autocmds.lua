@@ -58,6 +58,7 @@ local function _11_()
 end
 with_augroup("wrap_spell", "FileType", {pattern = {"gitcommit", "markdown"}, callback = _11_})
 local function _12_()
-  return vim.highlight.on_yank({higroup = "IncSearch", timeout = 200})
+  return vim.hl.on_yank({higroup = "IncSearch", timeout = 200})
 end
-return with_augroup("highlight_yank", "TextYankPost", {callback = _12_})
+with_augroup("hl_yank", "TextYankPost", {callback = _12_})
+return with_augroup("lilypond", "BufEnter", {command = "syntax sync fromstart", pattern = {"*.ly", "*.ily", "*.tex"}})

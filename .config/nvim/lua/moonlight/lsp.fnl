@@ -203,24 +203,25 @@
                                  :jdtls
                                  :fennel_ls
                                  :tsgo
-                                 :harper_ls
+                                 ;; :harper_ls
                                  ;; :oxlint
                                  ]]
             (each [_ ls (ipairs default-servers)]
               (let [cfg {:capabilities (make-caps)}]
-                (when (= ls :harper_ls)
-                  (set cfg.filetypes [:gitcommit :markdown]))
+                ;; (when (= ls :harper_ls)
+                ;; (set cfg.filetypes [:gitcommit :markdown]))
                 (vim.lsp.config ls cfg)
                 (vim.lsp.enable [ls]))))
           ;; custom servers
           (each [_ f (ipairs [clangd gopls rust-analyzer lua-ls])]
             (f))
           ;; diagnostics config
-          (let [signs {:text {}}]
-            (tset (. signs :text) (. vim.diagnostic.severity :ERROR) "")
-            (tset (. signs :text) (. vim.diagnostic.severity :WARN) "")
-            (tset (. signs :text) (. vim.diagnostic.severity :INFO) "")
-            (tset (. signs :text) (. vim.diagnostic.severity :HINT) "")
+          (let [signs {:text {}}
+                sev vim.diagnostic.severity]
+            (tset (. signs :text) (. sev :ERROR) "")
+            (tset (. signs :text) (. sev :WARN) "")
+            (tset (. signs :text) (. sev :INFO) "")
+            (tset (. signs :text) (. sev :HINT) "")
             (vim.diagnostic.config {:virtual_text false
                                     : signs
                                     :update_in_insert false
@@ -231,7 +232,7 @@
                                             :source :if_many
                                             :header ""
                                             :prefix ""}}))
-          (vim.lsp.set_log_level :ERROR)
+          (vim.lsp.log.set_level :ERROR)
           (vim.api.nvim_create_autocmd :LspAttach
                                        {:callback (fn [args]
                                                     (let [bufnr args.buf

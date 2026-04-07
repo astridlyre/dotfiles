@@ -116,3 +116,5 @@ export COLORTERM=truecolor
 export FLYCTL_INSTALL="$HOME/.fly"
 export SDKMAN_DIR="$HOME/.sdkman"
 export LEDGER_FILE="$HOME/Documents/finance/main.journal"
+
+export LILYDICTPATH=~/.local/share/nvim/lazy/nvim-lilypond-suite/lilywords

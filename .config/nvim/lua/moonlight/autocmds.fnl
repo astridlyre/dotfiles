@@ -77,12 +77,16 @@
                (set vim.wo.spell true))})
 
 ;; Highlight yanked text
-(with-augroup :highlight_yank
+(with-augroup :hl_yank
   :TextYankPost
-  {:callback (fn [] (vim.highlight.on_yank {:higroup :IncSearch :timeout 200}))})
+  {:callback (fn [] (vim.hl.on_yank {:higroup :IncSearch :timeout 200}))})
 
 ; (with-augroup :mini.pairs
 ;   :FileType
 ;   {:pattern [:fennel :clojure :racket :lisp :scheme :clojurescript]
 ;    :callback (fn [args]
 ;                (core.assoc-in vim.b [args.buf :minipairs_disable] true))})
+;
+
+(with-augroup :lilypond :BufEnter
+  {:command "syntax sync fromstart" :pattern [:*.ly :*.ily :*.tex]})

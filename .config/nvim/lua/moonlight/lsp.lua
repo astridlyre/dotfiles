@@ -136,13 +136,9 @@ end
 vim.api.nvim_create_autocmd("LspAttach", {callback = _9_})
 local function _21_()
   do
-    local default_servers = {"pyright", "yamlls", "vimls", "html", "cssls", "dockerls", "bashls", "clojure_lsp", "eslint", "zls", "jsonls", "astro", "racket_langserver", "jdtls", "fennel_ls", "tsgo", "harper_ls"}
+    local default_servers = {"pyright", "yamlls", "vimls", "html", "cssls", "dockerls", "bashls", "clojure_lsp", "eslint", "zls", "jsonls", "astro", "racket_langserver", "jdtls", "fennel_ls", "tsgo"}
     for _, ls in ipairs(default_servers) do
       local cfg = {capabilities = make_caps()}
-      if (ls == "harper_ls") then
-        cfg.filetypes = {"gitcommit", "markdown"}
-      else
-      end
       vim.lsp.config(ls, cfg)
       vim.lsp.enable({ls})
     end
@@ -152,18 +148,19 @@ local function _21_()
   end
   do
     local signs = {text = {}}
-    signs.text[vim.diagnostic.severity.ERROR] = "\239\129\151"
-    signs.text[vim.diagnostic.severity.WARN] = "\239\129\177"
-    signs.text[vim.diagnostic.severity.INFO] = "\239\129\153"
-    signs.text[vim.diagnostic.severity.HINT] = "\239\129\154"
+    local sev = vim.diagnostic.severity
+    signs.text[sev.ERROR] = "\239\129\151"
+    signs.text[sev.WARN] = "\239\129\177"
+    signs.text[sev.INFO] = "\239\129\153"
+    signs.text[sev.HINT] = "\239\129\154"
     vim.diagnostic.config({signs = signs, underline = true, severity_sort = true, float = {source = "if_many", header = "", prefix = "", focusable = false, show_header = false}, update_in_insert = false, virtual_text = false})
   end
-  vim.lsp.set_log_level("ERROR")
-  local function _23_(args)
+  vim.lsp.log.set_level("ERROR")
+  local function _22_(args)
     local bufnr = args.buf
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     return lsp_maps(client, bufnr)
   end
-  return vim.api.nvim_create_autocmd("LspAttach", {callback = _23_})
+  return vim.api.nvim_create_autocmd("LspAttach", {callback = _22_})
 end
 return {setup = _21_}
