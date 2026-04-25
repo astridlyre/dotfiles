@@ -1,8 +1,11 @@
 return {
 	{
 		'saghen/blink.cmp',
-		build = 'cargo build --release',
+		build = function()
+			require("blink.cmp").build():wait(60000)
+		end,
 		dependencies = {
+			{ 'saghen/blink.lib' },
 			{ dir = "~/projects/friendly-snippets", dev = true },
 			"giuxtaposition/blink-cmp-copilot",
 			'Kaiser-Yang/blink-cmp-dictionary', -- Required for dictionary completion
@@ -11,6 +14,7 @@ return {
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
 		opts = {
+			fuzzy = { implementation = "rust" },
 			appearance = {
 				use_nvim_cmp_as_default = false,
 				nerd_font_variant = "mono",
@@ -55,6 +59,8 @@ return {
 					and vim.bo.buftype ~= "prompt"
 					and vim.b.completion ~= false
 			end,
+
+			cmdline = { enabled = false },
 
 			completion = {
 				trigger = { prefetch_on_insert = false },
@@ -119,29 +125,13 @@ return {
 				['<A-0>'] = { function(cmp) cmp.accept({ index = 10 }) end },
 			},
 
-			signature = {
-				enabled = true,
-			},
+			signature = { enabled = true },
 
 			sources = {
-				default = function(ctx)
-					local success, node = pcall(vim.treesitter.get_node)
-					if success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
-						return { 'dictionary', 'buffer' }
-					end
-
-					local filetype = vim.bo.filetype
-					if vim.tbl_contains({ 'lilypond' }, filetype) then
-						return { 'dictionary', 'buffer' }
-					end
-
-					local copilot = require("moonlight.copilot")
-					if copilot.enabled() then
-						return { "lsp", "path", "snippets", "buffer", "copilot" }
-					else
-						return { "lsp", "path", "snippets", "buffer" }
-					end
-				end,
+				default = { "lsp", "path", "snippets", "buffer", "copilot" },
+				per_filetype = {
+					lilypond = { 'dictionary', 'buffer' }
+				},
 				providers = {
 					dictionary = {
 						name = "Dict",

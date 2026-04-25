@@ -97,7 +97,7 @@ local function _9_(args)
     end
     vim.api.nvim_create_autocmd({"CursorMoved", "CursorMovedI"}, {buffer = bufnr, callback = _11_})
     local function _12_()
-      return vim.lsp.codelens.refresh({bufnr = bufnr})
+      return vim.lsp.codelens.enable(true, {bufnr = bufnr})
     end
     vim.api.nvim_create_autocmd({"BufEnter", "BufWritePost"}, {buffer = bufnr, callback = _12_})
     local function _13_()

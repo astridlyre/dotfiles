@@ -139,7 +139,8 @@
                                                                             :BufWritePost]
                                                                            {:buffer bufnr
                                                                             :callback (fn []
-                                                                                        (vim.lsp.codelens.refresh {: bufnr}))})
+                                                                                        (vim.lsp.codelens.enable true
+                                                                                                                 {: bufnr}))})
                                               (kmap :n :<leader>ll
                                                     (fn []
                                                       (vim.lsp.codelens.run))
