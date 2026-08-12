@@ -78,6 +78,12 @@
 
 (kmap :n :<leader>ct copilot.toggle-copilot {:desc "Toggle GitHub Copilot"})
 (kmap :n :<c-q> (fn [] (vim.cmd :copen)) {:desc "Open quickfix"})
+(kmap :n :<leader>ft
+      (fn []
+        (set vim.g.format_on_save_disabled (not vim.g.format_on_save_disabled))
+        (print (if vim.g.format_on_save_disabled "Format on save disabled"
+                   "Format on save enabled")))
+      {:desc "Toggle format on save"})
 
 (kmap :i :<c-c> (fn [] (vim.snippet.stop) :<esc>)
       {:expr true :desc "Escape (End snippet)"})

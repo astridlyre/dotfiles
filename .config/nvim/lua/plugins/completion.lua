@@ -1,11 +1,13 @@
 return {
 	{
 		'saghen/blink.cmp',
+		-- commit = '0194153e0a5646097801578813bde085c94ecaef',
 		build = function()
 			require("blink.cmp").build():wait(60000)
 		end,
 		dependencies = {
-			{ 'saghen/blink.lib' },
+			{ 'saghen/blink.lib', -- commit = '220979f3fcd388a08990189bc3b4e82aa1637ce9'
+			},
 			{ dir = "~/projects/friendly-snippets", dev = true },
 			"giuxtaposition/blink-cmp-copilot",
 			'Kaiser-Yang/blink-cmp-dictionary', -- Required for dictionary completion
@@ -109,8 +111,8 @@ return {
 				["<C-k>"] = { "snippet_backward", "fallback" },
 				["<Up>"] = { "select_prev", "fallback" },
 				["<Down>"] = { "select_next", "fallback" },
-				["<C-p>"] = { "select_prev", "fallback" },
-				["<C-n>"] = { "select_next", "fallback" },
+				["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+				["<C-n>"] = { "select_next", "fallback_to_mappings" },
 				["<C-up>"] = { "scroll_documentation_up", "fallback" },
 				["<C-down>"] = { "scroll_documentation_down", "fallback" },
 				['<A-1>'] = { function(cmp) cmp.accept({ index = 1 }) end },
@@ -184,4 +186,14 @@ return {
 			},
 		},
 	},
+	{
+		"yuukiflow/Arduino-Nvim",
+		ft = "arduino",
+		opts = {
+			picker_backend = "nvim"
+		},
+		dependencies = {
+			"neovim/nvim-lspconfig",
+		},
+	}
 }

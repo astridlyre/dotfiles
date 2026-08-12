@@ -50,6 +50,34 @@
   (let [cmp (require :blink-cmp)]
     (cmp.get_lsp_capabilities (vim.lsp.protocol.make_client_capabilities))))
 
+;; Only TypeScript >= 7 ships the native language server behind `--lsp`; older
+;; `tsc` binaries exit 1 on it. Cached since this shells out per binary.
+(local tsc-major-cache {})
+
+(fn tsc-major [bin]
+  "Major version reported by a tsc-like binary, or 0 if it can't be determined."
+  (when (= nil (. tsc-major-cache bin))
+    (let [(ok res) (pcall #(: (vim.system [bin :--version] {:text true}) :wait
+                              5000))
+          major (and ok (= res.code 0)
+                     (tonumber (string.match (or res.stdout "") "(%d+)%.")))]
+      (tset tsc-major-cache bin (or major 0))))
+  (. tsc-major-cache bin))
+
+(fn resolve-tsc [root]
+  "Nearest tsc that speaks --lsp, falling back to mason's tsgo."
+  (var found nil)
+  (each [_ bin (ipairs (if root
+                           [(vim.fs.joinpath root :node_modules/.bin/tsc) :tsc]
+                           [:tsc])) &until found]
+    (when (and (= 1 (vim.fn.executable bin)) (>= (tsc-major bin) 7))
+      (set found bin)))
+  (or found :tsgo))
+
+(fn tsc-cmd [dispatchers config]
+  (vim.lsp.rpc.start [(resolve-tsc (?. config :root_dir)) :--lsp :--stdio]
+                     dispatchers))
+
 ;; LSP Servers Config
 (fn clangd []
   "Configure clangd LSP server with specific options."
@@ -124,7 +152,7 @@
                              {:callback (fn [args]
                                           (let [bufnr args.buf
                                                 client (vim.lsp.get_client_by_id args.data.client_id)]
-                                            (when (= client.name :tsgo)
+                                            (when (= client.name :tsc)
                                               (vim.api.nvim_create_autocmd [:CursorHold
                                                                             :CursorHoldI]
                                                                            {:buffer bufnr
@@ -203,7 +231,9 @@
                                  :racket_langserver
                                  :jdtls
                                  :fennel_ls
-                                 :tsgo
+                                 :tsc
+                                 :kotlin_lsp
+                                 :sourcekit
                                  ;; :harper_ls
                                  ;; :oxlint
                                  ]]
@@ -211,6 +241,8 @@
               (let [cfg {:capabilities (make-caps)}]
                 ;; (when (= ls :harper_ls)
                 ;; (set cfg.filetypes [:gitcommit :markdown]))
+                (when (= ls :tsc)
+                  (set cfg.cmd tsc-cmd))
                 (vim.lsp.config ls cfg)
                 (vim.lsp.enable [ls]))))
           ;; custom servers

@@ -2,6 +2,7 @@ local languages = {
 	'astro',
 	'bash',
 	'c',
+	'cpp',
 	'clojure',
 	'cmake',
 	'css',
@@ -54,7 +55,7 @@ local languages = {
 	'xml',
 	'xresources',
 	'yaml',
-	'zathurarc',
+	-- 'zathurarc',
 	'zig'
 }
 

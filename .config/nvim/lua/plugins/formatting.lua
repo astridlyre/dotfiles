@@ -7,7 +7,11 @@ return {
 
 			conform.setup({
 				formatters = {
-					raco = { command = "raco", args = 'fmt' }
+					raco = { command = "raco", args = 'fmt' },
+					ktlint = {
+						cwd = require("conform.util").root_file({ ".editorconfig", "gradle.properties", "build.gradle",
+							"build.gradle.kts" }),
+					}
 				},
 				formatters_by_ft = {
 					javascript = { "oxfmt" },
@@ -34,20 +38,31 @@ return {
 					clojurescript = { "cljstyle" },
 					edn = { "cljstyle" },
 					fennel = { "fnlfmt" },
-					astro = { "prettier" }
+					astro = { "prettier" },
+					kotlin = { "ktlint" },
 				},
-				format_on_save = {
-					lsp_fallback = true,
-					async = false,
-					timeout_ms = 500,
-				},
+				format_on_save = function(bufnr)
+					if vim.bo[bufnr].filetype == "kotlin" then
+						return false
+					end
+
+					if vim.g.format_on_save_disabled then
+						return false
+					end
+
+					return {
+						lsp_format = "fallback",
+						async = false,
+						timeout_ms = 300,
+					}
+				end,
 			})
 
 			vim.keymap.set({ "n", "v" }, "<leader>lf", function()
 				conform.format({
-					lsp_fallback = true,
-					async = false,
-					timeout_ms = 500,
+					lsp_format = "fallback",
+					async = true,
+					timeout_ms = 1500,
 				})
 			end, { desc = "Format file or range (in visual mode)" })
 		end,

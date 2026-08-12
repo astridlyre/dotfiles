@@ -27,7 +27,8 @@ return {
 				javascript = { 'oxlint' },
 				typescript = { 'oxlint' },
 				javascriptreact = { 'oxlint' },
-				typescriptreact = { 'oxlint' }
+				typescriptreact = { 'oxlint' },
+				kotlin = { 'ktlint' }
 			}
 
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

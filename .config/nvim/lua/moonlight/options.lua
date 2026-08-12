@@ -73,15 +73,27 @@ local function _1_()
 end
 kmap("n", "<c-q>", _1_, {desc = "Open quickfix"})
 local function _2_()
+  vim.g.format_on_save_disabled = not vim.g.format_on_save_disabled
+  local function _3_()
+    if vim.g.format_on_save_disabled then
+      return "Format on save disabled"
+    else
+      return "Format on save enabled"
+    end
+  end
+  return print(_3_())
+end
+kmap("n", "<leader>ft", _2_, {desc = "Toggle format on save"})
+local function _4_()
   vim.snippet.stop()
   return "<esc>"
 end
-kmap("i", "<c-c>", _2_, {expr = true, desc = "Escape (End snippet)"})
-local function _3_()
+kmap("i", "<c-c>", _4_, {expr = true, desc = "Escape (End snippet)"})
+local function _5_()
   vim.snippet.stop()
   return "<esc>"
 end
-kmap("i", "<esc>", _3_, {expr = true, desc = "Escape (End snippet)"})
+kmap("i", "<esc>", _5_, {expr = true, desc = "Escape (End snippet)"})
 kmap("v", "<leader>ss", "!sort -d -b -f <cr>", {desc = "Sort selection"})
 kmap("v", "<leader>y", "\"+y", {desc = "Yank to system clipboard"})
 kmap("v", "<c-c>", "<esc>", {desc = "Escape"})
